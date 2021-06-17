@@ -8,7 +8,7 @@ error_reporting(E_ALL ^E_WARNING ^E_NOTICE);
 
   function db_connect()
   {
-    $host="127.0.0.1";
+    $host="192.168.122.36";
     $port="5432";
     $dbname="si";
     $user="si";
@@ -23,7 +23,7 @@ error_reporting(E_ALL ^E_WARNING ^E_NOTICE);
 ///////////////////////////////////////
 ////////////     ERROR    /////////////
 ///////////////////////////////////////
- 
+
 // The error function allows to show an error_page instead of an error_message to the php_server
 
   function error($error="")
@@ -62,12 +62,12 @@ error_reporting(E_ALL ^E_WARNING ^E_NOTICE);
   {
     //the IP adress and the session`s identify to the client are got
     $ip = $_SERVER['REMOTE_ADDR'];
-    $id = session_id();     
+    $id = session_id();
     //we verify then that the IP and the session`s ID are in relation
     $query = "select * from ident where ip='".$ip."' and session='".$id."';";
     $verif = pg_query($query) or die (error());
     //if IP adress and session`s ID are in relation, the client is identified
-    //else we must destroy the session`s cookie which have been been falsified, identification is canceled    
+    //else we must destroy the session`s cookie which have been been falsified, identification is canceled
     if (pg_num_rows($verif))
     {
        pg_free_result($verif);
@@ -123,7 +123,7 @@ error_reporting(E_ALL ^E_WARNING ^E_NOTICE);
         $query = "delete from ident where date ='".$date."' and time <='".$time."';";
         $query2= "delete from ident where date <'".$date."'";
         $result = pg_query($query) or die(error());
-        $result2 = pg_query($query2) or die(error());    
+        $result2 = pg_query($query2) or die(error());
      }
    }
 
@@ -131,10 +131,10 @@ error_reporting(E_ALL ^E_WARNING ^E_NOTICE);
 ///////////////////////////////////////
 /////////  RECORD_SESSION_IP  /////////
 ///////////////////////////////////////
-  
+
 //we record IP and session`s ID the in the data base
- 
-   function record_session_ip() 
+
+   function record_session_ip()
    {
        $ip = $_SERVER['REMOTE_ADDR'];
        $session = session_id();
@@ -147,18 +147,18 @@ error_reporting(E_ALL ^E_WARNING ^E_NOTICE);
 ///////////////////////////////////////
 //////////      SECURE       //////////
 ///////////////////////////////////////
-  
+
 //The secure function allows to identify the client and returns true if the identification is ok or false
 // This function build all the session's variables.
 
   function secure($login, $pass, $idmodule)
-  {     
+  {
      //if there are more than 8 connections the access is closed
-     if ($_SESSION['tentatives']>8) 
+     if ($_SESSION['tentatives']>8)
        return false;
      // if the session`s variables exist,we verifie that the IP of the customer corresponds to his session`s identifier
      // if there is not correspondence,  the session will be destroyed so that it can relog him
-     if (isset($_SESSION['login']) and isset($_SESSION['passwd']) and !verif_session_ip()) 
+     if (isset($_SESSION['login']) and isset($_SESSION['passwd']) and !verif_session_ip())
      {
         clear_session_ip();
         session_destroy();
@@ -197,18 +197,18 @@ error_reporting(E_ALL ^E_WARNING ^E_NOTICE);
 
    // This function take in paramater a module's id and return true if the user can access to this modules.
    // The session's variable is built if the user has the permission...
-  
+
    function verif_permission($idmodule)
    {
      if (isset($idmodule))
      {
        $query  = "select permission from permission where login='".$_SESSION['login']."' and idmodule=".$idmodule;
        $result = pg_query($query) or die (error());
-       $array=pg_fetch_array($result); 
-       if ($array["permission"]==0) 
+       $array=pg_fetch_array($result);
+       if ($array["permission"]==0)
          return false;
        else
-         $_SESSION['permission']=$array["permission"]; 
+         $_SESSION['permission']=$array["permission"];
      }
      return true;
    }
