@@ -1,0 +1,210 @@
+<?php
+
+define('FPDF_FONTPATH','font/');
+require('../fpdf/fpdf.php');
+
+
+/************************************/
+/* classe principal createPDF       */
+/************************************/
+class createPDF {
+
+	function createPDF($_tipodoc,$_numdoc,$_destino,$_assunto,$_anexo,$_vocativo,$_mensagem,$_desfecho,$_data,$_nassinatura,$_cassinatura) {
+		// colheita das variáveis
+		$this->tipodoc=$_tipodoc;
+		$this->numdoc=$_numdoc;
+		$this->destino=$_destino;
+		$this->assunto=$_assunto;
+		$this->anexo=$_anexo;
+		$this->vocativo=$_vocativo;
+		$this->mensagem=$_mensagem;
+		$this->desfecho=$_desfecho;
+		$this->datad=$_data;
+		$this->nassinatura=$_nassinatura;
+		$this->cassinatura=$_cassinatura;
+	}
+
+
+	function run() {
+		
+		// função para rodar o pdf 
+		$pdf=new PDF();
+		$pdf->Open();
+		$pdf->SetCompression(true);
+		$pdf->SetDisplayMode('real');
+		$pdf->AddPage();
+
+		// inserção das funções
+		$pdf->PutDocumento($this->tipodoc,$this->numdoc,$this->datad);
+		$pdf->PutLinha();
+		$pdf->PutIdentificacao($this->destino);
+		$pdf->PutLinha();
+		$pdf->PutAssunto($this->assunto);
+		$pdf->PutLinha();
+		$pdf->PutAnexo($this->anexo);
+		$pdf->PutLinha();
+		$pdf->PutMensagem($this->vocativo,$this->mensagem);
+		$pdf->PutFinalizacao($this->desfecho,$this->nassinatura,$this->cassinatura);
+
+		// saída
+		$pdf->Output();
+
+		}
+		// stop processing
+		//exit;
+	
+} 
+
+/************************************/
+/* classe PDF                       */
+/************************************/
+class PDF extends FPDF
+{
+
+	function Header()
+	{
+		//função para o cabeçalho	
+		$this->SetXY(23,28);
+		$this->SetFont('Times', 'B', 14);
+		$this->Cell(65, 0, 'Fundação Universidade de Brasília');
+		$this->Ln(4);
+		$this->SetX(23);
+		$this->SetFont('Times', 'B', 8);
+		$this->Cell(65, 0, 'Departamento de Matemática - IE');
+		$this->Ln(4);
+		$this->SetX(23);
+		$this->SetLineWidth(0.5);
+		$this->Line($this->GetX()+1, $this->GetY()-1, $this->GetX()+168, $this->GetY()-1);
+		$this->Ln(2);
+		$this->SetX(23);
+		$this->SetFont('Times', '', 8);
+		$this->Write(0,'Campus Universitário, 70910-900 - Brasília - DF');
+		$tam=$this->GetStringWidth('Fone: (061) 273-3356 - FAX: (061) 274-3910');
+		$this->SetX(168- $tam);
+		$this->Write(0,'                              Fone: (061) 273-3356 - FAX: (061) 274-3910');
+		$this->Ln(14);
+
+	}
+
+	function PutLinha()
+	{
+		// função que acrescenta as linhas do corpo do texto	
+		$this->SetLeftMargin(33);
+		$this->Ln(10);
+		$this->SetLineWidth(0.5);
+		$this->Line($this->GetX()+1, $this->GetY()-1, $this->GetX()+158, $this->GetY()-1);
+		$this->Ln(3);
+	}
+
+	function PutDocumento($tipodoc,$numdoc,$datad) {
+		
+		// função para acrescentar a linha com o tipo de documento, o número e a data	
+		$this->SetLeftMargin(33);
+		$this->Ln(10);
+		$this->SetFont('Times', 'B', 12);
+		$this->Write(5, $tipodoc);
+		$this->Write(5,'    ');
+		$this->Write(5, '/MAT/Nº   ');
+		$this->SetFont('Times', '', 12);
+		$this->Write(5, $numdoc);
+		$this->Cell(30,5,'/2005 ' );
+		$this->Cell(20,5,'');
+		$this->Write(5,'                          DATA: ');
+		$this->Write(5,$datad);
+
+	}
+
+	function PutIdentificacao($destino) {
+	
+		// função para acrescentar a parte "Identificação" do documento	
+		$this->SetFont('Times','B','12');
+		$this->Cell(0,5,'1 - IDENTIFICAÇÃO');
+		$this->Ln(7);
+		$this->SetLeftMargin(37);
+		$this->Write(5,'Procedência: ');
+		$this->SetFont('Times','','12');
+		$this->Write(5, 'DEPARTAMENTO DE MATEMÁTICA');
+		$this->Ln(5);
+		$this->SetFont('Times','B','12');
+		$this->Write(5,'Destino        : ');
+		$this->SetFont('Times','','12');
+		$this->Write(5,$destino);
+	}
+
+	function PutAssunto($assunto) {
+		
+		// função para acrescentar a parte "Assunto" do documento
+		$this->SetFont('Times','B','12');
+		$this->Cell(0,5,'2 - ASSUNTO');
+		$this->Ln(7);
+		$this->SetLeftMargin(37);
+		$this->SetFont('Times','','12');
+		$this->Write(5,$assunto);
+	}
+
+	function PutAnexo($anexo) {
+
+                // função para acrescentar a parte "Anexo" do documento
+                $this->SetFont('Times','B','12');
+                $this->Cell(0,5,'3 - ANEXO');
+                $this->Ln(7);
+                $this->SetLeftMargin(37);
+                $this->SetFont('Times','','12');
+                $this->Write(5,$anexo);
+        }
+
+	function PutMensagem($vocativo,$mensagem) {
+
+                // função para acrescentar a parte inicial de "Mensagem" do documento, com os campos vocativo e mensagem 
+                $this->SetFont('Times','B','12');
+                $this->Cell(0,5,'4 - MENSAGEM');
+                $this->Ln(20);
+                $this->SetLeftMargin(37);
+                $this->SetFont('Times','','12');
+		$this->Cell(13,5,'');
+                $this->Write(5,$vocativo);
+		$this->Write(5,',');
+		$this->Ln(11);
+		$this->SetRightMargin(18);
+		$this->MultiCell(0,5, $mensagem, 'J');
+
+        }
+
+	function PutFinalizacao($desfecho,$nassinatura,$cassinatura) {
+
+                // função para acrescentar a parte final de "Mensagem" do documento, com os campos desfecho, nome e cargo da 		     //	assinatura
+		
+		$this->Ln(7);
+		$this->Cell(81,0,'');
+		$this->Write(5,$desfecho);
+		$this->Write(5,',');
+		$this->Ln(20);
+
+		//$this->SetLeftMargin(90);
+                //$this->SetRightMargin(40);
+		$this->SetLineWidth(0.5);
+		$tam=($this->GetStringWidth($nassinatura));
+		$this->Line($this->GetX()+81 - 0.75 * ($tam) , $this->GetY(), $this->GetX()+81 + 1.4 * ($tam) , $this->GetY());
+		//$this->Line($this->GetX()+5,$this->GetY(),$this->GetX()+69 ,$this->GetY());
+		$this->Ln(3);
+		//$this->Cell(81,0,'');
+		//$this->Write(5,$nassinatura);
+		$this->SetLeftMargin(97);
+                $this->SetRightMargin(40);
+		$tam2= 500 / ($this->GetStringWidth($nassinatura));
+		$this->Cell($tam2,0,'');
+		$this->Write(5,$nassinatura);
+		 //$this->MultiCell(0,5,$nassinatura,'C');
+		$this->Ln(5);
+		$tam3=500 / ($this->GetStringWidth($cassinatura));
+                $this->Cell($tam3,0,'');
+		$this->MultiCell(0,5,$cassinatura,'C');
+
+		//$this->Cell(81,0,'');
+		//$this->Write(5,$cassinatura);
+		 //$this->MultiCell(0,5,$cassinatura,'C'); 
+	}
+
+} // class PDF
+
+?>

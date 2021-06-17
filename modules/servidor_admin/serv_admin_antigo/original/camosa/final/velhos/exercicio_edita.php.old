@@ -1,0 +1,166 @@
+<?php
+
+require "verifica.php";
+
+?>
+
+
+<html>
+<head>
+  <title>Servidor Administrativo</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+body {
+	scrollbar-face-color: #DEE3E7;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-shadow-color: #DEE3E7;
+	scrollbar-3dlight-color: #D1D7DC;
+	scrollbar-arrow-color:  #006699;
+	scrollbar-track-color: #EFEFEF;
+	scrollbar-darkshadow-color: #98AAB1;
+}
+</style>
+
+<body leftmargin="2" topmargin="0">
+<?php
+
+require "conexao.php";
+
+$sel="SELECT *
+      FROM documentador
+      WHERE id_documentador='$id_documentador'";
+
+$resultado=pg_query($sel) or die ("Não foi possível realizar a consulta ao banco de dados");
+while ($linha=pg_fetch_array($resultado))
+	{
+	$id_documentador=trim($linha["id_documentador"]);
+	$id_tipo=trim($linha["id_tipo"]);
+	$numerodocumento=trim($linha["numerodocumento"]);
+	$id_departamentos=trim($linha["id_departamentos"]);
+	$vocativo=trim($linha["vocativo"]);
+	$mensagem=trim($linha["mensagem"]);
+	$desfecho=trim($linha["desfecho"]);
+	$id_assinaturas=trim($linha["id_assinaturas"]);
+	}
+?>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF">
+  <tr>
+    <td width="15%" height="43">
+      <div align="center"><img src="figuras/logo_car.gif" width="80" height="80"></div>
+    </td>
+    <td colspan="3" valign="middle" height="43">
+      <div align="center"><font size="4" face="Verdana, Arial, Helvetica, sans-serif" color="#990000"><strong><font color="#014D74">Editar</font><font color="#014D74"> Formulário</font></strong></font></div>
+    </td>
+    <td width="15%" height="43">
+      <div align="center"><img src="figuras/c1.gif" width="80" height="80"></div>
+    </td>
+  </tr>
+</table>
+<div align="justify"> <font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#990000"><b>
+  <center>
+  </center>
+</b></font></div>
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="#FFCC66"> <div align="left"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Documento atual</font></div></td>
+  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td width="50%"><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      Tipo documento: 
+      <?php=$id_tipo;?>
+      </font></td>
+    <td width="60%"><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong></font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Número do documento
+      :</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$numerodocumento;?>
+      </font> </td>
+  </tr>
+  <tr> 
+    <td><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Departamento:</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$id_departamentos;?>
+      </font></td>
+    <td><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong></font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Vocativo:
+      </font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$vocativo;?>
+      </font> </td>
+  </tr>
+  <tr> 
+    <td><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong></font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Mensagem:</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">:</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$mensagem;?>
+      </font></td>
+    <td><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Desfecho:</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$desfecho;?>
+      </font> </td>
+  </tr>
+  <tr> 
+    <td><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong></font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Assinatura:</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$id_assinaturas;?>
+      </font></td>
+    <td>&nbsp; </td>
+  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td bgcolor="#FFCC66"> <div align="left"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Altera&ccedil;&otilde;es</font></div></td>
+  </tr>
+</table>
+<?php
+
+echo "<form name='formulario' action='confirma_edita.php?numerodocumento=$numerodocumento' method='post'>";
+	echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'>
+	           <tr>
+	             <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica, sans-serif'>Departamento:</font></td>
+
+		<td><select name= 'id_departamentos' value='$id_departamentos' size = '2' multiple>
+                        <option value='1'>Qu\xedmica</option>
+                        <option value='2'>Fisica</option>
+                        </select></td></tr>
+	          <tr>
+	            <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica, sans-serif'>Vocativo:</font></td>
+	            <td><input name='vocativo' value='$vocativo' type='text' size=30></td>
+	         </tr>
+
+		<tr>^M
+                  <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica,
+sans-serif'>Mensagem:</font></td>^M
+                  <td><textarea name='mensagem' value='$mensagem' rows=10 cols=50>$texto</textarea></td>^M
+                </tr>^M
+
+	         <tr>
+	           <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica, sans-serif'>Desfecho:</font></td>
+	           <td><input name='desfecho' value='$desfecho' type='text' size=6></td>
+	         </tr>
+	         <tr>
+	           <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica, sans-serif'>Assinatura:</font></td>
+
+			<td><select name= 'assinatura' value='$assinatura' size = '3' multiple>
+                        <option value='1'>Prof. Guy</option>
+                        <option value='2'>Prof. Leonardo</option>
+                        <option value='3'>Prof. Celius</option>
+                        </select></td></tr>
+
+	      </table>";
+	echo "
+	     
+	      <input name='id_tipo' type='hidden' value='$id_tipo'>		    
+	      <input name='acao' type='hidden' value=''>";
+?>
+<br>
+<br>
+<input name="button" type="button" onClick="document.formulario.acao.value='inserir';document.formulario.submit()" value="Editar">
+</body>
+
+</head>
+</html>

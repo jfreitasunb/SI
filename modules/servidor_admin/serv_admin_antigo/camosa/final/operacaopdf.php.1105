@@ -1,0 +1,46 @@
+<?php
+require "verifica.php";
+require "conexao.php";
+require "html2pdf.php";
+
+if(isset($_GET['id_documentador']) || isset($_POST['id_documentador'])){  //se a operação requerida for a visualização do definitivo
+
+	// busca pelo documento na tabela "documentador"
+	$com_documento="SELECT * FROM documentador WHERE id_documentador = '$id_documentador'";
+	$res_documento=pg_query($com_documento) or die("Não foi possível executar a operação. Contacte a Coordenação de I
+	nformática.");
+	$documento= pg_fetch_row($res_documento,$i);
+
+	// colocação das variáveis
+	$id_tipo=$documento[1];
+	$numerodocumento=$documento[2];
+	$id_departamentos=$documento[3];
+	$vocativo=$documento[10];
+	$mensagem=$documento[4];
+	$desfecho=$documento[5];
+	$assinatura=$documento[6];
+	$assunto=$documento[7];
+	$anexo=$documento[8];
+	$data=$documento[9];
+	}
+else
+	$numerodocumento="XX";
+
+
+require "complementa.php";
+// gerar o pdf
+$pdf =& new createPDF(
+                $row[0],
+                $numerodocumento,
+                $row1[0],
+                $assunto,
+                $anexo,
+                $vocativo,
+                $mensagem,
+                $desfecho,
+                $data,
+                $row2[0],
+                $row2[1]
+        );
+$pdf->run();
+?>

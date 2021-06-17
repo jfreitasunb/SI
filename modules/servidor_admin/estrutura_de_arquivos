@@ -1,0 +1,227 @@
+FUNÇÕES:
+
+1-Criar documento:  gerar1.php. se modelo então 	gerar_modelo.php		
+	      						<input name='acao' type='submit' value='Visualizar'>
+							<input name='acao' type='submit' value='Salvar Rascunho'>
+							gerar_modelo.php: manda para ati.php 
+									     ati.php manda par aati.php e operacao_2.php se for acao=Definitivo
+
+
+				      se novo então 	gerar_documento.php		<input name='acao' type='submit' value='Visualizar'>
+										        <input name='acao' type='submit' value='Salvar Rascunho'>
+							gerar_documento.php manda para ati.php 
+										     ati.php manda para ati.php e operacao_2.php se for acao=Definitivo
+					(ati.php:  salva rascunhos e visualiza.)  acessorio.php é chamada para visualizar ou gravar definitivo.
+
+2- Editar rascunho: buscador.php  manda para buscador_lista.php que manda para editar.php (para edição em tela) que manda para ati.php com 
+											<input name='acao' type='submit' value='Rascunho'>
+
+
+3- Criar Modelo: insere_modelo.php  manda para ati_insere_modelo.php que grava no banco. 
+
+4- Visualizar documentos: buscador_def.php  manda para buscador_lista_def.php que encaminha para a visualização do documento.
+
+
+TABELAS:
+
+ public  | admin_assinatura                       | tabela    | si	contém id. da assinatura, nome e cargo (desativar nome e usar tabela users);
+ public  | admin_assinatura_id_assinatura_seq     | sequência | si
+ public  | admin_departamento                     | tabela    | si	contém id. de todos os departamentos da UnB e destinatários (em geral) de 										documentos
+ public  | admin_departamento_id_departamento_seq | sequência | si
+ public  | admin_documentador                     | tabela    | si	contém os documentos definitivos
+ public  | admin_documentador_id_documentador_seq | sequência | si
+ public  | admin_modelo                           | tabela    | si	contém modelos prontos de documentos
+ public  | admin_modelo_id_modelo_seq             | sequência | si
+ public  | admin_rascunho                         | tabela    | si	contém os rascunhos de documentos em elaboração
+ public  | admin_rascunho_id_documentador_seq     | sequência | si
+ public  | admin_tipo                             | tabela    | si	contém os tipos de documentos
+ public  | admin_tipo_id_tipo_seq                 | sequência | si
+ public  | admin_usuario                          | tabela    | si  	não usada (permissões para usar servidor_admin)
+ public  | admin_usuario_id_usuario_seq           | sequência | si	não usada
+
+
+                                         Tabela "public.admin_assinatura"
+    Coluna     |         Tipo          |                              Modificadores                               
+---------------+-----------------------+--------------------------------------------------------------------------
+ id_assinatura | integer               | not null default nextval('admin_assinatura_id_assinatura_seq'::regclass)
+ nome          | character varying(60) | not null
+ cargo         | character varying(60) | not null
+Índices:
+    "admin_assinatura_pkey" PRIMARY KEY, btree (id_assinatura)
+
+
+Sequência "public.admin_assinatura_id_assinatura_seq"
+    Coluna     |  Tipo   
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+                                          Tabela "public.admin_departamento"
+      Coluna      |         Tipo          |                                Modificadores                                 
+------------------+-----------------------+------------------------------------------------------------------------------
+ id_departamento  | integer               | not null default nextval('admin_departamento_id_departamento_seq'::regclass)
+ nomedepartamento | character varying(30) | not null
+ sigla            | character varying(3)  | 
+ descricao        | character varying(80) | 
+ fone             | character varying(15) | 
+ pessoadecontato  | character varying(40) | 
+ rua              | character varying(30) | 
+ bairro           | character varying(50) | 
+ cidade           | character varying(35) | 
+ uf               | character(2)          | default 'DF'::bpchar
+ cep              | character varying(8)  | default '72000000'::character varying
+
+Índices:
+    "admin_departamento_pkey" PRIMARY KEY, btree (id_departamento)
+
+
+Sequência "public.admin_departamento_id_departamento_seq"
+    Coluna     |  Tipo   
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+                                          Tabela "public.admin_documentador"
+     Coluna      |         Tipo          |                                Modificadores                                 
+-----------------+-----------------------+------------------------------------------------------------------------------
+ id_documentador | integer               | not null default nextval('admin_documentador_id_documentador_seq'::regclass)
+ id_tipo         | integer               | not null
+ numerodocumento | integer               | not null
+ id_departamento | integer               | 
+ mensagem        | text                  | 
+ desfecho        | text                  | 
+ id_assinatura   | integer               | 
+ assunto         | text                  | 
+ anexo           | text                  | 
+ data            | character varying(80) | 
+ vocativo        | character varying(50) | 
+ via             | character varying(80) | 
+assinante	 | intgeger		 |
+com_copia	 | character varying(50) |(introduzido em 29/12/08)
+Índices:
+    "admin_documentador_pkey" PRIMARY KEY, btree (id_documentador)
+Restrições de chave estrangeira:
+    "idt_assinatura" FOREIGN KEY (id_assinatura) REFERENCES admin_assinatura(id_assinatura) ON UPDATE CASCADE ON DELETE CASCADE
+    "nome_departamento" FOREIGN KEY (id_departamento) REFERENCES admin_departamento(id_departamento) ON UPDATE CASCADE ON DELETE CASCADE
+    "tipo_documento" FOREIGN KEY (id_tipo) REFERENCES admin_tipo(id_tipo) ON UPDATE CASCADE ON DELETE CASCADE
+
+								->Vai ter de acrescentar um campo para recuperar o assinante e o tipo de assinatura
+
+
+Sequência "public.admin_documentador_id_documentador_seq"
+    Coluna     |  Tipo   
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+                              Tabela "public.admin_modelo"
+  Coluna   |  Tipo   |                          Modificadores                           
+-----------+---------+------------------------------------------------------------------
+ id_modelo | integer | not null default nextval('admin_modelo_id_modelo_seq'::regclass)
+ id_tipo   | integer | not null
+ assunto   | text    | 
+ anexo     | text    | 
+ vocativo  | text    | 
+ mensagem  | text    | 
+ desfecho  | text    | 
+ via       | text    | 
+ destino   | text    | 
+ campo_8   | text    | 
+ campo_9   | text    | 
+ campo_10  | text    | 
+Índices:
+    "id_modelo" PRIMARY KEY, btree (id_modelo)
+Restrições de chave estrangeira:
+    "idtr_tipo" FOREIGN KEY (id_tipo) REFERENCES admin_tipo(id_tipo) ON UPDATE CASCADE ON DELETE CASCADE
+
+
+
+
+                                          Tabela "public.admin_rascunho"
+     Coluna      |         Tipo          |                              Modificadores                               
+-----------------+-----------------------+--------------------------------------------------------------------------
+ id_documentador | integer               | not null default nextval('admin_rascunho_id_documentador_seq'::regclass)
+ id_tipo         | integer               | not null
+ id_departamento | integer               | 
+ vocativo        | character varying(50) | 
+ mensagem        | text                  | 
+ desfecho        | text                  | 
+ id_assinatura   | integer               | 
+ assunto         | text                  | 
+ anexo           | text                  | 
+ data            | character varying(80) | 
+ via             | character varying(80) | 
+ assinante       | integer               |   (introduzida em 22/01/08: coduser do assinante correspondente à tabela users) 
+ com_copia	 | character varying(50) |   (introduzido em 29/12/08)
+Índices:
+    "id_documentador" PRIMARY KEY, btree (id_documentador)
+Restrições de chave estrangeira:
+    "idtr_assinatura" FOREIGN KEY (id_assinatura) REFERENCES admin_assinatura(id_assinatura) ON UPDATE CASCADE ON DELETE CASCADE
+    "nomer_departamento" FOREIGN KEY (id_departamento) REFERENCES admin_departamento(id_departamento) ON UPDATE CASCADE ON DELETE CASCADE
+    "tipor_documento" FOREIGN KEY (id_tipo) REFERENCES admin_tipo(id_tipo) ON UPDATE CASCADE ON DELETE CASCADE
+
+Sequência "public.admin_rascunho_id_documentador_seq"
+    Coluna     |  Tipo   
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+                                    Tabela "public.admin_tipo"
+  Coluna   |         Tipo          |                        Modificadores                         
+-----------+-----------------------+--------------------------------------------------------------
+ id_tipo   | integer               | not null default nextval('admin_tipo_id_tipo_seq'::regclass)
+ nometipo  | character varying(30) | not null
+ sigla     | character varying(30) | 
+ antigo    | integer               | 
+ novo      | integer               | 
+ parametro | integer               | 
+Índices:
+    "admin_tipo_pkey" PRIMARY KEY, btree (id_tipo)
+
+Sequência "public.admin_tipo_id_tipo_seq"
+    Coluna     |  Tipo   
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+
+

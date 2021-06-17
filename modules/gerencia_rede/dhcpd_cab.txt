@@ -1,0 +1,107 @@
+#################################################################
+#                                                               #
+#       Arquivo:                                                #
+#               dhcpd.conf                                      #
+#                                                               #
+#               Parte 1: Definicoes comuns a todas as redes     #
+#               Parte 2: Grupo Prof                             #
+#               Parte 3: Grupo Pos                              #
+#               Parte 4: Grupo LabPos                           #
+#               Parte 5: Grupo LabPosTek                        #
+#               Parte 6: Grupo MatUnB (rede antiga)             #
+#               Parte 7: Grupo Admin                            #
+#               Parte 8: Grupo IMP                              #
+#                                                               #
+#       Configuracao do dhcpd do ISC para as redes:             #
+#               - redemat:      172.16.38.0/24                  #
+#               - redepos:      172.16.39.0/24                  #
+#               (as maquinas vao juntas, em 172.16.38.0/23)     #
+#                                                               #
+#                                                               #
+#################################################################
+
+
+# Parte 1:
+##########
+
+# Opcoes comuns a todas as redes atendidas
+
+# Para atribuir enderecos por 30 dias:
+#       default-lease-time      2592000;
+#       max-lease-time  2592000;
+
+# 15 minutos
+        default-lease-time      900;
+        max-lease-time          900;
+
+
+# Para atribuir por 6 horas:
+#       default-lease-time 21600;
+#       max-lease-time 21600;
+
+# Padroes de fabrica (10 minutos, 2 horas):
+#       default-lease-time 600;
+#       max-lease-time 7200;
+
+# If this DHCP server is the official DHCP server for the local
+# network, the authoritative directive should be uncommented.
+        authoritative;
+
+# ad-hoc DNS update scheme - set to "none" to disable dynamic DNS updates.
+# ddns-update-style ad-hoc;
+        ddns-update-style none;
+
+# Use this to send dhcp log messages to a different log file (you also
+# have to hack syslog.conf to complete the redirection).
+        log-facility local7;
+
+# Sao declaradas todas as redes, so para o DHCP entender a topologia da
+# rede, mesmo que elas nao sejam atendidas pelo DHCP:
+# Declarando todas as redes, ha problema de numero suficiente de "bpf".
+# Ao nao declarar, ele avisa que ignora as placas correspondentes.
+
+# RedeNFS, so para os servidores:
+        subnet 172.16.1.0 netmask 255.255.255.0 { }
+
+# RedeSRV, de comunicacao entre os servidores:
+        subnet 172.16.4.0 netmask 255.255.255.0 { }
+
+# RedeMAT, uso geral
+# 172.16.38.0 e 172.16.39.0, juntas (172.16.38.0/23):
+        subnet 172.16.38.0 netmask 255.255.254.0 {
+#       range 172.16.39.200 172.16.39.210;
+        }
+
+# RedeIMP, impressoras
+# 172.16.40.0/24
+#       subnet 172.16.40.0 netmask 255.255.255.0 {
+#       }
+
+# Informa ao DHCPD do ISC a forma em que sao dados os valores
+# das opcoes 128 e 129: (nao podem estar dentro de um grupo)
+        option option-128 code 128 = string;
+        option option-129 code 129 = text;
+
+# Todo mundo atendido por este DHCPD esta na "redemat"
+        option domain-name "redemat";
+# Servidor DNS
+        option domain-name-servers 172.16.38.6;
+# Envia o nome da maquina:
+        use-host-decl-names on;
+        option log-servers 172.16.38.6;
+# - opcoes de rede:
+#       (verificar linha abaixo):
+        option broadcast-address 172.16.39.255;
+        option subnet-mask 255.255.254.0;
+        option routers 172.16.38.6;
+
+# - Opcoes para os terminais com kernel Linux (LTSP):
+#   (fica sendo o padrao, a menos que modificado dentro de um grupo)
+        filename                "vmlinuz.ltsp";
+        next-server             172.16.38.5;           ####################### Servidor a ser utilizado
+        option root-path        "172.16.38.5:/opt/ltsp/i386";
+
+##################################################################################################################
+
+
+

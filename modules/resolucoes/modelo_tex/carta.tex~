@@ -1,0 +1,112 @@
+\documentclass[11pt,portuguese,a4paper]{article}
+           
+%\usepackage{amssymb}
+%\usepackage{amsmath,amsfonts,amsthm,amstext}
+\usepackage[brazil]{babel}
+\usepackage[latin1,utf8]{inputenc}
+\usepackage{fancyheadings}
+%\usepackage[dvips]{graphicx}
+\usepackage{graphicx}
+%\usepackage{latexsym}
+%\usepackage{psfrag}
+
+\setlength{\paperheight}{297mm} %definição do tamanho do papel - A4
+\setlength{\paperwidth}{210mm} %definição do tamanho do papel - A4
+\setlength{\oddsidemargin}{0.0mm} %coloca margem a 30.0mm 
+\setlength{\evensidemargin}{-5.4mm} %coloca margem a 20.0mm 
+\setlength{\topmargin}{-5.4mm} %coloca margem a 25.0mm 
+\setlength{\headheight}{7mm} %espaço reservado para cabeçalho nas páginas
+\setlength{\headsep}{7mm} %espaço entre o cabeçalho e o corpo do texto
+\setlength{\textwidth}{160mm} %largura do corpo do texto -> 25mm de margens
+\setlength{\textheight}{235mm} %altura do corpo do texto  -> 25mm de margens
+\setlength{\parindent}{10mm} %tamanho do parágrafo
+
+\pagestyle{fancy}
+ \lhead{\includegraphics[scale=0.975]{letterhead-new}}
+ \chead{}
+ \rhead{}
+
+ \lfoot{}
+ \cfoot{}
+ \rfoot{}
+
+\setlength{\headrulewidth}{0.pt}
+\setlength{\footrulewidth}{0.pt}
+
+
+\begin{document}
+
+
+\begin{center}
+
+$\qquad$
+
+\vspace{12pt}
+
+\textsc{{\LARGE {Sistema de Informática do MAT/UnB}}}
+
+\vspace{12pt}
+
+{\Large Abertura de nova conta em LATEX_DATAABERTURA para}
+
+\vspace{12pt}
+
+{\LARGE \it LATEX_NOME LATEX_SOBRENOME }
+
+\end{center}
+
+\vspace{12pt}
+
+\noindent {\Large \underline{Dados da conta:}}\\
+
+\noindent {\LARGE {\bf Login}: LATEX_LOGIN }\\
+
+\noindent {\LARGE {\bf Senha}: {\verbatim  LATEX_SENHA }} \\
+
+\noindent {\LARGE {\bf Email}: LATEX_MAIL } \\
+
+\noindent {\LARGE {\bf Data de expiração da conta}: LATEX_DATAENCERRAMENTO } \\
+
+\noindent {\small {\it Atenção}: Seu login e sua senha são sensíveis a letras maiúsculas e minúsculas. Por outro lado, seu email não é sensível a letras maiúsculas e minúsculas. Caso seja necessário manter sua conta ativa por mais tempo, entre em contato com o administrador do sistema através do email {\it redeadm@mat.unb.br}.}
+
+\vspace{12pt}
+
+\noindent {\Large \underline{Dados cadastrais:}}\\
+
+\noindent {\large {\bf Nome completo do usuário}: LATEX_NOME LATEX_SOBRENOME }\\
+\noindent {\large {\bf Email pessoal para contato}: LATEX_OUTROSMAILS }\\
+\noindent {\large {\bf Vínculo com o MAT/UnB}: LATEX_VINCULO }\\
+\noindent {\large {\bf Matrícula}: LATEX_MATRICULA }\\
+
+\noindent {\small {\it Atenção}: Lembre-se de informar qualquer alteração nestes dados à secretaria do MAT/UnB ou pelo email {\it redeadm@mat.unb.br} . É essencial que o MAT/UnB tenha seus dados cadastrais atualizados.}
+
+\vspace{12pt}
+
+\noindent {\Large \underline{Quotas da conta:}}\\
+
+\noindent {\large {\bf Quota de impressão/cópias mensal}: LATEX_QUOTAIMPRESSAO }\\
+\noindent {\large {\bf Quota de email}: LATEX_QUOTAMAIL }\\
+\noindent {\large {\bf Quota de home}: LATEX_QUOTADISCO }
+
+\vspace{12pt}
+
+\noindent {\Large \underline{Sobre o sistema do MAT/UnB:}}\\
+
+\small 
+
+\vspace{-12pt}
+
+\begin{itemize}
+
+\item Esta conta lhe dá acesso ao sistema de informática do MAT/UnB. Você pode se conectar a qualquer um dos terminais de acesso localizados nas salas dos alunos de doutorado, nos laboratórios de informática e na sala de leitura. Para maiores detalhes sobre o sistema do MAT/UnB e suas funcionalidades (backup de dados, conexão de máquinas pessoais, servidores de cálculo, acesso remoto, etc), visite {\it http://www.mat.unb.br/informatica}. 
+
+\item O sistema do MAT/UnB adota o padrão linux (Debian) e há uma variedade de programas instalados no sistema. Você pode apreder mais sobre o sistema no endereço {\it http://www.debian.org/doc/}. 
+
+\end{itemize}
+
+\begin{flushright}
+{\it Seja bem-vindo e aproveite sua estadia no MAT/UnB!}
+\end{flushright}
+
+\end{document}
+

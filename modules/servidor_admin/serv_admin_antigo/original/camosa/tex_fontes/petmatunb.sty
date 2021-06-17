@@ -1,0 +1,633 @@
+%% <petmatunb.sty> --- ARQUIVO DE PACOTE
+%% CRIADO POR ROBERTO S.M. OLIVEIRA, COM
+%% O AUXÍLIO DE LUCAS C.S. FERREIRA.
+
+\NeedsTeXFormat{LaTeX2e}\ProvidesPackage{petmatunb}[2000/08/08 Lucas & Roberto]
+
+\typeout{}
+\typeout{}
+\typeout{=========== P E T M A T U N B ==================}
+\typeout{Roberto Oliveira & Lucas Ferreira: <petmatunb.sty>}
+\typeout{[matunb] U [comandos] U [modificacoes]}
+\typeout{=============================================}
+\typeout{}
+\typeout{}
+
+\RequirePackage[portuges,brazilian]{babel}\RequirePackage{amsfonts}
+\RequirePackage{amsbsy}\RequirePackage{amssymb}
+\RequirePackage{amsthm}\RequirePackage{amsopn}
+
+\DeclareRobustCommand{\Listoffigures}{\listoffigures\addcontentsline{toc}{chapter}{Lista de Figuras}}
+
+\DeclareRobustCommand{\Listoftables}{\listoftables\addcontentsline{toc}{chapter}{Lista de Tabelas}}
+
+\DeclareRobustCommand{\Introducao}{\chapter*{Introdu\c{c}\~ao}%
+ \addcontentsline{toc}{chapter}{Introdu\c{c}\~ao}
+ \@mkboth{\MakeUppercase{Introdu\c{c}\~ao}}{\MakeUppercase{Introdu\c{c}\~ao}}}
+
+\DeclareRobustCommand{\Prefacio}{\chapter*{Pref\'acio}%
+ \addcontentsline{toc}{chapter}{Pref\'acio}
+ \@mkboth{\MakeUppercase{Pref\'acio}}{\MakeUppercase{Pref\'acio}}}
+
+\DeclareOldFontCommand{\rm}{\rmfamily}{\mathrm}\DeclareOldFontCommand{\sf}{\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\ttfamily}{\mathtt}\DeclareOldFontCommand{\it}{\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\slshape}{}\DeclareOldFontCommand{\sc}{\scshape}{}
+\DeclareOldFontCommand{\bf}{\bfseries}{\mathbf}
+
+\DeclareRobustCommand{\SWAP}{}\DeclareRobustCommand{\SWAPP}{}
+\DeclareRobustCommand{\SWAPPP}{}
+
+\def\labelenumi{{$\BF{\theenumi}$}\/{\rm\bf)}}
+\def\theenumi{\roman{enumi}}
+ 
+\def\labelenumii{{\bf\theenumii.}}
+\def\theenumii{{\bf\Roman{enumii}}}
+\def\p@enumii{\theenumi}
+
+\def\labelenumiii{\theenumiii\/)}
+\def\theenumiii{\alph{enumiii}}
+\def\p@enumiii{\theenumi(\theenumii)}
+
+\def\labelenumiv{\theenumiv.}
+\def\theenumiv{\Alph{enumiv}}     
+\def\p@enumiv{\p@enumiii\theenumiii}
+
+\newenvironment{Enumerate}{
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\labelenumi}{\bf\theenumi\/{\rm\bf)}}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\theenumiii}{$\roman{enumiii}$}
+\renewcommand{\labelenumiii}{\theenumiii\/{\rm)}}
+\renewcommand{\theenumiv}{\Alph{enumiv}}
+\begin{enumerate}}
+{\end{enumerate}}
+
+\newenvironment{ENUMERATE}{
+\renewcommand{\theenumi}{\bf\arabic{enumi}}
+\renewcommand{\labelenumi}{\theenumi.}
+\renewcommand{\theenumii}{\bf\alph{enumii}}
+\renewcommand{\labelenumii}{\theenumii\/{\rm\bf)}}
+\renewcommand{\theenumiii}{$\roman{enumiii}$}
+\renewcommand{\labelenumiii}{\theenumiii.}
+\renewcommand{\theenumiv}{\Alph{enumiv}}
+\begin{enumerate}}
+{\end{enumerate}}
+
+\DeclareRobustCommand{\hoje}{\number\day\ de
+  {\ifcase\month\or
+   janeiro\or fevereiro\or mar\c{c}o\or abril\or maio\or junho\or
+   julho\or agosto\or setembro\or outubro\or novembro\or
+   dezembro\fi}
+   de \number\year}
+
+\DeclareRobustCommand{\Hoje}{\number\day/\number\month/\number\year}
+
+\DeclareRobustCommand\petspace{\futurelet\@let@token\@petspace}
+\def\@petspace{%
+  \ifx\@let@token\bgroup\else \ifx\@let@token\egroup\else
+  \ifx\@let@token\/\else \ifx\@let@token\ \else
+  \ifx\@let@token~\else \ifx\@let@token.\else
+  \ifx\@let@token!\else \ifx\@let@token,\else
+  \ifx\@let@token:\else \ifx\@let@token;\else
+  \ifx\@let@token?\else \ifx\@let@token/\else
+  \ifx\@let@token'\else \ifx\@let@token)\else
+  \ifx\@let@token-\else \ifx\@let@token\@xobeysp\else
+  \ifx\@let@token\space\else \ifx\@let@token\@sptoken\else
+  \space
+  \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi}
+
+\newcommand{\cc}{\c{c}}\newcommand{\CC}{\c{C}}
+\newcommand{\cao}{\c{c}\~{a}o\petspace}\newcommand{\CAO}{\c{C}\~{A}O\petspace}
+\newcommand{\coes}{\c{c}\~{o}es\petspace}\newcommand{\COES}{\c{C}\~{O}ES\petspace}
+\newcommand{\ii}{\'{\i}}\newcommand{\II}{\'{I}}
+\newcommand{\ao}{\~{a}o\petspace}\newcommand{\AO}{\~{A}O\petspace}
+\newcommand{\sao}{s\~{a}o\petspace}\newcommand{\SAO}{S\~{A}O\petspace}
+\newcommand{\soes}{s\~{o}es\petspace}\newcommand{\SOES}{S\~{O}ES\petspace}
+\newcommand{\oes}{\~{o}es\petspace}\newcommand{\OES}{\~{O}ES\petspace}
+\newcommand{\aes}{\~{a}es\petspace}\newcommand{\AES}{\~{A}ES\petspace}
+
+\AtBeginDocument{\DeclareRobustCommand{\n}{{\mathbb N}}}
+\AtBeginDocument{\DeclareRobustCommand{\z}{{\mathbb Z}}}
+\AtBeginDocument{\DeclareRobustCommand{\q}{{\mathbb Q}}}
+\AtBeginDocument{\DeclareRobustCommand{\irc}{{\mathbb I}}}
+\AtBeginDocument{\DeclareRobustCommand{\ccc}{{\mathbb C}}}
+\AtBeginDocument{\DeclareRobustCommand{\N}{{\pmb\n}}}
+\AtBeginDocument{\DeclareRobustCommand{\Z}{{\pmb\z}}}
+\AtBeginDocument{\DeclareRobustCommand{\Q}{{\pmb\q}}}
+\AtBeginDocument{\DeclareRobustCommand{\R}{{\pmb\r}}}
+\AtBeginDocument{\DeclareRobustCommand{\Irc}{{\pmb\irc}}}
+\AtBeginDocument{\DeclareRobustCommand{\Ccc}{{\pmb\ccc}}}
+\AtBeginDocument{\DeclareRobustCommand{\r}{{\mathbb R}}}
+\AtBeginDocument{\DeclareRobustCommand{\f}{{\mathbb F}}}
+\AtBeginDocument{\DeclareRobustCommand{\k}{{\mathbb K}}}
+
+\DeclareRobustCommand{\AAA}{{\boldsymbol A}}\DeclareRobustCommand{\BBB}{{\boldsymbol B}}
+\DeclareRobustCommand{\CCC}{{\boldsymbol C}}\DeclareRobustCommand{\DDD}{{\boldsymbol D}}
+\DeclareRobustCommand{\EEE}{{\boldsymbol E}}\DeclareRobustCommand{\FFF}{{\boldsymbol F}}
+\DeclareRobustCommand{\GGG}{{\boldsymbol G}}\DeclareRobustCommand{\HHH}{{\boldsymbol H}}
+\DeclareRobustCommand{\III}{{\boldsymbol I}}\DeclareRobustCommand{\JJJ}{{\boldsymbol J}}
+\DeclareRobustCommand{\KKK}{{\boldsymbol K}}\DeclareRobustCommand{\LLL}{{\boldsymbol L}}
+\DeclareRobustCommand{\MMM}{{\boldsymbol M}}\DeclareRobustCommand{\NNN}{{\boldsymbol N}}
+\DeclareRobustCommand{\OOO}{{\boldsymbol O}}\DeclareRobustCommand{\PPP}{{\boldsymbol P}}
+\DeclareRobustCommand{\QQQ}{{\boldsymbol Q}}\DeclareRobustCommand{\RRR}{{\boldsymbol R}}
+\DeclareRobustCommand{\SSS}{{\boldsymbol S}}\DeclareRobustCommand{\TTT}{{\boldsymbol T}}
+\DeclareRobustCommand{\UUU}{{\boldsymbol U}}\DeclareRobustCommand{\VVV}{{\boldsymbol V}}
+\DeclareRobustCommand{\WWW}{{\boldsymbol W}}\DeclareRobustCommand{\XXX}{{\boldsymbol X}}
+\DeclareRobustCommand{\YYY}{{\boldsymbol Y}}\DeclareRobustCommand{\ZZZ}{{\boldsymbol Z}}
+
+\DeclareRobustCommand{\idef}{\stackrel{\scriptscriptstyle\rm def}{=}}
+\DeclareRobustCommand{\dis}{\displaystyle}% not yet
+\DeclareRobustCommand{\scr}{\scriptstyle}% not yet
+\DeclareRobustCommand{\Scr}{\scriptscriptstyle}% not yet
+\DeclareRobustCommand{\BF}{\boldsymbol}% not yet
+
+\DeclareRobustCommand{\talque}{\bigm|}
+\DeclareRobustCommand{\Talque}{\;{\rm ;}\;}
+\DeclareRobustCommand{\TALQUE}{\;{\rm :}\;}
+
+\DeclareMathSymbol{\dash}{\mathbin}{AMSa}{"39}
+\chardef\bslash=`\\% not yet
+
+\DeclareRobustCommand{\DVD}{\big|}\DeclareRobustCommand{\dvd}{|}
+\DeclareRobustCommand{\ndvd}{\!\nmid\!}
+
+\DeclareRobustCommand{\Langle}{\big\langle}\DeclareRobustCommand{\Rangle}{\big\rangle}
+\DeclareRobustCommand{\bvert}{\big\vert}\DeclareRobustCommand{\bVert}{\big\Vert}
+
+\DeclareRobustCommand{\escalar}[2]{\Langle{#1}\,,{#2}\Rangle}
+\DeclareRobustCommand{\vetorial}[2]{{#1}\!\times\!{#2}}
+
+\DeclareMathOperator{\mdc}{mdc}\DeclareMathOperator{\mmc}{mmc}
+
+\DeclareMathSymbol{\EMPTYSET}{\mathord}{symbols}{"3B}
+\DeclareRobustCommand{\emptyset}{\varnothing}
+
+\DeclareMathSymbol{\GEQ}{\mathrel}{symbols}{"15}
+\DeclareMathSymbol{\GE}{\mathrel}{symbols}{"15}
+\DeclareRobustCommand{\geq}{\geqslant}
+\DeclareRobustCommand{\ge}{\geqslant}
+
+\DeclareMathSymbol{\LEQ}{\mathrel}{symbols}{"14}
+\DeclareMathSymbol{\LE}{\mathrel}{symbols}{"14}
+\DeclareRobustCommand{\leq}{\leqslant}\DeclareRobustCommand{\le}{\leqslant}
+
+\DeclareRobustCommand{\nin}{\not\in}\DeclareRobustCommand{\nni}{\not\,\ni}
+\DeclareRobustCommand{\nsubset}{\not\subset}\DeclareRobustCommand{\nsupset}{\not\supset}
+\DeclareRobustCommand{\propsubset}{\varsubsetneq}\DeclareRobustCommand{\propsupset}{\varsupsetneq}
+
+\DeclareRobustCommand{\abs}[1]{\bvert {#1} \bvert}
+\DeclareRobustCommand{\norma}[1]{\bVert {#1} \bVert}
+
+\DeclareRobustCommand{\imag}{\dot{\imath}}
+
+\DeclareMathOperator{\h}{h}\DeclareMathOperator{\s}{s}
+\DeclareMathOperator{\MIN}{min}
+
+\DeclareMathOperator{\mm}{mm}\DeclareMathOperator{\cm}{cm}
+\DeclareMathOperator{\dm}{dm}\DeclareMathOperator{\m}{m}
+\DeclareMathOperator{\dam}{dam}\DeclareMathOperator{\hm}{hm}
+\DeclareMathOperator{\km}{km}
+
+\DeclareMathOperator{\ml}{m\ell}\DeclareMathOperator{\cl}{c\ell}
+\DeclareMathOperator{\dl}{d\ell}\DeclareMathOperator{\litro}{\ell}
+\DeclareMathOperator{\ltr}{\ell}\def\l{\qopname\relax o{\ell}}
+\DeclareMathOperator{\dal}{da\ell}\DeclareMathOperator{\hl}{h\ell}
+
+\DeclareMathOperator{\mg}{mg}\DeclareMathOperator{\cg}{cg}
+\DeclareMathOperator{\dg}{dg}\DeclareMathOperator{\g}{g}
+\DeclareMathOperator{\DAG}{dag}\DeclareMathOperator{\hg}{hg}
+\DeclareMathOperator{\kg}{kg}
+
+\DeclareMathOperator{\rad}{rad}\DeclareRobustCommand{\graus}{^\circ}
+
+\DeclareMathOperator{\sen}{sen}\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\cotg}{cotg}\DeclareMathOperator{\cotan}{cotan}
+\DeclareMathOperator{\cosec}{cosec}\DeclareMathOperator{\cossec}{cossec}
+
+\DeclareMathOperator{\arcsen}{arc\,sen}
+\DeclareMathOperator{\Arccos}{arc\,cos}
+    \renewcommand{\arccos}{\Arccos}
+\DeclareMathOperator{\arctg}{arc\,tg}
+\DeclareMathOperator{\Arctan}{arc\,tan}
+    \renewcommand{\arctan}{\Arctan}
+\DeclareMathOperator{\arccotg}{arc\,cotg}
+\DeclareMathOperator{\arccotan}{arc\,cotan}
+\DeclareMathOperator{\arcsec}{arc\,sec}
+\DeclareMathOperator{\arccosec}{arc\,cosec}
+\DeclareMathOperator{\arccossec}{arc\,cossec}
+
+\DeclareMathOperator{\senh}{senh}\DeclareMathOperator{\tgh}{tgh}
+\DeclareMathOperator{\cotgh}{cotgh}\DeclareMathOperator{\cotanh}{cotanh}
+\DeclareMathOperator{\sech}{sech}\DeclareMathOperator{\cosech}{cosech}
+\DeclareMathOperator{\cossech}{cossech}
+
+\newcommand{\Chapter}{\zerarTeorema\chapter}\newcommand{\Section}{\zerarTeorema\section}
+
+\newtheoremstyle{def2}{5pt}{10pt}{\itshape}
+{0pt}{\bfseries}{.}{7pt}{}
+\newtheoremstyle{def1}{5pt}{10pt}{\slshape}
+{0pt}{\bfseries}{.}{7pt}{}
+\newtheoremstyle{bOxE}{5pt}{10pt}{}
+{0pt}{\bfseries}{.}{7pt}{}
+
+\newcounter{DeLeProTeCo}\newcounter{Exerc}
+\newcounter{Exemp}\newcounter{Observ}
+\newcounter{Ques}
+
+\@ifclassloaded{book}{%
+\renewcommand{\theDeLeProTeCo}{\thechapter.\arabic{DeLeProTeCo}}
+}{}
+  
+\newcommand{\zerarTeorema}{
+\setcounter{DeLeProTeCo}{0}\setcounter{Exerc}{0}
+\setcounter{Exemp}{0}\setcounter{Observ}{0}
+\setcounter{Ques}{0}
+}
+
+
+\DeclareOption{swap}{
+\renewcommand{\SWAP}{\swapnumbers}
+}
+
+\DeclareOption{chaplin}{}
+
+\DeclareOption{boxeIA}{
+\renewcommand{\theObserv}{\Roman{Observ}}
+\renewcommand{\theExemp}{\Alph{Exemp}}
+\renewcommand{\SWAPP}{\SWAP}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareOption{descontinua}{
+\SWAP
+\newcounter{De}\newcounter{Le}\newcounter{Pro}
+\newcounter{Te}\newcounter{Co}\newcounter{Notac}
+\newcounter{Carac}\newcounter{Nota}\newcounter{Coment}
+\newcounter{Prob}\newcounter{Algo}\newcounter{Met}
+\newcounter{Crit}\newcounter{Propri}\newcounter{Afir}
+\newcounter{Fat}\newcounter{Conjec}\newcounter{Axio}
+\newcounter{Postu}\newcounter{Prin}\newcounter{Conc}
+\newcounter{Cond}
+
+\renewcommand{\SWAPPP}{\SWAP}
+
+\renewcommand{\zerarTeorema}{
+\setcounter{DeLeProTeCo}{0}\setcounter{De}{0}
+\setcounter{Le}{0}\setcounter{Pro}{0}
+\setcounter{Te}{0}\setcounter{Co}{0}
+\setcounter{Exerc}{0}\setcounter{Exemp}{0}
+\setcounter{Observ}{0}\setcounter{Ques}{0}
+\setcounter{Propri}{0}\setcounter{Afir}{0}
+\setcounter{Fat}{0}\setcounter{Conjec}{0}
+\setcounter{Postu}{0}\setcounter{Axio}{0}
+\setcounter{Prin}{0}\setcounter{Conc}{0}
+\setcounter{Cond}{0}\setcounter{Notac}{0}
+\setcounter{Carac}{0}\setcounter{Nota}{0}
+\setcounter{Coment}{0}\setcounter{Prob}{0}
+\setcounter{Algo}{0}\setcounter{Met}{0}
+\setcounter{Crit}{0}
+}
+
+\theoremstyle{bOxE}
+
+\SWAPPP
+\newtheorem{NOTACAO}[Notac]{Nota\c c\~ao}\newtheorem{NOTACOES}[Notac]{Nota\c c\~oes}
+
+\newtheorem{CARACTERISTICA}[Carac]{Caracter\'{\i}stica}\newtheorem{CARACTERISTICAS}[Carac]{Caracter\'{\i}sticas}
+
+\newtheorem{NOTA}[Nota]{Nota}\newtheorem{NOTAS}[Nota]{Notas}
+
+\newtheorem{COMENTARIO}[Coment]{Coment\'ario}\newtheorem{COMENTARIOS}[Coment]{Coment\'arios}
+
+\newtheorem{PROBLEMA}[Prob]{Problema}\newtheorem{PROBLEMAS}[Prob]{Problemas}
+
+\newtheorem{ALGORITMO}[Algo]{Algoritmo}\newtheorem{ALGORITMOS}[Algo]{Algoritmos}
+
+\newtheorem{METODO}[Met]{M\'etodo}\newtheorem{METODOS}[Met]{M\'etodos}
+
+\newtheorem{CRITERIO}[Crit]{Crit\'erio}\newtheorem{CRITERIOS}[Crit]{Crit\'erios}
+
+\newtheorem{CONDICAO}[Cond]{Condi\c c\~ao}\newtheorem{CONDICOES}[Cond]{Condi\c c\~oes}
+\SWAPPP
+
+\theoremstyle{def1}
+
+\SWAPPP
+\newtheorem{PROPRIEDADE}[Propri]{Propriedade}\newtheorem{PROPRIEDADES}[Propri]{Propriedades}
+
+\newtheorem{AFIRMACAO}[Afir]{Afirma\c c\~ao}\newtheorem{AFIRMACOES}[Afir]{Afirma\c c\~oes}
+
+\newtheorem{FATO}[Fat]{Fato}\newtheorem{FATOS}[Fat]{Fatos}
+
+\newtheorem{CONJECTURA}[Conjec]{Conjectura}\newtheorem{CONJECTURAS}[Conjec]{Conjecturas}
+
+\newtheorem{POSTULADO}[Postu]{Postulado}\newtheorem{POSTULADOS}[Postu]{Postulados}
+
+\newtheorem{AXIOMA}[Axio]{Axioma}\newtheorem{AXIOMAS}[Axio]{Axiomas}
+
+\newtheorem{PRINCIPIO}[Prin]{Princ\'{\i}pio}\newtheorem{PRINCIPIOS}[Prin]{Princ\'{\i}pios}
+
+\newtheorem{CONCLUSAO}[Conc]{Conclus\~ao}\newtheorem{CONCLUSOES}[Conc]{Conclus\~oes}
+\SWAPPP
+
+\theoremstyle{def2}
+
+\SWAP
+\newtheorem{DEFINICAO}[De]{Defini\c{c}\~{a}o}\newtheorem{LEMA}[Le]{Lema}
+\newtheorem{PROPOSICAO}[Pro]{Proposi\c{c}\~{a}o}\newtheorem{TEOREMA}[Te]{Teorema}
+\newtheorem{COROLARIO}[Co]{Corol\'{a}rio}
+
+\newtheorem{DEFINICOES}[De]{Defini\c{c}\~{o}es}\newtheorem{LEMAS}[Le]{Lemas}
+\newtheorem{PROPOSICOES}[Pro]{Proposi\c{c}\~{o}es}\newtheorem{TEOREMAS}[Te]{Teoremas}
+\newtheorem{COROLARIOS}[Co]{Corol\'{a}rios}
+\SWAP
+
+\SWAP
+}
+
+\DeclareOption{lamportpage}{}
+
+%\DeclareOption{Lamportpage}{}
+
+\ProcessOptions\relax
+
+\theoremstyle{bOxE}
+
+\SWAP
+
+\SWAPP
+\newtheorem{OBSERVACAO}[Observ]{Observa\c c\~ao}\newtheorem{EXEMPLO}[Exemp]{Exemplo}
+\newtheorem{EXEMPLOS}[Exemp]{Exemplos}\newtheorem{OBSERVACOES}[Observ]{Observa\c{c}\~{o}es}
+\newtheorem{QUESTAO}[Ques]{Quest\~ao}\newtheorem{QUESTOES}[Ques]{Quest\~oes}
+\newtheorem{EXERCICIO}[Exerc]{Exerc\'{\i}cio}\newtheorem{EXERCICIOS}[Exerc]{Exerc\'{\i}cios}
+\SWAPP
+
+\newtheorem{Notacao}[DeLeProTeCo]{Nota\c{c}\~{a}o}
+\newtheorem{Caracteristica}[DeLeProTeCo]{Caracter\'{\i}stica}
+\newtheorem{Nota}[DeLeProTeCo]{Nota}
+\newtheorem{Comentario}[DeLeProTeCo]{Coment\'{a}rio}
+\newtheorem{Problema}[DeLeProTeCo]{Problema}
+\newtheorem{Algoritmo}[DeLeProTeCo]{Algoritmo}
+\newtheorem{Metodo}[DeLeProTeCo]{M\'{e}todo}
+\newtheorem{Criterio}[DeLeProTeCo]{Crit\'{e}rio}
+\newtheorem{Exemplo}[DeLeProTeCo]{Exemplo}
+\newtheorem{Observacao}[DeLeProTeCo]{Observa\c{c}\~{a}o}
+\newtheorem{Questao}[DeLeProTeCo]{Quest\~ao}
+\newtheorem{Exercicio}[DeLeProTeCo]{Exerc\'{\i}cio}
+\newtheorem{Condicao}[DeLeProTeCo]{Condi\c{c}\~{a}o}
+
+\newtheorem{Notacoes}[DeLeProTeCo]{Nota\c{c}\~{o}es}
+\newtheorem{Caracteristicas}[DeLeProTeCo]{Caracter\'{\i}sticas}
+\newtheorem{Notas}[DeLeProTeCo]{Notas}
+\newtheorem{Comentarios}[DeLeProTeCo]{Coment\'{a}rios}
+\newtheorem{Problemas}[DeLeProTeCo]{Problemas}
+\newtheorem{Algoritmos}[DeLeProTeCo]{Algoritmos}
+\newtheorem{Metodos}[DeLeProTeCo]{M\'{e}todos}
+\newtheorem{Criterios}[DeLeProTeCo]{Crit\'{e}rios}
+\newtheorem{Exemplos}[DeLeProTeCo]{Exemplos}
+\newtheorem{Observacoes}[DeLeProTeCo]{Observa\c{c}\~{o}es}
+\newtheorem{Questoes}[DeLeProTeCo]{Quest\~oes}
+\newtheorem{Exercicios}[DeLeProTeCo]{Exerc\'{\i}cios}
+\newtheorem{Condicoes}[DeLeProTeCo]{Condi\c{c}\~{o}es}
+
+\newtheorem*{notacao}{Nota\c{c}\~{a}o}
+\newtheorem*{caracteristica}{Caracter\'{\i}stica}
+\newtheorem*{nota}{Nota}
+\newtheorem*{comentario}{Coment\'{a}rio}    
+\newtheorem*{problema}{Problema}
+\newtheorem*{algoritmo}{Algoritmo}
+\newtheorem*{metodo}{M\'{e}todo}
+\newtheorem*{criterio}{Crit\'{e}rio}
+\newtheorem*{exercicio}{Exerc\'{\i}cio}
+\newtheorem*{questao}{Quest\~{a}o}
+\newtheorem*{exemplo}{Exemplo}
+\newtheorem*{observacao}{Observa\c{c}\~{a}o}
+\newtheorem*{condicao}{Condi\c{c}\~{a}o}
+
+\newtheorem*{notacoes}{Nota\c{c}\~{o}es}
+\newtheorem*{caracteristicas}{Caracter\'{\i}sticas}
+\newtheorem*{notas}{Notas}
+\newtheorem*{comentarios}{Coment\'{a}rios}
+\newtheorem*{problemas}{Problemas}
+\newtheorem*{algoritmos}{Algoritmos}
+\newtheorem*{metodos}{M\'{e}todos}
+\newtheorem*{criterios}{Crit\'{e}rios}
+\newtheorem*{exercicios}{Exerc\'{\i}cios}
+\newtheorem*{questoes}{Quest\~{o}es}
+\newtheorem*{exemplos}{Exemplos}
+\newtheorem*{observacoes}{Observa\c{c}\~{o}es}
+\newtheorem*{condicoes}{Condi\c{c}\~{o}es}
+
+\theoremstyle{def1}
+
+\newtheorem{Propriedade}[DeLeProTeCo]{Propriedade}
+\newtheorem{Afirmacao}[DeLeProTeCo]{Afirma\c{c}\~{a}o}
+\newtheorem{Fato}[DeLeProTeCo]{Fato}
+\newtheorem{Conjectura}[DeLeProTeCo]{Conjectura}
+\newtheorem{Postulado}[DeLeProTeCo]{Postulado}
+\newtheorem{Axioma}[DeLeProTeCo]{Axioma}
+\newtheorem{Principio}[DeLeProTeCo]{Princ\'{\i}pio}
+\newtheorem{Conclusao}[DeLeProTeCo]{Conclus\~{a}o}
+
+\newtheorem{Conclusoes}[DeLeProTeCo]{Conclus\~{o}es}
+\newtheorem{Principios}[DeLeProTeCo]{Princ\'{\i}pios}
+\newtheorem{Axiomas}[DeLeProTeCo]{Axiomas}
+\newtheorem{Postulados}[DeLeProTeCo]{Postulados}
+\newtheorem{Conjecturas}[DeLeProTeCo]{Conjecturas}
+\newtheorem{Fatos}[DeLeProTeCo]{Fatos}
+\newtheorem{Afirmacoes}[DeLeProTeCo]{Afirma\c{c}\~{o}es}
+\newtheorem{Propriedades}[DeLeProTeCo]{Propriedades}
+
+\newtheorem*{propriedade}{Propriedade}
+\newtheorem*{afirmacao}{Afirma\c{c}\~{a}o}
+\newtheorem*{fato}{Fato}
+\newtheorem*{conjectura}{Conjectura}
+\newtheorem*{postulado}{Postulado}
+\newtheorem*{axioma}{Axioma}
+\newtheorem*{principio}{Princ\'{\i}pio}
+\newtheorem*{conclusao}{Conclus\~{a}o}
+
+\newtheorem*{propriedades}{Propriedades}
+\newtheorem*{afirmacoes}{Afirma\c{c}\~{o}es}
+\newtheorem*{fatos}{Fatos}
+\newtheorem*{conjecturas}{Conjecturas}
+\newtheorem*{postulados}{Postulados}
+\newtheorem*{axiomas}{Axiomas}
+\newtheorem*{principios}{Princ\'{\i}pios}
+\newtheorem*{conclusoes}{Conclus\~{o}es}
+
+\theoremstyle{def2}
+
+\newtheorem{definicao}[DeLeProTeCo]{Defini\c{c}\~{a}o}
+\newtheorem{lema}[DeLeProTeCo]{Lema}
+\newtheorem{proposicao}[DeLeProTeCo]{Proposi\c{c}\~{a}o}
+\newtheorem{teorema}[DeLeProTeCo]{Teorema}
+\newtheorem{corolario}[DeLeProTeCo]{Corol\'{a}rio}
+
+\newtheorem*{Definicao}{Defini\c{c}\~{a}o}
+\newtheorem*{Lema}{Lema}
+\newtheorem*{Proposicao}{Proposi\c{c}\~{a}o}
+\newtheorem*{Teorema}{Teorema}
+\newtheorem*{Corolario}{Corol\'{a}rio}
+
+\newtheorem{definicoes}[DeLeProTeCo]{Defini\c{c}\~{o}es}
+\newtheorem{lemas}[DeLeProTeCo]{Lemas}
+\newtheorem{proposicoes}[DeLeProTeCo]{Proposi\c{c}\~{o}es}
+\newtheorem{teoremas}[DeLeProTeCo]{Teoremas}
+\newtheorem{corolarios}[DeLeProTeCo]{Corol\'{a}rios}
+
+\newtheorem*{Definicoes}{Defini\c{c}\~{o}es}
+\newtheorem*{Lemas}{Lemas}
+\newtheorem*{Proposicoes}{Proposi\c{c}\~{o}es}
+\newtheorem*{Teoremas}{Teoremas}
+\newtheorem*{Corolarios}{Corol\'{a}rios}
+
+\newcommand{\cqd}{\hfill$\blacksquare$}\newcommand{\Cqd}{\hfill$\square$}
+\newcommand{\CQd}{\hfill$\blacktriangle$}\newcommand{\CQD}{\hfill$\vartriangle$}
+
+\newenvironment{demonstracao}{\par%
+  \normalfont\topsep6\p@\@plus6\p@\trivlist\item[\hskip\labelsep%
+ {\bf Demonstra\c{c}\~{a}o.}]\hspace{7pt}}%
+  {\vskip 2pt\cqd\endtrivlist}
+
+\newenvironment{Demonstracao}{\par%
+  \normalfont\topsep6\p@\@plus6\p@\trivlist\item[\hskip\labelsep%
+ {\bf Demonstra\c{c}\~{a}o.}]\hspace{7pt}}%
+  {\vskip 2pt\CQd\endtrivlist}
+
+\newenvironment{DEMONSTRACAO}[1]{\par%
+  \normalfont\topsep6\p@\@plus6\p@\trivlist\item[\hskip\labelsep%
+ {\bf Demonstra\c{c}\~{a}o.({#1})}]\hspace{7pt}}%
+  {\vskip 2pt\cqd\endtrivlist}
+
+\newenvironment{solucao}{\par%
+  \normalfont\topsep6\p@\@plus6\p@\trivlist\item[\hskip\labelsep%
+  {\bf Solu\c{c}\~{a}o.}]\hspace{7pt}}%
+  {\vskip 2pt\Cqd\endtrivlist}
+
+\newenvironment{Solucao}{\par%
+  \normalfont\topsep6\p@\@plus6\p@\trivlist\item[\hskip\labelsep%
+  {\bf Solu\c{c}\~{a}o.}]\hspace{7pt}}%
+  {\vskip 2pt\CQD\endtrivlist}
+
+\newenvironment{SOLUCAO}[1]{\par%
+  \normalfont\topsep6\p@\@plus6\p@\trivlist\item[\hskip\labelsep%
+ {\bf Solu\c{c}\~{a}o.({#1})}]\hspace{7pt}}%
+  {\vskip 2pt\Cqd\endtrivlist}
+
+\AtBeginDocument{%
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{\footnotesize
+  {\bf#1.}\quad #2}%
+  \ifdim \wd\@tempboxa >\hsize
+    \footnotesize{\bf#1.}\quad #2\par
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+}
+
+\AtBeginDocument{\renewcommand{\bibname}{Bibliografia}}
+
+\@ifclassloaded{book}{%
+\AtBeginDocument{%
+    \@ifpackagewith{petmatunb}{chaplin}{
+        \def\@makechapterhead#1{%
+        \vspace*{-40\p@}
+        {\parindent \z@ \raggedright \normalfont
+            \ifnum \c@secnumdepth >\m@ne
+            \if@mainmatter
+                \Huge\bfseries\hfill \@chapapp\space \thechapter
+                \par\nobreak
+                \vskip 3\p@ \hrule \vskip 12\p@
+            \fi
+            \fi
+            \interlinepenalty\@M
+            \Huge \bfseries #1\par\nobreak
+            \vskip 20\p@
+        }}
+        \def\@makeschapterhead#1{%
+        \vspace*{-40\p@}%
+        {\parindent \z@ \raggedright
+            \normalfont
+            \interlinepenalty\@M
+            \Huge \bfseries\hfill  #1\par\nobreak
+            \vskip 3\p@ \hrule
+            \vskip 20\p@
+        }}
+        }{}
+  \@ifpackageloaded{fancyheadings}{%
+    \@ifpackagewith{petmatunb}{lamportpage}{%
+    \pagestyle{fancyplain}
+%    \setlength{\marginparsep}{0in}
+%    \setlength{\marginparwidth}{0in}
+%    \setlength{\headsep}{0.25in}
+    \if@twoside
+     \renewcommand{\chaptermark}[1]{\markboth{\@chapapp\ \thechapter.\ {#1}}{}}
+     \renewcommand{\sectionmark}[1]{\markright{\thesection.\ {#1}}}
+    \else
+     \renewcommand{\chaptermark}[1]{%
+      \markboth{\@chapapp\ \thechapter.\ {#1}}{\@chapapp\ \thechapter.\ {#1}}}
+     \renewcommand{\sectionmark}[1]{\markright{\@chapapp\ \thechapter.\ {#1}}}
+    \fi
+    \rhead[\fancyplain{}{\footnotesize\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+    \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\footnotesize\bfseries\rightmark}}
+    \cfoot{}}{}}{}}
+   \setlength{\marginparsep}{0in}
+   \setlength{\marginparwidth}{0in}
+   \setlength{\headsep}{0.25in}
+}{}%
+
+\@ifclassloaded{article}{%
+\AtBeginDocument{%
+  \@ifpackageloaded{fancyheadings}{%
+    \@ifpackagewith{petmatunb}{lamportpage}{%
+    \pagestyle{fancyplain}
+    \setlength{\marginparsep}{0in}
+    \setlength{\marginparwidth}{0in}
+    \setlength{\headsep}{0.25in}
+    \if@twoside
+     \renewcommand{\sectionmark}[1]{\markboth{Se\cao\ \thesection.\ {#1}}{}}
+     \renewcommand{\subsectionmark}[1]{\markright{\thesubsection.\ {#1}}}
+    \else
+     \renewcommand{\sectionmark}[1]{\markboth{Se\cao\ \thesection.\ {#1}}{Se\cao\ \thesection.\ {#1}}}
+     \renewcommand{\subsectionmark}[1]{\markright{Se\cao\ \thesection.\ {#1}}}
+    \fi
+    \rhead[\fancyplain{}{\footnotesize\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+    \lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\footnotesize\bfseries\rightmark}}
+    \cfoot{}}{}}{}}%
+}{}%
+
+\endinput
+
+%%opcional similar ao \pagestyle{fancy} do pacote fancyheadings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareOption{fancypet}{%
+\def\ps@fpet{%
+\def\@mkboth{\protect\markboth}
+\@ifundefined{chapter}{\def\sectionmark##1{\markboth
+{\ifnum \c@secnumdepth>\z@
+ {\footnotesize\bfseries\thesection}\hskip 1em\relax\fi{\footnotesize\bfseries##1}}{}}
+\def\subsectionmark##1{\markright {\ifnum \c@secnumdepth >\@ne
+ {\footnotesize\bfseries\thesubsection}\hskip 1em\relax\fi{\footnotesize\bfseries##1}}}}
+{\def\chaptermark##1{\markboth {\ifnum \c@secnumdepth>\m@ne
+ {\footnotesize\bfseries\@chapapp\ \thechapter. \ }\fi{\footnotesize\bfseries##1}}{}}
+\def\sectionmark##1{\markright{\ifnum \c@secnumdepth >\z@
+ {\footnotesize\bfseries\thesection. \ }\fi{\footnotesize\bfseries##1}}}}
+\ps@@fpet
+\global\let\ps@fpet\ps@@fpet
+\headwidth\textwidth}
+\def\ps@fancyplain{\ps@fpet \let\ps@plain\ps@plain@fpet}
+\def\ps@plain@fpet{\@fancyplaintrue\ps@@fpet}
+\def\ps@@fpet{
+\def\@oddhead{\@fancyhead\@lodd\@olhead\@ochead\@orhead\@rodd}
+\def\@oddfoot{\@fancyfoot\@lodd\@olfoot\@ocfoot\@orfoot\@rodd}
+\def\@evenhead{\@fancyhead\@rodd\@elhead\@echead\@erhead\@lodd}
+\def\@evenfoot{\@fancyfoot\@rodd\@elfoot\@ecfoot\@erfoot\@lodd}
+}
+\AtBeginDocument{\pagestyle{fpet}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

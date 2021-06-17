@@ -1,0 +1,11 @@
+bianka 44
+celius 2
+arthur 30
+ 100
+lemos 150
+arianny 30
+guy 200
+keti 250
+guy 299  210  89
+guy 299  124  175
+arthur 298  103  195

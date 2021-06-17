@@ -1,0 +1,289 @@
+
+///////                 assinatura do documento
+
+ \d admin_assinatura;
+                                         Table "public.admin_assinatura"
+    Column     |         Type          |                                Modifiers
+---------------+-----------------------+--------------------------------------------------------------------------
+ id_assinatura | integer               | not null default nextval('admin_assinatura_id_assinatura_seq'::regclass)
+ nome          | character varying(60) | not null
+ cargo         | character varying(60) | not null
+Indexes:
+    "admin_assinatura_pkey" primary key, btree (id_assinatura)
+
+
+
+\d admin_assinatura_id_assinatura_seq;
+Sequence "public.admin_assinatura_id_assinatura_seq"
+    Column     |  Type
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+//  destinos
+
+ \d admin_departamento;
+                                            Table "public.admin_departamento"
+      Column      |         Type          |                                  Modifiers
+------------------+-----------------------+------------------------------------------------------------------------------
+ id_departamento  | integer               | not null default nextval('admin_departamento_id_departamento_seq'::regclass)
+ nomedepartamento | character varying(30) | not null
+ sigla            | character varying(3)  |
+ descricao        | character varying(80) |
+ fone             | character varying(15) |
+ pessoadecontato  | character varying(40) |
+ rua              | character varying(30) |
+ bairro           | character varying(50) |
+ cidade           | character varying(35) |
+ uf               | character(2)          | default 'DF'::bpchar
+ cep              | character varying(8)  | default '72000000'::character varying
+Indexes:
+    "admin_departamento_pkey" primary key, btree (id_departamento)
+
+
+
+nce "public.admin_departamento_id_departamento_seq"
+    Column     |  Type
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+
+///  Documento
+
+
+\d admin_documentador;
+                                           Table "public.admin_documentador"
+     Column      |         Type          |                                  Modifiers
+-----------------+-----------------------+------------------------------------------------------------------------------
+ id_documentador | integer               | not null default nextval('admin_documentador_id_documentador_seq'::regclass)
+ id_tipo         | integer               | not null
+ numerodocumento | integer               | not null
+ id_departamento | integer               |
+ mensagem        | text                  |
+ desfecho        | text                  |
+ id_assinatura   | integer               |
+ assunto         | text                  |
+ anexo           | text                  |
+ data            | character varying(80) |
+ vocativo        | character varying(50) |
+ via             | character varying(80) |
+Indexes:
+    "admin_documentador_pkey" primary key, btree (id_documentador)
+Foreign-key constraints:
+    "idt_assinatura" FOREIGN KEY (id_assinatura) REFERENCES admin_assinatura(id_assinatura) ON UPDATE CASCADE ON DELETE CASCADE
+    "tipo_documento" FOREIGN KEY (id_tipo) REFERENCES admin_tipo(id_tipo) ON UPDATE CASCADE ON DELETE CASCADE
+    "nome_departamento" FOREIGN KEY (id_departamento) REFERENCES admin_departamento(id_departamento) ON UPDATE CASCADE ON DELETE CASCADE
+
+
+   \d admin_documentador_id_documentador_seq;
+Sequence "public.admin_documentador_id_documentador_seq"
+    Column     |  Type
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+
+/// Modelo de documento
+
+  si=> \d admin_modelo;
+                              Table "public.admin_modelo"
+  Column   |  Type   |                            Modifiers
+-----------+---------+------------------------------------------------------------------
+ id_modelo | integer | not null default nextval('admin_modelo_id_modelo_seq'::regclass)
+ id_tipo   | integer | not null
+ campo_1   | text    |
+ campo_2   | text    |
+ campo_3   | text    |
+ campo_4   | text    |
+ campo_5   | text    |
+ campo_6   | text    |
+ campo_7   | text    |
+ campo_8   | text    |
+ campo_9   | text    |
+Indexes:
+    "id_modelo" primary key, btree (id_modelo)
+Foreign-key constraints:
+    "idtr_tipo" FOREIGN KEY (id_tipo) REFERENCES admin_tipo(id_tipo) ON UPDATE CASCADE ON DELETE CASCADE
+
+
+ \d admin_modelo_id_modelo_seq;
+Sequence "public.admin_modelo_id_modelo_seq"
+    Column     |  Type
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+
+// rascunho do documento
+
+
+ si=> \d admin_rascunho;
+                                           Table "public.admin_rascunho"
+     Column      |         Type          |                                Modifiers
+-----------------+-----------------------+--------------------------------------------------------------------------
+ id_documentador | integer               | not null default nextval('admin_rascunho_id_documentador_seq'::regclass)
+ id_tipo         | integer               | not null
+ id_departamento | integer               |
+ vocativo        | character varying(50) |
+ mensagem        | text                  |
+ desfecho        | text                  |
+ id_assinatura   | integer               |
+ assunto         | text                  |
+ anexo           | text                  |
+ data            | character varying(80) |
+ via             | character varying(80) |
+Indexes:
+    "id_documentador" primary key, btree (id_documentador)
+Foreign-key constraints:
+    "idtr_assinatura" FOREIGN KEY (id_assinatura) REFERENCES admin_assinatura(id_assinatura) ON UPDATE CASCADE ON DELETE CASCADE
+    "tipor_documento" FOREIGN KEY (id_tipo) REFERENCES admin_tipo(id_tipo) ON UPDATE CASCADE ON DELETE CASCADE
+    "nomer_departamento" FOREIGN KEY (id_departamento) REFERENCES admin_departamento(id_departamento) ON UPDATE CASCADE ON DELETE CASCADE
+
+
+si=> \d admin_rascunho_id_documentador_seq;
+Sequence "public.admin_rascunho_id_documentador_seq"
+    Column     |  Type
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+// Tipo de documento
+
+ si=> \d admin_tipo;
+                                    Table "public.admin_tipo"
+  Column   |         Type          |                          Modifiers
+-----------+-----------------------+--------------------------------------------------------------
+ id_tipo   | integer               | not null default nextval('admin_tipo_id_tipo_seq'::regclass)
+ nometipo  | character varying(30) | not null
+ sigla     | character varying(30) |
+ antigo    | integer               |
+ novo      | integer               |
+ parametro | integer               |
+Indexes:
+    "admin_tipo_pkey" primary key, btree (id_tipo)
+
+
+ si=> \d admin_tipo_id_tipo_seq;
+Sequence "public.admin_tipo_id_tipo_seq"
+    Column     |  Type
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+
+
+////  usuario do sis.
+
+si=> \d admin_usuario;
+                                       Table "public.admin_usuario"
+   Column   |          Type          |                             Modifiers
+------------+------------------------+--------------------------------------------------------------------
+ id_usuario | integer                | not null default nextval('admin_usuario_id_usuario_seq'::regclass)
+ nome       | character varying(80)  | not null
+ login      | character varying(80)  | not null
+ senha      | character varying(100) | not null
+ permissao  | character varying(4)   |
+Indexes:
+    "admin_usuario_pkey" primary key, btree (id_usuario)
+
+
+ si=> \d admin_usuario_id_usuario_seq ;
+Sequence "public.admin_usuario_id_usuario_seq"
+    Column     |  Type
+---------------+---------
+ sequence_name | name
+ last_value    | bigint
+ increment_by  | bigint
+ max_value     | bigint
+ min_value     | bigint
+ cache_value   | bigint
+ log_cnt       | bigint
+ is_cycled     | boolean
+ is_called     | boolean
+
+
+
+
+---------------------------------------------------------
+
+gerar1.php MANDA PARA E CRIA FORMULARIOS NO if:
+
+  <form action='gerar_modelo.php' method='post'>
+  ou
+  <form action='gerar_documento.php' method='post'>
+
+
+gerar_documento.php  MANDA PARA  ati.php
+gerar_modelo.php  MANDA PARA  ati.php
+
+
+OPERA-SE NO DOCUMENTO GERADO NO ati.php
+
+
+if ($acao == "Salvar Rascunho") então <form method='post' action='ati.php'>
+
+else if($acao=="Rascunho") então  <form method='post' action='ati.php'>
+
+else if($acao=="Definitivo") então <form method='post' action='operacao_2.php'>
+
+else if ($acao=="Visualizar") então 	$tmpfname = tempnam("/var/tmp/", "XDLD");
+					exec("cat ./modelo_tex/".$arquivo." > ".$tmpfname.".tex");
+					Header("Content-type: application/pdf");
+
+
+
+operacao_2.php: if ($acao2 == "Confirmar") então <form method='post' action='operacao_2.php'> (visualizar e/ou gravar def.)
+		else if($acao2=="Visualizar") então	$tmpfname = tempnam("../Tex", "ABAB");
+						        exec("cat ../modelo_tex/".$arquivo." > ".$tmpfname.".tex");
+						        Header("Content-type: application/pdf");
+Como o pdflatex é rodado? em qual máquina? 
+

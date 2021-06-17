@@ -1,0 +1,23 @@
+<?php
+
+require "conexao.php";
+
+if ($acao == "Inserir")
+	{
+	$sel="SELECT * FROM documentador WHERE id_tipo='$id_tipo'";
+
+	$resultado=pg_query($sel) or die ("N\xe3o foi poss\xedvel realizar a consulta ao banco de dados");
+
+	$contador=pg_num_rows($resultado) + 1;
+	
+	
+	$ins1="INSERT INTO documentador (id_documentador,id_tipo,numerodocumento,id_departamentos,vocativo,mensagem,desfecho,id_assinaturas) VALUES (default,'$id_tipo','$contador','$id_departamentos','$vocativo','$mensagem','$desfecho','$assinatura')";
+
+	$resultado1=pg_query($ins1) or die("N\xe3o foi poss\xedvel inserir os dados no banco 1");
+
+	pg_close($conn);
+
+	header("Location: operacao_ok.php");
+	exit;
+	}
+?>

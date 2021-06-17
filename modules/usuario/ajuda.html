@@ -1,0 +1,118 @@
+<html>
+<head>
+<link type="text/css" rel="stylesheet" href="../../global/grafic.css">
+<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+		P.western { so-language: pt-BR }
+		A:link { so-language: zxx }
+		A:visited { so-language: zxx }
+	-->
+	</STYLE>
+<title>
+O Servidor Administrativo
+</title>
+<script language="JavaScript"> 
+function mostra1() { document.all.font21.style.display = ""; } 
+function apaga1() { document.all.font21.style.display = "none"; }
+function mostra2() { document.all.font22.style.display = ""; } 
+function apaga2() { document.all.font22.style.display = "none"; }
+function mostra3() { document.all.font23.style.display = ""; } 
+function apaga3() { document.all.font23.style.display = "none"; }
+</script> 
+</head>
+<body>
+<center><font size="4" color="#0000AA"><h1>O módulo de "Gerenciador de Usuários" </h1></font></center>
+
+<font size="4" id="font11" onclick="mostra1()" color="#0000AA"> <h1>1- A função
+&quot;Adicionar Usuário&quot; </h1></font> <p> 
+<font size="3" id="font21" style="display: none" onclick="apaga1()"> 
+Serve para adicionar um novo usuário ao sistema. <br>
+Todos os campos devem ser preenchidos corretamente .<br>
+<br>
+Antes de cadastrar um usuário, certifique-se de que ele não está cadastrado. <br>
+Se já  estiver cadastrado use a função “ modifica usuário”.<br>
+<br><br>
+<h2>1-1 Dados Pessoais: </h2><br>
+Preencher com nome e sobrenome. <br>
+O endereço deve estar correto com CEP válido. <br>
+<br><br>
+No caso de visitante, deve-se colocar o endereço de origem (Se for professor visitante, colocar o endereço da instituição de origem). <br>
+O telefone residencial pode ser um telefone celular (não esquecer o DDD). <br>
+<br><br>
+
+<h2>1-2 Endereço Eletrônico: </h2><br>
+É importante preencher pelo menos um dos campos. <br>
+<br><br>
+<h2>1-3 Documentos: </h2><br>
+
+Em todos os casos, os números de matrícula, identidade, CPF e passaporte NÃO podem ser inventados!<br><br>
+
+Caso um professor ou um funcionário (recém contratado) do quadro ainda sem matrícula deseja ser cadastrado, ele deve ser cadastrado como VISITANTE. <br><br>
+
+<b>O STATUS DE UM USUÁRIO SÓ PODE SER ALTERADO SE ELE TIVER A SUA NOVA  MATRÍCULA.</b><br><br>
+
+No caso de "visitante" e/ou "estagiário" não há necessidade de CPF ou matrícula. Mas é necessário colocar um número de Identidade ou de passaporte para diferenciar dois usuários com mesmo nome. <br><br>
+
+
+<h2>1-4 Dados profissionais:</h2><br>
+O preenchimento começa com o “status”. <br>
+A data de admissão é a data do cadastro.<br>
+O tipo contratual DEVE ser colocado. Caso o usuário seja visitante, não há necessidade de tipo contratual.<br>
+O nível é obrigatório no cadastro de professor do quadro, assim como a especialidade (ou área de atuação). <br>
+No caso de alunos de mestrado ou doutorado, deve-se especificar o tipo de  bolsa, qual é a área e qual é o orientador.  <br>
+Caso o aluno ainda não tenha orientador, colocar “indefinido” no campo “Professor Orientador”.<br>
+
+<br><br>
+Uma vez digitadas as informações, checar para ver se há erros antes de clicar em “enviar dados”.<br> 
+Uma vez enviados os dados, o usuário será cadastrado. <br>
+<br>
+Em seguida, aparece uma tela solicitando um login (ou nome de usuário).  O usuário define o seu login. O funcionário que efetua o cadastro não pode definir o login do usuário. A senha é atribuída automaticamente. <br>
+Não sair da tela com os dados da conta. Caso o arquivo em pdf contendo os dados da conta do usuário não possa ser impresso, o funcionário deve deixar o usuário anotar sua senha.<br> 
+</font> 
+
+<font size="4" id="font12" onclick="mostra2()" color="#0000AA"> <h1>2- A função "modifica usuario ”: </h1></font> <p> 
+<font size="3" id="font22" style="display: none" onclick="apaga2()"> 
+Esta função serve para modificar/corrigir dados cadastrais do usuário.<br>
+
+Assim que o usuário for selecionado, os seus dados aparecem nos respectivos campos. <br>
+<br>
+<b>ATENÇÃO: O número de matrícula só pode ser alterado se o status e o tipo contratual também mudarem. Neste caso (e somente neste caso), deve-se preencher o campo “nova admissão”.</b>
+<br><br>
+O campo “Data de encerramento” só pode ser alterada se o usuário precisar de mais tempo para continuar na sua função sem modificar o seu status. Por exemplo, é o caso de alunos de mestrado ou doutorado que precisam de mais tempo antes da defesa da tese.  <br>
+<br>
+Os campos “Nível”, “Professor Orientador”, “Bolsista”, “Especialidade” podem ser alterados     independentemente dos outros campos. <br>
+<br>
+O campo “Situação” deve ser atualizado nas seguintes situações: <br>
+1.o aluno usuário aluno defendeu sua tese;<br>
+2.o aluno usuário foi desligado abandonou; <br>
+3.o professor usuário foi redistribuído;<br>
+4.o professor usuário aposentou-se.<br>
+</font>
+
+
+<font size="4" id="font13" onclick="mostra3()" color="#0000AA"> <h1>3- A função "Pesquisa de usuários”: </h1></font> <p> 
+<font size="3" id="font23" style="display: none" onclick="apaga3()"> 
+Serve para pesquisar dados de usuários. <br>
+Basta selecionar os dados desejados marcando as caixas correspondentes. <br>
+A pesquisa pode ser coletiva ou individual.
+</font>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

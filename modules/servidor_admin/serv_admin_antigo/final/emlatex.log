@@ -1,0 +1,16 @@
+This is pdfTeX, Version 3.14159-1.10b (Web2C 7.4.5) (format=pdftex 2003.10.7)  12 MAY 2005 17:28
+**emlatex.tex
+(./emlatex.tex{/usr/local/share/texmf/pdftex/config/pdftex.cfg}
+! Undefined control sequence.
+l.1 \begin
+          {document}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[1{/usr/local/share/texmf/dvips/config/pdftex.map}] ){/usr/local/share/texmf/dv
+ips/tetex/f7b6d320.enc}</usr/local/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb
+>
+Output written on emlatex.pdf (1 page, 6688 bytes).

@@ -1,0 +1,187 @@
+<?php
+require "verifica.php";
+
+$tipo_documento=$_POST["tipo_documento"];
+?>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>Departamento de Matemática - UnB</title><style type="text/css" media="all">@import "style.css";</style></head>
+
+
+<body>
+<div id="Header">
+</div>
+
+<div id="Content">
+	<h1>Gerar Documento</h1>
+
+
+
+<form action='ati.php' method='post'>
+
+<table>
+
+	<tr><td width='20%'><p>Tipo de Documento:</p></font></td>
+                <td><select name= 'dado[]' size='1'>
+                <?php
+                require "conexao.php";
+                $res=pg_query("SELECT nometipo FROM tipos WHERE id_tipo='$tipo_documento'")
+                or die ("Não foi possível consultar o banco.");
+                $registro=pg_fetch_row($res,$i);
+                $nome=$registro[0];
+                echo"<option value=\"$tipo_documento\">$nome</option>";
+                ?>
+                </select></td></tr><br>
+
+	
+<?php
+
+	if(($_POST["tipo_documento"])=="1" || ($_POST["tipo_documento"])=="3") //memorando ou ofício
+	{
+?>
+           
+		<tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Destino:</p></font></td>
+        	<td><select name= 'dado[]' size='1'>
+		<?php
+                require "conexao.php";
+                $res1=pg_query("SELECT id_departamentos,nomedepartamento FROM departamentos") or die ("Não foi possível consultar o banco.");
+                while($registro1=pg_fetch_row($res1,$i))
+                {
+                        $cod1=$registro1[0];
+                        $nome1=$registro1[1];
+                        echo"<option value=$cod1>$nome1</option>\n";
+                }
+        	?>
+		</select></td></tr>
+
+
+           <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assunto:</p></font></td>
+           <td><input name='dado[]' type='text' size=60 ></td></tr>
+
+
+           <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Anexo(s):</p></font></td>
+           <td><input name='dado[]' type='text' size=60 ></td></tr>
+
+
+           <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Vocativo:</p></font></td>
+           <td><input name='dado[]' type='text' size=60 ></td></tr>
+        
+
+           <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Mensagem:</p></font></td>
+	   <td><TEXTAREA name= 'dado[]' rows=10 cols=60>Insira aqui a mensagem.
+                        </TEXTAREA></td></tr>
+        
+        
+           <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Desfecho:</p></font></td>
+           <td><input name='dado[]' type='text' size=60></td></tr>
+        
+        
+           <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
+
+           <td><select name= 'dado[]' size='1'>
+                        
+		<?php
+                $res2=pg_query("SELECT id_assinaturas,nome FROM assinaturas") or die ("Não foi possível consultar o banco.");
+                while($registro2=pg_fetch_row($res2,$i))
+                {
+                        $cod2=$registro2[0];
+                        $nome2=$registro2[1];
+                        echo"<option value=$cod2>$nome2</option>\n";
+                }
+        	?>
+
+		</select></td></tr>
+<?php 
+	} 
+
+	else if($_POST["tipo_documento"]=="2") //circular
+	{
+?>
+
+           <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Remetente:</p></font></td>
+           <td><select name= 'dado[]' size='1'>
+
+                <?php
+                $res2=pg_query("SELECT id_assinaturas,nome FROM assinaturas") or die ("Não foi possível consultar o banco.");
+                while($registro2=pg_fetch_row($res2,$i))
+                {
+                        $cod2=$registro2[0];
+                        $nome2=$registro2[1];
+                        echo"<option value=$cod2>$nome2</option>\n";
+                }
+                ?>
+
+                </select></td></tr>
+
+
+	   <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Destinatário:</p></font></td>
+           <td><select name='dado[]' type='text' size='1' >
+		<option value='Professores do MAT'>Professores do MAT</option>
+		<option value='Funcionários da Secretaria do MAT'>Funcionários da Secretaria do MAT</option>
+		<option value='Estagiários do MAT'>Estagiários do MAT</option>
+		</select></td></tr>
+
+
+           <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Vocativo:</p></font></td>
+           <td><input name='dado[]' type='text' size=60 ></td></tr>
+
+
+           <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Mensagem:</p></font></td>
+           <td><TEXTAREA name= 'dado[]' rows=10 cols=60>Insira aqui a mensagem.
+                        </TEXTAREA></td></tr>
+
+
+           <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Desfecho:</p></font></td>
+           <td><input name='dado[]' type='text' size=60></td></tr>
+
+<?php } 
+	else if($_POST["tipo_documento"]=="4") //ato
+	{
+?>
+
+	<tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Mensagem:</p></font></td>
+           <td><TEXTAREA name= 'dado[]' rows=10 cols=60>Insira aqui a mensagem.    
+		</TEXTAREA></td></tr>
+
+	<tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
+ 
+           <td><select name= 'dado[]' size='1'>
+ 
+                <?php
+                $res2=pg_query("SELECT id_assinaturas,nome FROM assinaturas") or die ("Não foi possível consultar o banco.");
+                while($registro2=pg_fetch_row($res2,$i))
+                {
+                        $cod2=$registro2[0];
+                        $nome2=$registro2[1];
+                        echo"<option value=$cod2>$nome2</option>\n";
+                }
+                ?>
+ 
+                </select></td></tr>
+
+<?php } 
+	else if($_POST["tipo_documento"]=="5") //ata
+	{
+?>	   
+
+	<tr><td width='20%'></td>
+           <td><TEXTAREA name= 'dado[]' rows=30 cols=60>Descreva aqui a ata da reunião.
+                        </TEXTAREA></td></tr> 
+
+
+<?php } ?>
+
+	 </table>
+<br>
+
+        <input name='acao' type='submit' value='Visualizar'>
+        <input name='acao' type='submit' value='Salvar Rascunho'>
+        <input type='reset' value='Limpar'>
+
+</form>
+</div>
+
+	
+<?php require "menu.php"; ?>
+</body></html>

@@ -1,0 +1,49 @@
+# Copyright (c) 2003 by James A. McQuillan (McQuillan Systems, LLC)
+#
+# This software is licensed under the Gnu General Public License.
+# The full text of which can be found at http://www.LTSP.org/license.txt
+#
+#
+# Config file for the Linux Terminal Server Project (www.ltsp.org)
+#
+
+[Default]
+        SERVER             = 172.16.38.5
+        XSERVER            = auto
+        USE_XFS            = N
+        SCREEN_01          = startx
+        SCREEN_02          = shell
+        X_MODE_0                = 800x600
+        X_VERTREFRESH           = "55-70"
+        X_MOUSE_PROTOCOL        = "Microsoft"
+        X_MOUSE_DEVICE          = "/dev/ttyS0"
+        X_MOUSE_RESOLUTION      = 400
+        X_MOUSE_BUTTONS         = 2
+        LOCAL_APPS              = N
+        USE_NFS_SWAPP           = N
+        RUNLEVEL                = 5
+        XkbRules                = "xfree86"
+        XkbModel                = "pc104"
+        XkbLayout               = "us_intl"
+        LOCAL_STORAGE = Y
+        MODULE_01 = ohci-hcd
+        MODULE_02 = snd-als4000
+        MODULE_03 = snd-pcm-oss
+        SOUND=Y
+        SOUND_DAEMON=esd
+        VOLUME=100
+        CD_VOLUME=100
+        MIC_VOLUME=100
+
+
+
+
+
+#         X_MOUSE_PROTOCOL   = "PS/2"
+#         X_MOUSE_DEVICE     = "/dev/psaux"
+#         X_MOUSE_RESOLUTION = 400
+#         X_MOUSE_BUTTONS    = 3
+#         XkbLayout               = "us_intl"
+#	  RCFILE_01               = "floppyd"
+
+

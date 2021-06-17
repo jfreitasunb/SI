@@ -1,0 +1,89 @@
+<tr>
+	<td align="center">
+		<table class="form">
+			<tr>
+				<td class="header" align="center" colspan="3">
+					Editar Semestre
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="beginning">In&iacute;cio</label>
+				</td>
+				<td>
+					<input name="beginning" id="beginning" value="{semester_beginning}">
+				</td>
+				<td>
+					<label id="beginning-error" class="error" for="beginning"></label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="end">Fim</label>
+				</td>
+				<td>
+					<input name="end" id="end" value="{semester_end}">
+				</td>
+				<td>
+					<label id="end-error" class="error" for="end"></label>
+				</td>
+			</tr>
+			<tr><td colspan="3"><br></td></tr>
+			<tr><td colspan="3">
+				<div class="credits">
+					<div class="title"><div class="text">Carga Existente</div></div>
+					<div class="title type"><div class="text">Gradua&ccedil;&atilde;o</div></div>
+					<div class="title type"><div class="text">P&oacute;s</div></div>
+					<div class="title type"><div class="text">Outros</div></div>
+					<div class="title type"><div class="text">Total</div></div>
+					<div class="type data"><div class="text">{credits_class_graduation}</div></div>
+					<div class="type data"><div class="text">{credits_class_post}</div></div>
+					<div class="type data"><div class="text">{credits_other}</div></div>
+					<div class="type data"><div class="text">{credits_total}</div></div>
+					<div class="clear"></div>
+				</div>
+				<div class="credits professor">
+					<div class="title type"><div class="text">N&ordm; Prof.</div></div>
+					<div class="type"><div class="text">{credits_professors}</div></div>
+					<div class="title type"><div class="text">M&eacute;dia</div></div>
+					<div id="mean" class="type"><div class="text">{credits_mean}</div></div>
+					<div class="clear"></div>
+				</div>
+			</td></tr>
+			<tr><td colspan="3"><br></td></tr>
+			<tr>
+				<td>
+					<label for="average_credits">Carga M&eacute;dia</label>
+				</td>
+				<td>
+					<input name="average_credits" value="{semester_average_credits}">
+				</td>
+				<td>
+					<label id="average_credits-error" class="error" for="average_credits"></label>
+				</td>
+			</tr>
+			<tr><td colspan="3"><br></td></tr>
+			<tr>
+				<td>
+					<label for="status">Etapa</label>
+				</td>
+				<td>
+					<select name="status">
+						<!-- BEGIN add_stage -->
+						<option value="{stage_id}" <!-- BEGIN stage_selected --> selected="selected" <!-- END stage_selected -->>{stage_description}</option>
+						<!-- END add_stage -->
+					</select>
+				</td>
+				<td>
+					<label id="status-error" class="error" for="status"></label>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+<tr><td><br></td></tr>
+<tr>
+	<td align="center">
+		<input type="submit" value="Salvar">
+	</td>
+</tr>

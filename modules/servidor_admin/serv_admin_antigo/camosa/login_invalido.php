@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+
+<title>Servidor Administrativo</title><style type="text/css" media="all">@import "style.css";</style></head>
+
+<body>
+
+<div id="Header"></div>
+
+<div id="Content">
+        <h1>Autenticação Inválida</h1>
+        <p> O login fornecido não existe! </p>
+        <p><a href="login1.html"> Retornar</a>
+        </p>
+</div>
+</body></html>

@@ -1,0 +1,139 @@
+<?php
+
+require "verifica.php";
+
+$acao = $_POST ['acao'];
+$id_tipo = $_POST['id_tipo'];
+$id_departamentos = $_POST['id_departamentos'];
+$assunto = $_POST['assunto'];
+$anexo = $_POST['anexo'];
+$vocativo = $_POST['vocativo'];
+$mensagem = $_POST['mensagem'];
+$desfecho = $_POST['desfecho'];
+$assinatura = $_POST['assinatura'];
+$data = strftime("%d/%m/%Y");
+
+if ($acao){
+
+if ( !$assunto || !$vocativo || !$mensagem || !$desfecho )
+	{
+
+echo "
+<head>
+<meta http-equiv='content-type' content='text/html; charset=iso-8859-1'>
+<title>Servidor Administrativo</title><style type='text/css' media='all'>@import 'style.css';</style></head>
+
+
+<body>
+
+<div id='Header'></div>
+<div id='Content'>
+        <h1>Atenção!</h1>
+<p> É necessário preencher todos os campos, exceto o campo <b>Anexo(s)</b>. Clique no <i>link</i> abaixo para retornar. </p>
+<p><a href='javascript:history.back();'> Retornar</a></p>
+
+<br>
+<div id='Menu'>
+        <a><i>Menu</i> Documentos</a><br>
+	<a href='exercicio_insere.php'>Gerar</a><br>
+        <a href='exercicio_edita.php'>Editar</a><br>
+	<a href='exercicio_edita_lista.php'>Buscar</a><br>
+        <a href='sair.php'>Sair</a><br>
+
+</div>
+</body></html> ";
+}
+
+else {
+require "conexao.php"; 
+
+if ($acao == "Salvar Rascunho")
+        {
+
+$ins1="INSERT INTO rascunho (id_documentador,id_tipo,id_departamentos,vocativo,mensagem,desfecho,
+id_assinaturas,assunto,anexo,data) VALUES (default,'$id_tipo','$id_departamentos','$vocativo','$mensagem','$desfecho','$assinatura','$assunto','$anexo','$data')";
+
+$resultado1=pg_query($ins1) or die("N\xe3o foi poss\xedvel inserir os dados no banco rascunho.");
+
+
+
+echo "
+
+<head>
+<meta http-equiv='content-type' content='text/html; charset=iso-8859-1'>
+<title>Servidor Administrativo</title><style type='text/css' media='all'>@import 'style.css';</style></head>
+
+
+<body>
+<div id='Header'></div>
+<div id='Content'>
+        <h1>Servidor Administrativo</h1>
+<p> O documento foi inserido como <i>rascunho</i>. Para que ele possa ser impresso, clique no botão abaixo.</p>
+
+<br>
+<form method='post' action='t2_mod.php'>
+<div align='center'>
+    <input name='id_tipo' type='hidden' value='$id_tipo'>
+    <input name='id_departamentos' type='hidden' value='$id_departamentos'>
+    <input name='assunto' type='hidden' value='$assunto'>
+    <input name='anexo' type='hidden' value='$anexo'>
+    <input name='vocativo' type='hidden' value='$vocativo'>
+    <input name='mensagem' type='hidden' value='$mensagem'>
+    <input name='desfecho' type='hidden' value='$desfecho'>
+    <input name='assinatura' type='hidden' value='$assinatura'>
+    <input name='data' type='hidden' value='$data'>
+    <input type='submit' name='Submit' value='Visualizar para Impressão'>
+</div>
+
+<div id='Menu'>
+	<a><i>Menu</i> Documentos</a><br>
+        <a href='exercicio_insere.php'>Gerar</a><br>
+        <a href='exercicio_edita.php'>Editar</a><br>
+	<a href='exercicio_edita_lista.php'>Buscar</a><br>
+        <a href='sair.php'>Sair</a><br>
+</div>
+</body></html> ";
+}
+	else   
+	{
+
+require('html2pdf.php');
+
+// busca pela sigla do "tipo de documento"
+$most="SELECT sigla FROM tipos WHERE id_tipo = '$id_tipo'";
+$resultado=pg_query($most) or die("Não foi possível executar a operação. Contacte a Coordenação de I
+nformática.");
+$row= pg_fetch_row($resultado,$i);
+
+// busca pelo "destino"
+$most1="SELECT nomedepartamento FROM departamentos WHERE id_departamentos = '$id_departamentos'";
+$resultado1=pg_query($most1) or die("Não foi possível executar a operação. Contacte a Coordenação de I
+nformática.");
+$row1= pg_fetch_row($resultado1,$i);
+
+// busca pelo "nome" e "cargo" de assinatura
+$most2="SELECT nome,cargo FROM assinaturas WHERE id_assinaturas = '$assinatura'";
+$resultado2=pg_query($most2) or die("Não foi possível executar a operação. Contacte a Coordenação de I
+nformática.");
+$row2= pg_fetch_row($resultado2,$i);
+
+
+	$pdf =& new createPDF(
+		$row[0],
+		"XX",
+		$row1[0],
+		$assunto,
+		$anexo,
+		$vocativo,
+		$mensagem,
+		$desfecho,
+		$data,
+		$row2[0],
+		$row2[1]
+	);
+    $pdf->run();
+
+}	
+}
+}
+?>

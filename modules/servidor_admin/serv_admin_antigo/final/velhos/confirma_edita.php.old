@@ -1,0 +1,103 @@
+<?php
+
+require "verifica.php";
+
+?>
+
+<html>
+<head>
+  <title>Servidor Administrativo</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+body {
+	scrollbar-face-color: #DEE3E7;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-shadow-color: #DEE3E7;
+	scrollbar-3dlight-color: #D1D7DC;
+	scrollbar-arrow-color:  #006699;
+	scrollbar-track-color: #EFEFEF;
+	scrollbar-darkshadow-color: #98AAB1;
+}
+</style>
+
+<body leftmargin="2" topmargin="0">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF">
+  <tr>
+    <td width="15%" height="43">
+      <div align="center"><img src="figuras/logo_car.gif" width="80" height="80"></div>
+    </td>
+    <td colspan="3" valign="middle" height="43">
+      <div align="center"><font size="4" face="Verdana, Arial, Helvetica, sans-serif" color="#990000"><strong><font color="#014D74">Confirma
+      Edi&ccedil;&atilde;o de Novo Documento</font></strong></font></div>
+    </td>
+    <td width="15%" height="43">
+      <div align="center"><img src="figuras/c1.gif" width="80" height="80"></div>
+    </td>
+  </tr>
+</table>
+<div align="justify"> <font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#990000"><b>
+  <center>
+  </center>
+</b></font></div>
+<br>
+<br>
+
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr> 
+    <td bgcolor="#FFCC66"> <div align="left"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Novo Documento</font></div></td>
+  </tr>
+</table>
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr> 
+    <td width="50%"><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+     Documento: 
+      <?php=$id_tipo;?>
+      </font></td>
+    <td width="60%"><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong></font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Departamento: 
+    </font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$id_departamentos;?>
+      </font> </td>
+  </tr>
+  <tr> 
+    <td><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Vocativo:</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$vocativo;?>
+      </font></td>
+    <td><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong></font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Mensagem:
+    </font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$mensagem;?>
+      </font> </td>
+  </tr>
+  <tr> 
+    <td><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong></font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Desfecho:</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">:</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$desfecho;?>
+      </font></td>
+    <td><strong><font color="#990000" size="2" face="Verdana, Arial, Helvetica, sans-serif"><img src="figuras/dot.gif"> 
+      </font></strong><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Assinatura:</font><font size="2" face="Verdana, Arial, Helvetica, sans-serif"> 
+      <?php=$assinatura;?>
+      </font> </td>
+  </tr>
+</table>
+<form name="form1" method="post" action="operacao.php">
+  <div align="center">
+    <input name='id_tipo' type='hidden' value='<?php=$id_tipo?>'>
+    <input name='id_departamentos' type='hidden' value='<?php=$id_departamentos?>'>
+    <input name='vocativo' type='hidden' value='<?php=$vocativo?>'>
+    <input name='mensagem' type='hidden' value='<?php=$mensagem?>'>
+    <input name='desfecho' type='hidden' value='<?php=$desfecho?>'>
+    <input name='assinatura' type='hidden' value='<?php=$assinatura?>'>
+    <input name='acao' type='hidden' value='inserir'>
+    <input type="submit" name="Submit" value="Confirma">
+  </div>
+</form>
+</body>
+
+</head>
+</html>

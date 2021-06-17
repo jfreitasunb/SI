@@ -1,0 +1,66 @@
+<?php
+
+require "verifica.php";
+
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+
+<title>Servidor Administrativo</title><style type="text/css" media="all">@import "style.css";</style></head>
+
+
+
+<body>
+
+<div id="Header"></div>
+
+<div id="Content">
+        <h1>Buscar Documento</h1>
+<p> Os seguintes documentos do tipo '$id_tipo' foram encontrados. Para visualizar em formato <i>.pdf</i> o documento completo, clique no link referente.</p>
+<br>
+<?php
+
+require "conexao.php";
+
+$sel="SELECT id_documentador,numerodocumento,id_departamentos,vocativo,mensagem,desfecho,id_assinaturas  
+      FROM documentador  
+      WHERE id_tipo='$id_tipo' 
+      ORDER BY id_documentador DESC";
+
+$resultado=pg_query($sel) or die ("Não foi possível realizar a consulta ao banco de dados");
+
+$contador=pg_num_rows($resultado);
+
+if ($contador == 0)
+	echo " <p> Não existe nenhum documento.</p>";
+else {
+		while ($linha=pg_fetch_array($resultado))
+			{
+			$id_documentador=trim($linha["id_documentador"]);
+			$id_tipo=trim($linha["id_tipo"]);
+			$numerodocumento=trim($linha["numerodocumento"]);
+			$id_departamentos=trim($linha["id_departamentos"]);
+			$vocativo=trim($linha["vocativo"]);
+			$mensagem=trim($linha["mensagem"]);
+			$desfecho=trim($linha["desfecho"]);
+			$id_assinaturas=trim($linha["id_assinaturas"]);
+				 
+	
+			echo "<a href='edicao.php?id_documentador=$id_documentador'> <p>- Destino:<b>$id_departamentos</b><br> - Número do documento:<b>$numerodocumento</b><br>- Mensagem: <b>$mensagem</b><br>- Assinatura: <b>$id_assinaturas</b></a></p></font><br><br>";
+		}
+	}
+pg_close($conn);
+?>
+
+<div id="Menu">
+        <a href="exercicio_insere.php">Preencher Formulário</a><br>
+        <a href="exercicio_edita_lista.php">Buscar Documentos</a><br>
+        <a href="sair.php">Sair</a><br>
+</div>
+
+
+</body>
+</head>
+</html>

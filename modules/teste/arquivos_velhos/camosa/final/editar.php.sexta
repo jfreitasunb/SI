@@ -1,0 +1,67 @@
+<?php
+require "verifica.php";
+?>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>Departamento de Matemática - UnB</title><style type="text/css" media="all">@import "style.css";</style></head>
+<body>
+<div id="Header">
+</div>
+<div id="Content">
+	<h1>Editar Documento</h1>
+
+
+<?php
+require "conexao.php";
+
+//busca pelo "documento" na tabela "rascunho".
+$resultado=pg_query("SELECT * FROM rascunho WHERE id_documentador = '$id_documentador'") or die("Não foi possível executar a operação. Contacte a Coordenação de Informática.");
+$col= pg_fetch_row($resultado,$i);
+$id_tipo=$col[1];
+$id_departamentos=$col[2];
+$assinatura=$col[6];
+require "complementa.php";
+?>
+
+<form action="confirma_edita.php?id_documentador=<?phpecho"$id_documentador"?>" method="post">
+
+<table>
+<br><br>
+
+            <p>Tipo de Documento:<a> <?phpecho"$row[1]"?></a></p>
+	    <p>Destino:<a> <?phpecho"$row1[0]"?></a></p>
+
+            <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assunto:</p></font></td>
+            <td><input name='assunto' type='text' size=60 value=<?phpecho"$col[7]"?>></td></tr>
+
+            <td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Anexo(s):</p></font></td>
+            <td><input name='anexo' type='text' size=60 value=<?phpecho"$col[8]"?>></td></tr>
+
+            <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Vocativo:</p></font></td>
+            <td><input name='vocativo' type='text' size=60 value=<?phpecho"$col[3]"?>></td></tr>
+          
+	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Mensagem:</p></font></td>
+	    <td><TEXTAREA name= 'mensagem' rows=10 cols=60><?phpecho"$col[4]"?> </TEXTAREA></td></tr>
+
+            <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Desfecho:</p></font></td>
+            <td><input name='desfecho' type='text' size=60 value=<?phpecho"$col[5]"?>></td></tr>
+	
+	    <p>Assinatura:<a> <?phpecho"$row2[0]"?></a></p>
+
+</table>
+<br>
+
+            <input name='id_tipo' type='hidden' value='<?phpecho"$col[1]"?>'>
+            <input name='id_departamentos' type='hidden' value='<?phpecho"$col[2]"?>'>
+	    <input name='assinatura' type='hidden' value='<?phpecho"$col[6]"?>'>
+	    <input name='data' type='hidden' value='<?phpecho"$col[9]"?>'>
+            <input name='acao' type='submit' value='Visualizar'>
+	    <input name='acao' type='submit' value='Rascunho'> 
+            <input name='acao' type='submit' value='Definitivo'> 
+
+</form>
+</div>
+
+<?php require "menu.php"; ?>
+</body></html>

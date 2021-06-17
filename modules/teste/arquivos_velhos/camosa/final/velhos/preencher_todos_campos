@@ -1,0 +1,52 @@
+<html>
+<head>
+      <title>Validação preenchimento de campo</title>
+</head>
+<body>
+
+<?php
+
+if ($submit) {
+
+// verifica se $nome 'ou' $sobrenome são nulos
+if (!$nome || !$sobrenome) {
+
+$error = "Favor preencher todos os campos!";
+
+} else {
+
+// processar formulário
+
+echo "Obrigado!";
+
+}
+
+}
+
+if (!$submit || $error) {
+
+echo $error;
+
+?>
+
+<P>
+
+<form method="post" action="<?php echo $PHP_SELF ?>">
+
+CAMPO 1 : <input type="text" name="nome" value="<?php echo $nome ?>"><br>
+
+CAMPO 2 : <input type="text" name="sobrenome" value="<?php echo $sobrenome ?>"><br>
+
+<input type="Submit" name="submit" value="Enviar Dados">
+
+</form>
+
+<?php
+
+} // end if
+
+?>
+
+</body>
+</html>
+

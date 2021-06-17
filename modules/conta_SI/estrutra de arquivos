@@ -1,0 +1,9 @@
+
+Criação de contas SI:
+
+arquivo inicial: add_user2.php  manda dados para add_user3.php que usa c_admin.php para criar a conta;
+
+
+Modificação d econta SI:
+
+arquivo inicial: index.htm manda para coluna1.php e coluna2.php; coluna2.php  manda dados para modif_si.php. 

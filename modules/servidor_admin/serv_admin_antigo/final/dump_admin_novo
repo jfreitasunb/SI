@@ -1,0 +1,610 @@
+--
+-- PostgreSQL database dump
+--
+
+SET client_encoding = 'SQL_ASCII';
+SET check_function_bodies = false;
+
+SET SESSION AUTHORIZATION 'pgsql';
+
+--
+-- TOC entry 4 (OID 2200)
+-- Name: public; Type: ACL; Schema: -; Owner: pgsql
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+SET SESSION AUTHORIZATION 'lucimar';
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 5 (OID 132308)
+-- Name: tipos; Type: TABLE; Schema: public; Owner: lucimar
+--
+
+CREATE TABLE tipos (
+    id_tipo serial NOT NULL,
+    nometipo character varying(30) NOT NULL,
+    sigla character varying(30)
+);
+
+
+--
+-- TOC entry 6 (OID 132313)
+-- Name: assinaturas; Type: TABLE; Schema: public; Owner: lucimar
+--
+
+CREATE TABLE assinaturas (
+    id_assinaturas serial NOT NULL,
+    nome character varying(60) NOT NULL,
+    cargo character varying(60) NOT NULL
+);
+
+
+--
+-- TOC entry 7 (OID 132318)
+-- Name: departamentos; Type: TABLE; Schema: public; Owner: lucimar
+--
+
+CREATE TABLE departamentos (
+    id_departamentos serial NOT NULL,
+    nomedepartamento character varying(30) NOT NULL,
+    sigla character varying(3),
+    fone character varying(15),
+    pessoadecontato character varying(40),
+    rua character varying(30),
+    num character varying(10),
+    bairro character varying(50),
+    cidade character varying(35),
+    uf character(2) DEFAULT 'DF'::bpchar,
+    cep character varying(8) DEFAULT '72000000'::character varying
+);
+
+
+--
+-- TOC entry 8 (OID 132325)
+-- Name: documentador; Type: TABLE; Schema: public; Owner: lucimar
+--
+
+CREATE TABLE documentador (
+    id_documentador serial NOT NULL,
+    id_tipo integer NOT NULL,
+    numerodocumento character varying(8),
+    id_departamentos integer,
+    mensagem text,
+    desfecho text, 
+    id_assinaturas integer,
+    assunto text,
+    anexo text,
+    data character varying(80),
+    vocativo character varying(50)
+);
+
+
+--
+-- TOC entry 9 (OID 132338)
+-- Name: rascunho; Type: TABLE; Schema: public; Owner: lucimar
+--
+
+CREATE TABLE rascunho (
+    id_documentador serial NOT NULL,
+    id_tipo integer NOT NULL,
+    id_departamentos integer,
+    vocativo character varying(50),
+    mensagem text,
+    desfecho text,
+    id_assinaturas integer,
+    assunto text,
+    anexo text,
+    data character varying(80)
+);
+
+
+SET SESSION AUTHORIZATION 'pgsql';
+
+--
+-- TOC entry 10 (OID 132959)
+-- Name: usuarios; Type: TABLE; Schema: public; Owner: pgsql
+--
+
+CREATE TABLE usuarios (
+    id_usuario serial NOT NULL,
+    nome character varying(80) NOT NULL,
+    login character varying(80) NOT NULL,
+    senha character varying(100) NOT NULL,
+    permissao character varying(4)
+);
+
+
+SET SESSION AUTHORIZATION 'lucimar';
+
+--
+-- TOC entry 11 (OID 141276)
+-- Name: modelo; Type: TABLE; Schema: public; Owner: lucimar
+--
+
+CREATE TABLE modelo (
+    id_modelo serial NOT NULL,
+    campo_1 text,
+    campo_2 text,
+    campo_3 text,
+    campo_4 text,
+    campo_5 text,
+    campo_6 text,
+    campo_7 text,
+    campo_9 text
+);
+
+
+--
+-- Data for TOC entry 25 (OID 132308)
+-- Name: tipos; Type: TABLE DATA; Schema: public; Owner: lucimar
+--
+
+INSERT INTO tipos VALUES (1, 'Memorando', 'MEMO');
+INSERT INTO tipos VALUES (2, 'Circular', 'CIL');
+INSERT INTO tipos VALUES (3, 'Ofício', 'OI');
+INSERT INTO tipos VALUES (4, 'Currículo', 'CI');
+INSERT INTO tipos VALUES (5, 'Ofício Externo', 'OE');
+
+
+--
+-- Data for TOC entry 26 (OID 132313)
+-- Name: assinaturas; Type: TABLE DATA; Schema: public; Owner: lucimar
+--
+
+INSERT INTO assinaturas VALUES (1, 'Prof. Guy Grebot', 'Chefe do MAT/UnB');
+INSERT INTO assinaturas VALUES (2, 'Profª. Maria Terezinha de Jesus', 'Subchefe do MAT/UnB');
+INSERT INTO assinaturas VALUES (3, 'Profª. Chang Chung Yu Dorea', 'Coordenadora de Pós-Graduação do MAT/UnB');
+INSERT INTO assinaturas VALUES (4, 'Profª. Maria Terezinha de Jesus Gaspar', 'Coordenação de Graduação do MAT/UnB');
+INSERT INTO assinaturas VALUES (5, 'Profª. Raquel Carneiro Dörr', 'Cooredenadora de Graduação Noturno do MAT/UnB');
+INSERT INTO assinaturas VALUES (6, 'Talmari José da Silva', 'Secretário do MAT/UnB');
+INSERT INTO assinaturas VALUES (7, 'Lucimar de Oliveira do Nascimento', 'Secretario Noturno do MAT/UnB');
+
+
+--
+-- Data for TOC entry 27 (OID 132318)
+-- Name: departamentos; Type: TABLE DATA; Schema: public; Owner: lucimar
+--
+
+INSERT INTO departamentos VALUES (1, 'ACS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (2, 'ADM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (3, 'APOSFUB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (4, 'ASS-DAF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (5, 'AUD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (6, 'BCE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (7, 'BOT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (8, 'CAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (9, 'CCA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (10, 'CCA-PG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (11, 'CCIH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (12, 'CDS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (13, 'CDT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (14, 'CEAD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (15, 'CEAD-UV', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (16, 'CEAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (17, 'CEDOC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (18, 'CEDOC/SMI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (19, 'CEFTRU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (20, 'CEL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (21, 'CEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (22, 'CEPLAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (23, 'CEPPAC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (24, 'CERI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (25, 'CESPE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (26, 'CET', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (27, 'CFS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (28, 'CIC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (29, 'CID', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (30, 'CIFMC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (31, 'CIORD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (32, 'CME', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (33, 'CPCE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (34, 'CPD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (35, 'CPPTA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (36, 'DAA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (37, 'DAA-PA-FA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (38, 'DAA-PA-FACE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (39, 'DAA-PA-FAU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (40, 'DAA-PA-FE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (41, 'DAA-PA-FS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (42, 'DAA-PA-FT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (43, 'DAA-PA-IB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (44, 'DAA-PA-IE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (45, 'DAA-PA-IH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (46, 'DAA-PA-NOT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (47, 'DAC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (48, 'DAF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (49, 'DAIA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (50, 'DAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (51, 'DAP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (52, 'DATAUNB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (53, 'DCF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (54, 'DDS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (55, 'DEA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (56, 'DEA/SAC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (57, 'DEG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (58, 'DEX', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (59, 'DIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (60, 'DPP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (61, 'DRM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (62, 'DSC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (63, 'ECL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (64, 'ECO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (65, 'EDU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (66, 'EFL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (67, 'EMP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (68, 'ENC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (69, 'ENC-PG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (70, 'ENE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (71, 'ENE/GAT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (72, 'ENE/PG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (73, 'ENF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (74, 'ENM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (75, 'EST', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (76, 'EXE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (77, 'FAC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (78, 'FACE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (79, 'FAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (80, 'FAU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (81, 'FAV', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (82, 'FDD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (83, 'FED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (84, 'FEF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (85, 'FIL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (86, 'FIT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (87, 'FM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (88, 'FSD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (89, 'FTD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (90, 'FUBRA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (91, 'GEA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (92, 'GEM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (93, 'GEO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (94, 'GMP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (95, 'GRE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (96, 'GRM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (97, 'GTRA/DEX', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (98, 'HIS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (99, 'HUB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (100, 'HUB-C.C', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (101, 'HUB-CCA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (102, 'HUB-CI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (103, 'HUB-CIH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (104, 'HUB-CME', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (105, 'HUB-CMI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (106, 'HUB-CPL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (107, 'HUB-D.ENF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (108, 'HUB-D.NUT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (109, 'HUB-D.PSIC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (110, 'HUB-DAAD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (111, 'HUB-DAD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (112, 'HUB-DAD-CCMP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (113, 'HUB-DAD-TRP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (114, 'HUB-DAD-VIG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (115, 'HUB-DADT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (116, 'HUB-DAEP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (117, 'HUB-DASA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (118, 'HUB-DEC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (119, 'HUB-DF-A.MED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (120, 'HUB-DF-A.MMH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (121, 'HUB-DF-SEC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (122, 'HUB-DHG-HIG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (123, 'HUB-DHT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (124, 'HUB-DIALISE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (125, 'HUB-DOF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (126, 'HUB-DRH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (127, 'HUB-DSH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (128, 'HUB-DSH-C.A', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (129, 'HUB-DSH-C.C', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (130, 'HUB-FAHUB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (131, 'HUB-GAB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (132, 'HUB-LPC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (133, 'HUB-ODT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (134, 'HUB-SCIH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (135, 'HUB-SLRG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (136, 'IBD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (137, 'ICS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (138, 'IDA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (139, 'IDA/DIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (140, 'IED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (141, 'IFD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (142, 'IGD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (143, 'IHD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (144, 'ILD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (145, 'INT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (146, 'IPD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (147, 'IPOL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (148, 'IQ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (149, 'IREL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (150, 'LET', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (151, 'LIV', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (152, 'MAT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (153, 'MTC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (154, 'MUS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (155, 'NEAL/CEAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (156, 'NEPEB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (157, 'NESP/CEAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (158, 'NFT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (159, 'NMT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (160, 'NTI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (161, 'NUT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (162, 'ODT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (163, 'PAT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (164, 'PCL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (165, 'PED', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (166, 'PGNUT-FS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (167, 'PJU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (168, 'POS-BOT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (169, 'POS-HIS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (170, 'PPB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (171, 'PPGA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (172, 'PPNE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (173, 'PRC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (174, 'PRC/CAA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (175, 'PRC/CAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (176, 'PRC/CEO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (177, 'PRC/COP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (178, 'PRC/DENA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (179, 'PRC/DENA/CCV', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (180, 'PRC/DENA/COB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (181, 'PRC/DENA/COM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (182, 'PRC/DENA/CPR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (183, 'PRC/DGA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (184, 'PRC/DGA/CCP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (185, 'PRC/DGA/CPJ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (186, 'PRC/DGA/CZE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (187, 'PRC/DGA/CZE/SM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (188, 'PRC/DTS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (189, 'PRC/DTS/CP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (190, 'PRC/DTS/CTR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (191, 'PRC/GTE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (192, 'PRC/NPI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (193, 'PRC/NPI/FESQ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (194, 'PRC/PREFEITO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (195, 'PST', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (196, 'QUI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (197, 'REL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (198, 'RU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (199, 'SAD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (200, 'SAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (201, 'SAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (202, 'SAT/DEG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (203, 'SCA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (204, 'SCI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (205, 'SCN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (206, 'SCO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (207, 'SEI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (208, 'SER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (209, 'SGP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (210, 'SIS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (211, 'SLRCG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (212, 'SME', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (213, 'SOC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (214, 'SOL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (215, 'SPL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (216, 'SPS/DDS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (217, 'SRH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (218, 'TEF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (219, 'TEL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (220, 'VIS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (221, 'VRT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+INSERT INTO departamentos VALUES (222, 'ZOO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DF', '72000000');
+
+
+
+SET SESSION AUTHORIZATION 'lucimar';
+
+--
+-- Data for TOC entry 30 (OID 132959)
+-- Name: usuarios; Type: TABLE DATA; Schema: public; Owner: pgsql
+--
+
+INSERT INTO usuarios VALUES (1, 'Sarah Sena', 'sarahfs', 'd41d8cd98f00b204e9800998ecf8427e', NULL);
+INSERT INTO usuarios VALUES (2, 'Sarah Sena', 'sarahfs', 'd41d8cd98f00b204e9800998ecf8427e', NULL);
+INSERT INTO usuarios VALUES (4, 'heloisa silva', 'helos', '97f819cb73cb70cf5a72dee956578275', NULL);
+INSERT INTO usuarios VALUES (5, 'marina pereira', 'marinap', 'c1f0c9e2c9f96bd2240a230c4f7ab940', NULL);
+INSERT INTO usuarios VALUES (3, 'joaquim faria', 'fariahh', 'd41d8cd98f00b204e9800998ecf8427e', NULL);
+
+
+SET SESSION AUTHORIZATION 'lucimar';
+
+--
+-- Data for TOC entry 31 (OID 141276)
+-- Name: modelo; Type: TABLE DATA; Schema: public; Owner: lucimar
+--
+
+INSERT INTO modelo VALUES (1, 'Memorando adicional noturno', 'Adicional Noturno', '', 'Senhora Diretora', 'Encaminho a V.Sa. ficha individual de adicional noturno dos servidores do MAT, referente ao mês de dezembro, para as devidas providências.
+                        ', 'Atenciosamente', NULL, NULL);
+INSERT INTO modelo VALUES (2, 'Memorando alteração de menção', 'Correção de Menção Final', '', 'Senhor Chefe', 'Por engano, lancei a menção na disciplina <disciplina>, código <código>, turma <turma>, <semestre> semestre de <ano>, do aluno <aluno>, matrícula <matrícula> como <menção_antiga> e <porcentagem_de_faltas> de faltas, quando deveria ser <menção_nova> e <porcentagem_de_faltas> de faltas.
+Assim sendo, solicito que seja revista a nota constante do histórico do aluno.
+                        ', 'Atenciosamente', NULL, NULL);
+INSERT INTO modelo VALUES (3, 'Ofício interno afastamento de professor', 'Afastamento do Professor(a) <nome_do_professor>', 'Carta do professor(a) <nome_do_professor>, Cartas-convite, Formulário Simplificado de Afastamento de Docente', 'Senhor Vice-Reitor', 'Pelo presente encaminho o pedido de afastamento do professor(a) <nome_do_professor>, aprovado ad referenfum do Colegiado do MAT, no período de <data_início> a <data_fim>, com a finalidade de continuar pesquisas em colaboração com os preofessores <nome_dos_professores>, da <nome_da_universidade> (<nome_da_universidade_na_língua_estrangeira>).
+
+                        ', 'Aproveito a oportunidade para retornar a Vossa Senhoria meus protestos de estima e consideração', NULL, NULL);
+
+
+--
+-- TOC entry 19 (OID 132585)
+-- Name: tipos_pkey; Type: CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY tipos
+    ADD CONSTRAINT tipos_pkey PRIMARY KEY (id_tipo);
+
+
+--
+-- TOC entry 20 (OID 132587)
+-- Name: assinaturas_pkey; Type: CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY assinaturas
+    ADD CONSTRAINT assinaturas_pkey PRIMARY KEY (id_assinaturas);
+
+
+--
+-- TOC entry 21 (OID 132589)
+-- Name: departamentos_pkey; Type: CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY departamentos
+    ADD CONSTRAINT departamentos_pkey PRIMARY KEY (id_departamentos);
+
+
+--
+-- TOC entry 22 (OID 132591)
+-- Name: documentador_pkey; Type: CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY documentador
+    ADD CONSTRAINT documentador_pkey PRIMARY KEY (id_documentador);
+
+
+--
+-- TOC entry 23 (OID 132593)
+-- Name: id_documentador; Type: CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY rascunho
+    ADD CONSTRAINT id_documentador PRIMARY KEY (id_documentador);
+
+
+SET SESSION AUTHORIZATION 'pgsql';
+
+--
+-- TOC entry 24 (OID 132962)
+-- Name: usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: pgsql
+--
+
+ALTER TABLE ONLY usuarios
+    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id_usuario);
+
+
+SET SESSION AUTHORIZATION 'lucimar';
+
+--
+-- TOC entry 32 (OID 132595)
+-- Name: nome_departamento; Type: FK CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY documentador
+    ADD CONSTRAINT nome_departamento FOREIGN KEY (id_departamentos) REFERENCES departamentos(id_departamentos) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 33 (OID 132599)
+-- Name: tipo_documento; Type: FK CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY documentador
+    ADD CONSTRAINT tipo_documento FOREIGN KEY (id_tipo) REFERENCES tipos(id_tipo) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 34 (OID 132603)
+-- Name: idt_assinaturas; Type: FK CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY documentador
+    ADD CONSTRAINT idt_assinaturas FOREIGN KEY (id_assinaturas) REFERENCES assinaturas(id_assinaturas) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 35 (OID 132607)
+-- Name: nomer_departamento; Type: FK CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY rascunho
+    ADD CONSTRAINT nomer_departamento FOREIGN KEY (id_departamentos) REFERENCES departamentos(id_departamentos) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 36 (OID 132611)
+-- Name: tipor_documento; Type: FK CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY rascunho
+    ADD CONSTRAINT tipor_documento FOREIGN KEY (id_tipo) REFERENCES tipos(id_tipo) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 37 (OID 132615)
+-- Name: idtr_assinaturas; Type: FK CONSTRAINT; Schema: public; Owner: lucimar
+--
+
+ALTER TABLE ONLY rascunho
+    ADD CONSTRAINT idtr_assinaturas FOREIGN KEY (id_assinaturas) REFERENCES assinaturas(id_assinaturas) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 12 (OID 132306)
+-- Name: tipos_id_tipo_seq; Type: SEQUENCE SET; Schema: public; Owner: lucimar
+--
+
+SELECT pg_catalog.setval('tipos_id_tipo_seq', 5, true);
+
+
+--
+-- TOC entry 13 (OID 132311)
+-- Name: assinaturas_id_assinaturas_seq; Type: SEQUENCE SET; Schema: public; Owner: lucimar
+--
+
+SELECT pg_catalog.setval('assinaturas_id_assinaturas_seq', 7, true);
+
+
+--
+-- TOC entry 14 (OID 132316)
+-- Name: departamentos_id_departamentos_seq; Type: SEQUENCE SET; Schema: public; Owner: lucimar
+--
+
+SELECT pg_catalog.setval('departamentos_id_departamentos_seq', 222, true);
+
+
+--
+-- TOC entry 15 (OID 132323)
+-- Name: documentador_id_documentador_seq; Type: SEQUENCE SET; Schema: public; Owner: lucimar
+--
+
+SELECT pg_catalog.setval('documentador_id_documentador_seq', 5, true);
+
+
+--
+-- TOC entry 16 (OID 132336)
+-- Name: rascunho_id_documentador_seq; Type: SEQUENCE SET; Schema: public; Owner: lucimar
+--
+
+SELECT pg_catalog.setval('rascunho_id_documentador_seq', 14, true);
+
+
+SET SESSION AUTHORIZATION 'pgsql';
+
+--
+-- TOC entry 17 (OID 132957)
+-- Name: usuarios_id_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: pgsql
+--
+
+SELECT pg_catalog.setval('usuarios_id_usuario_seq', 5, true);
+
+
+SET SESSION AUTHORIZATION 'lucimar';
+
+--
+-- TOC entry 18 (OID 141274)
+-- Name: modelo_id_modelo_seq; Type: SEQUENCE SET; Schema: public; Owner: lucimar
+--
+
+SELECT pg_catalog.setval('modelo_id_modelo_seq', 3, true);
+
+
+SET SESSION AUTHORIZATION 'pgsql';
+
+--
+-- TOC entry 3 (OID 2200)
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: pgsql
+--
+
+COMMENT ON SCHEMA public IS 'Standard public schema';
+
+

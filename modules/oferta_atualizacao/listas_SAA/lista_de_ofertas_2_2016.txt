@@ -1,0 +1,871 @@
+
+
+Universidade de Brasília                                                                                                                                                                      Página:             1   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                         Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+IE-MAT                -  Departamento de Matemática.
+                                                           ---------------------------------------------- Disciplinas do Departamento
+
+  113107      -  Algebra 1
+                                                                              002  -   002   -   000  -   006                            Pre-Req :
+
+   Turma                             Vagas      Turno             Horário                 Local                            Professores                                              Reserva/Vagas                                Obs
+
+  A                                    37     Diurno    Terça   08:00 09:50 ICC ASS 439/10                           CRISTINA ACCIARRI                             Matemática(Diurno)/37                                         **
+                                                        Quinta  08:00 09:50 ICC ASS 439/10
+
+  B                                    50     Diurno    Terça   08:00 09:50 ICC ASS 415/10                           NORAI ROMEU ROCCO                             Ciência da Computação(Diurno)/50
+                                                        Quinta  08:00 09:50 ICC ASS 415/10
+
+  C                                    35     Noturno   Terça   19:00 20:40 ICC ASS 439/10                           CRISTINA ACCIARRI                             Matemática(Noturno)/35
+                                                        Sexta   19:00 20:40 ICC ASS 439/10
+
+  D                                    37     Noturno   Terça   19:00 20:40 ICC ASS 415/10                           JOSE ANTONIO OLIVEIRA DE FREITAS              Computação(Noturno)/37
+                                                        Sexta   19:00 20:40 ICC ASS 415/10
+
+
+  117145      -  ALGEBRA 3
+                                                                              004  -   000   -   000  -   006                            Pre-Req :   MAT-113131  ALGEBRA 2
+
+   Turma                             Vagas      Turno             Horário                 Local                            Professores                                              Reserva/Vagas                                Obs
+
+  A                                    40     Diurno    Terça   08:00 09:50 PJC BT 077                               ALEXEI KRASSILNIKOV
+                                                        Quinta  08:00 09:50 PJC BT 077
+
+
+  113123      -  Algebra Linear
+                                                                              006  -   000   -   000  -   006                            Pre-Req :   MAT-113034  Cálculo 1
+
+   Turma                             Vagas      Turno             Horário                 Local                            Professores                                              Reserva/Vagas                                Obs
+
+  A                                    68     Diurno    Segunda 16:00 17:50 ICC ANF.11                               ALINE GOMES DA SILVA PINTO                    Física(Diurno)/15                                             **
+                                                        Terça   16:00 17:50 ICC ANF. 2                                                                             Matemática(Diurno)/20
+                                                        Quinta  16:00 17:50 ICC ANF. 2                                                                             Ciência da Computação(Diurno)/33
+
+
+  117421      -  Álgebra para o Ensino 1
+                                                                              003  -   003   -   000  -   006                            Pre-Req :   MAT-113042  Cálculo 2 E
+                                                                                                                                                     MAT-113093  INTRODUCAO A ALGEBRA LINEAR OU
+                                                                                                                                                     MAT-113042  Cálculo 2 E
+                                                                                                                                                     MAT-113123  Algebra Linear
+   Turma                             Vagas      Turno             Horário                 Local                            Professores                                              Reserva/Vagas                                Obs
+  A                                    40     Noturno   Quarta  19:00 20:40 PJC BT 069                               JOSINALVA ESTÁCIO MENEZES                     Matemática(Noturno)/30
+                                                        Quarta  20:50 22:30 PJC BT 069
+                                                        Sábado  08:00 09:40 ICC ANF. 2
+
+
+  117501      -  Álgebra para o Ensino 2
+                                                                              003  -   003   -   000  -   006                            Pre-Req :   MAT-117421  Álgebra para o Ensino 1
+
+   Turma                             Vagas      Turno             Horário                 Local                            Professores                                              Reserva/Vagas                                Obs
+
+
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                    (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                               lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:             2   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  A                                  40     Diurno    Segunda 10:00 11:50 PJC BT 132                               RAQUEL CARNEIRO DÖRR                                                                                       *
+                                                      Quarta  10:00 11:50 A Designar
+                                                      Sexta   10:00 11:50 PJC BT 132
+
+
+  113204      -  ANALISE 1
+                                                                            004  -   000   -   000  -   006                            Pre-Req :   MAT-113042  Cálculo 2
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  40     Noturno   Terça   20:50 22:30 ICC ASS 432/10                           RICARDO PARREIRA DA SILVA                    Matemática(Noturno)/30
+                                                      Sexta   19:00 20:40 ICC ASS 432/10
+
+
+  113212      -  ANALISE 2
+                                                                            004  -   000   -   000  -   006                            Pre-Req :   MAT-113204  ANALISE 1
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  40     Diurno    Terça   10:00 11:50 PJC BT 093                               LUIS HENRIQUE DE MIRANDA
+                                                      Quinta  10:00 11:50 PJC BT 093
+
+
+  113034      -  Cálculo 1
+                                                                            002  -   004   -   000  -   006                            Pre-Req :
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  60     Diurno    Segunda 10:00 11:50 ICC ANF.12                               KELLCIO OLIVEIRA ARAUJO                      Engenharia Civil(Diurno)/40                                   **
+                                                      Terça   10:00 11:50 PJC BT 133/147                           ADAIL DE CASTRO CAVALHEIRO                   Engenharia Mecânica(Diurno)/20
+                                                      Quinta  10:00 11:50 PJC BT 133/147
+
+  AF                                  0     Diurno    Segunda 10:00 11:50 ICC ANF.12                               ADAIL DE CASTRO CAVALHEIRO
+                                                      Terça   10:00 11:50 MAT ASS 402/10                           JOSE LUIS TERUEL CARRETERO
+                                                      Quinta  10:00 11:50 MAT ASS 402/10
+
+  B                                  61     Diurno    Segunda 14:00 15:50 ICC ANF. 8                               RAQUEL CARNEIRO DÖRR                         Ciências Econômicas(Diurno)/20                                **
+                                                      Quarta  14:00 15:50 ICC ANF. 3                               LUIS ROBERTO LUCINGER DE ALMEIDA             Ciência da Computação(Diurno)/40
+                                                      Sexta   14:00 15:50 ICC ANF. 3
+
+  C                                  60     Diurno    Terça   08:00 09:50 ICC ANF.12                               JANETE SOARES DE GAMBOA                      Ciências Biológicas(Diurno)/20                                **
+                                                      Quinta  08:00 09:50 BAES AT 13/61                            RICARDO RUVIARO                              Engenharia Redes Comunicação(Diurno)/40
+                                                      Sexta   08:00 09:50 ICC ANF.12
+
+  CH                                  0      Ambos    Terça   08:00 09:50 ICC ANF.12                               RICARDO RUVIARO
+                                                      Quinta  08:00 09:50 ICC ASS 433/10                           VINICIUS FACÓ VENTURA VIEIRA
+                                                      Sexta   08:00 09:50 ICC ASS 433/10
+
+  D                                  65     Diurno    Segunda 10:00 11:50 ICC ANF. 8                               LUIS ROBERTO LUCINGER DE ALMEIDA             Química(Diurno)/32                                            **
+                                                      Terça   10:00 11:50 ICC ANF. 2                               VINICIUS FACÓ VENTURA VIEIRA                 Química Tecnológica(Diurno)/32
+                                                      Quinta  10:00 11:50 ICC ANF. 2
+
+
+
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                  Página:             3   de           13
+Secretaria de Administração Acadêmica                                                                                                                                     Emissão:         06/10/2016        09:40
+Lista de Oferta de Disciplinas
+Período :     2016/2
+
+  DM                               0    Ambos   Segunda 10:00 11:50 ICC ANF. 8                        EDUARDO ANTONIO DA SILVA
+                                                Terça   10:00 11:50 A Designar                        LUIS ROBERTO LUCINGER DE ALMEIDA
+                                                Quinta  10:00 11:50 A Designar
+
+  E                               40    Diurno  Segunda 14:00 15:50 ICC ASS 432/10                    DANIELE DA SILVA BARATELA MARTINS NETO    Matemática(Diurno)/40                                       **
+                                                Quarta  14:00 15:50 ICC ANF. 5                        MANUELA CAETANO MARTINS DE REZENDE
+                                                Sexta   14:00 15:50 ICC ANF. 5
+
+  F                               60    Diurno  Segunda 10:00 11:50 ICC ANF.12                        ADAIL DE CASTRO CAVALHEIRO                Engenharia Mecânica(Diurno)/20                              **
+                                                Terça   10:00 11:50 ICC ANF. 5                        DANIELA AMORIM AMATO                      Engenharia Mecatrônica(Diurno)/40
+                                                Quinta  10:00 11:50 ICC ANF. 5
+
+  G                               64   Noturno  Segunda 19:00 20:40 ICC ANF.11                        LUCIANA MARIA DIAS DE AVILA RODRIGUES     Física(Noturno)/18                                          **
+                                                Terça   20:50 22:30 ICC ANF.15                        EMERSON FERREIRA DE MELO                  Computação(Noturno)/46
+                                                Quinta  20:50 22:30 ICC ANF.15
+
+  GK                               0   Noturno  Segunda 19:00 20:40 ICC ANF.11                        LUCIANA MARIA DIAS DE AVILA RODRIGUES
+                                                Terça   20:50 22:30 A Designar                        EDUARDO ANTONIO DA SILVA
+                                                Quinta  20:50 22:30 A Designar
+
+  H                               60    Diurno  Terça   08:00 09:50 ICC ANF.12                        RICARDO RUVIARO                           Ciências Biológicas(Diurno)/20                              **
+                                                Quinta  08:00 09:50 PJC BT 133/147                    DANIELA AMORIM AMATO                      Estatística(Diurno)/40
+                                                Sexta   08:00 09:50 PJC BT 133/147
+
+  HO                               0    Ambos   Terça   08:00 09:50 ICC ANF. 5                        MANUELA CAETANO MARTINS DE REZENDE
+                                                Quinta  08:00 09:50 ASS 421/10                        LUIS ROBERTO LUCINGER DE ALMEIDA
+                                                Sexta   08:00 09:50 ASS 421/10
+
+  I                               40   Noturno  Segunda 19:00 20:40 ICC ASS 432/10                    MARCELO FERNANDES FURTADO                 Matemática(Noturno)/40                                      **
+                                                Terça   20:50 22:30 ICC ANF. 5                        JOAO PAULO DOS SANTOS
+                                                Quinta  20:50 22:30 ICC ANF. 5
+
+  J                               60    Diurno  Segunda 14:00 15:50 ICC ANF.17                        NILTON MOURA BARROSO NETO                 Ciências Econômicas(Diurno)/20                              **
+                                                Quarta  14:00 15:50 ICC ANF.19                        PAULO HENRIQUE PEREIRA DA COSTA           Engenharia Elétrica(Diurno)/40
+                                                Sexta   14:00 15:50 ICC ANF.19
+
+  K                               60   Noturno  Segunda 19:00 20:40 ICC ANF. 6                        LUCIANA MARIA DIAS DE AVILA RODRIGUES     Química(Noturno)/32                                         **
+                                                Terça   20:50 22:30 ICC ANF. 3                        WEMBESOM MENDES SOARES
+                                                Quinta  20:50 22:30 ICC ANF. 3
+
+  M                               67    Diurno  Segunda 10:00 11:50 ICC ANF. 8                        LUIS ROBERTO LUCINGER DE ALMEIDA          Geologia(Diurno)/26                                         **
+                                                Terça   10:00 11:50 ICC ANF. 7                        ISMAEL RANGEL FERREIRA LINS               Engenharia Ambiental(Diurno)/40
+                                                Quinta  10:00 11:50 ICC ANF. 7
+
+  N                               60    Diurno  Segunda 10:00 11:50 ICC ANF.17                        PAULO HENRIQUE PEREIRA DA COSTA           Geologia(Diurno)/6                                          **
+                                                Terça   10:00 11:50 ICC ANF.18                        EDIMILSON DOS SANTOS DA SILVA             Engenharia de Computação(Diurno)/40
+                                                Quarta  10:00 11:50 ICC ANF.17
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em      (**)   -  Turma de horário      (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                          lstofelst
+
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:             4   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  O                                  66     Diurno    Terça   08:00 09:50 ICC ANF. 5                               LUIS ROBERTO LUCINGER DE ALMEIDA             Física(Diurno)/36                                             **
+                                                      Quinta  08:00 09:50 ICC ANF. 5                               ISMAEL RANGEL FERREIRA LINS                  Geofísica(Diurno)/30
+                                                      Sexta   08:00 09:50 ICC ANF. 5
+
+  P                                  64     Noturno   Segunda 19:00 20:40 ICC ANF. 8                               LUIS ROBERTO LUCINGER DE ALMEIDA             Física(Noturno)/14                                            **
+                                                      Terça   20:50 22:30 ICC ANF. 7                               DANIELE NANTES SOBRINHO                      Engenharia de Produção(Noturno)/50
+                                                      Quinta  20:50 22:30 ICC ANF. 7
+
+  S                                  63     Diurno    Segunda 08:00 09:50 ICC ANF.12                               ADAIL DE CASTRO CAVALHEIRO                   Administração(Diurno)/60                                      **
+                                                      Quarta  08:00 09:50 ICC ANF. 7                               NILTON MOURA BARROSO NETO
+                                                      Sexta   08:00 09:50 ICC ANF. 7
+
+  T                                  60     Noturno   Segunda 19:00 20:40 ICC ANF. 8                               EDUARDO ANTONIO DA SILVA                     Administração(Noturno)/60                                     **
+                                                      Quarta  19:00 20:40 ICC ANF. 8                               LUIS ROBERTO LUCINGER DE ALMEIDA
+                                                      Sexta   19:00 20:40 ICC ANF. 8
+
+  Y                                  60     Diurno    Segunda 08:00 09:50 ICC ANF.12                               ROBERTO OSCAR GANDULFO                       Biotecnologia(Diurno)/40                                      **
+                                                      Quarta  08:00 09:50 ICC ANF. 2                               ADAIL DE CASTRO CAVALHEIRO
+                                                      Sexta   08:00 09:50 ICC ANF. 2
+
+  Z                                  60     Diurno    Segunda 14:00 15:50 ICC ANF. 8                               LUIS ROBERTO LUCINGER DE ALMEIDA             Ciências Econômicas(Diurno)/10                                **
+                                                      Quarta  14:00 15:50 ICC ANF. 7                               EDIMILSON DOS SANTOS DA SILVA                Engenharia Química(Diurno)/40
+                                                      Sexta   14:00 15:50 ICC ANF. 7
+
+
+  200107      -  Cálculo 1 - Semipresencial (HL)
+                                                                            002  -   004   -   000  -   006                            Pre-Req :
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                   0      Ambos    Segunda 12:00 13:50 BSA S B2 34/10                           CELIUS ANTONIO MAGALHAES
+                                                      Quarta  12:00 13:50 BSA S B2 34/10
+                                                      Sexta   12:00 13:50 BSA S B2 34/10
+
+  B                                   0      Ambos    Segunda 12:00 13:50 BSA S B2  41/10                          HEMAR TEIXEIRA GODINHO
+                                                      Quarta  12:00 13:50 BSA S B2  41/10
+                                                      Sexta   12:00 13:50 BSA S B2  41/10
+
+  C                                   0      Ambos    Segunda 12:00 13:50 BSA S B2 47/10                           KELLCIO OLIVEIRA ARAUJO
+                                                      Quarta  12:00 13:50 BSA S B2 47/10                           RAIMUNDO DE ARAUJO BASTOS JUNIOR
+                                                      Sexta   12:00 13:50 BSA S B2 47/10
+
+  D                                   0      Ambos    Segunda 12:00 13:50 BSA S B2 54/10                           MANUELA CAETANO MARTINS DE REZENDE
+                                                      Quarta  12:00 13:50 BSA S B2 54/10                           ISMAEL RANGEL FERREIRA LINS
+                                                      Sexta   12:00 13:50 BSA S B2 54/10
+
+  E                                   0      Ambos    Segunda 12:00 13:50 BSA S BT 19/13                           MANUELA CAETANO MARTINS DE REZENDE
+                                                      Quarta  12:00 13:50 BSA S BT 19/13
+                                                      Sexta   12:00 13:50 BSA S BT 19/13
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:             5   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  F                                   0      Ambos    Segunda 12:00 13:50 BSA S B2 41/13                           RICARDO RUVIARO
+                                                      Quarta  12:00 13:50 BSA S B2 41/13
+                                                      Sexta   12:00 13:50 BSA S B2 41/13
+
+  G                                   0      Ambos    Segunda 12:00 13:50 BSA S B2 34/13                           JOSE ANTONIO OLIVEIRA DE FREITAS
+                                                      Quarta  12:00 13:50 BSA S B2 34/13
+                                                      Sexta   12:00 13:50 BSA S B2 34/13
+
+  H                                   0      Ambos    Segunda 12:00 13:50 BSA S B2 47/13                           ADAIL DE CASTRO CAVALHEIRO
+                                                      Quarta  12:00 13:50 BSA S B2 47/13
+                                                      Sexta   12:00 13:50 BSA S B2 47/13
+
+  I                                   0      Ambos    Segunda 12:00 13:50 BSA S B1 34/10                           LUCIANA MARIA DIAS DE AVILA RODRIGUES
+                                                      Quarta  12:00 13:50 BSA S B1 34/10
+                                                      Sexta   12:00 13:50 BSA S B1 34/10
+
+  J                                   0      Ambos    Segunda 12:00 13:50 BSA S B1 26/13                           MARCELO FERNANDES FURTADO
+                                                      Quarta  12:00 13:50 BSA S B1 26/13
+                                                      Sexta   12:00 13:50 BSA S B1 26/13
+
+  K                                   0      Ambos    Segunda 12:00 13:50 BSA S BT 19/10                           MANUELA CAETANO MARTINS DE REZENDE
+                                                      Quarta  12:00 13:50 BSA S BT 19/10
+                                                      Sexta   12:00 13:50 BSA S BT 19/10
+
+  L                                   0      Ambos    Segunda 12:00 13:50 BSA S BT 26/10                           RICARDO RUVIARO
+                                                      Quarta  12:00 13:50 BSA S BT 26/10
+                                                      Sexta   12:00 13:50 BSA S BT 26/10
+
+  M                                   0     Noturno   Segunda 19:00 20:40 MAT ASS 402/10                           RICARDO RUVIARO
+                                                      Terça   20:50 22:30 MAT ASS 402/10
+                                                      Quinta  20:50 22:30 MAT ASS 402/10
+
+  N                                   0     Noturno   Segunda 19:00 20:40 ICC ASS 415/10                           LUCIANA MARIA DIAS DE AVILA RODRIGUES
+                                                      Terça   20:50 22:30 ICC ASS 415/10                           RAIMUNDO DE ARAUJO BASTOS JUNIOR
+                                                      Quinta  20:50 22:30 ICC ASS 415/10
+
+
+  113042      -  Cálculo 2
+                                                                            004  -   002   -   000  -   006                            Pre-Req :   MAT-113034  Cálculo 1
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  66     Diurno    Segunda 08:00 09:50 ICC ANF. 8                               ANGEL RODOLFO BAIGORRI                       Engenharia Mecatrônica(Diurno)/40                             **
+                                                      Terça   08:00 09:50 ICC ANF. 8                                                                            Geofísica(Diurno)/14
+                                                      Quinta  08:00 09:50 ICC ANF. 8
+
+  B                                  66     Diurno    Segunda 10:00 11:50 ICC ANF.11                               JANETE SOARES DE GAMBOA                      Geologia(Diurno)/30                                           **
+                                                      Terça   10:00 11:50 ICC ANF.11                                                                            Engenharia Civil(Diurno)/36
+                                                      Quinta  10:00 11:50 ICC ANF.11
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:             6   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  C                                  68     Diurno    Segunda 10:00 11:50 ICC ANF. 7                               HELDER DE CARVALHO MATOS                     Química(Diurno)/22                                            **
+                                                      Terça   10:00 11:50 ICC ANF. 8                                                                            Engenharia Mecânica(Diurno)/40
+                                                      Quinta  10:00 11:50 ICC ANF. 8
+
+  D                                  66     Diurno    Segunda 14:00 15:50 ICC ANF. 7                               WEMBESOM MENDES SOARES                       Ciência da Computação(Diurno)/40                              **
+                                                      Quarta  14:00 15:50 ICC ANF. 8                                                                            Engenharia de Computação(Diurno)/20
+                                                      Sexta   14:00 15:50 ICC ANF. 8
+
+  E                                  66     Noturno   Segunda 19:00 20:40 ICC ANF. 3                               JIAZHENG ZHOU                                Física(Noturno)/30                                            **
+                                                      Terça   20:50 22:30 ICC ANF. 8                                                                            Computação(Noturno)/20
+                                                      Quinta  20:50 22:30 ICC ANF. 8                                                                            Engenharia de Produção(Noturno)/16
+
+  F                                  66     Diurno    Terça   08:00 09:50 ICC ANF. 7                               MAURO MORAES ALVES PATRÃO                    Estatística(Diurno)/25                                        **
+                                                      Quinta  08:00 09:50 ICC ANF. 7                                                                            Engenharia Redes Comunicação(Diurno)/35
+                                                      Sexta   08:00 09:50 ICC ANF. 3
+
+  G                                  66     Diurno    Segunda 08:00 09:50 ICC ANF.11                               LUCAS CONQUE SECO FERREIRA                   Física(Diurno)/36
+                                                      Terça   08:00 09:50 ICC ANF.11                                                                            Geofísica(Diurno)/18
+                                                      Quinta  08:00 09:50 ICC ANF.11
+
+  H                                  66     Noturno   Segunda 19:00 20:40 ICC ANF. 4                               HELDER DE CARVALHO MATOS                     Matemática(Noturno)/25
+                                                      Terça   20:50 22:30 ICC ANF. 6                                                                            Engenharia de Produção(Noturno)/28
+                                                      Quinta  20:50 22:30 ICC ANF. 4
+
+  I                                  66     Diurno    Segunda 10:00 11:50 ICC ANF. 4                               ANGEL RODOLFO BAIGORRI                       Matemática(Diurno)/35                                         **
+                                                      Terça   10:00 11:50 ICC ANF. 4                                                                            Química(Diurno)/11
+                                                      Quinta  10:00 11:50 ICC ANF. 4                                                                            Engenharia Química(Diurno)/14
+
+  J                                  66     Noturno   Terça   20:50 22:30 ICC ANF. 4                               MAURO MORAES ALVES PATRÃO                    Química(Noturno)/32
+                                                      Quinta  19:00 20:40 ICC ANF. 2
+                                                      Sexta   19:00 20:40 ICC ANF. 2
+
+  K                                  66     Diurno    Segunda 14:00 15:50 ICC ANF.11                               LUIZ DE OLIVEIRA AMORIM                      Engenharia Elétrica(Diurno)/40
+                                                      Quarta  14:00 15:50 ICC ANF.11                                                                            Engenharia de Computação(Diurno)/11
+                                                      Sexta   14:00 15:50 ICC ANF.11
+
+  L                                  66     Diurno    Segunda 08:00 09:50 ICC ANF. 6                               JIAZHENG ZHOU                                Engenharia Ambiental(Diurno)/40
+                                                      Terça   08:00 09:50 ICC ANF. 4
+                                                      Quinta  08:00 09:50 ICC ANF. 4
+
+  M                                  66     Diurno    Segunda 10:00 11:50 ICC ANF.19                               LUCAS CONQUE SECO FERREIRA                   Química Tecnológica(Diurno)/32
+                                                      Terça   10:00 11:50 ICC ANF.19                                                                            Engenharia Química(Diurno)/26
+                                                      Quinta  10:00 11:50 ICC ANF.19
+
+
+  113051      -  Cálculo 3
+                                                                            004  -   002   -   000  -   006                            Pre-Req :   MAT-113042  Cálculo 2
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:             7   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  A                                  65     Diurno    Segunda 14:00 15:50 ICC ANF. 4                               ARTHUR VICENTINI FERREIRA DE AZEVEDO         Ciência da Computação(Diurno)/27                              **
+                                                      Quarta  14:00 15:50 ICC ANF. 4                                                                            Engenharia Elétrica(Diurno)/38
+                                                      Sexta   14:00 15:50 ICC ANF. 4
+
+  B                                  65     Diurno    Terça   08:00 09:50 ICC ANF.18                               ANDRÉ CALDAS DE SOUZA                        Matemática(Diurno)/18                                         **
+                                                      Quinta  08:00 09:50 ICC ANF.18                                                                            Estatística(Diurno)/7
+                                                      Sexta   08:00 09:50 ICC ANF.18                                                                            Engenharia Redes Comunicação(Diurno)/40
+
+  C                                  65     Diurno    Segunda 10:00 11:50 BSA S B2 54/13                           CELIUS ANTONIO MAGALHAES                     Química(Diurno)/32                                            **
+                                                      Terça   10:00 11:50 BSA S B2 54/13                                                                        Engenharia Civil(Diurno)/20
+                                                      Quinta  10:00 11:50 BSA S B2 54/13
+
+  D                                  65     Noturno   Terça   20:50 22:30 ICC ANF.17                               THEO ALLAN DARN ZAPATA                       Física(Noturno)/15                                            **
+                                                      Quinta  20:50 22:30 ICC ANF.17                                                                            Matemática(Noturno)/15
+                                                      Sexta   19:00 20:40 ICC ANF.17                                                                            Engenharia de Produção(Noturno)/35
+
+  E                                  65     Diurno    Segunda 10:00 11:50 BSA S B2 54/10                           RADERSON RODRIGUES DA SILVA                  Engenharia Civil(Diurno)/10                                   **
+                                                      Terça   10:00 11:50 BSA S B2 54/10                                                                        Engenharia Mecânica(Diurno)/40
+                                                      Quinta  10:00 11:50 BSA S B2 54/10
+
+  F                                  65     Diurno    Segunda 14:00 15:50 ICC ANF. 5                               GUY GREBOT                                   Física(Diurno)/25
+                                                      Quarta  14:00 15:50 ICC ANF.16                                                                            Engenharia Mecatrônica(Diurno)/40
+                                                      Sexta   14:00 15:50 ICC ANF.16
+
+  G                                  70     Diurno    Terça   08:00 09:50 BSA S A2 16/22                           RAIMUNDO DE ARAUJO BASTOS JUNIOR             Engenharia de Computação(Diurno)/40
+                                                      Quinta  08:00 09:50 BSA S A2 16/22                                                                        Geofísica(Diurno)/30
+                                                      Sexta   08:00 09:50 BSA S A2 16/22
+
+  I                                  65     Diurno    Terça   08:00 09:50 BSA S B2 47/10                           JOSE LUIS TERUEL CARRETERO                   Engenharia Ambiental(Diurno)/40
+                                                      Quinta  08:00 09:50 BSA S B2 47/10                                                                        Química Tecnológica(Diurno)/2
+                                                      Sexta   08:00 09:50 BSA S A2 16/37
+
+  J                                  70     Diurno    Terça   08:00 09:50 BSA S B2 41/13                           CLAUS AKIRA MATSUSHIGUE                      Química Tecnológica(Diurno)/30
+                                                      Quinta  08:00 09:50 BSA S B2 41/13                                                                        Engenharia Química(Diurno)/40
+                                                      Sexta   08:00 09:50 BSA S B2 47/13
+
+
+  113824      -  CALCULO DE PROBABILIDADE 1
+                                                                            003  -   003   -   000  -   006                            Pre-Req :   MAT-113051  Cálculo 3
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  40     Diurno    Segunda 10:00 11:50 ICC ANF. 2                               CATIA REGINA GONCALVES                       Matemática(Diurno)/20                                         **
+                                                      Terça   10:00 11:50 BSA S A2 16/30                                                                        Estatística(Diurno)/20
+                                                      Quinta  10:00 11:50 ICC ANF. 6
+
+  B                                  40      Ambos    Segunda 10:00 11:50 ASS 421/10                               ARY VASCONCELOS MEDINO
+                                                      Terça   10:00 11:50 ASS 421/10
+                                                      Quinta  10:00 11:50 ASS 421/10
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:             8   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  113417      -  CALCULO NUMERICO
+                                                                            004  -   000   -   000  -   006                            Pre-Req :   MAT-113042  Cálculo 2
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  70     Diurno    Terça   16:00 17:50 BSA N AT 29/41                           YURI DUMARESQ SOBRAL                         Física(Diurno)/28                                             **
+                                                      Quinta  16:00 17:50 BSA N AT 29/41                                                                        Estatística(Diurno)/10
+                                                                                                                                                                Ciência da Computação(Diurno)/32
+
+  B                                  70     Diurno    Terça   14:00 15:50 ICC ANF. 5                               CLAUS AKIRA MATSUSHIGUE                      Matemática(Diurno)/40                                         **
+                                                      Quinta  14:00 15:50 ICC ANF. 5                                                                            Engenharia Química(Diurno)/30
+
+  C                                  70     Diurno    Terça   14:00 15:50 ICC ANF. 3                               FLAVIA FERREIRA RAMOS ZAPATA                 Engenharia Civil(Diurno)/22                                   **
+                                                      Quinta  14:00 15:50 ICC ANF. 3                                                                            Engenharia Mecânica(Diurno)/43
+                                                                                                                                                                Engenharia Química(Diurno)/5
+
+  D                                  70     Diurno    Terça   14:00 15:50 ICC ANF. 7                               CARLOS MABER CARRION RIVEROS                 Engenharia Civil(Diurno)/21
+                                                      Quinta  14:00 15:50 ICC ANF. 7                                                                            Engenharia Elétrica(Diurno)/44
+                                                                                                                                                                Engenharia Química(Diurno)/5
+
+  E                                  70     Diurno    Segunda 08:00 09:50 ICC ANF. 5                               SALAHOODIN SHOKRANIAN                        Estatística(Diurno)/30
+                                                      Quarta  08:00 09:50 ICC ANF. 5                                                                            Engenharia de Computação(Diurno)/40
+
+  F                                  70     Diurno    Terça   16:00 17:50 ICC ANF.16                               CARLOS MABER CARRION RIVEROS                 Ciência da Computação(Diurno)/18
+                                                      Quinta  16:00 17:50 ICC ANF.16
+
+
+  117056      -  EST SUP DE REGENCIA EM MAT (HL)
+                                                                            000  -   004   -   000  -   006                            Pre-Req :   MAT-117153  EST EM LAB ENS DE MATEMATICA E
+                                                                                                                                                   MAT-113611  ALGEBRA  PARA ENSINO 1 e 2 E
+                                                                                                                                                   MAT-117170  Geometria 2 E
+                                                                                                                                                   MTC-192015  Didatica Fundamental OU
+                                                                                                                                                   MAT-117030  EST PESQ BIBLIOGR S/ ENS MAT E
+                                                                                                                                                   MAT-117021  ESTAGIO EM LAB DE ENSINO E
+                                                                                                                                                   MAT-117048  EST RED SOBRE ENS MATEMATICA E
+                                                                                                                                                   MAT-113611  ALGEBRA  PARA ENSINO 1 e 2 E
+                                                                                                                                                   MAT-117170  Geometria 2 E
+                                                                                                                                                   MTC-192015  Didatica Fundamental OU
+                                                                                                                                                   MAT-117153  EST EM LAB ENS DE MATEMATICA E
+                                                                                                                                                   MAT-113611  ALGEBRA  PARA ENSINO 1 e 2 E
+                                                                                                                                                   MAT-117170  Geometria 2 E
+                                                                                                                                                   MTC-194531  DIDATICA FUNDAMENTAL OU
+                                                                                                                                                   MAT-117153  EST EM LAB ENS DE MATEMATICA E
+                                                                                                                                                   MAT-117421  Álgebra para o Ensino 1 E
+                                                                                                                                                   MAT-117501  Álgebra para o Ensino 2 E
+                                                                                                                                                   MAT-117170  Geometria 2 E
+                                                                                                                                                   MTC-192015  Didatica Fundamental
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+  A                                   0      Ambos    Sábado  08:00 09:50 ICC ASS 415/10                           REGINA DA SILVA PINA NEVES                                                                                 *
+                                                      Sábado  10:00 11:50 ICC ASS 415/10
+
+
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:             9   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  B                                   0      Ambos    Sábado  08:00 09:50 ICC ASS 415/10                           RUI SEIMETZ                                                                                                *
+                                                      Sábado  10:00 11:50 ICC ASS 415/10
+
+
+  117161      -  Geometria 1
+                                                                            002  -   002   -   000  -   006                            Pre-Req :   MAT-113042  Cálculo 2 E
+                                                                                                                                                   MAT-113093  INTRODUCAO A ALGEBRA LINEAR OU
+                                                                                                                                                   MAT-113042  Cálculo 2 E
+                                                                                                                                                   MAT-113123  Algebra Linear OU
+                                                                                                                                                   MAT-113042  Cálculo 2 E
+                                                                                                                                                   ###-117463  DISCIPLINA NÃO CADASTRADA
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+  B                                  40     Noturno   Segunda 20:50 22:30 ICC ASS 433/10                           TARCISIO CASTRO SILVA                        Matemática(Noturno)/25
+                                                      Quarta  19:00 20:40 ICC ASS 433/10
+
+
+  117170      -  Geometria 2
+                                                                            002  -   002   -   000  -   004                            Pre-Req :   MAT-117005  GEOMETRIA OU
+                                                                                                                                                   MAT-117161  Geometria 1
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  B                                  40     Diurno    Segunda 08:00 09:50 ICC ASS 439/10                           GUY GREBOT
+                                                      Quarta  08:00 09:50 ICC ASS 439/10
+
+
+  105881      -  Geometria Analítica Matemática
+                                                                            002  -   002   -   000  -   006                            Pre-Req :
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  48     Diurno    Terça   16:00 17:50 ICC ASS 432/10                           PEDRO ROITMAN                                Matemática(Diurno)/48                                         **
+                                                      Quinta  16:00 17:50 ICC ASS 432/10
+
+  B                                  46     Noturno   Segunda 20:50 22:30 ICC ASS 432/10                           JAQUELINE GODOY MESQUITA                     Matemática(Noturno)/43                                        **
+                                                      Quarta  19:00 20:40 ICC ASS 432/10
+
+
+  117471      -  Geometria para o Ensino 1
+                                                                            003  -   003   -   000  -   006                            Pre-Req :   MAT-117161  Geometria 1
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  40     Noturno   Terça   19:00 20:40 BSA S B2 41/13                           JOSINALVA ESTÁCIO MENEZES                    Matemática(Noturno)/30
+                                                      Quinta  19:00 20:40 BSA S B2 54/10
+                                                      Sábado  10:00 11:40 BSA S B2 54/10
+
+
+  117480      -  Geometria para o Ensino 2
+                                                                            003  -   003   -   000  -   006                            Pre-Req :   MAT-117170  Geometria 2 E
+                                                                                                                                                   MAT-117471  Geometria para o Ensino 1
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  40     Diurno    Segunda 16:00 17:50 ICC ANF. 3                               RUI SEIMETZ                                                                                                *
+                                                      Quarta  14:00 15:50 ICC ANF.14
+                                                      Quarta  16:00 17:50 ICC ANF.14
+
+
+
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:            10   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  113603      -  HISTORIA DA MATEMATICA
+                                                                            004  -   000   -   000  -   006                            Pre-Req :   MAT-113042  Cálculo 2
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  50     Noturno   Terça   19:00 20:40 ICC ANF. 5                               FLAVIA FERREIRA RAMOS ZAPATA
+                                                      Quinta  19:00 20:40 ICC ANF. 5
+
+
+  113093      -  INTRODUCAO A ALGEBRA LINEAR
+                                                                            002  -   002   -   000  -   006                            Pre-Req :
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  66     Diurno    Segunda 16:00 17:50 ICC ANF. 2                               SALAHOODIN SHOKRANIAN                        Física(Diurno)/18                                             **
+                                                      Quarta  16:00 17:50 ICC ANF. 2                                                                            Engenharia Civil(Diurno)/44
+
+  B                                  65     Diurno    Terça   16:00 17:50 ICC ANF. 3                               ALEXEI KRASSILNIKOV                          Estatística(Diurno)/25                                        **
+                                                      Quinta  16:00 17:50 ICC ANF. 3                                                                            Engenharia Mecânica(Diurno)/40
+
+  C                                  66     Diurno    Segunda 16:00 17:50 ICC ANF. 5                               WANG QIAOLING                                Geologia(Diurno)/30                                           **
+                                                      Quarta  16:00 17:50 ICC ANF. 5                                                                            Química(Diurno)/32
+
+  D                                  65     Diurno    Segunda 16:00 17:50 ICC ANF. 6                               ARTHUR VICENTINI FERREIRA DE AZEVEDO         Engenharia Elétrica(Diurno)/41                                **
+                                                      Quarta  16:00 17:50 ICC ANF. 6                                                                            Engenharia Redes Comunicação(Diurno)/24
+
+  E                                  65     Noturno   Terça   19:00 20:40 ICC ANF. 6                               EMERSON FERREIRA DE MELO                     Matemática(Noturno)/36                                        **
+                                                      Quinta  19:00 20:40 ICC ANF. 6
+
+  F                                  65     Diurno    Segunda 16:00 17:50 ICC ANF. 7                               PAVEL SHUMYATSKY                             Engenharia Redes Comunicação(Diurno)/20                       **
+                                                      Quarta  16:00 17:50 ICC ANF. 7                                                                            Engenharia Mecatrônica(Diurno)/42
+
+  G                                  65     Noturno   Terça   19:00 20:40 ICC ANF. 8                               IRINA SVIRIDOVA                              Física(Noturno)/10
+                                                      Quinta  19:00 20:40 ICC ANF. 8                                                                            Engenharia de Produção(Noturno)/50
+
+  H                                  66     Diurno    Quarta  10:00 11:50 ICC ANF. 8                               ELVES ALVES DE BARROS E SILVA                Matemática(Diurno)/30
+                                                      Sexta   10:00 11:50 ICC ANF. 8                                                                            Engenharia Ambiental(Diurno)/36
+
+  I                                  65     Diurno    Terça   16:00 17:50 ICC ANF.15                               ANDRÉ CALDAS DE SOUZA                        Ciência da Computação(Diurno)/20                              **
+                                                      Quinta  16:00 17:50 ICC ANF.15                                                                            Engenharia de Computação(Diurno)/40
+
+  J                                  65     Diurno    Segunda 16:00 17:50 ICC ANF. 8                               ELVES ALVES DE BARROS E SILVA                Física(Diurno)/18
+                                                      Quarta  16:00 17:50 ICC ANF. 8                                                                            Geofísica(Diurno)/36
+
+  K                                  65     Diurno    Terça   16:00 17:50 ICC ANF.11                               LINEU DA COSTA ARAUJO NETO                   Ciência da Computação(Diurno)/20
+                                                      Quinta  16:00 17:50 ICC ANF.11                                                                            Engenharia Química(Diurno)/40
+
+  Y                                  65     Noturno   Terça   19:00 20:40 ICC ANF. 3                               MARTINO GARONZI                              Computação(Noturno)/40
+                                                      Quinta  19:00 20:40 ICC ANF. 3
+
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:            11   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  Z                                  65     Diurno    Quarta  10:00 11:50 ICC ANF.12                               XIA CHANG YU
+                                                      Sexta   10:00 11:50 ICC ANF.12
+
+
+  117358      -  Lógica Mat e Computacional
+                                                                            004  -   000   -   000  -   004                            Pre-Req :
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  50     Diurno    Terça   16:00 17:50 ICC ANF.18                               DANIELE NANTES SOBRINHO
+                                                      Quinta  16:00 17:50 ICC ANF.18
+
+
+  113018      -  MATEMATICA 1
+                                                                            002  -   002   -   000  -   006                            Pre-Req :
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  70     Diurno    Segunda 16:00 17:50 ICC ANF. 4                               XIA CHANG YU                                 Agronomia(Diurno)/65
+                                                      Quarta  16:00 17:50 ICC ANF.12                               LEANDRO MARTINS CIOLETTI
+
+  B                                  70     Diurno    Segunda 16:00 17:50 ICC ANF. 4                               LEANDRO MARTINS CIOLETTI                     Agronomia(Diurno)/15                                          **
+                                                      Quarta  16:00 17:50 ICC ANF. 3                               WEMBESOM MENDES SOARES                       Engenharia Florestal(Diurno)/50
+
+  C                                  70     Diurno    Terça   08:00 09:50 ICC ANF.17                               RADERSON RODRIGUES DA SILVA                  Farmácia(Diurno)/40                                           **
+                                                      Quinta  08:00 09:50 ICC ANF. 2                               PAULO HENRIQUE PEREIRA DA COSTA
+
+  D                                  70     Diurno    Segunda 16:00 17:50 ICC ANF.15                               WEMBESOM MENDES SOARES
+                                                      Quarta  16:00 17:50 ICC ANF.15                               ISMAEL RANGEL FERREIRA LINS
+
+  E                                  70      Ambos    Segunda 19:00 20:50 ICC ANF.12                               PAULO HENRIQUE PEREIRA DA COSTA              Farmácia(Noturno)/30                                          **
+                                                      Quarta  19:00 20:50 ICC ANF.11                               EDIMILSON DOS SANTOS DA SILVA                Gestão de Agronegócios(Noturno)/40
+
+  G                                  70     Noturno   Quarta  19:00 20:40 ICC ANF.18                               LEANDRO MARTINS CIOLETTI                     Ciências Contábeis(Noturno)/70                                **
+                                                      Sexta   19:00 20:40 ICC ANF.18                               ISMAEL RANGEL FERREIRA LINS
+
+  H                                  70     Diurno    Terça   08:00 09:50 ICC ANF.17                               NILTON MOURA BARROSO NETO                    Ciências Contábeis(Diurno)/70                                 **
+                                                      Quinta  08:00 09:50 ICC ANF. 3                               PAULO HENRIQUE PEREIRA DA COSTA
+
+  I                                  70     Noturno   Quarta  19:00 20:40 ICC ANF.18                               LEANDRO MARTINS CIOLETTI                                                                                   **
+                                                      Sexta   19:00 20:40 ICC ANF. 5                               EDIMILSON DOS SANTOS DA SILVA
+
+  K                                  70     Noturno   Segunda 19:00 20:40 ICC ANF.12                               PAULO HENRIQUE PEREIRA DA COSTA              Ciências Biológicas(Noturno)/40
+                                                      Quarta  19:00 20:40 ICC ANF.12                               VINICIUS FACÓ VENTURA VIEIRA
+
+  L                                  70     Noturno   Terça   20:50 22:30 ICC ANF.12                               LEANDRO MARTINS CIOLETTI                     Gestão de Políticas Públicas(Noturno)/50                      **
+                                                      Quinta  20:50 22:30 ICC ANF. 2                               EDIMILSON DOS SANTOS DA SILVA
+
+  M                                  70     Noturno   Terça   20:50 22:30 ICC ANF.12                               LEANDRO MARTINS CIOLETTI                     Ciências Ambientais(Noturno)/40                               **
+                                                      Quinta  20:50 22:30 ICC ANF.13                               VINICIUS FACÓ VENTURA VIEIRA
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:            12   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  113026      -  MATEMATICA 2
+                                                                            004  -   000   -   000  -   006                            Pre-Req :   MAT-113018  MATEMATICA 1
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  50     Diurno    Quarta  14:00 15:50 ICC ANF. 2                               WANG QIAOLING                                Engenharia Florestal(Diurno)/47                               **
+                                                      Sexta   14:00 15:50 ICC ANF. 2
+
+
+  117102      -  MET MATEMATICOS DA FISICA 2
+                                                                            004  -   000   -   000  -   006                            Pre-Req :   MAT-113522  Metodos Matemáticos Física 1 E
+                                                                                                                                                   MAT-113069  VARIAVEL COMPLEXA 1
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  25     Diurno    Terça   10:00 11:50 PJC BT 116                               YURI DUMARESQ SOBRAL
+                                                      Quinta  10:00 11:50 PJC BT 116
+
+
+  113522      -  Metodos Matemáticos Física 1
+                                                                            004  -   002   -   000  -   006                            Pre-Req :   MAT-113051  Cálculo 3
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  68     Diurno    Segunda 10:00 11:50 BSA S B2 34/10                           JOAO CARLOS NASCIMENTO DE PADUA              Matemática(Diurno)/20                                         **
+                                                      Quarta  10:00 11:50 BSA S B2 34/10                                                                        Engenharia Elétrica(Diurno)/35
+                                                      Sexta   10:00 11:50 BSA S B2 34/10                                                                        Geofísica(Diurno)/13
+
+  B                                  68     Diurno    Segunda 10:00 11:50 BSA S B1 41/13                           LUIZ DE OLIVEIRA AMORIM                      Física(Diurno)/20
+                                                      Quarta  10:00 11:50 ICC ANF. 5                                                                            Engenharia Redes Comunicação(Diurno)/35
+                                                      Sexta   10:00 11:50 ICC ANF. 5                                                                            Geofísica(Diurno)/13
+
+
+  117013      -  SEMINARIO TOPICOS ESPECIAIS (HL)
+                                                                            002  -   000   -   000  -   002                            Pre-Req :
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                   0      Ambos    Sexta   12:00 13:50 A Designar                               LUCIANA MARIA DIAS DE AVILA RODRIGUES
+
+
+  B                                   0      Ambos    Terça   10:00 10:55 ICC ASS 433/10                           RICARDO RUVIARO
+                                                      Quinta  10:00 10:55 ICC ASS 433/10
+
+
+  113115      -  Teoria dos Números 1
+                                                                            002  -   002   -   000  -   006                            Pre-Req :
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  68     Diurno    Terça   10:00 11:50 BSA S A2 16/22                           DIEGO MARQUES FERREIRA                       Matemática(Diurno)/35
+                                                      Quinta  10:00 11:50 BSA S A2 16/22                                                                        Ciência da Computação(Diurno)/33
+
+  B                                  60     Noturno   Terça   19:00 20:40 ICC ANF.15                               THEO ALLAN DARN ZAPATA                       Matemática(Noturno)/35
+                                                      Quinta  19:00 20:40 ICC ANF.15
+
+
+  113263      -  TOPOLOGIA DOS ESPACOS METRICOS
+                                                                            004  -   000   -   000  -   006                            Pre-Req :   MAT-113051  Cálculo 3
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+
+
+
+Universidade de Brasília                                                                                                                                                                   Página:            13   de            13
+Secretaria de Administração Acadêmica                                                                                                                                                      Emissão:         06/10/2016         09:40
+Lista de Oferta de Disciplinas
+Período :      2016/2
+
+  A                                  40     Diurno    Terça   16:00 17:50 ICC ANF.19                               LILIANE DE ALMEIDA MAIA
+                                                      Quinta  16:00 17:50 ICC ANF.19
+
+
+  113069      -  VARIAVEL COMPLEXA 1
+                                                                            004  -   002   -   000  -   006                            Pre-Req :   MAT-113051  Cálculo 3
+
+   Turma                           Vagas      Turno             Horário                 Local                            Professores                                             Reserva/Vagas                                Obs
+
+  A                                  65     Diurno    Segunda 14:00 15:50 ICC ANF. 2                               LINEU DA COSTA ARAUJO NETO                   Física(Diurno)/10                                             **
+                                                      Terça   14:00 15:50 ICC ANF. 2                                                                            Matemática(Diurno)/30
+                                                      Quinta  14:00 15:50 ICC ANF. 2                                                                            Engenharia Elétrica(Diurno)/20
+
+  B                                  65     Diurno    Segunda 14:00 15:50 ICC ANF.16                               JOAO CARLOS NASCIMENTO DE PADUA              Engenharia Elétrica(Diurno)/20
+                                                      Terça   14:00 15:50 ICC ANF.15                                                                            Engenharia Mecatrônica(Diurno)/40
+                                                      Quinta  14:00 15:50 ICC ANF.15
+
+  C                                  65     Noturno   Segunda 19:00 20:40 ICC ANF.13                               VICTOR PETROGRADSKIY
+                                                      Terça   20:50 22:30 ICC ANF.14
+                                                      Quinta  20:50 22:30 ICC ANF.14
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Observações :
+    (*)     -  Disciplina restrita (só pode ser cursada pelo aluno que possuí-la em                  (**)   -  Turma de horário         (***)  -  Turma com reserva exclusiva (só matricula aluno do curso para o qual está
+                                                                                                                                                                                                                            lstofelst
+
+

@@ -1,0 +1,28 @@
+#!/usr/bin/sed -f
+s/&aacute;/á/g
+s/&ccedil;/\\c{c}/g
+s/&ecirc;/\\^e/g
+s/&eacute;/\\'e/g
+s/&iacute;/\\'{\\i}/g
+s/&atilde;/ã/g
+s/&otilde;/\\~o/g
+s/&oacute;/\\'o/g
+s/&uacute;/\\'u/g
+s/&agrave;/\\`a/g
+s/pularlinha/ \\\\ /g
+s/barranormal/\/ /g
+s/simboloporcentagem/\\% /g
+s/simbolocifao/\\$ /g
+s/simbolotraco/\\\\- /g
+#maiuscula
+s/&Aacute;/\\'A/g
+s/&Ccedil;/\\c{C}/g
+s/&Ecirc;/\\^E/g
+s/&Eacute;/\\'E/g
+s/&Iacute;/\\'{\\I}/g
+s/&Atilde;/\\~A/g
+s/&Otilde;/\\~O/g
+s/&Oacute;/\\'O/g
+s/&Uacute;/\\'U/g
+s/&Agrave;/\\`A/g
+s/pularlinha/ \\\\ /g 

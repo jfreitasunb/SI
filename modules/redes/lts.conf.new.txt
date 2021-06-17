@@ -1,0 +1,5281 @@
+# Copyright (c) 2003 by James A. McQuillan (McQuillan Systems, LLC)
+#
+# This software is licensed under the Gnu General Public License.
+# The full text of which can be found at http://www.LTSP.org/license.txt
+#
+#
+# Config file for the Linux Terminal Server Project (www.ltsp.org)
+#
+
+[Default]
+        SERVER             = 172.16.38.5
+        XSERVER            = auto
+        USE_XFS            = N
+        SCREEN_01          = startx
+        SCREEN_02          = shell
+        X_MODE_0                = 800x600
+        X_VERTREFRESH           = "55-70"
+        X_MOUSE_PROTOCOL        = "Microsoft"
+        X_MOUSE_DEVICE          = "/dev/ttyS0"
+        X_MOUSE_RESOLUTION      = 400
+        X_MOUSE_BUTTONS         = 2
+        LOCAL_APPS              = N
+        USE_NFS_SWAPP           = N
+        RUNLEVEL                = 5
+        XkbRules                = "xfree86"
+        XkbModel                = "pc104"
+        XkbLayout               = "us_intl"
+        LOCAL_STORAGE = Y
+        MODULE_01 = ohci-hcd
+        MODULE_02 = snd-als4000
+        MODULE_03 = snd-pcm-oss
+        SOUND=Y
+        SOUND_DAEMON=esd
+        VOLUME=100
+        CD_VOLUME=100
+        MIC_VOLUME=100
+
+
+
+
+
+#         X_MOUSE_PROTOCOL   = "PS/2"
+#         X_MOUSE_DEVICE     = "/dev/psaux"
+#         X_MOUSE_RESOLUTION = 400
+#         X_MOUSE_BUTTONS    = 3
+#         XkbLayout               = "us_intl"
+#	  RCFILE_01               = "floppyd"
+
+
+[ws_406_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_14]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_13]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_498_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_406_13]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_589_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_513_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_589_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_MAT_71]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_518_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_657_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_64]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_424_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_79]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_498_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_40]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_461_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_116]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_615_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_490_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_547_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_506_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_624_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_629_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_73]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_406_14]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_110]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_62]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_102]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_111]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_634_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_518_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_611_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_603_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_496_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_515_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_407_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_509_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_495_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_516_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_107]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_500_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_20]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_433_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_MAT_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_458_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_518_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_463_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_457_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_587_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_603_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 800x600
+
+[ws_515_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_524_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_78]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_657_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_621_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_582_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_495_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_42]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_406_12]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_15]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_403_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_667_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_117]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_12]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_631_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_22]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_611_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_29]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_406_11]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_17]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_16]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_498_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_493_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_85]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_445_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_405_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_518_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_518_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_620_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_500_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_524_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_54]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_74]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_76]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_58]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_505_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_429_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_524_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_97]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_410_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_70]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_519_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_590_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_47]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_622_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_98]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_108]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_492_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_518_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_52]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_495_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_474_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_495_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_525_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_471_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_501_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_401_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_406_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_526_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_521_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_548_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_447_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 800x600
+
+[ws_499_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_491_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_468_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_514_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_406_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_406_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_498_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_MAT_87]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_495_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_492_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_512_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_406_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_420_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_403_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_495_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_409_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_406_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_406_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_580_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_60]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_417_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_474_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_492_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_495_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_496_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_528_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_458_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_402_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_19]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_30]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_406_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_61]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_517_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_524_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_465_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_MAT_86]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_489_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_489_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_63]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_521_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_406_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_492_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_500_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_526_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_494_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_57]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_66]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_109]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_442_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_498_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_498_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_92]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_518_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_495_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_400_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_413_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_45]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_464_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_88]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_67]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_407_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_415_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_77]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_492_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_41]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_498_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_610_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_112]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_431_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_406_15]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_93]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_525_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_653_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_524_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_590_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_444_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_658_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_615_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_615_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_100]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_452_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_581_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_518_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_34]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_99]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_101]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1280x1024
+
+[ws_517_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_426_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_456_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_474_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_105]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_463_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_425_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_470_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_609_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_610_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_628_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_474_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_596_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1024x768
+
+[ws_640_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_412_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_82]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_548_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_513_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_32]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_652_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_33]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_570_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_466_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_35]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_524_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_648_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_38]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_89]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_MAT_39]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_655_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_469_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_657_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_490_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_495_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_499_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_524_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_615_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_113]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_663_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_114]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_406_16]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_406_17]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_419_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_583_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_593_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_658_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_443_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_519_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_631_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_462_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_506_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_496_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_496_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_635_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_667_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_115]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_519_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_669_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_468_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_496_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_525_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_28]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_50]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_509_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_612_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_118]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_633_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_25]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_31]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_49]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_68]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_27]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_69]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_26]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_649_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_595_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_589_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_119]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_675_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_490_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_679_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_411_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_492_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_490_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_405_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_514_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_405_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_472_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_646_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_655_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_508_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_120]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_680_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_449_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_495_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_406_18]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_403_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_496_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_620_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_627_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_400_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_603_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_508_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_508_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_626_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_406_19]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_484_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_484_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_484_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_512_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_424_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_121]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_515_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_410_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_682_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_682_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_488_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_122]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_123]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_124]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_681_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_686_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_636_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_636_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_680_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_517_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_496_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_495_11]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_494_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_132]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_133]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_134]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_127]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_128]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_126]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_125]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_129]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_130]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_131]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_135]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_460_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_637_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_136]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_137]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_138]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_688_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_139]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_140]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_141]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_142]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_143]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_144]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_145]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_146]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_664_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_65]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_572_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_409_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_594_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_147]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_671_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_496_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_521_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_691_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_148]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_582_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_149]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_693_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_665_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_665_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_665_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_150]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_473_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_151]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_700_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_491_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_524_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_524_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_658_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_658_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_701_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_152]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_153]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_154]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_463_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_155]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_156]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_46]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1024x768
+
+[ws_612_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_401_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_157]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_518_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_518_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_688_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_470_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_406_20]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_701_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_158]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_547_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_712_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_159]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_406_21]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_721_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_721_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_161]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_162]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_165]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_496_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_515_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_723_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_610_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_166]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_618_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_167]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_168]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_514_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_514_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_413_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_408_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_664_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_705_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_722_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_655_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_169]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_547_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_547_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_695_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_727_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_729_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_610_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_442_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_170]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_171]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_172]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_612_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_518_12]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_500_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_722_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_471_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_527_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_515_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_718_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_718_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_730_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_731_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_173]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_728_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_739_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_747_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_748_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_174]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_175]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_654_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_654_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_654_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_490_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_463_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_547_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_751_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_752_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_415_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_680_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_680_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_755_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_499_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_410_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_401_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_176]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_177]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_178]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_507_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_507_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_507_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_761_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_624_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_686_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_686_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_661_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_764_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_658_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_658_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_506_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_728_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_654_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_179]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_747_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_524_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_495_12]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_612_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_400_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_505_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_505_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_508_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_601_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_180]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_433_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_594_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_181]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_182]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_517_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_184]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_185]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_186]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_187]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_188]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_454_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_189]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_594_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_461_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_190]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_191]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_192]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_193]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_194]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_195]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_754_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_401_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_401_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_524_11]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_728_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_197]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_735_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_196]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x800
+
+[ws_MAT_198]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_199]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1440x900
+
+[ws_MAT_200]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1440x900
+
+[ws_777_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_777_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_201]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_686_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_734_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_717_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_593_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_658_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_496_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_658_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_658_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_406_22]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_646_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_202]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1440x900
+
+[ws_412_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_494_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_494_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_495_13]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_203]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_204]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_721_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_728_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_664_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_633_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_488_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1440x900
+
+[ws_492_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_492_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_488_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_412_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_417_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_507_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_507_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_491_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_400_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_469_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_206]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_207]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_208]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_210]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_211]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_424_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_212]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_463_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_664_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_490_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_799_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_444_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_213]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_680_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_631_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_631_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_214]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_654_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_654_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_215]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_620_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_216]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_217]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_218]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_219]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_220]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_221]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_610_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_222]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_821_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_790_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_821_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_223]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_823_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_401_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_401_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_806_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_836_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_490_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_224]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_838_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_473_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_838_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_225]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_658_11]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_226]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_842_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_658_12]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_403_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_227]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_774_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_228]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_604_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_229]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_230]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_231]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_232]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_233]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_234]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_235]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_236]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_237]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_238]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_658_13]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_239]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_240]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_241]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_242]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_527_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_640_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_243]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_809_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_756_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_594_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_578_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_444_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_756_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_205]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_590_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_774_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_794_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_244]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_413_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_245]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_246]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_247]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_488_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1280x1024
+
+[ws_664_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_647_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_248]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_249]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_721_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_658_14]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_658_15]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_790_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_407_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_658_16]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_488_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_250]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_252]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_499_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_513_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_183]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_578_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_578_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_253]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_571_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_606_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_417_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_417_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_658_17]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_603_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_603_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_527_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_254]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_654_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_848_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_410_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_756_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_410_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_417_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_846_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_868_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_400_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_513_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_255]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_821_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_595_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_704_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_640_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_640_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_640_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_409_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_870_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_469_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_400_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_400_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_400_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_514_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_514_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_256]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_595_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_848_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_469_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_572_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_572_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_832_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_257]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_807_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_11]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_578_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_891_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_654_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_606_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_490_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_410_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_654_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_842_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_410_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_427_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_826_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_654_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_496_11]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_258]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_490_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_259]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_741_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_904_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_904_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1440x900
+
+[ws_703_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_505_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_260]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_654_11]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_261]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_442_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_903_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_910_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_410_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_454_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_514_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_920_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_12]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_13]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_427_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_747_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_658_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1024x768
+
+[ws_412_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_84]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 800x600
+
+[ws_MAT_263]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_870_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_262]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_603_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_499_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_627_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_627_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_627_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_521_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_521_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_505_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_680_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_680_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_264]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_493_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_493_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_493_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_722_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_524_12]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_640_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_400_9]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_948_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_265]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_266]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_267]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_610_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_400_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_268]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_269]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_488_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_15]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_947_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_947_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_469_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_469_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_514_8]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_941_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_16]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_683_17]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_484_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_898_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_270]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_271]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "Serial"
+X_MOUSE_DEVICE     = "/dev/ttyS0"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_272]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_273]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_274]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_275]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_276]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_277]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_278]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_279]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_280]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_281]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_282]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_283]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_284]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_285]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_683_18]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_286]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_287]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_288]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_289]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_290]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_291]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_292]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_293]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_294]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_295]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_1002_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_296]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_297]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_603_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_496_12]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_947_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "USB"
+X_MOUSE_DEVICE     = "/dev/udev"
+X_MODE_0           = 1920x1080
+
+[ws_496_13]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_400_11]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_442_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_1002_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_484_6]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_704_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_610_7]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_578_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_809_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_490_10]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_733_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_595_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_978_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_298]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_493_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_704_3]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_941_2]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_474_5]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_160]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_164]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_163]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1280x1024
+
+[ws_MAT_299]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_300]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_301]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_302]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_303]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_304]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_305]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_306]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_307]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_427_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_490_11]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_209]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_308]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_309]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_1107_1]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_310]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_311]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_821_4]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+
+[ws_MAT_312]
+SERVER		="172.16.38.5"
+X_MOUSE_PROTOCOL   = "PS/2"
+X_MOUSE_DEVICE     = "/dev/psaux"
+X_MODE_0           = 1920x1080
+

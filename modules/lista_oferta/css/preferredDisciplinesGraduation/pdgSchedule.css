@@ -1,0 +1,65 @@
+@CHARSET "UTF-8";
+
+#scheduleDiv {
+}
+
+#scheduleDiv #scheduleContent {
+	width: 90%;
+	margin: auto;
+}
+
+#scheduleDiv table,
+#scheduleDiv table thead th {
+	font-size: 12pt;
+	text-align: center;
+}
+
+#scheduleDiv table tr {
+	height: 30px;
+}
+
+#scheduleDiv table .time {
+	width: 10%;
+}
+
+#scheduleDiv table .day {
+	width: 15%;
+}
+
+#scheduleDiv table {
+	width: 100%;
+	border: 1px solid black;
+	border-width: 1px 0 0 1px;
+}
+
+#scheduleDiv table tbody {
+	background-color: #E6E6E6;
+}
+
+#scheduleDiv table td,
+#scheduleDiv table th {
+	border: 1px solid black;
+	border-width: 0 1px 1px 0;
+	padding: 5px;
+}
+
+#scheduleDiv table {
+	border-spacing:0;
+	border-collapse: collapse;
+}
+
+
+
+@media print {
+	@page {
+		size: landscape
+	}
+
+	h1 {
+		color: black;
+	}
+
+	#scheduleContent {
+		width: 95%;
+	}
+}

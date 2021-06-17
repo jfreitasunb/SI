@@ -1,0 +1,149 @@
+@CHARSET "UTF-8";
+
+td.i {
+    height: 200px;
+    padding: 0 10px 0 0;
+}
+
+#container {
+    height: 100%;
+    width: 100%;
+}
+
+#classes {
+    float: left;
+    width: 25%;
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#classes .class {
+    background: #DADADA;
+    margin: 0 1px 5px 10px;
+    padding: 3px;
+}
+
+.class {
+    cursor: move;
+}
+
+.class:hover {
+    background-color: #DADADA;
+}
+
+.class .class_content {
+    position: relative;
+}
+
+.class h3 {
+    margin: 0;
+    text-align: center;
+}
+
+.class .class_schedule {
+    text-align: center;
+}
+
+.class .class_group {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.class.ui-draggable-dragging {
+    width: 120px !important;
+    background: #DADADA;
+    z-index: 9999;
+    margin: 0 !important;
+}
+
+#groups {
+    float: left;
+    width: 75%;
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.group {
+    float: left;
+    width: 33.333333333333%;
+}
+
+.group .group_content {
+    margin: 0 5px 15px 5px;
+    padding: 4px 4px 4px 4px;
+    background: #DADADA;
+}
+
+.group h2 {
+    margin: 0;
+    text-align: center;
+}
+
+.group .schedule {
+    margin: 5px 0 2px;
+    text-align: center;
+}
+
+.group .schedule span:not(:first-of-type) {
+    margin-left: 5px;
+}
+
+.group .schedule .time {
+    cursor: hand;
+}
+
+.group .schedule .selected {
+    font-weight: bold;
+}
+
+.group .schedule .error {
+    font-weight: bold;
+    color: #FF6666;
+}
+
+.group .classes {
+    background: #F0F0F0;
+    min-height: 10px;
+    overflow: hidden;
+}
+
+.group .classes .title {
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+.group .classes .title .title_contend {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    left: 0;
+}
+
+.group .classes .title label {
+    padding: 1px 4px;
+    background: #F0F0F0;
+    font-weight: bold;
+}
+
+.group .class {
+    width: 47%;
+    float: left;
+    margin: 5px 1.5%;
+}
+
+.group .class .class_group {
+    display: none;
+}
+
+#add_group #image_container {
+    text-align: center;
+}
+
+#add_group #image_container img {
+    height: 75px;
+}

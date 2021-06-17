@@ -1,0 +1,101 @@
+<?php
+require "verifica.php";
+
+
+if ( !$assunto || !$vocativo || !$mensagem || !$desfecho )
+	{
+	echo "
+		<head>
+		<meta http-equiv='content-type' content='text/html; charset=iso-8859-1'>
+		<title>Servidor Administrativo</title><style type='text/css' media='all'>@import 'style.css';</style></head>
+		<body>
+		<div id='Header'></div>
+		<div id='Content'>
+        		<h1>Atenção!</h1>
+			<p> É necessário preencher todos os campos, exceto o campo <b>Anexo(s)</b>. Clique no <i>link</i> aba				ixo para retornar. </p>
+			<p><a href='javascript:history.back();'> Retornar</a></p><br>";
+	require "menu.php";
+	echo "</body></html> ";
+	}
+
+else {
+	require "conexao.php";
+	$data=strftime("%d/%m/%Y");	 
+	if ($acao == "Salvar Rascunho") 
+		{
+		if(!(isset($enviou_ex_ins)))
+			{
+			//setcookie("enviou_ex_ins",$mensagem,time() + 120 );
+			$resultado1=pg_query("INSERT INTO rascunho (id_documentador,id_tipo,id_departamentos,vocativo,mensagem,
+			desfecho,id_assinaturas,assunto,anexo,data) VALUES (default,'$id_tipo','$id_departamentos','$vocativo',
+			'$mensagem','$desfecho','$assinatura','$assunto','$anexo','$data')") 
+			or die ("Não foi possível inserir os dados no banco");
+
+			echo "
+			<head> 
+                	<meta http-equiv='content-type' content='text/html; charset=iso-8859-1'>
+                	<title>Servidor Administrativo</title><style type='text/css' media='all'>@import 'style.css';</style>
+                	</head>
+                	<body> 
+                	<div id='Header'></div>
+                	<div id='Content'>
+                	<h1>Servidor Administrativo</h1>
+				<p> O documento foi inserido como <i>rascunho</i>. Para que ele possa ser impresso, clique no botão
+				abaixo.</p><br>
+			
+			<form method='post' action='operacaopdf.php'>
+			<div align='center'>
+    				<input name='id_tipo' type='hidden' value='$id_tipo'>
+    				<input name='id_departamentos' type='hidden' value='$id_departamentos'>
+    				<input name='assunto' type='hidden' value='$assunto'>
+    				<input name='anexo' type='hidden' value='$anexo'>
+    				<input name='vocativo' type='hidden' value='$vocativo'>
+    				<input name='mensagem' type='hidden' value='$mensagem'>
+    				<input name='desfecho' type='hidden' value='$desfecho'>
+    				<input name='assinatura' type='hidden' value='$assinatura'>
+    				<input name='data' type='hidden' value='$data'>
+    				<input type='submit' name='Submit' value='Visualizar para Impressão'>
+			</div></form>";
+			require "menu.php";
+			echo"</body></html> ";
+			} 
+		else 
+			{ 
+			echo"
+			<head> 
+                	<meta http-equiv='content-type' content='text/html; charset=iso-8859-1'>
+                	<title>Servidor Administrativo</title><style type='text/css' media='all'>@import 'style.css';</style>
+                	</head>
+                	<body> 
+                	<div id='Header'></div>
+                	<div id='Content'>
+                	<h1>Servidor Administrativo</h1>
+				<p> <b><i>O documento já foi salvo.</i></b></p>";
+			require "menu.php";
+			}
+		}
+
+	else 
+		{  
+		require "html2pdf.php";
+		require "complementa.php";
+
+
+		$pdf =& new createPDF(
+			$row[0],
+			"XX",
+			$row1[0],
+			$assunto,
+			$anexo,
+			$vocativo,
+			$mensagem,
+			$desfecho,
+			$data,
+			$row2[0],
+			$row2[1]
+			);
+    		$pdf->run();
+		}	
+	}
+
+?>

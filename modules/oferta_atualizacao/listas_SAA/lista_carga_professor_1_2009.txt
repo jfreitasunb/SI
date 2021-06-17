@@ -1,0 +1,282 @@
+
+
+      Universidade de Brasília                                                                                  Página:               1  de
+                                                                                                                                                    4
+      Secretaria de Administração Acadêmica                                                                     Emissão:
+                                                                                                                                  21/11/2012      09:21
+      Disciplinas lecionadas por professor
+
+      Período
+                               2009/1
+      Orgão responsável :      MAT      -
+                                           DEPARTAMENTO DE MATEMÁTICA
+      Nome do professor                                                                  Regime
+               Disciplina          Denominação                                                Turma             Créditos              Matrículas
+                                                                                                           Disciplina
+                                                                                                                        Professor
+      CHANG CHUNG YU DOREA
+                 MAT-313882-MS    Seminário de Probabilidade                                    A            1            1                      1
+                 MAT-318019-MS    Tópicos em Probabilidade                                      A            5            5                      4
+                 MAT-318094-MS    Estágio de Docência no Ensino de Graduação em Matemática      A            4            4                     17
+                                  1
+                 MAT-318108-MS    Estágio de Docência no Ensino de Graduação em Matemática      A            4            4                      6
+                                  2
+                 MAT-318191-MS    Estágio em Pesquisa em Matemática Aplicada                    DA           1            1                      2
+                 MAT-318191-MS    Estágio em Pesquisa em Matemática Aplicada                    DB           1            1                      2
+                 MAT-318191-MS    Estágio em Pesquisa em Matemática Aplicada                    DC           1            1                      1
+      ANA MARIA REDOLFI DE GANDULFO
+                 MAT-117056-GR    ESTAGIO SUPERVISIONADO DE REGENCIA EM MATEMATICA              B            4            4                      6
+                 MAT-117153-GR    ESTAGIO EM LABORATORIO DE ENSINO DE MATEMATICA                A            6            6                     10
+      JOSE ALFREDO SILVA
+                 MAT-113204-GR    ANALISE 1                                                     A            6            6                     51
+                 MAT-117137-GR    ANALISE 3                                                     A            4            4                     18
+      LEONARDO LAZARTE
+                 MAT-113034-GR    Calculo 1                                                     K            6            3,5                   36
+                 MAT-113034-GR    Calculo 1                                                     L            6            3,5                   24
+                 MAT-113417-GR    CALCULO NUMERICO                                              D            4            4                     44
+      SALAHOODIN SHOKRANIAN
+                 MAT-113093-GR    INTRODUCAO A ALGEBRA LINEAR                                   B            4            4                     72
+                 MAT-113417-GR    CALCULO NUMERICO                                              C            4            4                     81
+      CELIUS ANTONIO MAGALHAES
+                 MAT-113051-GR    Calculo 3                                                     B            6            3,25                  38
+                 MAT-113051-GR    Calculo 3                                                     E            6            3,25                  16
+                 MAT-113301-GR    EQUACOES DIFERENCIAIS 1                                       F            4            4                     52
+      ANGEL RODOLFO BAIGORRI
+                 MAT-113042-GR    Calculo 2                                                     J            6            6                     40
+      HEMAR TEIXEIRA GODINHO
+                 MAT-113115-GR    Teoria dos Números 1                                          A            4            3,54                  73
+                 MAT-318060-MS    Seminário de Teoria dos Números                               A            1            1                      4
+                 MAT-318078-MS    Introdução à Teoria dos Números                               A            3            3                      1
+                 MAT-318141-MS    Estágio de Pesquisa em Álgebra                                AA           1            1                      1
+                 MAT-318141-MS    Estágio de Pesquisa em Álgebra                                AB           1            0,54                   1
+                 MAT-318230-MS    Equações Sobre Corpos Finitos                                 A            5            5                      4
+      LUIZ DE OLIVEIRA AMORIM
+                 MAT-113051-GR    Calculo 3                                                     D            6            3,5                   30
+                 MAT-113051-GR    Calculo 3                                                     I            6            3,5                   12
+                 MAT-113522-GR    Metodos Matemáticos da Física 1                               A            6            6                     62
+      JOAO CARLOS NASCIMENTO DE PADUA
+                 MAT-113069-GR    VARIAVEL COMPLEXA 1                                           B            6            6                     44
+                 MAT-113522-GR    Metodos Matemáticos da Física 1                               B            6            6                     64
+      GUY GREBOT
+                 MAT-113018-GR    MATEMATICA 1                                                  E            4            4                     41
+                 MAT-117161-GR    Geometria 1                                                   A            4            4                     31
+      ELVES ALVES DE BARROS E SILVA
+                 MAT-313025-MS    Tópicos Avançados de Análise                                  A            5            5                      9
+                 MAT-318175-MS    Estágio de Pesquisa em Análise                                BC           1            1                      1
+                 MAT-318175-MS    Estágio de Pesquisa em Análise                                BD           1            1                      1
+                 MAT-318175-MS    Estágio de Pesquisa em Análise                                BE           1            1                      1
+      PAVEL SHUMYATSKY
+                                                                                                                                             lstofedlp
+
+
+
+
+
+      Universidade de Brasília                                                                            Página:             2  de
+                                                                                                                                            4
+      Secretaria de Administração Acadêmica                                                               Emissão:
+                                                                                                                          21/11/2012      09:21
+      Disciplinas lecionadas por professor
+
+                MAT-113123-GR   Algebra Linear                                             A           6           5,54                 76
+                MAT-313840-MS   Seminário de Algebra                                       A           1           0,54                  5
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AH          1           1                     1
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AI          1           1                     1
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AJ          1           1                     1
+      CATIA REGINA GONCALVES
+                MAT-113824-GR   CALCULO DE PROBABILIDADE 1                                 A           6           6                    45
+                MAT-318191-MS   Estágio em Pesquisa em Matemática Aplicada                 DG          1           1                     1
+                MAT-318191-MS   Estágio em Pesquisa em Matemática Aplicada                 DH          1           1                     1
+                MAT-318191-MS   Estágio em Pesquisa em Matemática Aplicada                 DK          1           1                     2
+      MARCELO FERNANDES FURTADO
+                MAT-313491-MS   Introdução a Análise                                       A           6           6                    20
+                MAT-318175-MS   Estágio de Pesquisa em Análise                             BF          1           1                     1
+                MAT-318175-MS   Estágio de Pesquisa em Análise                             BG          1           1                     1
+                MAT-318175-MS   Estágio de Pesquisa em Análise                             BJ          1           1                     1
+      PAVEL ZALESSKI
+                MAT-313114-MS   Introdução a Algebra                                       A           6           5,54                 20
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AL          1           1                     1
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AM          1           1                     1
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AN          1           0,54                  1
+      MAURICIO AYALA RINCON
+                MAT-113859-GR   ANALISE DE ALGORITMOS                                      A           4           4                    44
+                MAT-313998-MS   Introdução a Lógica Formal                                 A           5           4,13                  4
+                MAT-318191-MS   Estágio em Pesquisa em Matemática Aplicada                 DE          1           0,54                  1
+                MAT-318191-MS   Estágio em Pesquisa em Matemática Aplicada                 DF          1           0,58                  1
+                MAT-318191-MS   Estágio em Pesquisa em Matemática Aplicada                 DI          1           1                     2
+      RODRIGO ANDRES DE SOUZA PENALOZA
+                ECO-133035-GR   MICROECONOMIA 3                                            A           4           4                    13
+                ECO-133108-GR   ECONOMETRIA AVANCADA                                       A           4           2,17                 10
+                ECO-133141-GR   MONOGRAFIA                                                 DD          16          16                    3
+                ECO-133141-GR   MONOGRAFIA                                                 OO          16          16                    1
+                ECO-332321-MS   Estatística Econômica                                      A           4           2,17                  7
+                FAC-388041-MS   Métodos Quantitativos                                      A           2           2                    34
+      ARTHUR VICENTINI FERREIRA DE AZEVEDO
+                MAT-113051-GR   Calculo 3                                                  A           6           3,25                 51
+                MAT-113051-GR   Calculo 3                                                  H           6           3,25                  5
+                MAT-113301-GR   EQUACOES DIFERENCIAIS 1                                    C           4           4                    64
+      MAURO LUIZ RABELO
+                MAT-113611-GR   ALGEBRA PARA ENSINO  1 e 2                                 A           6           6                    10
+                MAT-117170-GR   Geometria 2                                                A           4           4                    30
+      HELMAR NUNES MOREIRA
+                MAT-113018-GR   MATEMATICA 1                                               A           4           4                    57
+                MAT-113051-GR   Calculo 3                                                  G           6           6                    72
+      RUI SEIMETZ
+                MAT-117056-GR   ESTAGIO SUPERVISIONADO DE REGENCIA EM MATEMATICA           A           4           4                     9
+                MAT-117056-GR   ESTAGIO SUPERVISIONADO DE REGENCIA EM MATEMATICA           C           4           4                    11
+      XIA CHANG YU
+                MAT-113093-GR   INTRODUCAO A ALGEBRA LINEAR                                A           4           4                    45
+                MAT-113301-GR   EQUACOES DIFERENCIAIS 1                                    D           4           4                    48
+                MAT-313874-MS   Seminário de Geometria Diferencial                         B           1           1                     4
+                MAT-318183-MS   Estágio de Pesquisa em Geometria Diferencial               CD          1           1                     1
+                MAT-318183-MS   Estágio de Pesquisa em Geometria Diferencial               CE          1           1                     1
+                MAT-318183-MS   Estágio de Pesquisa em Geometria Diferencial               CF          1           1                     1
+      PEDRO ROITMAN
+                MAT-113042-GR   Calculo 2                                                  A           6           6                    62
+                MAT-113328-GR   Geometria Diferencial 1                                    A           4           4                    15
+      HELDER DE CARVALHO MATOS
+
+                                                                                                                                     lstofedlp
+
+
+
+
+
+      Universidade de Brasília                                                                            Página:             3  de
+                                                                                                                                            4
+      Secretaria de Administração Acadêmica                                                               Emissão:
+                                                                                                                          21/11/2012      09:21
+      Disciplinas lecionadas por professor
+
+                MAT-113701-GR   INTRODUCAO A MATEMATICA SUPERIOR                           A           6           6                    80
+      NIGEL JOHN EDWARD PITT
+                MAT-313076-MS   Variáveis Complexas 2                                      A           5           5                     4
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AO          1           1                     1
+      RAQUEL CARNEIRO DORR
+                MAT-113034-GR   Calculo 1                                                  A           6           6                    49
+                MAT-113034-GR   Calculo 1                                                  E           6           6                    37
+      SOLANGE DOS REIS AMORIM E AMATO
+                MTC-192414-GR   Educação Matemática 1                                      B           4           4                    35
+                MTC-192783-GR   Educação Matemática 2                                      B           4           4                    16
+                FE -194689-GR   Aliand Pesq e Ação no Ens Mat                              DD          6           6                     6
+                FE -194735-GR   Aliand Pesq e Ação no Ens Mat                              CA          6           6                     1
+                FE -194743-GR   Aliand Pesq e Ação no Ens Mat.                             CA          6           6                     1
+      LINEU DA COSTA ARAUJO NETO
+                MAT-113069-GR   VARIAVEL COMPLEXA 1                                        A           6           6                    54
+                MAT-113107-GR   Algebra 1                                                  A           4           4                    83
+      RADERSON RODRIGUES DA SILVA
+                MAT-113034-GR   Calculo 1                                                  F           6           6                    47
+                MAT-113034-GR   Calculo 1                                                  H           6           6                    62
+      ALEXEI KRASSILNIKOV
+                MAT-113131-GR   ALGEBRA 2                                                  A           4           4                    36
+                MAT-313572-MS   Algebras de Lie                                            A           5           5                     8
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AK          1           1                     1
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AP          1           1                     1
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AQ          1           1                     1
+      KETI TENENBLAT
+                MAT-313874-MS   Seminário de Geometria Diferencial                         A           1           1                     1
+                MAT-318043-MS   Tópicos Avançados de Geometria Diferencial                 A           3           3                     6
+                MAT-318183-MS   Estágio de Pesquisa em Geometria Diferencial               CA          1           1                     1
+                MAT-318183-MS   Estágio de Pesquisa em Geometria Diferencial               CB          1           1                     1
+                MAT-318183-MS   Estágio de Pesquisa em Geometria Diferencial               CC          1           1                     1
+      SAID NAJATI SIDKI
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AG          1           1                     1
+      CARLOS MABER CARRION RIVEROS
+                MAT-113042-GR   Calculo 2                                                  K           6           6                    37
+                MAT-113093-GR   INTRODUCAO A ALGEBRA LINEAR                                D           4           4                    70
+      CLAUS AKIRA MATSUSHIGUE
+                MAT-113042-GR   Calculo 2                                                  D           6           6                    42
+                MAT-113930-GR   TEORIA DOS GRAFOS                                          A           4           4                    27
+      WANG QIAOLING
+                MAT-113301-GR   EQUACOES DIFERENCIAIS 1                                    B           4           2,17                 25
+                MAT-113301-GR   EQUACOES DIFERENCIAIS 1                                    E           4           2,17                 38
+                MAT-313033-MS   Geometria Riemanniana                                      A           5           5                     3
+                MAT-318183-MS   Estágio de Pesquisa em Geometria Diferencial               CG          1           1                     1
+      ALINE GOMES DA SILVA PINTO
+                MAT-113107-GR   Algebra 1                                                  B           4           4                    58
+                MAT-313131-MS   Teoria de Grupos Finitos 1                                 A           5           5                     4
+                MAT-318141-MS   Estágio de Pesquisa em Álgebra                             AR          1           1                     1
+      CARLOS ALBERTO PEREIRA DOS SANTOS
+                MAT-113051-GR   Calculo 3                                                  F           6           6                    74
+                MAT-113093-GR   INTRODUCAO A ALGEBRA LINEAR                                F           4           4                    70
+                MAT-318175-MS   Estágio de Pesquisa em Análise                             BK          1           1                     1
+      DANIELE DA SILVA BARATELA MARTINS NETO
+                MAT-113034-GR   Calculo 1                                                  J           6           6                    50
+                MAT-318086-MS   Processos Estocásticos 1                                   A           5           5                     8
+      ARY VASCONCELOS MEDINO
+                MAT-113832-GR   CALCULO DE PROBABILIDADE 2                                 A           4           4                    44
+
+                                                                                                                                     lstofedlp
+
+
+
+
+
+      Universidade de Brasília                                                                            Página:             4  de
+                                                                                                                                            4
+      Secretaria de Administração Acadêmica                                                               Emissão:
+                                                                                                                          21/11/2012      09:21
+      Disciplinas lecionadas por professor
+
+                MAT-313220-MS   Medida e Integração                                        A           5           4,54                  7
+                MAT-318191-MS   Estágio em Pesquisa em Matemática Aplicada                 DD          1           1                     1
+                MAT-318191-MS   Estágio em Pesquisa em Matemática Aplicada                 DJ          1           0,54                  1
+      MAURO MORAES ALVES PATRAO
+                MAT-113034-GR   Calculo 1                                                  D           6           6                    52
+                MAT-113034-GR   Calculo 1                                                  G           6           3,5                  36
+                MAT-113034-GR   Calculo 1                                                  I           6           3,5                  35
+      ELENILSON DE VARGAS FORTES
+                MAT-113042-GR   Calculo 2                                                  F           6           6                    56
+                MAT-113417-GR   CALCULO NUMERICO                                           A           4           4                    52
+                MAT-113417-GR   CALCULO NUMERICO                                           B           4           4                    27
+      JOSÉ ANTONIO PIRES FERREIRA MARÃO
+                MAT-113018-GR   MATEMATICA 1                                               I           4           4                    55
+                MAT-113042-GR   Calculo 2                                                  E           6           3,5                  51
+                MAT-113042-GR   Calculo 2                                                  H           6           3,5                  29
+                MAT-113051-GR   Calculo 3                                                  C           6           6                    62
+      LUCIANA MARIA DIAS DE AVILA RODRIGUES
+                MAT-113034-GR   Calculo 1                                                  M           6           6                    51
+                MAT-113034-GR   Calculo 1                                                  N           6           6                    44
+                MAT-318183-MS   Estágio de Pesquisa em Geometria Diferencial               CH          1           1                     1
+      LINDEMBERG SOUSA MASSA
+                MAT-113018-GR   MATEMATICA 1                                               B           4           4                    61
+                MAT-113018-GR   MATEMATICA 1                                               C           4           4                    62
+                MAT-113018-GR   MATEMATICA 1                                               D           4           4                    54
+                MAT-113026-GR   MATEMATICA 2                                               A           4           4                    49
+      ALINE DE SOUZA LIMA
+                MAT-113034-GR   Calculo 1                                                  P           6           6                    36
+                MAT-113042-GR   Calculo 2                                                  C           6           6                    49
+      ADRIANA FLORES DE ALMEIDA
+                MAT-113018-GR   MATEMATICA 1                                               G           4           4                    49
+                MAT-113093-GR   INTRODUCAO A ALGEBRA LINEAR                                C           4           4                    68
+                MAT-113093-GR   INTRODUCAO A ALGEBRA LINEAR                                E           4           4                    40
+      JOSIMAR DA SILVA ROCHA
+                MAT-113042-GR   Calculo 2                                                  G           6           6                    49
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                     lstofedlp
+
+
+

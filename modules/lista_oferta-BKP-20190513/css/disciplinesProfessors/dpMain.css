@@ -1,0 +1,37 @@
+@CHARSET "UTF-8";
+
+#disciplines {
+    float: left;
+    width: 25%;
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#disciplines .discipline {
+	background: #DADADA;
+    margin: 0 1px 5px 10px;
+    padding: 3px;
+}
+
+#disciplines a {
+	color: black;
+	text-decoration: none;
+}
+
+#disciplines .selected {
+    background: #BBE8FF !important;
+}
+
+#classes {
+    float: left;
+    width: 75%;
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#classes #classes_table,
+#classes #classes_table thead th {
+	font-size: 12pt;
+}

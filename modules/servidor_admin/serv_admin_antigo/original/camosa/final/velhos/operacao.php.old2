@@ -1,0 +1,67 @@
+<?php
+
+require "conexao.php";
+require "verifica.php";
+
+if ($acao == "Inserir")
+	{
+	$sel="SELECT * FROM documentador WHERE id_tipo='$id_tipo'";
+
+	$resultado=pg_query($sel) or die ("N\xe3o foi poss\xedvel realizar a consulta ao banco de dados");
+
+	$contador=pg_num_rows($resultado) + 1;
+	
+	
+	$ins1="INSERT INTO documentador (id_documentador,id_tipo,numerodocumento,id_departamentos,vocativo,mensagem,desfecho,id_assinaturas) VALUES (default,'$id_tipo','$contador','$id_departamentos','$vocativo','$mensagem','$desfecho','$assinatura')";
+
+	$resultado1=pg_query($ins1) or die("N\xe3o foi poss\xedvel inserir os dados no banco 1");
+
+        $busc="SELECT id_documentador FROM documentador WHERE numerodocumento = '$contador' and id_tipo = '$id_tipo'";
+
+        $resultado2=pg_query($busc) or die("Não foi possível executar a operação. Contacte a Coordenação de Informática.");
+
+        $coluna = pg_fetch_row($resultado2,$i);
+        $documento = $coluna[0];
+        //echo $coluna[0];
+	pg_close($conn);
+
+	//header("Location: operacao_ok.php");
+	//exit;
+
+echo "
+
+<head>
+<meta http-equiv='content-type' content='text/html; charset=iso-8859-1'>
+
+<title>Servidor Administrativo</title><style type='text/css' media='all'>@import 'style.css';</style></head>
+
+
+
+<body>
+
+<div id='Header'></div>
+
+<div id='Content'>
+        <h1>Servidor Administrativo</h1>
+<p> O documento foi inserido com sucesso. Clique no <i>link</i> abaixo para que o documento possa ser impresso na tela em formato <b><i>.pdf</i></b>. </p>
+ <p><a href='edicao_ope.php?id_documentador = $documento'> Gerar .pdf</a>
+        </p>
+
+  <br>
+
+<div id='Menu'>
+        <a href='exercio_insere.php'>Preencher Formulário</a><br>
+        <a href='exercicio_edita_lista.php'>Buscar Documentos</a><br>
+        <a href='sair.php'>Sair</a><br>
+
+</div>
+</body></html> ";
+
+
+
+
+
+
+
+	}
+?>

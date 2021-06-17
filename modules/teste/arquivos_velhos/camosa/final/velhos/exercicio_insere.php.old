@@ -1,0 +1,92 @@
+<?php
+require "verifica.php";
+?>
+
+<html>
+<head>
+  <title>Servidor Administrativo</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+body {
+	scrollbar-face-color: #DEE3E7;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-shadow-color: #DEE3E7;
+	scrollbar-3dlight-color: #D1D7DC;
+	scrollbar-arrow-color:  #006699;
+	scrollbar-track-color: #EFEFEF;
+	scrollbar-darkshadow-color: #98AAB1;
+}
+</style>
+
+<body leftmargin="2" topmargin="0">
+<table width="100%" border="5" align="center" cellpadding="3" cellspacing="0" bordercolor="#FFFFFF">
+  <tr>
+    <td width="15%" height="43">
+      <div align="center"><img src="figuras/logo_car.gif" width="80" height="80"></div>
+    </td>
+    <td colspan="3" valign="middle" height="43">
+      <div align="center"><font size="4" face="Verdana, Arial, Helvetica, sans-serif" color="#014D74"><strong>Inserir
+      Documento</strong></font></div>
+    </td>
+  </tr>
+</table>
+<div align="justify"> <font face="Verdana, Arial, Helvetica, sans-serif" size="2" color="#990000"><b>
+  <center>
+  </center>
+</b></font></div>
+<?php
+
+echo "<form action='confirma_insere.php' method='post'>";
+echo "<table><br>
+          <tr>
+            <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica, sans-serif'>Tipo de Documento:</font></td>
+	<td><select name= 'id_tipo' size = '3' multiple>
+                        <option value='43'>Memorando</option>
+                        <option value='44'>Ofício</option>
+                        <option value='45'>Currículo</option>
+                        <option value='46'>Circular</option>
+                        </select></td></tr>
+<br>
+         <tr>
+           <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica, sans-serif'>Departamento:</font></td>
+	<td><select name= 'id_departamentos' size = '2' multiple>
+                        <option value='1'>Química</option>
+                        <option value='2'>Fisica</option>
+                        </select></td></tr>
+
+         <tr>
+           <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica, sans-serif'>Vocativo:</font></td>
+           <td><input name='vocativo' type='text' size=6></td>
+        </tr>
+        <tr>
+          <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica, sans-serif'>Mensagem:</font></td>
+	<td><TEXTAREA name= 'mensagem' rows=10 cols=60>Insira aqui a mensagem.
+                        </TEXTAREA></td>
+
+        </tr>
+        <tr>
+          <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica, sans-serif'>Desfecho:</font></td>
+          <td><input name='desfecho' type='text' size=30></td>
+        </tr>
+        <tr>
+          <td width='130'><img src='figuras/dot.gif'> <font size='2' face='Verdana, Arial, Helvetica, sans-serif'>Assinatura:</font></td>
+
+	<td><select name= 'assinatura' size = '3' multiple>
+                        <option value='1'>Prof. Guy</option>
+                        <option value='2'>Prof. Leonardo</option>
+                        <option value='3'>Prof. Celius</option>
+                        </select></td></tr>
+
+      </table>
+<br>
+	<input name='acao' type='hidden' value='inserir'>
+	<input type='submit' value='Inserir'><input type='reset' value='Limpar'>
+</form>";
+
+?>
+
+</body>
+
+</head>
+</html>

@@ -1,0 +1,42 @@
+
+.credits {
+	border: 1px solid #5B5B5B;
+}
+
+.credits .title {
+	background: #5B5B5B;
+	color: white;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.credits .text {
+	padding: 2px;
+	text-align: center;
+}
+
+.credits .type {
+	float: left;
+	width: 25%;
+}
+
+.professor {
+	margin-top: 10px;
+}
+
+.credits:first-of-type .title:first-of-type {
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.credits:first-of-type .data ~ .data .text {
+	border-left: 1px solid #5B5B5B;
+}
+
+.credits:first-of-type .title.type ~ .title.type .text {
+	border-left: 1px solid #CCCCCC;
+}
+
+#mean .text {
+	font-size: 11px;
+	font-weight: bold;
+}
