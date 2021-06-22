@@ -42,7 +42,6 @@ for ($i=0;$i<$num_pedidos; $i++)
 		if ((($creditospos!=0) and ($creditos<9)) or (($creditospos==0) and ($creditosgrad<12) and ($disciplinas_iguais_6=="sim"))) $prioridade=10;															     // corresponde a j i.e. o resto
 		}
 	$insere_prioridade="insert into oferta_organiza_pedidos values('".$creditos_grad[$i]['coduser']."','".$prioridade."')";
-//	echo $insere_prioridade." \n";
 	$res=pg_query($insere_prioridade) or die ("problema com o acesso ao Banco de Daodos");
 	}
 
@@ -62,7 +61,6 @@ $query_disciplinas=pg_query("select distinct on (codigo) codigo from ".$tabela."
 // pega codigos dio magistral. adicionado em 07/05/14
 $pega_magistral=pg_query("select distinct on (codigo_1) codigo_1 from oferta_grupos_magistral_teoria");
 $array_magistral=pg_fetch_all($pega_magistral);
-//
 
 while($registro=pg_fetch_row($query_disciplinas))
 	{
@@ -85,15 +83,11 @@ while($registro=pg_fetch_row($query_disciplinas))
 		$query_disciplinas_grad=pg_query("select coduser from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Diurno' order by coduser");
 		$num_diurno=pg_num_rows($query_disciplinas_grad);
 		$insere_frequencia_diurno="insert into oferta_frequencia_pedidos values('".$disciplina."','Diurno','".$i."','".$num_diurno."','".$semestre."','".$ano."')";
-//		echo $insere_frequencia_diurno." \n";
 		$res_diurno=pg_query($insere_frequencia_diurno) or die ("Problema no acesso ao Banco de Dados");
-
-// TESTAR: $query_disciplinas_grad=pg_query("select count(coduser) from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Diurno' order by coduser");
 
 		$query_disciplinas_grad=pg_query("select coduser from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Noturno' order by coduser");
 		$num_noturno=pg_num_rows($query_disciplinas_grad);
 		$insere_frequencia_noturno="insert into oferta_frequencia_pedidos values('".$disciplina."','Noturno','".$i."','".$num_noturno."','".$semestre."','".$ano."')";
-//		echo $insere_frequencia_noturno." \n";
 		$res_noturno=pg_query($insere_frequencia_noturno) or die ("Problema no acesso ao Banco de Dados");
 
 		}
@@ -482,10 +476,6 @@ $horarios_not=array('2N34 4N12','2N12 35N34','2N12 35N34','3N34 56N12','3N34 5N3
 
 if ($semestre==1) {$semestre_anterior=2;$ano_anterior=$ano-1;} else {$semestre_anterior=1; $ano_anterior=$ano;}
 
-//$query_profs=pg_query("select distinct on (professor) professor from oferta_lista_de_ofertas where semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
-// ESTE QUAERY E PROBLEMATICO PORQUE ELE NAO PEGA TODAS AS ATYUACOES!
-//$query_profs=pg_query("select distinct on (coduser) coduser,turno,horarios from oferta_lista_sigra where semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
-
 // acrescentado em 17/04/2015 para poder usar apenas a lista de ofertas do SIgra:
 if ($ano_anterior<2012)
 $query_profs=pg_query("select c.coduser,c.codigo,c.turma_disc,turno,horarios from oferta_carga_professor c,oferta_lista_sigra s where nivel='GR' and c.semestre='".$semestre_anterior."' and c.ano='".$ano_anterior."' and c.semestre=s.semestre and c.ano=s.ano and c.codigo=s.codigo and c.turma_disc=s.turma order by coduser,codigo,turma_disc") or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
@@ -512,9 +502,6 @@ while ($registro=pg_fetch_row($query_profs))
 		$atuacao_not=0;
 		$array_de_horarios=array(219 => 0,221 => 0,319 => 0,321 => 0,419 => 0,421 => 0,519 => 0,521 => 0,619 => 0,621 => 0);
 		}
-//	$query_noturno=pg_query("select turno,horarios from oferta_lista_de_ofertas where professor='".$registro[0]."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
-//	while ($registro_2=pg_fetch_row($query_noturno))
-//		{
 	if (($registro[3]=="Noturno") or ($registro[3]=="Ambos"))
 		{
 		$horario=explode("-",$registro[4]);
@@ -528,12 +515,6 @@ while ($registro=pg_fetch_row($query_profs))
 				}
 			}
 		}
-//		}
-//	if ($atuacao_not!=0) $atuacao_not=1;
-//coduser | semestre | ano  | disc_noturno
-	// checa se ja foi atualizado para cada prof de coduser:
-//	$profs=explode("-",$registro[0]);
-//	for ($i=0;$i<count($profs);$i++)
 	}
 // inclui a impressao dos dados da ultima linha de $registro:
 	$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
