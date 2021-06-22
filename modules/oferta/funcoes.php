@@ -468,8 +468,65 @@ $num_dados=pg_num_rows($query_dados);
 	<?php
 }
 
-
 function atualiza_rodizio_noturno($semestre,$ano)
+{
+// atualiza a taberla de rodizio noturno para o $semestre/$ano a partir dos dados da lista de ofertas do semestre anterior:
+$horarios_not=array('2N34 4N12','2N12 35N34','2N12 35N34','3N34 56N12','3N34 5N34 6N12','2N12 35N34','35N12','3N12 5N12','24N34','3N12 6N12','36N12','3N12 5N12','3N34 6N12','26N12 4N34','2N12 4N34','2N12 3N34','7M12 4N1234','7T2345 5N1234','7M34 3N1234','2N12 35N34','2N12 35N34','2N12 35N34','2N12 35N34','7M1234 4N12','7M1234 4N12','7M1234 4N12','7M1234 4N12','246N12','35N34','24N12','46N12','46N12','2N12 6N34','35N34','24N12',);
+
+if ($semestre==1) {$semestre_anterior=2;$ano_anterior=$ano-1;} else {$semestre_anterior=1; $ano_anterior=$ano;}
+
+// acrescentado em 17/04/2015 para poder usar apenas a lista de ofertas do SIgra:
+if ($ano_anterior<2012)
+$query_profs=pg_query("select c.coduser,c.codigo,c.turma_disc,turno,horarios from oferta_carga_professor c,oferta_lista_sigra s where nivel='GR' and c.semestre='".$semestre_anterior."' and c.ano='".$ano_anterior."' and c.semestre=s.semestre and c.ano=s.ano and c.codigo=s.codigo and c.turma_disc=s.turma order by coduser,codigo,turma_disc") or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
+else
+$query_profs=pg_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios from oferta_lista_sigra os, users u,fonctionnaire f where os.coduser like '%'||f.coduser||'%' and f.coduser=u.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and  os.semestre='".$semestre_anterior."' and os.ano='".$ano_anterior."' order by f.coduser,os.codigo,os.turma") or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
+
+
+//$atuacao_noturno=array();
+$prof=0;
+while ($registro=pg_fetch_row($query_profs))
+	{
+	if($registro[0]!=$prof)
+		{
+		if($prof!=0)
+			{
+			$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
+			$num_checa=pg_num_rows($query_checa);
+			if ($num_checa==0)
+				$query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno values('".$prof."','".$semestre_anterior."','".$ano_anterior."','".$atuacao_not."')") or die ("problema de conexao com o banco");
+			else
+				$query_atualiza=pg_query("update oferta_horarios_rodizio_noturno set disc_noturno='".$atuacao_not."' where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'") or die ("problema de conexao com o banco");
+			}
+		$prof=$registro[0];
+		$atuacao_not=0;
+		$array_de_horarios=array(219 => 0,221 => 0,319 => 0,321 => 0,419 => 0,421 => 0,519 => 0,521 => 0,619 => 0,621 => 0);
+		}
+	if (($registro[3]=="Noturno") or ($registro[3]=="Ambos"))
+		{
+		$horario=explode("-",$registro[4]);
+		foreach ($horario as $key => $value)
+			{
+			if (in_array($value,$horarios_not) and ($array_de_horarios[$value]==0))
+				{
+				$array_de_horarios[$value]=1;
+				$atuacao_not=1;// $atuacao_not=1; correcao emj 15/08/2015
+
+				}
+			}
+		}
+	}
+// inclui a impressao dos dados da ultima linha de $registro:
+	$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
+                        $num_checa=pg_num_rows($query_checa);
+                        if ($num_checa==0)
+                                $query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno values('".$prof."','".$semestre_anterior."','".$ano_anterior."','".$atuacao_not."')") or die ("problema de conexao com o banco");
+                        else
+                                $query_atualiza=pg_query("update oferta_horarios_rodizio_noturno set disc_noturno='".$atuacao_not."' where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'") or die ("problema de conexao com o banco");
+
+}
+
+
+function atualiza_rodizio_noturno_antiga($semestre,$ano)
 {
 // atualiza a taberla de rodizio noturno para o $semestre/$ano a partir dos dados da lista de ofertas do semestre anterior:
 $horarios_not=array('2N34 4N12','2N12 35N34','2N12 35N34','3N34 56N12','3N34 5N34 6N12','2N12 35N34','35N12','3N12 5N12','24N34','3N12 6N12','36N12','3N12 5N12','3N34 6N12','26N12 4N34','2N12 4N34','2N12 3N34','7M12 4N1234','7T2345 5N1234','7M34 3N1234','2N12 35N34','2N12 35N34','2N12 35N34','2N12 35N34','7M1234 4N12','7M1234 4N12','7M1234 4N12','7M1234 4N12','246N12','35N34','24N12','46N12','46N12','2N12 6N34','35N34','24N12',);
