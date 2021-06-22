@@ -1,5 +1,4 @@
 <?php
-
 require_once dirname(__FILE__)."/../../../conf/default.php";
 
 //Colocar links relativos a essa variável

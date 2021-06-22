@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 function organiza_pedidos_por_creditos($semestre,$ano)
 {
@@ -57,7 +57,7 @@ function monta_tabela_oferta_frequencia_pedidos($semestre,$ano)
 {
 $limpa_oferta_frequencia_pedidos=pg_query("delete from oferta_frequencia_pedidos where semestre='".$semestre."' and ano='".$ano."'") or die ("problema com o acesso ao Banco de Dados");
 $tabela="oferta_lista_de_ofertas_nova";
-$query_disciplinas=pg_query("select distinct on (codigo) codigo from ".$tabela." order by codigo") or die ("Problema no acesso ao Banco de Dados"); 
+$query_disciplinas=pg_query("select distinct on (codigo) codigo from ".$tabela." order by codigo") or die ("Problema no acesso ao Banco de Dados");
 
 // pega codigos dio magistral. adicionado em 07/05/14
 $pega_magistral=pg_query("select distinct on (codigo_1) codigo_1 from oferta_grupos_magistral_teoria");
@@ -70,7 +70,7 @@ while($registro=pg_fetch_row($query_disciplinas))
 	for ($i=1;$i<7;$i++)
 		{
 // seleciona turnos magistral: adicionado em 07/05/14
-		if(in_array($disciplina,$array_magistral))  
+		if(in_array($disciplina,$array_magistral))
 			{
 			$query_turnos_grad_magistral=pg_query("select distinct on (turno) turno from oferta_lista_de_ofertas_nova where codigo='".$disciplina."' and elimina='nao' and semestre='".$semestre."' and ano='".$ano."'");
 			while($turno_mag=pg_fetch_row($query_turnos_grad_magistral))
@@ -82,7 +82,7 @@ while($registro=pg_fetch_row($query_disciplinas))
 			}
 // fim magistral
 
-		$query_disciplinas_grad=pg_query("select coduser from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Diurno' order by coduser");	
+		$query_disciplinas_grad=pg_query("select coduser from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Diurno' order by coduser");
 		$num_diurno=pg_num_rows($query_disciplinas_grad);
 		$insere_frequencia_diurno="insert into oferta_frequencia_pedidos values('".$disciplina."','Diurno','".$i."','".$num_diurno."','".$semestre."','".$ano."')";
 //		echo $insere_frequencia_diurno." \n";
@@ -90,7 +90,7 @@ while($registro=pg_fetch_row($query_disciplinas))
 
 // TESTAR: $query_disciplinas_grad=pg_query("select count(coduser) from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Diurno' order by coduser");
 
-		$query_disciplinas_grad=pg_query("select coduser from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Noturno' order by coduser");	
+		$query_disciplinas_grad=pg_query("select coduser from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Noturno' order by coduser");
 		$num_noturno=pg_num_rows($query_disciplinas_grad);
 		$insere_frequencia_noturno="insert into oferta_frequencia_pedidos values('".$disciplina."','Noturno','".$i."','".$num_noturno."','".$semestre."','".$ano."')";
 //		echo $insere_frequencia_noturno." \n";
@@ -104,19 +104,19 @@ while($registro=pg_fetch_row($query_disciplinas))
 function aloca_professores($semestre,$ano)
 {
 /*
-3- aloca_professores:	
-	k=1 
-	a- prioridade=k; 
+3- aloca_professores:
+	k=1
+	a- prioridade=k;
 	   para cada elemento [a,b,c,d,e,f,g,h,i,j] (na ordem do item 2) seleciona a disciplina mais solicitada na perioridade k;
 		aloca os professores nas turmas (no horário correspondente, se tiver) escolhendo o professor aleatoriamente;
-	   existe um professor não alocado? 
+	   existe um professor não alocado?
 		sim: j:=k+1; volta para o a- com lista de professores que sobraram e prioridade=j;
 		não: k=k+1 volta para a;
 */
 // recupera grade:
 	//$tabela="oferta_semestre_".$semestre;
 	$tabela="oferta_lista_de_ofertas_nova";
-	$query_grade=pg_query("select codigo,turno,turma,horarios from ".$tabela." order by codigo") or die ("Problema no acesso ao Banco de Dados"); 
+	$query_grade=pg_query("select codigo,turno,turma,horarios from ".$tabela." order by codigo") or die ("Problema no acesso ao Banco de Dados");
 	$num_grad=pg_num_rows($query_grade);
 	$grade=pg_fetch_all($query_grade);
 
@@ -136,7 +136,7 @@ function aloca_professores($semestre,$ano)
 		{
 /*
 		// recupera as disciplinas por ordem de solicitação:
-		$query_pega_disciplina=pg_query("select * from oferta_frequencia_pedidos where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$prioridade."' order by frequencia desc,turno"); 
+		$query_pega_disciplina=pg_query("select * from oferta_frequencia_pedidos where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$prioridade."' order by frequencia desc,turno");
 		$pega_disciplina=pg_fetch_all($query_pega_disciplina);
 */
 		$query_professor_prioridade=pg_query("select coduser from oferta_organiza_pedidos where prioridade='".$i."'");
@@ -147,7 +147,7 @@ function aloca_professores($semestre,$ano)
 
 				$num_profs=count($professor_prioridade)-1;
 				$prof_num=rand(0,$num_profs);
-				$prof=$professor_prioridade[$prof_num]['coduser']; 
+				$prof=$professor_prioridade[$prof_num]['coduser'];
 
 //				$prof=array_rand($professor_prioridade['coduser'],1);
 //echo "array: ".$num_profs;
@@ -156,7 +156,7 @@ function aloca_professores($semestre,$ano)
 
 			if($prof!=0)
 			   {
-				for ($prioridade=1; $prioridade<7;$prioridade++)		
+				for ($prioridade=1; $prioridade<7;$prioridade++)
 					{
 					//$atendido="nao";
 					$query_pega_escolha_prof=pg_query("select disciplina,turno from oferta_escolha_disciplina where coduser='".$prof."' and prioridade='".$prioridade."' and semestre='".$semestre."' and ano='".$ano."' limit 1");
@@ -167,7 +167,7 @@ function aloca_professores($semestre,$ano)
 						{
 						$query_pega_turma=pg_query("select turma,horarios from ".$tabela." where codigo='".$pega_escolha_prof[0]."' and turno='".$pega_escolha_prof[1]."' and professor='0' and semestre='".$semestre."' and ano='".$ano."' limit 1");
 						$pega_turma=pg_fetch_row($query_pega_turma);
-						
+
 						// analise se ha turma para o professor na prioridade solicitada; se nao houver, pasa para a aprioridade seguinte.
 						if(!empty($pega_turma))
 							{
@@ -200,9 +200,9 @@ function aloca_professores($semestre,$ano)
 							}
 						foreach($ocupado as $key => $value)
 							{
-							if($value==0) 
+							if($value==0)
 								{
-								$turm=explode(",",trim($grupo[$key],",")); 
+								$turm=explode(",",trim($grupo[$key],","));
 								if(checa_horarios_choque($prof,horarios_magistral($key),$semestre,$ano)!="choque")
                                                                         {
 									aloca_professor_no_grupo_teoria_da_turma_dada($pega_escolha_prof[0],$prof,$turm[0],$semestre,$ano);
@@ -215,9 +215,9 @@ function aloca_professores($semestre,$ano)
 						}
 					}
 				unset($professor_prioridade[$prof_num]);
-				$professor_prioridade=array_values($professor_prioridade); 
+				$professor_prioridade=array_values($professor_prioridade);
 
-				}	
+				}
 			  }
 			}
 
@@ -286,11 +286,11 @@ for ($i=2;$i<8;$i++)
                                                         }
                                                 foreach($ocupado as $key => $value)
                                                         {
-                                                        if($value==0) 
+                                                        if($value==0)
 								{
 // AQUI ENTRA A CHECAGEM DE CHOQUE DE HORARIOS COM AS TURMAS DO MAGISTRAL;
 								$turm=explode(",",trim($grupo[$key],","));
-								if(checa_horarios_choque($prof,horarios_magistral($key),$semestre,$ano)!="choque") 
+								if(checa_horarios_choque($prof,horarios_magistral($key),$semestre,$ano)!="choque")
 									{
 									aloca_professor_no_grupo_teoria_da_turma_dada($pega_escolha_prof[0],$prof,$turm[0],$semestre,$ano);
 									$query_prof_atendido=pg_query("update oferta_escolha_disciplina set atendido='sim' where coduser='".$prof."' and disciplina='".$pega_escolha_prof[0]."' and semestre='".$semestre."' and ano='".$ano."'");
@@ -301,7 +301,7 @@ for ($i=2;$i<8;$i++)
 								}
                                                         }
                                                 }
-					
+
 					    }
 /*//%% comentado em 07/05/14
 					if (!empty($pega_escolha_prof))
@@ -313,7 +313,7 @@ for ($i=2;$i<8;$i++)
 // analise se ha tyurma para o professor na prioridade solicitada; se nao houver, pasa para a aprioridade seguinte.
                 	                        if(!empty($pega_turma))
                         	                        {
-							if(checa_horarios_choque($prof,$pega_turma[1],$semestre,$ano)!="choque") 
+							if(checa_horarios_choque($prof,$pega_turma[1],$semestre,$ano)!="choque")
 								{
 
 								 $query_insere_lista_de_ofertas="update ".$tabela." set professor='".$prof."' where codigo='".$pega_escolha_prof[0]."' and turma='".$pega_turma[0]."' and semestre='".$semestre."' and ano='".$ano."'";
@@ -372,7 +372,7 @@ return $resultado;
 
 
 function imprime_esboco_lista_ofertas($semestre,$ano)
-{ 
+{
 
 // disciplina |  turma | turno | professor  |  semestre|  ano | horarios |
 
@@ -384,45 +384,45 @@ $num_dados=pg_num_rows($query_dados);
       <table class=big>
          <tr>
         <td class=header align=center colspan=2>
-        <h1> Lista de Ofertas do <? echo $semestre;?>&ordm;/ <? echo $ano;?></h1>
+        <h1> Lista de Ofertas do <?php echo $semestre;?>&ordm;/ <?php echo $ano;?></h1>
         </td>
       </tr>
       <tr><td>
-	<table border> 
+	<table border>
 	<tr><td><b>Professor</b></td><td><b>Disciplina</b></td><td><b>Turma</b></td><td><b>Turno</b></td><td><b>Hor&aacute;rios</b></td><td><b>Magistral</b></td></tr>
 	<tr></tr>
-	<?
+	<?php
 	$cor_de_fundo="#FFFFFF";
 	$prof=0;
 	while ($registro=pg_fetch_row($query_dados))
 		{
-		if ($prof==0) $prof=$registro[0]; 
-		else 
+		if ($prof==0) $prof=$registro[0];
+		else
 		   {
 		    if ($registro[0]!=$prof) {if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";}
 		   }
 		?>
-		<tr VALIGN=CENTER BGCOLOR="<? echo $cor_de_fundo;?>">
-		<td><? echo $registro[1];?></td>
-		<td><? echo $registro[2];?></td>
-		<td><? echo $registro[3];?></td>
-		<td><? echo $registro[4];?></td>
-		<td><? echo $registro[5];?></td>
-		<td><? echo $registro[6];?></td>
+		<tr VALIGN=CENTER BGCOLOR="<?php echo $cor_de_fundo;?>">
+		<td><?php echo $registro[1];?></td>
+		<td><?php echo $registro[2];?></td>
+		<td><?php echo $registro[3];?></td>
+		<td><?php echo $registro[4];?></td>
+		<td><?php echo $registro[5];?></td>
+		<td><?php echo $registro[6];?></td>
 		</tr>
-		<?
+		<?php
 		}
 	?>
-	</table> 
+	</table>
 	</td></tr>
 	</table>
 	</body>
 	</html>
-	<?
+	<?php
 }
 
 function imprime_lista_atendimento($semestre,$ano)
-{ 
+{
 
 // disciplina |  turma | turno | professor  |  semestre|  ano | horarios |
 
@@ -439,20 +439,20 @@ $num_dados=pg_num_rows($query_dados);
       <table class=big>
          <tr>
         <td class=header align=center colspan=7>
-        <h1> Lista de Atendimento aos professores - <? echo $semestre;?>&ordm;/ <? echo $ano;?></h1>
+        <h1> Lista de Atendimento aos professores - <?php echo $semestre;?>&ordm;/ <?php echo $ano;?></h1>
         </td>
       </tr>
       <tr>
-	<table border> 
+	<table border>
 	<tr><td><b>Professor</b></td><th colspan=6><b>Prioridade </b></th></tr>
 	<tr></tr>
-	<?
+	<?php
 	$cor_de_fundo="#FFFFFF";
 	$prof=0;
 	while ($registro=pg_fetch_row($query_dados))
 		{
-		if ($prof==0) $prof=$registro[0]; 
-		else 
+		if ($prof==0) $prof=$registro[0];
+		else
 		   {
 		    if ($registro[0]!=$prof) {if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";}
 		   }
@@ -463,15 +463,15 @@ $num_dados=pg_num_rows($query_dados);
 			$impresso.="<td>".$registro2[1]."</td>";
 			}
 		?>
-		<tr VALIGN=CENTER BGCOLOR="<? echo $cor_de_fundo;?>"> <? echo $impresso;?>
-		<?
+		<tr VALIGN=CENTER BGCOLOR="<?php echo $cor_de_fundo;?>"> <?php echo $impresso;?>
+		<?php
 		}
 	?>
-	</table> 
+	</table>
 	</table>
 	</body>
 	</html>
-	<?
+	<?php
 }
 
 
@@ -497,15 +497,15 @@ $query_profs=pg_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios 
 $prof=0;
 while ($registro=pg_fetch_row($query_profs))
 	{
-	if($registro[0]!=$prof) 
+	if($registro[0]!=$prof)
 		{
-		if($prof!=0) 
+		if($prof!=0)
 			{
 			$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
 			$num_checa=pg_num_rows($query_checa);
-			if ($num_checa==0) 
+			if ($num_checa==0)
 				$query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno values('".$prof."','".$semestre_anterior."','".$ano_anterior."','".$atuacao_not."')") or die ("problema de conexao com o banco");
-			else 
+			else
 				$query_atualiza=pg_query("update oferta_horarios_rodizio_noturno set disc_noturno='".$atuacao_not."' where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'") or die ("problema de conexao com o banco");
 			}
 		$prof=$registro[0];
@@ -515,12 +515,12 @@ while ($registro=pg_fetch_row($query_profs))
 //	$query_noturno=pg_query("select turno,horarios from oferta_lista_de_ofertas where professor='".$registro[0]."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
 //	while ($registro_2=pg_fetch_row($query_noturno))
 //		{
-	if (($registro[3]=="Noturno") or ($registro[3]=="Ambos")) 
+	if (($registro[3]=="Noturno") or ($registro[3]=="Ambos"))
 		{
 		$horario=explode("-",$registro[4]);
 		foreach ($horario as $key => $value)
 			{
-			if (in_array($value,$horarios_not) and ($array_de_horarios[$value]==0)) 
+			if (in_array($value,$horarios_not) and ($array_de_horarios[$value]==0))
 				{
 				$array_de_horarios[$value]=1;
 				$atuacao_not=1;// $atuacao_not=1; correcao emj 15/08/2015
@@ -552,7 +552,7 @@ function corrige_codigo_turmas_magistral($semestre,$ano) // em 20/04/2014
 {
 // roda no fim da rotina que roda a lista;
 // no final da elaboração da lista, a tabela é corrigida par poder ser impressa e apresentada ao colegiado:
-$seleciona_magistral=pg_query("select codigo from  oferta_disciplinas_magistral") or die("problema 02 em muda_horarios_turmas_magistral");  
+$seleciona_magistral=pg_query("select codigo from  oferta_disciplinas_magistral") or die("problema 02 em muda_horarios_turmas_magistral");
 
 // para cada linha de $seleciona_magistral, muda o código da disciplina teoria:
 while($turma=pg_fetch_row($seleciona_magistral))
@@ -585,7 +585,7 @@ $update_oferta="update oferta_lista_de_ofertas_nova set professor='".$professor.
 $res_oferta=pg_query($update_oferta) or die("problema 02 em aloca_professor_no_grupo_teoria_da_turma_dada");
 }
 
-}// fim function aloca_professor_no_grupo_teoria_da_turma_dada 
+}// fim function aloca_professor_no_grupo_teoria_da_turma_dada
 
 
 
@@ -605,5 +605,3 @@ return rtrim($horarios,"-");
 
 
 ?>
-
-
