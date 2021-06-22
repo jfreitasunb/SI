@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 include("head_oferta.php");
 include("funcoes.php");
@@ -8,7 +8,7 @@ include("funcoes.php");
     <link type="text/css" rel="stylesheet" href="../../global/grafic.css">
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   </header>
-<?
+<?php
 
 if (!isset($_POST['registra']))
 {
@@ -27,12 +27,12 @@ $query_acusa_lista=pg_query("select * from oferta_acusa_lista order by ano desc,
 <tr><td>Escolha a lista:
         </select>
         <select name='lista'>
-        <?
+        <?php
         while ($registro=pg_fetch_row($query_acusa_lista))
         {
         ?>
-        <option value="<?echo $registro[0]."_".$registro[1];?>"> <? echo $registro[0];?> &ordm;/ <? echo $registro[1];?></option>
-        <?
+        <option value="<?php echo $registro[0]."_".$registro[1];?>"> <?php echo $registro[0];?> &ordm;/ <?php echo $registro[1];?></option>
+        <?php
         }
         ?>
         </tr>
@@ -43,7 +43,7 @@ $query_acusa_lista=pg_query("select * from oferta_acusa_lista order by ano desc,
         </table>
         </form>
         </BODY>
-<?
+<?php
 }
 
 if (isset($_POST['registra']))
@@ -60,7 +60,7 @@ $ano=$lista[1];
 atualiza_rodizio_noturno($semestre,$ano);
 
 //if ($semestre==1) {$ano_anterior=$ano-1;$semestre_anterior=2;} else {$ano_anterior=$ano;$semestre_anterior=1;}
-//1- 
+//1-
 // seleciona as atuacoes a partir de 2005:
 //$query_atuacoes="select coduser,sum(disc_noturno) as soma from oferta_horarios_rodizio_noturno where coduser in (select distinct on (coduser) coduser from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."') group by (coduser) order by coduser";
 
@@ -109,13 +109,13 @@ foreach ($soma as $key => $value)
 	}
 
 //print_r($total);
-//2- 
+//2-
 
 //$total_0=asort($total,'total');
-foreach ($total as $key => $row) 
+foreach ($total as $key => $row)
 	{
     	$soma_1[$key] = $row['total'];
-//echo $soma_1[$key]; 
+//echo $soma_1[$key];
 	}
 asort($soma_1);
 
@@ -123,7 +123,7 @@ $ano_1=$ano-1;
 $ano_2=$ano-2;
 
 //if ($semestre==1) $query_atuacoes_3="select o.coduser from oferta_horarios_rodizio_noturno o, users u, fonctionnaire f where o.coduser=u.coduser and u.coduser=f.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and (o.semestre='1' or o.semestre='2') and o.ano='".$ano_1."' and o.disc_noturno<>'0'";
-// corrigido em 5/05/2016 para acrescentar um semestre: 
+// corrigido em 5/05/2016 para acrescentar um semestre:
 if ($semestre==1) $query_atuacoes_3="select o.coduser from oferta_horarios_rodizio_noturno o, users u, fonctionnaire f where (o.coduser=u.coduser and u.coduser=f.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and (o.semestre='1' or o.semestre='2') and o.ano='".$ano_1."' and o.disc_noturno<>'0') or (o.coduser=u.coduser and u.coduser=f.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and o.semestre='1' and o.ano='".$ano_2."' and o.disc_noturno<>'0')";
 
 //if ($semestre==2) $query_atuacoes_3="select o.coduser from oferta_horarios_rodizio_noturno o, users u, fonctionnaire f where (o.coduser=u.coduser and u.coduser=f.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and o.semestre='1' and o.ano='".$ano."' and o.disc_noturno<>'0') or (o.coduser=u.coduser and u.coduser=f.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and o.semestre='2' and o.ano='".$ano_1."' and o.disc_noturno<>'0')"; corrigido em 5/5/2016 para acrescentar um semestre:
@@ -140,7 +140,7 @@ foreach ($noturno_3_semestres as $key => $row)
 //      $coduser[$key]  = $row['coduser'];
 //      $nome[$key]=$row['nome'];
         $coduser[$key] = $row['coduser'];
-//echo $soma_1[$key]; 
+//echo $soma_1[$key];
         }
 //print_r($coduser);
 
@@ -163,7 +163,7 @@ $indice=$indice+1;
       <!form method="POST" name="formu" action="armazena_rodizio_noturno.php">
          <tr>
         <td class=header align=center>
-        <h1> Atua&ccedil;&otilde;es no Noturno do MAT  at&eacute; o <? echo $semestre_anterior."/".$ano_anterior;?></h1>
+        <h1> Atua&ccedil;&otilde;es no Noturno do MAT  at&eacute; o <?php echo $semestre_anterior."/".$ano_anterior;?></h1>
         </td>
       </tr>
       <tr><td>
@@ -172,12 +172,12 @@ $indice=$indice+1;
 	<td><b>Atua&ccedil;&otilde;es</b></td><td><b>Nome</b></td>
 	</tr>
 	<tr></tr>
-<?
+<?php
 	$cordefundo="#FFFFFF";
 //	for ($i=0;$i<$num_atuacoes;$i++)
 	foreach ($soma_1 as $key => $valor)
 	{
- 	if ($cordefundo=="#FFFFFF") $cordefundo="#D0D0D0"; else $cordefundo="#FFFFFF";	
+ 	if ($cordefundo=="#FFFFFF") $cordefundo="#D0D0D0"; else $cordefundo="#FFFFFF";
 
 	if (in_array($total[$key]['coduser'],$coduser)) $cordaletra="#00AA00"; else $cordaletra="#000000";
 	if(in_array($total[$key]['coduser'],$profs_na_ativa)){
@@ -188,16 +188,16 @@ $indice=$indice+1;
 ?>
 	</table>
         </td></tr>
-	<tr><td><font color="#00AA00">Obs.: A cor verde significa que o professor est&aacute; na zona de conforto de 3 semestres ap&oacute;s atua&ccedil;&atilde;o no noturno</font></td></tr> 
-<?
+	<tr><td><font color="#00AA00">Obs.: A cor verde significa que o professor est&aacute; na zona de conforto de 3 semestres ap&oacute;s atua&ccedil;&atilde;o no noturno</font></td></tr>
+<?php
 }
 ?>
 </table>
 </body>
 </html>
 
-<?
+<?php
 pg_close($idconn);
 ?>
 
- 
+
