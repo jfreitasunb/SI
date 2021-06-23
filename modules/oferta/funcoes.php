@@ -479,16 +479,18 @@ if ($semestre==1) {$semestre_anterior=2;$ano_anterior=$ano-1;} else {$semestre_a
 $query_profs=pg_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios from oferta_lista_sigra os, users u,fonctionnaire f where os.coduser like '%'||f.coduser||'%' and f.coduser=u.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and  os.semestre='".$semestre_anterior."' and os.ano='".$ano_anterior."' order by f.coduser,os.codigo,os.turma") or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
 
 $prof=0;
+$atuacao_not = 0;
 while ($registro=pg_fetch_row($query_profs)){
     if($registro[0]!=$prof){
         if($prof!=0){
 
 			$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
 			$num_checa=pg_num_rows($query_checa);
+
 			if ($num_checa==0)
-				$query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno_creditos values('".$prof."','".$semestre_anterior."','".$ano_anterior."','".$atuacao_not."')") or die ("problema de conexao com o banco durante a insercao das informacoes.");
+				$query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$prof."','".$semestre_anterior."','".$ano_anterior."','".$atuacao_not."')") or die ("problema de conexao com o banco durante a insercao das informacoes.");
 			else
-				$query_atualiza=pg_query("update oferta_horarios_rodizio_noturno_creditos set disc_noturno='".$atuacao_not."' where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'") or die ("problema de conexao com o banco");
+				$query_atualiza=pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$atuacao_not."' where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'") or die ("problema de conexao com o banco");
 			}
 		$prof=$registro[0];
 		$atuacao_not=0;
@@ -496,8 +498,6 @@ while ($registro=pg_fetch_row($query_profs)){
 		}
 	if (($registro[3]=="Noturno") or ($registro[3]=="Ambos"))
     {
-        var_dump($registro);
-        die();
 		$horario=explode("-",$registro[4]);
 		foreach ($horario as $key => $value)
 			{
@@ -514,9 +514,9 @@ while ($registro=pg_fetch_row($query_profs)){
 	$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
                         $num_checa=pg_num_rows($query_checa);
                         if ($num_checa==0)
-                                $query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno_creditos values('".$prof."','".$semestre_anterior."','".$ano_anterior."','".$atuacao_not."')") or die ("problema de conexao com o banco");
+                                $query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default,'".$prof."','".$semestre_anterior."','".$ano_anterior."','".$atuacao_not."')") or die ("problema de conexao com o banco");
                         else
-                                $query_atualiza=pg_query("update oferta_horarios_rodizio_noturno_creditos set disc_noturno='".$atuacao_not."' where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'") or die ("problema de conexao com o banco");
+                                $query_atualiza=pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$atuacao_not."' where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'") or die ("problema de conexao com o banco");
 
 }
 
