@@ -472,7 +472,7 @@ function atualiza_rodizio_noturno($semestre, $ano){
 // atualiza a taberla de rodizio noturno para o $semestre/$ano a partir dos dados da lista de ofertas do semestre anterior:
 $horarios_not=array('2N34 4N12','2N12 35N34','2N12 35N34','3N34 56N12','3N34 5N34 6N12','2N12 35N34','35N12','3N12 5N12','24N34','3N12 6N12','36N12','3N12 5N12','3N34 6N12','26N12 4N34','2N12 4N34','2N12 3N34','7M12 4N1234','7T2345 5N1234','7M34 3N1234','2N12 35N34','2N12 35N34','2N12 35N34','2N12 35N34','7M1234 4N12','7M1234 4N12','7M1234 4N12','7M1234 4N12','246N12','35N34','24N12','46N12','46N12','2N12 6N34','35N34','24N12',);
 
-$disciplinas_magistrais = [113018, 113034];
+$disciplinas_magistrais = array('113018', '113034');
 
 if ($semestre==1){
     $semestre_anterior=2;
@@ -490,11 +490,26 @@ $atuacao_not = 0;
 
 while ($registro=pg_fetch_row($query_profs)){
     if($registro[0]!=$prof){
-        if($prof!=0){
-		}
+        if(in_array($registro[1], $disciplinas_magistrais)){
+            echo $registro[1]."<br>";
+        } else{
+            if($prof!=0){
+                $credito_noturno = 0;
+                $resultado = pg_query("select * from disciplinas_mat where codigo = '".$registro[1]."'");
+                $linha = pg_fetch_row($resultado);
+
+                $credito_noturno = $linha[2];
+                $query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
+                $num_checa=pg_num_rows($query_checa);
+                if ($num_checa == 0) {
+                    $query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$prof."','".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."')") or die ("problema de conexao com o banco");
+                }
+            }
+            $prof=$registro[0];
+        }
 	}
 }
-
+}
 
 function atualiza_rodizio_noturno_antiga($semestre,$ano)
 {
