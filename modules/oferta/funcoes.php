@@ -499,10 +499,10 @@ while ($registro=pg_fetch_row($query_profs)){
                 $linha = pg_fetch_row($resultado);
 
                 $credito_noturno = $linha[2];
-                $query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
+                $query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' disciplina='".$registro[1]."'");
                 $num_checa=pg_num_rows($query_checa);
                 if ($num_checa == 0) {
-                    $query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$prof."','".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."')") or die ("problema de conexao com o banco");
+                    $query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$prof."','".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."', '".$registro[1]."')") or die ("problema de conexao com o banco");
                 }
             }
             $prof=$registro[0];
