@@ -474,6 +474,8 @@ $horarios_not=array('2N34 4N12','2N12 35N34','2N12 35N34','3N34 56N12','3N34 5N3
 
 $disciplinas_magistrais = array('113018', '113034');
 
+$credito_noturno = 0;
+
 $credito_teoria = 2;
 
 if ($semestre==1){
@@ -495,7 +497,8 @@ foreach ($registros as $registro){
         if(in_array($registro['codigo'], $disciplinas_magistrais)){
             $seleciona_professor_teoria = pg_query("select * from oferta_lista_de_ofertas where professor = '".$registro['coduser']."' and ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and disciplina = '".$registro['codigo']."'");
             $professor_exercicio = pg_num_rows($seleciona_professor_teoria);
-            if ($professor_exercicio != 0) {
+            if ($registro['turno'] == 'Noturno'){
+                if ($professor_exercicio != 0) {
                 $resultado = pg_query("select * from disciplinas_mat where codigo = '".$registro['codigo']."'");
                 $linha = pg_fetch_row($resultado);
 
@@ -503,6 +506,9 @@ foreach ($registros as $registro){
 
             }else{
                 $credito_noturno = $credito_teoria;
+            }
+            } else {
+                $credito_noturno = 0;
             }
 
             $query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and disciplina='".$registro['codigo']."'");
@@ -514,11 +520,14 @@ foreach ($registros as $registro){
             }
 
         } else{
-                $credito_noturno = 0;
+                if ($registro['turno'] == 'Noturno'){
                 $resultado = pg_query("select * from disciplinas_mat where codigo = '".$registro['codigo']."'");
                 $linha = pg_fetch_row($resultado);
 
                 $credito_noturno = $linha[2];
+                } else {
+                    $credito_noturno = 0;
+                }
                 $query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and disciplina='".$registro['codigo']."'");
                 $num_checa=pg_num_rows($query_checa);
                 if ($num_checa == 0) {
