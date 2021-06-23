@@ -479,8 +479,10 @@ $query_profs=pg_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios 
 
 $prof=0;
 while ($registro=pg_fetch_row($query_profs)){
-	if($registro[0]!=$prof){
-		if($prof!=0){
+    if($registro[0]!=$prof){
+        var_dump($registro[1]);
+        die();
+        if($prof!=0){
 			$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
 			$num_checa=pg_num_rows($query_checa);
 			if ($num_checa==0)
