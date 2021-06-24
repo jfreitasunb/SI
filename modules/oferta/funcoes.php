@@ -499,6 +499,9 @@ foreach ($registros as $registro){
             $professor_exercicio = pg_num_rows($seleciona_professor_teoria);
 
             if ($registro['turno'] == 'Noturno'){
+                $seleciona_professor_teoria = pg_query("select * from oferta_lista_de_ofertas where professor = '".$registro['coduser']."' and ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'");
+                $professor_exercicio = pg_num_rows($seleciona_professor_teoria);
+
                 if ($professor_exercicio != 0) {
                         $resultado = pg_query("select * from disciplinas_mat where codigo = '".$registro['codigo']."'");
                     $linha = pg_fetch_row($resultado);
