@@ -497,16 +497,21 @@ foreach ($registros as $registro){
         if(in_array($registro['codigo'], $disciplinas_magistrais)){
             $seleciona_professor_teoria = pg_query("select * from oferta_lista_de_ofertas where professor = '".$registro['coduser']."' and ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'");
             $professor_exercicio = pg_num_rows($seleciona_professor_teoria);
+
             if ($registro['turno'] == 'Noturno'){
                 if ($professor_exercicio != 0) {
-                $resultado = pg_query("select * from disciplinas_mat where codigo = '".$registro['codigo']."'");
-                $linha = pg_fetch_row($resultado);
+                        $resultado = pg_query("select * from disciplinas_mat where codigo = '".$registro['codigo']."'");
+                    $linha = pg_fetch_row($resultado);
 
-                $credito_noturno = $linha[2] - $credito_teoria;
+                    $credito_noturno = $linha[2] - $credito_teoria;
 
-            }else{
-                $credito_noturno = $credito_teoria;
-            }
+                }else{
+                   $credito_noturno = $credito_teoria;
+                }
+
+                if (strlen($registro['turma'])==2){
+                    $credito_noturno = 2;
+                }
             } else {
                 $credito_noturno = 0;
             }
