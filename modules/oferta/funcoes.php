@@ -492,8 +492,7 @@ $prof=0;
 $registros = pg_fetch_all($query_profs);
 
 foreach ($registros as $registro){
-    echo "Inserindo atuação para o professor: ".$registro['coduser']."<br>";
-        echo "aqui para o usuario: ".$prof."<br>";
+
         if(in_array($registro['codigo'], $disciplinas_magistrais)){
             $seleciona_professor_teoria = pg_query("select * from oferta_lista_de_ofertas where professor = '".$registro['coduser']."' and ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'");
             $professor_exercicio = pg_num_rows($seleciona_professor_teoria);
