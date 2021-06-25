@@ -469,95 +469,138 @@ $num_dados=pg_num_rows($query_dados);
 }
 
 function atualiza_rodizio_noturno($semestre, $ano){
-// atualiza a taberla de rodizio noturno para o $semestre/$ano a partir dos dados da lista de ofertas do semestre anterior:
-$horarios_not=array('2N34 4N12','2N12 35N34','2N12 35N34','3N34 56N12','3N34 5N34 6N12','2N12 35N34','35N12','3N12 5N12','24N34','3N12 6N12','36N12','3N12 5N12','3N34 6N12','26N12 4N34','2N12 4N34','2N12 3N34','7M12 4N1234','7T2345 5N1234','7M34 3N1234','2N12 35N34','2N12 35N34','2N12 35N34','2N12 35N34','7M1234 4N12','7M1234 4N12','7M1234 4N12','7M1234 4N12','246N12','35N34','24N12','46N12','46N12','2N12 6N34','35N34','24N12',);
+        $horarios_not=array('2N34 4N12','2N12 35N34','2N12 35N34','3N34 56N12','3N34 5N34 6N12','2N12 35N34','35N12','3N12 5N12','24N34','3N12 6N12','36N12','3N12 5N12','3N34 6N12','26N12 4N34','2N12 4N34','2N12 3N34','7M12 4N1234','7T2345 5N1234','7M34 3N1234','2N12 35N34','2N12 35N34','2N12 35N34','2N12 35N34','7M1234 4N12','7M1234 4N12','7M1234 4N12','7M1234 4N12','246N12','35N34','24N12','46N12','46N12','2N12 6N34','35N34','24N12',);
 
-$disciplinas_magistrais = array('113018', '113034');
+        $disciplinas_magistrais = array('113018', '113034');
 
-$credito_noturno = 0;
+        $lista_semipresencial = array('SA', 'SB', 'SC', 'SD', 'SE', 'SF', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL',
+            'SM', 'SN', 'SO', 'SP', 'SQ', 'SR', 'SS', 'ST', 'SU', 'SV', 'SX', 'SW', 'SY', 'SZ');
 
-$credito_teoria = 2;
+        $credito_noturno = 0;
 
-if ($semestre==1){
-    $semestre_anterior=2;
-    $ano_anterior=$ano-1;
-} else {
-    $semestre_anterior=1;
-    $ano_anterior=$ano;
-}
+        $credito_teoria = 2;
 
-$query_profs=pg_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios from oferta_lista_sigra os, users u,fonctionnaire f where os.coduser like '%'||f.coduser||'%' and f.coduser=u.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and  os.semestre='".$semestre_anterior."' and os.ano='".$ano_anterior."' order by f.coduser,os.codigo,os.turma") or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
+        if ($semestre==1){
+            $semestre_anterior=2;
+            $ano_anterior=$ano-1;
+        } else {
+            $semestre_anterior=1;
+            $ano_anterior=$ano;
+        }
 
-$prof=0;
-$registros = pg_fetch_all($query_profs);
+        $query_profs=pg_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios from oferta_lista_sigra os, users u,fonctionnaire f where os.coduser like '%'||f.coduser||'%' and f.coduser=u.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and  os.semestre='".$semestre_anterior."' and os.ano='".$ano_anterior."' order by f.coduser,os.codigo,os.turma") or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
 
-foreach ($registros as $registro){
+        $registros = pg_fetch_all($query_profs);
 
-        if(in_array($registro['codigo'], $disciplinas_magistrais)){
-            $seleciona_professor_teoria = pg_query("select * from oferta_lista_de_ofertas where professor = '".$registro['coduser']."' and ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'");
-            $professor_exercicio = pg_num_rows($seleciona_professor_teoria);
+        foreach ($registros as $registro ) {
+            if (in_array($registro['codigo'], $disciplinas_magistrais)) {
+                if ($registro['turno'] == 'Noturno') {
+                    $seleciona_professor = pg_query("select * from oferta_lista_de_ofertas where professor = '".$registro['coduser']."' and ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'");
 
-            if ($registro['turno'] == 'Noturno'){
-                $seleciona_professor_teoria = pg_query("select * from oferta_lista_de_ofertas where professor = '".$registro['coduser']."' and ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'");
-                $professor_exercicio = pg_num_rows($seleciona_professor_teoria);
+                    $professor = pg_num_rows($seleciona_professor);
 
-                if ($professor_exercicio != 0) {
-                        $resultado = pg_query("select * from disciplinas_mat where codigo = '".$registro['codigo']."'");
+                    $resultado = pg_query("select * from disciplinas_mat where codigo = '".$registro['codigo']."'");
+
                     $linha = pg_fetch_row($resultado);
 
-                    $credito_noturno = $linha[2] - $credito_teoria;
+                    $credito_noturno_exercicio = $linha[2] - $credito_teoria;
 
+                    $credito_noturno_teoria = $credito_teoria;
+
+                    if ($professor == 0) {
+
+                        $seleciona_professor_exercicio = pg_query("select * from oferta_lista_de_ofertas where ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'");
+
+                        $seleciona_exercicio = pg_fetch_row($seleciona_professor_exercicio);
+
+                        $professor_teoria_coduser = $registro['coduser'];
+
+                        $professor_exercicio_coduser = $seleciona_exercicio[3];
+                    }else{
+
+                        $seleciona_professor_teoria = pg_query("select * from oferta_lista_sigra where ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and codigo = '".$registro['codigo']."'");
+
+                        $seleciona_teoria = pg_fetch_row($seleciona_professor_teoria);
+
+                        $professor_exercicio_coduser = $registro['coduser'];
+
+                        $professor_teoria_coduser = $seleciona_teoria[9];
+
+                        $professor_teoria_coduser = str_replace("-", "",str_replace($professor_exercicio_coduser,"",$professor_teoria_coduser));
+                    }
+
+                    if (in_array($registro['turma'], $lista_semipresencial)) {
+                        $credito_noturno_teoria = 2;
+                        $credito_noturno_exercicio = 2;
+                    }
                 }else{
-                   $credito_noturno = $credito_teoria;
+                    $credito_noturno_teoria = 0;
+
+                    $credito_noturno_exercicio = 0;
                 }
 
-                if (strlen($registro['turma'])==2){
-                    $credito_noturno = 2;
+                $query_recupera_grupo_magistral = pg_query("select * from oferta_grupos_magistral_teoria where codigo = '".$registro['codigo']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and grupo in (select grupo from oferta_grupos_magistral_teoria where codigo = '".$registro['codigo']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turmas = '".$registro['turma']."')");
+
+                $magistral = pg_fetch_all($query_recupera_grupo_magistral);
+
+                $turmas = "";
+
+                foreach ($magistral as $disciplina){
+                    $turmas .= "-".$disciplina['turmas'];
                 }
-            } else {
-                $credito_noturno = 0;
-            }
 
-            $query_recupera_grupo_magistral = pg_query("select * from oferta_grupos_magistral_teoria where codigo = '".$registro['codigo']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and grupo in (select grupo from oferta_grupos_magistral_teoria where codigo = '".$registro['codigo']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turmas = '".$registro['turma']."')");
+                $turmas = substr($turmas, 1);
 
-            $magistral = pg_fetch_all($query_recupera_grupo_magistral);
+                if (strlen($turmas) == 0){
+                    $turmas = $registro['turma'];
 
-            $turmas = "";
+                    $professor_exercicio_coduser = $registro['coduser'];
 
-            foreach ($magistral as $disciplina){
-                $turmas .= "-".$disciplina['turmas'];
-            }
-            $turmas = substr($turmas, 1);
-            if (strlen($turmas) == 0){
-                $turmas = $registro['turma'];
-            }
-            $query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma LIKE '%".$turmas."%' and disciplina='".$registro['codigo']."'");
-            $num_checa=pg_num_rows($query_checa);
+                    $professor_teoria_coduser = $registro['coduser'];
+                }
 
-            if ($num_checa == 0) {
-               pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$registro['coduser']."','".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."', '".$registro['codigo']."', '".$turmas."')") or die ("problema 01 de conexao com o banco");
+                $query_checa_prof_teoria = pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$professor_teoria_coduser."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma LIKE '%".$turmas."%' and disciplina='".$registro['codigo']."'");
+
+                $num_checa_prof_teoria = pg_num_rows($query_checa_prof_teoria);
+
+                if ($num_checa_prof_teoria == 0) {
+                    pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_teoria_coduser."','".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_teoria."', '".$registro['codigo']."', '".$turmas."')") or die ("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_teoria_coduser."','".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_teoria."', '".$registro['codigo']."', '".$turmas."'");
+                }else{
+                    pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno_teoria."' where coduser='".$professor_teoria_coduser."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma = '".$turmas."' and disciplina = '".$registro['codigo']."'") or die ("problema 02 de conexao com o banco");
+                }
+
+                $query_checa_prof_exercicio = pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$professor_exercicio_coduser."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma LIKE '%".$turmas."%' and disciplina='".$registro['codigo']."'");
+
+                        $num_checa_prof_exercio = pg_num_rows($query_checa_prof_exercicio);
+
+                        if ($num_checa_prof_exercio == 0) {
+
+                            pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_exercicio_coduser."','".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_exercicio."', '".$registro['codigo']."', '".$turmas."')") or die ("problema 03 de conexao com o banco");
+                        }else{
+
+                            pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno_exercicio."' where coduser='".$professor_exercicio_coduser."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma = '".$turmas."' and disciplina = '".$registro['codigo']."'") or die ("problema 04 de conexao com o banco");
+                        }
             }else{
-               pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno."' where coduser='".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma = '".$turmas."' and disciplina = '".$registro['codigo']."'") or die ("problema 02 de conexao com o banco");
-            }
+                if ($registro['turno'] == 'Noturno') {
+                    $resultado = pg_query("select * from disciplinas_mat where codigo = '".$registro['codigo']."'");
+                    $linha = pg_fetch_row($resultado);
 
-        }else{
-                if ($registro['turno'] == 'Noturno'){
-                $resultado = pg_query("select * from disciplinas_mat where codigo = '".$registro['codigo']."'");
-                $linha = pg_fetch_row($resultado);
-
-                $credito_noturno = $linha[2];
-                } else {
+                    $credito_noturno = $linha[2];
+                }else{
                     $credito_noturno = 0;
                 }
+
                 $query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma LIKE '%".$registro['turma']."%' and disciplina='".$registro['codigo']."'");
-                $num_checa=pg_num_rows($query_checa);
-                if ($num_checa == 0) {
-                    pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$registro['coduser']."','".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."', '".$registro['codigo']."', '".$registro['turma']."')") or die ("problema 03 de conexao com o banco");
-                }else{
-                    pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno."' where coduser='".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma =  '".$registro['turma']."' and disciplina = '".$registro['codigo']."'") or die ("problema 04 de conexao com o banco");
-                }
+
+                        $num_checa=pg_num_rows($query_checa);
+
+                        if ($num_checa == 0) {
+                            pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$registro['coduser']."','".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."', '".$registro['codigo']."', '".$registro['turma']."')") or die ("problema 03 de conexao com o banco");
+                        }else{
+                            pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno."' where coduser='".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma =  '".$registro['turma']."' and disciplina = '".$registro['codigo']."'") or die ("problema 05 de conexao com o banco");
+                        }
+            }
         }
-	}
 }
 
 function atualiza_rodizio_noturno_antiga($semestre,$ano)
