@@ -2,12 +2,12 @@
 
 // TODO: Colocar links relativos a essa variável
 //$ROOT_MAIN = "/";
-$ROOT_MAIN = "/";
+$ROOT_MAIN = "http://192.168.122.36/SI/";
 
 $ROOT_PATH_MAIN = dirname(__FILE__)."/../";
 
 //$SITE = "http://e-mural.mat.unb.br/";
-$SITE = "http://192.168.122.127/";
+$SITE = "http://192.168.122.36/";
 
 //$CHARSET = "UTF-8";
 $CHARSET = "ASCII";
