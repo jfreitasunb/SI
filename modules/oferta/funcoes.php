@@ -530,8 +530,8 @@ function atualiza_rodizio_noturno($semestre, $ano){
                     }
 
                     if (in_array($registro['turma'], $lista_semipresencial)) {
-                        $credito_noturno_teoria = 2;
-                        $credito_noturno_exercicio = 2;
+                        $credito_noturno_teoria = 0;
+                        $credito_noturno_exercicio = 0;
                     }
                 }else{
                     $credito_noturno_teoria = 0;
