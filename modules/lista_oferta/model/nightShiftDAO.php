@@ -13,7 +13,7 @@ class NightShiftDAO extends DAO {
 		parent::__construct();
 
 		$this->attributeMap["professor"] = "A.coduser";
-		//$this->attributeMap["quantity"] = "quantidade";
+		$this->attributeMap["quantity"] = "quantidade";
 		$this->attributeMap["year"] = "ano";
 		$this->attributeMap["semester"] = "semestre";
 
@@ -37,7 +37,7 @@ class NightShiftDAO extends DAO {
 
 		$sql = "SELECT ".$this->attributesSelect()."
 				FROM (
-					SELECT coduser, credito_noturno, ano, semestre
+					SELECT coduser, credito_noturno as quantidade, ano, semestre
 					FROM $this->table2) AS A
 				$where
 				$order
