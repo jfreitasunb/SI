@@ -450,7 +450,7 @@ $num_dados=pg_num_rows($query_dados);
 		   {
 		    if ($registro[0]!=$prof) {if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";}
 		   }
-		$query_prioridades=pg_query("select prioridade,atendido from oferta_escolha_disciplina where coduser='".$registro[0]."' and semestre='".$semetre."' and ano='".$ano."' order by prioridade");
+		$query_prioridades=pg_query("select prioridade,atendido from oferta_escolha_disciplina where coduser='".$registro[0]."' and semestre='".$semestre."' and ano='".$ano."' order by prioridade");
 		$impresso="<td>".$registro[1]."</td>";
 		while ($registro2=pg_fetch_row($query_prioridades))
 			{
