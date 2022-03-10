@@ -2,7 +2,7 @@
 
 // TODO: Colocar links relativos a essa variável
 //$ROOT_MAIN = "/";
-$ROOT_MAIN = "http://192.168.122.36/SI/";
+$ROOT_MAIN = "http://192.168.122.71/si/";
 
 $ROOT_PATH_MAIN = dirname(__FILE__)."/../";
 
