@@ -48,7 +48,7 @@ if (strcmp($semester->status, SemesterDAO::STATUS_STAGE_2) == 0 || strcmp($semes
 		$vc->setSemester($semester);
 	} else{
 		$user = unserialize($_SESSION["user"]);
-		// p($user);
+		 //p($user);
 
 		if (strcmp($user->type2, ProfessorDAO::TYPE_PROFESSOR) == 0 && strcmp($user->status, DAO::ACTIVE) == 0) {
 			if (strcmp($semester->status, SemesterDAO::STATUS_STAGE_2) == 0) {
