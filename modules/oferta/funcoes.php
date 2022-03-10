@@ -494,7 +494,22 @@ function atualiza_rodizio_noturno($semestre, $ano){
     foreach ($registros as $registro ) {
 		if ($registro['turno'] == 'Noturno') {
 			if (in_array($registro['codigo'], $disciplinas_magistrais)) {
-				
+				if (in_array($registro['turma'], $lista_semipresencial)){
+					$credito_noturno_exercicio = 0;
+					$credito_noturno_teoria = 0;
+				}else{
+					switch ($registro['codigo']){
+						case "113018":
+							$credito_noturno_exercicio = 2;
+							$credito_noturno_teoria = 2;
+							break;
+					case "113034":
+							$credito_noturno_exercicio = 4;
+							$credito_noturno_teoria = 2;
+							break;
+					}
+				}
+			
 			}else{
 				
 				$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='
