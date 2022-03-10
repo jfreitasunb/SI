@@ -475,10 +475,6 @@ function atualiza_rodizio_noturno($semestre, $ano){
     $lista_semipresencial = array('SA', 'SB', 'SC', 'SD', 'SE', 'SF', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL',
         'SM', 'SN', 'SO', 'SP', 'SQ', 'SR', 'SS', 'ST', 'SU', 'SV', 'SX', 'SW', 'SY', 'SZ');
 
-    $credito_noturno = 0;
-
-    $credito_teoria = 2;
-
     if ($semestre==1){
         $semestre_anterior=2;
         $ano_anterior=$ano-1;
