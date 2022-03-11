@@ -72,7 +72,7 @@ class ProfessorDAO extends DAO {
 
 		$res = $this->_db->query($sql);
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Error: $sql");
 		}

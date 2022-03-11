@@ -57,7 +57,7 @@ class OfferListTemporaryDAO extends DAO {
 
 		$res = $this->_db->query($sql);
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Error: $sql");
 		}
@@ -79,7 +79,7 @@ class OfferListTemporaryDAO extends DAO {
 			$offset = "OFFSET $offset";
 
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapProfessor)."
-			FROM (($this->table 
+			FROM (($this->table
 			INNER JOIN $this->disciplineTable ON ".$this->attributeMapProfessor['discipline_id']." = ".$this->attributeMapProfessor['discipline'].")
 			 LEFT JOIN $this->professorTable  ON  ".$this->attributeMapProfessor['professor_id']." = ".$this->attributeMapProfessor['professor'].")
 		$where $order $limit $offset";
