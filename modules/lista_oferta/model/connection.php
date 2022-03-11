@@ -29,25 +29,31 @@ class Connection {
 	            'debug'       => 2,
 	            'portability' => DB_PORTABILITY_ALL,
 				//'disable_smart_seqname' => false
-			);
-            
-            $mdb2 = new MDB2();
+            );
 
-			self::$instance = $mdb2->connect($dsn, $options);
+            try{
+                $pdo = new PDO("pgsql:host=".$dsn['hostspec'].";port=".$dsn['port'].";dbname=".$dsn['database'].";user=".$dsn['username'].";password=".$dsn['password']);
+            }catch (\PDOException $e){
+                throw new \PDOException($e->getMessage(), (int)$e->getCode());
+            }
+            //$mdb2 = new MDB2();
 
-			if ($mdb2->isError(self::$instance)) {
-				print_r(self::$instance);
+			//self::$instance = $mdb2->connect($dsn, $options);
+
+			//if ($mdb2->isError(self::$instance)) {
+			//	print_r(self::$instance);
 				//die($this->_db->getMessage());
-				throw new Exception("Erro de acesso ao banco");
-			}
+			//	throw new Exception("Erro de acesso ao banco");
+			//}
 
-			if(isset($CHARSET))
-				self::$instance->setCharset($CHARSET);
+			//if(isset($CHARSET))
+			//	self::$instance->setCharset($CHARSET);
 
-			self::$instance->loadModule('Extended', null, false);
-			self::$instance->setFetchMode(MDB2_FETCHMODE_ASSOC);
+			//self::$instance->loadModule('Extended', null, false);
+			//self::$instance->setFetchMode(MDB2_FETCHMODE_ASSOC);
 		}
-		return self::$instance;
+        //return self::$instance;
+        return $pdo;
 	}
 }
 
