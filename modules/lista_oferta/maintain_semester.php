@@ -29,9 +29,8 @@ if (isset($_GET["revive"]) && strcmp($semester->status, SemesterDAO::STATUS_CLOS
 
 	$semester = $semesterMC->update($semester);
 }
-
 if ($_POST) {
-	$postData = UtilUT::postToObject($_POST, array('year', 'semester', 'beginning', 'end', 'status', 'average_credits', 'reduction_credits', 'publications_threshold'));
+    $postData = UtilUT::postToObject($_POST, array('year', 'semester', 'beginning', 'end', 'status', 'average_credits', 'reduction_credits', 'publications_threshold'));
 	$postData->beginning = UtilUT::convertDateToSQL($postData->beginning);
 	$postData->end = UtilUT::convertDateToSQL($postData->end);
 
@@ -106,7 +105,6 @@ if ($_POST) {
 		}
 	}
 }
-
 $vc = null;
 
 if (strcmp($semester->status, SemesterDAO::STATUS_CLOSED) == 0) {
@@ -142,7 +140,6 @@ if (strcmp($semester->status, SemesterDAO::STATUS_CLOSED) == 0) {
 	$credits->publications_credits_above_threshold = UtilUT::formatNumber($publicationsCreditsAboveThreshold);
 
 	$stages = $semesterMC->stages();
-
 	$vc = new MSDetailsVC();
 	$vc->setSemester($semester);
 	$vc->setStages($stages);

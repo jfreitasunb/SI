@@ -22,7 +22,7 @@ class SemesterMC extends MC {
 
 		$list = $this->DAO->filter(NULL, $order, 0, 1);
 
-		if (count($list)) {
+		if (count($list) ) {
 			return $list[0];
 		}
 		return NULL;

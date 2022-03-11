@@ -162,6 +162,7 @@ class GrantedCreditsDAO extends DAO {
 		if(strlen($offset) > 0)
 			$offset = "OFFSET $offset";
 
+        $minCredits = 10;
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapJoined)."
 				FROM (((($this->table
 					 INNER JOIN users AS U           ON coduser  = lgc_coduser)
@@ -194,7 +195,7 @@ class GrantedCreditsDAO extends DAO {
 		$where = $this->whereFromFilter($filter);
 
 		$sql = "SELECT sum(".$this->attributeMap['credits'].") as credits
-			FROM $this->table 
+			FROM $this->table
 			$where";
 
 		$res = $this->_db->query($sql);
