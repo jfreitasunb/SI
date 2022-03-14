@@ -229,14 +229,15 @@ abstract class DAO {
 
 		$sql = "SELECT ".$this->attributesSelect()." FROM $this->table $where $order $limit $offset";
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+		$res->execute();
 
 		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Select error: $sql");
 		}
 
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchObject();
 
 		return $list;
 	}
