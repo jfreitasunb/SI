@@ -252,7 +252,7 @@ abstract class DAO {
 
 		$res = $this->_db->query("SELECT NEXTVAL('".$this->table."_".$this->attributeMap["id"]."_seq"."')");
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			$this->_db->rollback();
 			throw new Exception("PK error: ".$this->table."_".$this->attributeMap["id"]."_seq");
@@ -262,7 +262,7 @@ abstract class DAO {
 		$id = $list[0]->nextval;
 
 //		$id = $this->_db->nextID($this->table);
-//		if($this->_db->isError($id)) {
+//		if($this->_db->errorInfo($id)) {
 //			print_r($id);
 //			throw new Exception("PK error");
 //		}
@@ -280,7 +280,7 @@ abstract class DAO {
 
 		$res = $this->_db->query($sql);
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			$this->_db->rollback();
 			throw new Exception("Insertion error: $sql");
@@ -316,7 +316,7 @@ abstract class DAO {
 
 		$res = $this->_db->query($sql);
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Error: $sql");
 		}
@@ -336,7 +336,7 @@ abstract class DAO {
 
 		$res = $this->_db->query($sql);
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Error: $sql");
 		}
@@ -351,7 +351,7 @@ abstract class DAO {
     public function runSQL($sql) {
 		$res = $this->_db->query($sql);
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Sql error: $sql");
 		}

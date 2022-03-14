@@ -58,14 +58,14 @@ class MagisterialOfferListDAO extends DAO {
 		if(strlen($offset) > 0)
 			$offset = "OFFSET $offset";
 
-		$sql = "SELECT ".$this->attributesSelect($this->attributeMapDiscipline)." 
+		$sql = "SELECT ".$this->attributesSelect($this->attributeMapDiscipline)."
 		FROM $this->table
 			INNER JOIN $this->disciplineTable ON ".$this->attributeMapDiscipline['discipline_id']." = ".$this->attributeMapDiscipline['discipline']."
 		$where $order $limit $offset";
 
 		$res = $this->_db->query($sql);
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Select error: $sql");
 		}
@@ -95,7 +95,7 @@ class MagisterialOfferListDAO extends DAO {
 		if(strlen($offset) > 0)
 			$offset = "OFFSET $offset";
 
-		$sql = "SELECT ".$this->attributesSelect($this->attributeMapProfessor)." 
+		$sql = "SELECT ".$this->attributesSelect($this->attributeMapProfessor)."
 		FROM (($this->table
 			INNER JOIN $this->disciplineTable ON ".$this->attributeMapProfessor['discipline_id']." = ".$this->attributeMapProfessor['discipline'].")
 			 LEFT JOIN $this->professorTable  ON ".$this->attributeMapProfessor['professor_id']."  = ".$this->attributeMapProfessor['professor'].")
@@ -103,7 +103,7 @@ class MagisterialOfferListDAO extends DAO {
 
 		$res = $this->_db->query($sql);
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Select error: $sql");
 		}

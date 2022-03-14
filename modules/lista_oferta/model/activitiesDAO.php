@@ -97,7 +97,7 @@ class ActivitiesDAO extends DAO {
 
 		$res = $this->_db->query($sql);
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Error: $sql");
 		}
@@ -135,24 +135,24 @@ class ActivitiesDAO extends DAO {
 
 		unset($this->attributeMap["id"]);
 
-		$sql = "SELECT 
+		$sql = "SELECT
 					amount, T.lac_clac AS id, ".$this->attributesSelect()."
 				FROM (
-					SELECT 
-						COUNT(DISTINCT lgc_clgc) AS amount, 
+					SELECT
+						COUNT(DISTINCT lgc_clgc) AS amount,
 						lac_clac,
 						lgc_year,
 						lgc_seme
 					FROM $this->table
-						LEFT JOIN lo_granted_credits ON 
-							lac_clac = lgc_clac AND 
+						LEFT JOIN lo_granted_credits ON
+							lac_clac = lgc_clac AND
 							lgc_stat = 'active' AND
 							lgc_year = $semester->year AND
 							lgc_seme = $semester->semester
 					GROUP BY lac_clac, lgc_year, lgc_seme) AS am INNER JOIN $this->table AS T ON T.lac_clac = am.lac_clac
 				$where
-				$order 
-				$limit 
+				$order
+				$limit
 				$offset";
 
 		$res = $this->_db->query($sql);

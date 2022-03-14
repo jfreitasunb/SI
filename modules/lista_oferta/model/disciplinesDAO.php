@@ -9,7 +9,7 @@ class DisciplinesDAO extends DAO {
 	const POSTGRADUATION = 'pgrad';
 
 	private $attributeMapOLT;
-	
+
 	function __construct() {
 		parent::__construct();
 
@@ -27,7 +27,7 @@ class DisciplinesDAO extends DAO {
 	}
 
 
-    
+
     public function oltFilter($filter, $order = null, $offset = null, $limit = null) {
 		$where = $this->whereFromFilter($filter, $this->attributeMapOLT);
 
@@ -41,12 +41,12 @@ class DisciplinesDAO extends DAO {
 
 		$sql = "SELECT DISTINCT ".$this->attributesSelect($this->attributeMapOLT)."
 				FROM ($this->table
-					 INNER JOIN lo_offer_list_temporary ON codigo = lol_cdis) 
+					 INNER JOIN lo_offer_list_temporary ON codigo = lol_cdis)
 				$where $order $limit $offset";
 
 		$res = $this->_db->query($sql);
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Select error: $sql");
 		}
