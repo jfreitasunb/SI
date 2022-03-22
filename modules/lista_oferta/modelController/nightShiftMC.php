@@ -16,7 +16,6 @@ class NightShiftMC extends MC
 		$semesterSem = $semester->semester == 2? $semester->semester : null;
 
 		$listProfessors = $this->DAO->filter(null, $semester->year, $semesterSem);
-
 		return $listProfessors;
 	}
 }

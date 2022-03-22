@@ -9,14 +9,12 @@ require_once $ROOT_PATH.'viewController/professorNightShift/pnsMainVC.php';
 
 $semesterMC = new SemesterMC();
 $semester = $semesterMC->last();
-
 $vc = new PNSMainVC();
 $vc->setSemester($semester);
 
 $professors = ProfessorPR::professorNightShift($semester);
 
 $vc->fillProfessorsList($professors);
-
 if (isset($logged) && $logged) {
 	$vc->setLogged($logged);
 }

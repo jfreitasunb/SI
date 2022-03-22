@@ -170,7 +170,6 @@ class ProfessorPR {
 
 		$nightShiftMC = new NightShiftMC();
 		$nightShiftPoints = $nightShiftMC->listUntilSemester($semester);
-        
 		foreach ($nightShiftPoints as $nightShift) {
 			if (isset($listProfessors[$nightShift->professor]) && $nightShift->quantity > 0) {
 				$professor = $listProfessors[$nightShift->professor];
@@ -182,7 +181,6 @@ class ProfessorPR {
 				}
 			}
 		}
-
 		usort($listProfessors, function($a, $b)
 		{
 			if ($a->total_points > $b->total_points) {
@@ -205,7 +203,6 @@ class ProfessorPR {
 
 			return strcmp($a->name.$a->last_name, $b->name.$b->last_name);
 		});
-
 		return $listProfessors;
 	}
 
