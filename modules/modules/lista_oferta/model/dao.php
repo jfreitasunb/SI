@@ -228,15 +228,16 @@ abstract class DAO {
 			$offset = "OFFSET $offset";
 
 		$sql = "SELECT ".$this->attributesSelect()." FROM $this->table $where $order $limit $offset";
+		$res = $this->_db->prepare($sql);
 
-		$res = $this->_db->query($sql);
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
 			throw new Exception("Select error: $sql");
 		}
 
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		return $list;
 	}
