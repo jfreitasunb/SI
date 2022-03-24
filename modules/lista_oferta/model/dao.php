@@ -260,7 +260,7 @@ abstract class DAO {
 			$this->_db->rollback();
 			throw new Exception("PK error: ".$this->table."_".$this->attributeMap["id"]."_seq");
 		}
-		$list = $res->fetch(PDO::FETCH_OBJ);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		$id = $list[0]->nextval;
 

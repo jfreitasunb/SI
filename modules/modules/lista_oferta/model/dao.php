@@ -251,14 +251,16 @@ abstract class DAO {
     public function insert($insert) {
 		$this->_db->beginTransaction();
 
-		$res = $this->_db->query("SELECT NEXTVAL('".$this->table."_".$this->attributeMap["id"]."_seq"."')");
+        $res = $this->_db->prepare("SELECT NEXTVAL('".$this->table."_".$this->attributeMap["id"]."_seq"."')");
+
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
 			$this->_db->rollback();
 			throw new Exception("PK error: ".$this->table."_".$this->attributeMap["id"]."_seq");
 		}
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		$id = $list[0]->nextval;
 
@@ -279,7 +281,9 @@ abstract class DAO {
 
         $sql = "INSERT INTO $this->table $insertFields VALUES $insertValues" ;
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
@@ -315,7 +319,9 @@ abstract class DAO {
 		$sql = "UPDATE $this->table SET $set $where";
 		//echo $sql."<br>"; return;
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res-execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
@@ -335,7 +341,9 @@ abstract class DAO {
 
 		$sql = "DELETE FROM $this->table $where";
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
@@ -350,7 +358,9 @@ abstract class DAO {
      * @throws Exception
      */
     public function runSQL($sql) {
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
