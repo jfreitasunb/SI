@@ -55,14 +55,16 @@ class OfferListTemporaryDAO extends DAO {
 			FROM $this->table INNER JOIN $this->disciplineTable ON ".$this->attributeMapDiscipline['discipline_id']." = ".$this->attributeMapDiscipline['discipline']."
 		$where $order $limit $offset";
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Error: $sql");
 		}
 
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		return $list;
 	}
@@ -84,14 +86,16 @@ class OfferListTemporaryDAO extends DAO {
 			 LEFT JOIN $this->professorTable  ON  ".$this->attributeMapProfessor['professor_id']." = ".$this->attributeMapProfessor['professor'].")
 		$where $order $limit $offset";
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->errorInfo($res)) {
 			p($res);
 			throw new Exception("Error: $sql");
 		}
 
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		return $list;
 	}
@@ -125,14 +129,16 @@ class OfferListTemporaryDAO extends DAO {
 			$att["discipline_id"].", ".$att["discipline_name"].", ".$att["discipline_credits"].", ".$att["status"]."
 		$order $limit $offset";
 
-		$res = $this->_db->query($sql);
+		$res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Erro: $sql");
 		}
 
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		return $list;
 	}
@@ -144,14 +150,16 @@ class OfferListTemporaryDAO extends DAO {
 			FROM $this->table INNER JOIN $this->disciplineTable ON ".$this->attributeMapDiscipline['discipline_id']." = ".$this->attributeMapDiscipline['discipline']."
 			$where";
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Error: $sql");
 		}
 
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		return $list;
 	}

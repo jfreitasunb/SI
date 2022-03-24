@@ -8,7 +8,9 @@ abstract class DAO1x1 extends DAO {
 
 		$sql = "INSERT INTO $this->table ".$this->insertFields($insert)." VALUES ".$this->insertValues($insert);
 
-		$res = $this->_db->query($sql);
+		$res = $this->_db->prepate($sql);
+
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			//print_r($res);

@@ -49,14 +49,16 @@ class StudentDAO extends DAO {
 				$limit
 				$offset";
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
 			throw new Exception("Error: $sql");
 		}
 
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		return $list;
 	}

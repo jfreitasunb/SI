@@ -31,14 +31,16 @@ class OfferListDAO extends DAO1x1 {
 				GROUP BY ".$this->attributeMapCompact["semester"].", ".$this->attributeMapCompact["year"]."
 				$order";
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->errorInfo($res)) {
 			print_r($res);
 			throw new Exception("Erro: $sql");
 		}
 
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		return $list;
 	}

@@ -28,19 +28,21 @@ class TableItemDAO extends DAO {
 	public function getListAllGroupActivities() {
 		$sql = "SELECT ".$this->attributesSelect().",
 					lta_desc || ' - ' || lti_v" . "alu AS long_value
-				FROM $this->table 
+				FROM $this->table
 					INNER JOIN lo_table ON lta_c" . "lta = lti_c" . "lta
 				WHERE lti_c" . "lta = 4 OR  lti_c" . "lta = 5
 				ORDER BY lta_desc, lti_v" . "alu";
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
 			throw new Exception("Select error: $sql");
 		}
 
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		return $list;
 	}

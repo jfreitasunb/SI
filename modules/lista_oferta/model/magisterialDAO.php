@@ -43,19 +43,21 @@ class MagisterialDAO extends DAO {
 	 */
 	public function theoryGroups($semester) {
 		$sql = "SELECT ".$this->attributesSelect($this->amTheoryGroups)."
-		FROM $this->theoryGroupsTable 
+		FROM $this->theoryGroupsTable
 		WHERE ano = $semester->year AND
 			semestre = $semester->semester
 		ORDER BY codigo, turmas";
 
-		$res = $this->_db->query($sql);
+		$res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
 			throw new Exception("Select error: $sql");
 		}
 
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		return $list;
 	}
@@ -68,14 +70,16 @@ class MagisterialDAO extends DAO {
 	public function insertTheoryGroup($insert) {
 		$this->_db->beginTransaction();
 
-		$res = $this->_db->query("SELECT NEXTVAL('".$this->theoryGroupsTable."_".$this->amTheoryGroups["id"]."_seq"."')");
+		$res = $this->_db->prepare("SELECT NEXTVAL('".$this->theoryGroupsTable."_".$this->amTheoryGroups["id"]."_seq"."')");
+
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
 			$this->_db->rollback();
 			throw new Exception("PK error: ".$this->theoryGroupsTable."_".$this->amTheoryGroups["id"]."_seq");
 		}
-		$list = $res->fetchAll(MDB2_FETCHMODE_OBJECT);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		$id = $list[0]->nextval;
 
@@ -90,7 +94,9 @@ class MagisterialDAO extends DAO {
 
 		$sql = "INSERT INTO $this->theoryGroupsTable $insertFields VALUES $insertValues" ;
 
-		$res = $this->_db->query($sql);
+        $res = $this->_db->prepare($sql);
+
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
