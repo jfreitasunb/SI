@@ -321,7 +321,7 @@ abstract class DAO {
 
         $res = $this->_db->prepare($sql);
 
-        $res-execute();
+        $res->execute();
 
 		if($this->_db->isError($res)) {
 			print_r($res);
