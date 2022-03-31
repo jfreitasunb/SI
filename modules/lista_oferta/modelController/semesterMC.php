@@ -79,8 +79,9 @@ class SemesterMC extends MC {
 		$filter = array();
 		$filter["id"] = $semester->id;
 
-		$return = $this->DAO->update($update, $filter);
-		return $return[0];
+        $return = $this->DAO->update($update, $filter);
+
+		return $return;
 	}
 
 	/**
