@@ -22,6 +22,7 @@ if (strcmp($semester->status, SemesterDAO::STATUS_STAGE_2) == 0 || strcmp($semes
 		$password = $_POST['password'];
 
 		$unixMC = new UnixMC();
+
 		$unixUser = $unixMC->getEmployeeByLogin($_POST['login']);
 
 		if ($ENCRYPTED_PASSWORDS) {

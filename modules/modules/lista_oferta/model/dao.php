@@ -2,8 +2,6 @@
 
 require_once $ROOT_PATH.'model/connection.php';
 
-require_once 'MDB2.php';
-
 /**
  * This class must be extended by others DAO classes.
  * (ie. DAO: Data Access Object).

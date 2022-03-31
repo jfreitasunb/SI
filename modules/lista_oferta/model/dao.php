@@ -2,8 +2,6 @@
 
 require_once $ROOT_PATH.'model/connection.php';
 
-require_once 'MDB2.php';
-
 /**
  * This class must be extended by others DAO classes.
  * (ie. DAO: Data Access Object).
@@ -56,7 +54,7 @@ abstract class DAO {
 
 		$where = "";
 
-		if(count($filter)) {
+		if(sizeof($filter)) {
 			foreach($filter as $key => $value)
 			{
 				if (array_key_exists($key, $attributes)) {
@@ -230,6 +228,7 @@ abstract class DAO {
 		$sql = "SELECT ".$this->attributesSelect()." FROM $this->table $where $order $limit $offset";
 
         $res = $this->_db->prepare($sql);
+
 		$res->execute();
 
 		if($this->_db->errorInfo($res)) {
