@@ -29,7 +29,6 @@ if (strcmp($semester->status, SemesterDAO::STATUS_STAGE_2) == 0 || strcmp($semes
 		}
 
 		if (!strcmp($password, $unixUser->password)) {
-			// $unixUser->user_id = 454; // Adail
 
 			$professorMC = new ProfessorMC();
 			$professor = $professorMC->get($unixUser->user_id);
