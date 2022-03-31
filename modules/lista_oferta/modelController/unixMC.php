@@ -30,6 +30,8 @@ class UnixMC extends MC {
 		$filter['login'] = $login;
 
 		$list = $this->DAO->filter($filter);
+        var_dump($list);
+        die();
 
 		if (count($list) > 0) {
 			return $list[0];
