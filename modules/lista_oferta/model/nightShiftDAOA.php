@@ -37,7 +37,7 @@ class NightShiftDAOA extends DAO {
 
 		$sql = "SELECT ".$this->attributesSelect()."
 				FROM (
-					SELECT coduser, credito_noturno as quantidade, ano, semestre
+					SELECT coduser, disc_noturno as quantidade, ano, semestre
 					FROM $this->table2) AS A
 				$where
 				$order
