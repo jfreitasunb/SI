@@ -10,7 +10,7 @@ require_once $ROOT_PATH.'modelController/professorMC.php';
 require_once $ROOT_PATH.'modelController/preferredDisciplinesGraduationMC.php';
 require_once $ROOT_PATH.'modelController/nightShiftMC.php';
 
-class ProfessorPR {
+class ProfessorPRA {
 	static public function activeProfessorsWithCredits($semester) {
 		$professorMC = new ProfessorMC();
 		$listProfessors = $professorMC->listActiveExclusive($semester);
