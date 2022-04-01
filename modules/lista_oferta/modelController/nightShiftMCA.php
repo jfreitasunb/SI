@@ -4,7 +4,7 @@ require_once $ROOT_PATH.'modelController/mc.php';
 require_once $ROOT_PATH.'model/nightShiftDAOA.php';
 
 
-class NightShiftMC extends MC
+class NightShiftMCA extends MC
 {
 	function __construct()
 	{

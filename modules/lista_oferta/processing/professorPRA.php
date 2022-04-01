@@ -9,6 +9,7 @@ require_once $ROOT_PATH.'modelController/userMC.php';
 require_once $ROOT_PATH.'modelController/professorMC.php';
 require_once $ROOT_PATH.'modelController/preferredDisciplinesGraduationMC.php';
 require_once $ROOT_PATH.'modelController/nightShiftMC.php';
+require_once $ROOT_PATH.'modelController/nightShiftMCA.php';
 
 class ProfessorPRA {
 	static public function activeProfessorsWithCredits($semester) {
@@ -168,8 +169,8 @@ class ProfessorPRA {
 		$listProfessors = UtilUT::changeValue($listProfessors, "year");
 		$listProfessors = UtilUT::changeValue($listProfessors, "semester");
 
-		$nightShiftMC = new NightShiftMC();
-		$nightShiftPoints = $nightShiftMC->listUntilSemesterA($semester);
+		$nightShiftMCA = new NightShiftMCA();
+		$nightShiftPoints = $nightShiftMCA->listUntilSemesterA($semester);
 		foreach ($nightShiftPoints as $nightShift) {
 			if (isset($listProfessors[$nightShift->professor]) && $nightShift->quantity > 0) {
 				$professor = $listProfessors[$nightShift->professor];
