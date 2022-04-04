@@ -10,7 +10,7 @@
 						Professor
 					</th>
 					<th class="header">
-						Quantidade de Atua&ccedil;&otilde;es
+					  Cr&eacute;ditos	
 					</th>
 					<th class="header">
 						&Uacute;ltima Atua&ccedil;&atilde;o
