@@ -32,7 +32,7 @@ include("manipula_arquivo_lista_de_ofertas.php");
       function cache_tout()
       {
         document.getElementById("entete1").style.visibility="hidden";
-        document.getElementById("entete2").style.visibility="hidden"; 
+        document.getElementById("entete2").style.visibility="hidden";
 <?php
         for($i=1;$i<21;$i++)
           echo "document.getElementById(\"id".$i."\").style.visibility=\"hidden\";";
@@ -146,17 +146,17 @@ $ano=$lista[1];
 
 
 // Pasta onde o arquivo vai ser salvo
-$_UP['pasta'] = '/home/jfreitas/www/SI/modules/oferta_atualizacao/listas_SAA/';
- 
+$_UP['pasta'] = '/home/jfreitas/www/si/modules/oferta_atualizacao/listas_SAA/';
+
 // Tamanho máximo do arquivo (em Bytes)
 $_UP['tamanho'] = 1024 * 1024 * 2; // 2Mb
- 
+
 // Array com as extensões permitidas
 $_UP['extensoes'] = array('txt');
-	 
+
 // Renomeia o arquivo? (Se true, o arquivo será salvo como .jpg e um nome único)
 $_UP['renomeia'] = true;
- 
+
 // Array com os tipos de erros de upload do PHP
 $_UP['erros'][0] = 'N&atilde;o houve erro';
 $_UP['erros'][1] = 'O arquivo no upload &eacute; maior do que o limite do PHP';
@@ -176,44 +176,44 @@ for ($i=0;$i<1;$i++) //CORRIGIDO EM 18/12/2014
 		{
 		//############### CASO ESTEJA PRONTO PARA UPLOAD
 		// Verifica se houve algum erro com o upload. Se sim, exibe a mensagem do erro
-		if ($_FILES['arquivo']['error'][$i] != 0) 
+		if ($_FILES['arquivo']['error'][$i] != 0)
 			{
 			die("N&atilde;o foi poss&iacute;vel fazer o upload, erro:<br />" . $_UP['erros'][$_FILES['arquivo']['error'][$i]]);
 			exit; // Para a execução do script
 			}
 	 	// Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
-	 
+
 		// Faz a verificação da extensão do arquivo
 		$extensao = strtolower(end(explode('.', $_FILES['arquivo']['name'][$i])));
-		if (array_search($extensao, $_UP['extensoes']) === false) 
+		if (array_search($extensao, $_UP['extensoes']) === false)
 			{
 			echo "Por favor, envie arquivos com as seguintes extens&otilde;es: txt";
 			}
-	 
+
 		// Faz a verificação do tamanho do arquivo
-			else if ($_UP['tamanho'] < $_FILES['arquivo']['size'][$i]) 
+			else if ($_UP['tamanho'] < $_FILES['arquivo']['size'][$i])
 			{
 			echo "O arquivo enviado &eacute; muito grande, envie arquivos de at&eacute; 2Mb.";
 			}
-	 
+
 		// O arquivo passou em todas as verificações, hora de tentar movê-lo para a pasta
 			else {
 		// Primeiro verifica se deve trocar o nome do arquivo
-				if ($_UP['renomeia'] == true) 
+				if ($_UP['renomeia'] == true)
 					{
 		// Cria um nome baseado no UNIX TIMESTAMP atual e com extensão .jpg
 					if ($i==0) $nome_final = "lista_de_ofertas_".$semestre."_".$ano.".".$extensao;
 					//if ($i==1) $nome_final = "lista_carga_professor_".$semestre."_".$ano.".".$extensao; //CORRIGIDO EM 18/12/2014
 					//echo $nome_final;
-					} else 
+					} else
 					{
 		// Mantém o nome original do arquivo
 					$nome_final = $_FILES['arquivo']['name'][$i];
 					}
-	 
+
 		// Depois verifica se é possível mover o arquivo para a pasta escolhida
 //echo $nome_final;
-				if (move_uploaded_file($_FILES['arquivo']['tmp_name'][$i], $_UP['pasta'].$nome_final)) 
+				if (move_uploaded_file($_FILES['arquivo']['tmp_name'][$i], $_UP['pasta'].$nome_final))
 					{
 		// Upload efetuado com sucesso, exibe uma mensagem e um link para o arquivo; insere ponteiro na tabela
 					echo "<br>Upload efetuado com sucesso!<br>";
@@ -228,36 +228,36 @@ for ($i=0;$i<1;$i++) //CORRIGIDO EM 18/12/2014
 //						$array_linhas=manipula_arquivo_atualiza_lista($semestre,$ano,$nome_final);
 //						$processadas=processa_linhas($array_linhas,$semestre,$ano);
 						}
-					else 
+					else
 						{
 						echo "<BR><BR> O arquivo carregado ".$j." nao e compativel com o tipo ".$tipo[$i]." de arquivo desejado<br>";
 						echo "<BR> Favor repetir a operacao<BR><BR>";
 						$manipula[$i]=FALSE;
 						}
-					} 
-					else 
+					}
+					else
 					{
 		// Não foi possível fazer o upload, provavelmente a pasta está incorreta
 					echo "<BR> N&atilde;o foi poss&iacute;vel enviar o arquivo ".$j.", tente novamente <BR>";
 					}
-	 
+
 			     }
-		
+
 		}
 	}
-	
-//if ($manipula[0] and $manipula[1]) 
+
+//if ($manipula[0] and $manipula[1])
 if ($manipula[0]) //CORRIGIDO EM 18/12/2014
-	{ 
+	{
 echo "<BR> Manipulando os arquivos <BR>";
 set_time_limit(60);
 // processa lista de ofertas:
 	$array_linhas=manipula_arquivo_sigaa_atualiza_lista($semestre,$ano,$nome[0]);
-        $query_limpa=pg_query("delete from oferta_lista_sigra where semestre='".$semestre."' and ano='".$ano."'") or die("problema de acesso ao banco"); 
+        $query_limpa=pg_query("delete from oferta_lista_sigra where semestre='".$semestre."' and ano='".$ano."'") or die("problema de acesso ao banco");
 	$processadas=processa_linhas_sigaa($array_linhas,$semestre,$ano);
 
 	//CORRIGIDO EM 18/12/2014
-	/*	
+	/*
 	 *	SUBSTITUIR PELA FUN�A� QUE ANALISA A CARGA EM TURMAS MAGISTRAIS A PARTIR A DA LISTA DE OFERTA DO SIGRA
 // manipula arquivo de carga:
         $lista_arquivo=manipula_arquivo_atualiza_lista($semestre,$ano,$nome[1]);
