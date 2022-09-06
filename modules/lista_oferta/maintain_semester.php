@@ -15,7 +15,7 @@ require_once $ROOT_PATH.'modelController/emuralTriggerMC.php';
 require_once $ROOT_PATH.'modelController/grantedCreditsMC.php';
 
 $semesterMC = new SemesterMC();
-$semester = $semesterMC->last()[0];
+$semester = $semesterMC->last();
 
 
 $olMC = new OfferListMC();
