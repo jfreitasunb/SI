@@ -229,11 +229,11 @@ abstract class DAO {
 
         $res = $this->_db->prepare($sql);
 
-		$res->execute();
+        $res->execute();
 
 		if($this->_db->errorInfo($res)) {
 			print_r($res);
-			throw new Exception("Select error: $sql");
+			throw new Exception("Error: $sql");
 		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
