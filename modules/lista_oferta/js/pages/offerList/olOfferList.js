@@ -287,7 +287,7 @@ $( function() {
 		var schedule = obj.attr("class").split(' ');
 
 		schedule = schedule.filter(function (item, index) {
-			return isNumber(item);
+			return isNumber(item.replace('M', ''));
 		});
 
 		return schedule;
