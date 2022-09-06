@@ -236,7 +236,7 @@ abstract class DAO {
 			throw new Exception("Select error: $sql");
 		}
 
-		$list = $res->fetch(PDO::FETCH_OBJ);
+		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		return $list;
 	}
