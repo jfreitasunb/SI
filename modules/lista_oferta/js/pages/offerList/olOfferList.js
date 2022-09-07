@@ -298,7 +298,7 @@ $( function() {
 		removeScheduleShock(classesRaw);
 
 		for (var i in times) {
-			var classes = classesRaw.filter('.' + times[i]);
+			var classes = classesRaw.filter('.' + times[i].replace('M', '').replace('T', '').replace('N', ''));
 			if (classes.length > 1) {
 				setScheduleShock(classes);
 			}
@@ -311,14 +311,14 @@ $( function() {
 
 		var schedule = scheduleOfElement(professor);
 		schedule = schedule.length > 0 ? '.'+schedule.join(',.') : '';
-
+    schedule.replace('M', '').replace('T', '').replace('N', '');
 		return classesWithoutProfessor(professor).filter(schedule);
 	}
 
 	function adjustScheduleOfProfessor(professor) {
 		var times = scheduleOfElement(professor);
 		times = times.length > 0 ? times.join(' ') : '';
-
+    times.replace('M', '').replace('T', '').replace('N', '');
 		allInstancesOfProfessor(professor).removeClass(times);
 
 		times = new Array();
@@ -327,6 +327,7 @@ $( function() {
 			times = times.concat(x);
 		});
 		times = times.length > 0 ? times.join(' ') : '';
+    times.replace('M', '').replace('N', '').replace('T', '');
 		allInstancesOfProfessor(professor).addClass(times);
 	}
 
@@ -389,7 +390,7 @@ $( function() {
 
 		var schedule = scheduleOfElement(divClass);
 		schedule = schedule.length > 0 ? '.'+schedule.join(',.') : '';
-
+    schedule.replace('M', '').replace('T', '').replace('N', '');
 		var professor = professorOfClass(divClass);
 
 		var professors = $("#professors .professor");
@@ -582,7 +583,6 @@ $( function() {
 	}
 
 	function isNumber (o) {
-    console.log(o);
 		return ! isNaN (o-0) && o !== null && o !== "" && o !== false;
 	}
 });
