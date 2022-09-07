@@ -40,6 +40,7 @@ class ProfessorPR {
 				$listProfessors[$class->professor]->classes[$class->id] = $class;
 
 				$hoursArray = explode('-', $class->schedule);
+				
 				foreach ($hoursArray as $hour) {
 					if (!isset($listProfessors[$class->professor]->schedule[$hour])) {
 						$listProfessors[$class->professor]->schedule[$hour] = $class->id;
@@ -47,6 +48,8 @@ class ProfessorPR {
 				}
 			}
 		}
+
+		// p($listProfessors);
 
 		$pdgMC = new PreferredDisciplinesGraduationMC();
 		$preferredDisciplines = $pdgMC->getListBySemester($semester);

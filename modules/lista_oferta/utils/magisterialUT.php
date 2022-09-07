@@ -336,7 +336,7 @@ class MagisterialUT {
 			return $offerListTemporaryMC->getClassesAndProfessorOfDisciplineAtSemester($array[0], $semester);
 		}
 	}
-	
+
 	static public function removeDisciplineAtSemester($magisterialDisciplineID, $semester) {
 		$mDisciplineMC = new MagisterialDisciplineMC();
 		$mTheoryGroupMC = new MagisterialTheoryGroupsMC();
@@ -360,7 +360,7 @@ class MagisterialUT {
 		$mDisciplineMC = new MagisterialDisciplineMC();
 		$mTheoryGroupMC = new MagisterialTheoryGroupsMC();
 		$mOfferListMC = new MagisterialOfferListMC();
-		
+
 		$mDisciplines = $mDisciplineMC->disciplineKeyFromSemester($semester);
 
 		if (!is_null($disciplineID)) {
