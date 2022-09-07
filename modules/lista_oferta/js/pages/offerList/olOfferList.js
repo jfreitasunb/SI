@@ -285,8 +285,9 @@ $( function() {
 
 	function scheduleOfElement(obj) {
 		var schedule = obj.attr("class").split(' ');
+		
 		schedule = schedule.filter(function (item, index) {
-			return isNumber(item.replace('M', '').replace('T', '').replace('N', ''));
+			return isNumber(item);
 		});
 
 		return schedule;
@@ -298,7 +299,7 @@ $( function() {
 		removeScheduleShock(classesRaw);
 
 		for (var i in times) {
-			var classes = classesRaw.filter('.' + times[i].replace('M', '').replace('T', '').replace('N', ''));
+			var classes = classesRaw.filter('.' + times[i]);
 			if (classes.length > 1) {
 				setScheduleShock(classes);
 			}
