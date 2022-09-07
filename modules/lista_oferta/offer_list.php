@@ -40,7 +40,6 @@ if($semester->status != SemesterDAO::STATUS_CLOSED || $DEVELOPMENT) {
 	$tempOfferList = $oltMC->getListWithDisciplineOfSemesterAndDiscipline($semester);
 	$tempOfferList = UtilUT::changeKey($tempOfferList);
 	$tempOfferList = MagisterialUT::adjustClassList($tempOfferList);
-//	p($tempOfferList);
 
 	foreach ($tempOfferList as $class) {
 		$class->schedule2 = str_replace('-', ' ', $class->schedule);
@@ -71,6 +70,7 @@ if($semester->status != SemesterDAO::STATUS_CLOSED || $DEVELOPMENT) {
 	$credits->creditsSystem = UtilUT::formatNumber($total / $credits->numberOfProfessors);
 	$credits->creditsCoordinator = UtilUT::formatNumber($semester->average_credits);
 
+	// p($listProfessors);
 	$vc = new OfferListVC();
 	$vc->setCredits($credits);
 	$vc->fillProfessors($listProfessors);
