@@ -285,9 +285,8 @@ $( function() {
 
 	function scheduleOfElement(obj) {
 		var schedule = obj.attr("class").split(' ');
-
 		schedule = schedule.filter(function (item, index) {
-			return isNumber(item.replace('M', ''));
+			return isNumber(item.replace('M', '').replace('T', '').replace('N', ''));
 		});
 
 		return schedule;
@@ -583,6 +582,7 @@ $( function() {
 	}
 
 	function isNumber (o) {
+    console.log(o);
 		return ! isNaN (o-0) && o !== null && o !== "" && o !== false;
 	}
 });
