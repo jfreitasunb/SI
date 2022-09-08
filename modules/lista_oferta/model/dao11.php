@@ -8,11 +8,11 @@ abstract class DAO1x1 extends DAO {
 
 		$sql = "INSERT INTO $this->table ".$this->insertFields($insert)." VALUES ".$this->insertValues($insert);
 
-		$res = $this->_db->prepate($sql);
+		$res = $this->_db->prepare($sql);
 
         $res->execute();
 
-		if($this->_db->isError($res)) {
+		if($this->_db->errorInfo($res)) {
 			//print_r($res);
 			$this->_db->rollback();
 			throw new Exception("Error: $sql");
