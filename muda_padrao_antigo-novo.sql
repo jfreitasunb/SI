@@ -107,4 +107,16 @@ UPDATE oferta_lista_de_ofertas SET horarios = '308-608' WHERE disciplina = 11310
 UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113107 AND semestre = 1 AND ano = 2022 AND turma = 'C';
 UPDATE oferta_lista_de_ofertas SET horarios = '319-619' WHERE disciplina = 113107 AND semestre = 1 AND ano = 2022 and turma = '2';
 
+--Álgebra 2
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113131 AND semestre = 1 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 113131 AND semestre = 1 AND ano = 2022 and turma = '1';
+
+--Álgebra 3
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117145 AND semestre = 1 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 117145 AND semestre = 1 AND ano = 2022 and turma = '1';
+
+--Álgebra Linear
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113123 AND semestre = 1 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-316-516' WHERE disciplina = 113123 AND semestre = 1 AND ano = 2022 and turma = '1';
+
 
