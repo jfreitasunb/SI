@@ -536,7 +536,7 @@ function atualiza_rodizio_noturno($semestre, $ano){
                 $num_checa_prof_exercio = pg_num_rows($query_checa_prof_exercicio);
 
                 if ($num_checa_prof_exercio == 0) {
-
+                	$professor_exercicio[3] = 123;
                     pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_exercicio[3]."',
                             '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_exercicio."', '".$registro['codigo']."',
                             '".$registro['turma']."')") or die ("Erro 04 insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_exercicio[3]."',
