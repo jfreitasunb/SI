@@ -119,4 +119,11 @@ UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 11714
 UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113123 AND semestre = 1 AND ano = 2022 AND turma = 'A';
 UPDATE oferta_lista_de_ofertas SET horarios = '216-316-516' WHERE disciplina = 113123 AND semestre = 1 AND ano = 2022 and turma = '1';
 
+--Cálculo de Probabilidade 1
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113824 AND semestre = 1 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113824 AND semestre = 1 AND ano = 2022 and turma = '1';
+
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113824 AND semestre = 1 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-421-619' WHERE disciplina = 113824 AND semestre = 1 AND ano = 2022 and turma = '2';
+
 
