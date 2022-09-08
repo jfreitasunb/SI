@@ -160,5 +160,13 @@ UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 11341
 UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 AND turma = 'E';
 UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 and turma = '2';
 
+--Geometria 1
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117161 AND semestre = 1 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-321' WHERE disciplina = 117161 AND semestre = 1 AND ano = 2022 and turma = '1';
+
+--Geometria 2
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina =  117170 AND semestre = 1 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 117170 AND semestre = 1 AND ano = 2022 and turma = '1';
+
 
 
