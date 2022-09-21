@@ -25,6 +25,7 @@ if($semester->status == SemesterDAO::STATUS_STAGE_1 || $semester->status == Seme
 
 		$magisterialDiscipline = $magisterialDisciplineMC->fromDisciplineAndSemester($disciplineID, $semester);
 
+
 		if ($magisterialDiscipline !== null) {
 			$oltMC = new OfferListTemporaryMC();
 			$classes = $oltMC->getClassesOfDisciplineAtSemester($disciplineID, $semester);

@@ -44,6 +44,7 @@ class MagisterialTheoryGroupsDAO extends DAO {
 				$limit
 				$offset";
 
+
 		$res = $this->_db->prepare($sql);
 
         $res->execute();

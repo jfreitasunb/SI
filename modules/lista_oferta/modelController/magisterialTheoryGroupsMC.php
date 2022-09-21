@@ -19,6 +19,8 @@ class MagisterialTheoryGroupsMC extends MC
 	 * @throws Exception
 	 */
 	public function fromSemester($semester) {
+
+
 		$filter['year'] = $semester->year;
 		$filter['semester'] = $semester->semester;
 

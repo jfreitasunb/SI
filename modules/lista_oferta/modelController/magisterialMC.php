@@ -43,6 +43,7 @@ class MagisterialMC extends MC
 	}
 
 	public function insertTheoryGroup($group) {
+		
 		$insert = array();
 		$insert["group"] = $group->group;
 		$insert["discipline"] = $group->discipline;

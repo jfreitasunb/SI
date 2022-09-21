@@ -94,6 +94,7 @@ class MagisterialDAO extends DAO {
 
 		$sql = "INSERT INTO $this->theoryGroupsTable $insertFields VALUES $insertValues" ;
 
+
         $res = $this->_db->prepare($sql);
 
         $res->execute();

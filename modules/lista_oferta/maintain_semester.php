@@ -58,7 +58,7 @@ if ($_POST) {
 			$class->semester = $postData->semester;
 			unset($class->professor);
 		}
-
+		
 		$oltMC->insertByCloning($classes);
 		MagisterialUT::cloneFromSemesterToSemester($semesterCloned, $semester);
 
