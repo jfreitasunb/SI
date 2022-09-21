@@ -17,7 +17,7 @@ UPDATE oferta_grupos_magistral_teoria SET turmas = 1 WHERE codigo = 113018 AND s
 UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '1';
 
 UPDATE oferta_lista_de_ofertas SET turma = 4 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'AB';
-UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '4';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 4 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'AB';
 UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '4';
 
@@ -28,7 +28,8 @@ UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND se
 
 UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'C';
 UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '8';
-UPDATE oferta_grupos_magistral_teoria SET turmas = 8 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'C';
+UPDATE oferta_grupos_magistral_teoria SET grupo = 2 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'C';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 8 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '8';
 
 UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'E';
 UPDATE oferta_lista_de_ofertas SET horarios = '219-419' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '11';
