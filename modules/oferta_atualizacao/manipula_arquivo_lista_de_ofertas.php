@@ -65,6 +65,7 @@ $codigos_disciplinas_sigaa[MAT0131] = '117480';
 $codigos_disciplinas_sigaa[MAT0132] = '117498';
 $codigos_disciplinas_sigaa[MAT0134] = '117501';
 $codigos_disciplinas_sigaa[MAT0136] = '117510';
+$codigos_disciplinas_sigaa[MAT0137] = '113034';
 $codigos_disciplinas_sigaa[MAT0370] = '113697';
 //Fim das equivalências de códigos do SIGAA para o SIGRA
 
@@ -761,6 +762,34 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
                 $l++;
 
+            }else if ($codigo_sigaa == "MAT0137") {
+
+                $dados_c1 = explode(",", $turma);
+
+                $array_c1[$l]['turma'] = "SP".$dados_c1[0];
+
+                $array_c1[$l]['turno'] = stripos($dados_c1[3], "N") !== false ? "Noturno" : "Diurno";
+
+                $array_c1[$l]['vagas'] = $dados_c1[5];
+
+                $array_c1[$l]['horarios'] = $dados_c1[3];
+
+                $array_c1[$l]['sala'] = $dados_c1[7];
+
+                $temporario = explode(" ", $dados_c1[2]);
+
+                $nome="";
+
+                for ($i=0; $i < count($temporario)-1; $i++) {
+                    $nome .= $temporario[$i];
+                }
+
+                $coduser = $profs_si[$nome][0];
+
+                $array_c1[$l]['coduser'] = $coduser;
+
+                $l++;
+
             }else if ($codigo_sigaa == "MAT0022") {
 
                 $dados_mat1 = explode(",", $turma);
@@ -842,7 +871,7 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
         if (count(pg_fetch_row($verifica_registro)) == 1) {
             $query_insere="insert into oferta_lista_sigra values ('".$codigo_c1."','".$array_c1[$i]['turma']."','".$array_c1[$i]['vagas']."','".$array_c1[$i]['turno']."','".$array_c1[$i]['horarios']."','".$array_c1[$i]['sala']."','sem reserva','".$semestre."','".$ano."','".$coduser."')";
 
-            $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 04: não foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
+            $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 04: ".$query_insere."");
         }
     }
 
@@ -1057,9 +1086,9 @@ while($registro=pg_fetch_row($query_lista))
 	$turno=$registro[2];
 	$horarios=$registro[3];
 	$professores=explode("-",$registro[4]);
-// echo "<BR>";
-// print_r($professores);
-// echo "<BR>";
+ echo "<BR>";
+ print_r($professores);
+ echo "<BR>";
 	if (count($professores)!=1)
 		{
 	//	$coduser=procura_carga_na_turma($disciplina,$turma,$professores,$array_carga);
@@ -1070,7 +1099,7 @@ while($registro=pg_fetch_row($query_lista))
 		if ($professores[0]=="") $coduser=0; else $coduser=$professores[0];
 		}
 	$insere="insert into oferta_lista_de_ofertas values('".$disciplina."','".$turma."','".$turno."','".$coduser."','".$semestre."','".$ano."','".$horarios."')";
-	$query_insere=pg_query($insere);
+	pg_query($insere);
 
 	echo "<BR> lista e-mural: ".$insere."<BR>";
 	}
