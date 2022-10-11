@@ -1121,7 +1121,6 @@ while($registro=pg_fetch_row($query_lista))
  echo "<BR>";
 	if (count($professores)!=1)
 		{
-	//	$coduser=procura_carga_na_turma($disciplina,$turma,$professores,$array_carga);
 		$coduser=$array_prof_exercicio[$disciplina][$turma];
 		}
 	else
@@ -1133,48 +1132,10 @@ while($registro=pg_fetch_row($query_lista))
 
 	echo "<BR> lista e-mural: ".$insere."<BR>";
 	}
-} // end function monta_ofertas_emural
-
-
-/*
-function alimenta_tabela_oferta_disc_turmas_unificadas_emural($array_multiplos_profs,$semestre,$ano) // DEVE SER REFEITO/CORRIGIDO PARA PODER SER USADO. 20/12/2014
-{
-	$query_ja_existe=pg_query("select * from oferta_log_atualizacoes where semestre='".$semestre."' and ano='".$ano."'");
-	$num_existe=pg_num_rows($query_ja_existe);
-	if($num_existe==0)
-	{
-	$j=0;
-	for ($i=0;$i<count($array_multiplos_profs);$i++)
-		{
-		$query_ja_existe=pg_query("select codigo,turma from oferta_disc_turmas_unificadas_emural where semestre='".$semestre."' and ano='".$ano."'") or die("alimenta_tabela_oferta_disc_turmas_unificadas_emural: problema 01");
-		$num_existe=pg_num_rows($query_ja_existe);
-		if($num_existe==0)
-			{
-			if($array_multiplos_profs[$i]['grupo']!=0) $grupo=$array_multiplos_profs[$i]['codigo']; else $grupo=$j+1;
-			//$query_insere=pg_query("insert into oferta_disc_turmas_unificadas_emural values('".$grupo."','".$array_multiplos_profs[$i]['codigo']."','".$array_multiplos_profs[$i]['turma']."','".$semestre."','".$ano."')") or die("alimenta_tabela_oferta_disc_turmas_unificadas_emural: problema 02");
-			echo "insert into oferta_disc_turmas_unificadas_emural values('".$grupo."','".$array_multiplos_profs[$i]['codigo']."','".$array_multiplos_profs[$i]['turma']."','".$semestre."','".$ano."')";
-			}
-		}
-	}
-} // fim de alimenta_tabela_oferta_disc_turmas_unificadas_emural($array_multiplos_profs)
-*/
-
+}
 
 function procura_prof_exercicio($array_multiplos_profs,$semestre,$ano)
 {
-/*
-// select DAS turmas/disciplinas que trabalham no esquema magistral ou COM MAIS DE UM PROFESSOR POR TURMA
-$query_magistral_ou_turmas_unificadas=pg_query("select s.codigo,s.turma,s.turno,s.horarios,s.coduser,grupo from oferta_lista_sigra s inner join oferta_grupos_magistral_teoria mt on mt.codigo=s.codigo and mt.turmas=s.turma where semestre='".$semestre."' and ano='".$ano."' union (select s.codigo,s.turma,s.turno,s.horarios,s.coduser,'0'  from oferta_lista_sigra s where  semestre='".$semestre."' and ano='".$ano."' and coduser like '%-%'  and codigo not in (select codigo from oferta_grupos_magistral_teoria)) order by grupo,codigo,turma") or die ("monta_ofertas_emural: problema 01");
-
-$array_multiplos_profs:=pg_fetch_all($query_magistral_ou_turmas_unificadas);
-
-$array_prof_exercicio=procura_prof_exercicio($array_multiplos_profs);
-
-montar array de grupo,turma,prof,
-para a turma da disc, ver o grupo e procurar a turma correspondentes; ver qual prof. é comum às duas e escolher o que não é; se não houver prof comim às duas turmas escolher um deles. retirar as turmas usadas
- */
-
-// print_r($array_multiplos_profs);echo "<br><br>";
 
 $array_profs=array();
 
