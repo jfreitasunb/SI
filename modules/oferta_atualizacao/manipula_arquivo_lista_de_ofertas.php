@@ -721,11 +721,15 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
     $array_c1 = [];
 
+    $array_c1sp = [];
+
     $array_mat1 = [];
 
     $l = 0;
 
     $k = 0;
+
+    $m = 0;
 
     foreach ($array_linhas as $nome_disciplina => $array_turmas) {
         foreach ($array_turmas as $turma) {
@@ -764,19 +768,19 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
             }else if ($codigo_sigaa == "MAT0137") {
 
-                $dados_c1 = explode(",", $turma);
+                $dados_c1sp = explode(",", $turma);
 
-                $array_c1[$l]['turma'] = "SP".$dados_c1[0];
+                $array_c1sp[$m]['turma'] = "SP".$dados_c1sp[0];
 
-                $array_c1[$l]['turno'] = stripos($dados_c1[3], "N") !== false ? "Noturno" : "Diurno";
+                $array_c1sp[$m]['turno'] = stripos($dados_c1sp[3], "N") !== false ? "Noturno" : "Diurno";
 
-                $array_c1[$l]['vagas'] = $dados_c1[5];
+                $array_c1sp[$m]['vagas'] = $dados_c1sp[5];
 
-                $array_c1[$l]['horarios'] = $dados_c1[3];
+                $array_c1sp[$m]['horarios'] = $dados_c1sp[3];
 
-                $array_c1[$l]['sala'] = $dados_c1[7];
+                $array_c1sp[$m]['sala'] = $dados_c1sp[7];
 
-                $temporario = explode(" ", $dados_c1[2]);
+                $temporario = explode(" ", $dados_c1sp[2]);
 
                 $nome="";
 
@@ -786,9 +790,9 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
                 $coduser = $profs_si[$nome][0];
 
-                $array_c1[$l]['coduser'] = $coduser;
+                $array_c1sp[$m]['coduser'] = $coduser;
 
-                $l++;
+                $m++;
 
             }else if ($codigo_sigaa == "MAT0022") {
 
@@ -875,6 +879,32 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
         }
     }
 
+    for ($i=0; $i < count($array_c1sp); $i++) {
+
+        $coduser = $array_c1sp[$i]['coduser'];
+
+        for ($j=$i+1; $j < count($array_c1sp); $j++) {
+
+            if ($array_c1sp[$i]['turma'] == $array_c1sp[$j]['turma']) {
+                $coduser .= "-".$array_c1sp[$j]['coduser'];
+            }else{
+                break;
+            }
+        }
+
+        $query_verifica_registro = "select * from oferta_lista_sigra where codigo='".$codigo_c1."' and turma='".$array_c1sp[$i]['turma']."' and semestre='".$semestre."' and ano='".$ano."'";
+
+        $verifica_registro = pg_query($query_verifica_registro);
+
+        if (count(pg_fetch_row($verifica_registro)) == 1) {
+            $query_insere="insert into oferta_lista_sigra values ('".$codigo_c1."','".$array_c1sp[$i]['turma']."','".$array_c1sp[$i]['vagas']."','".$array_c1sp[$i]['turno']."','".$array_c1sp[$i]['horarios']."','".$array_c1sp[$i]['sala']."','sem reserva','".$semestre."','".$ano."','".$coduser."')";
+
+            echo "<br>Insere nova Turma: ".$query_insere."<br>";
+
+            $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 05: ".$query_insere."");
+        }
+    }
+
     $codigo_mat1 = $codigos_disciplinas_sigaa['MAT0022'];
 
     for ($i=0; $i < count($array_mat1); $i++) {
@@ -893,9 +923,9 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
         if (count(pg_fetch_row($verifica_registro)) == 1) {
             $query_insere="insert into oferta_lista_sigra values ('".$codigo_mat1."','".$array_mat1[$i]['turma']."','".$array_mat1[$i]['vagas']."','".$array_mat1[$i]['turno']."','".$array_mat1[$i]['horarios']."','".$array_mat1[$i]['sala']."','sem reserva','".$semestre."','".$ano."','".$coduser."')";
 
-            // echo $query_insere."</br>";
+            echo "<br>Insere nova Turma: ".$query_insere."<br>";
 
-            $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 05: não foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
+            $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 06: não foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
 
         }
     }
@@ -1087,7 +1117,7 @@ while($registro=pg_fetch_row($query_lista))
 	$horarios=$registro[3];
 	$professores=explode("-",$registro[4]);
  echo "<BR>";
- print_r($professores);
+ // print_r($professores);
  echo "<BR>";
 	if (count($professores)!=1)
 		{
@@ -1144,7 +1174,7 @@ montar array de grupo,turma,prof,
 para a turma da disc, ver o grupo e procurar a turma correspondentes; ver qual prof. é comum às duas e escolher o que não é; se não houver prof comim às duas turmas escolher um deles. retirar as turmas usadas
  */
 
-print_r($array_multiplos_profs);echo "<br><br>";
+// print_r($array_multiplos_profs);echo "<br><br>";
 
 $array_profs=array();
 
@@ -1157,21 +1187,21 @@ for ($i=0;$i<count($array_multiplos_profs);$i++)
 		$turma=pg_result($query_turma_gemea,0,0);
 		if(pg_num_rows($query_turma_gemea)!=0)
 		{
-echo "turma: ".$turma;echo $i;echo "--";
+// echo "turma: ".$turma;echo $i;echo "--";
 $k=$i+1;
 		for ($j=$k;$j<count($array_multiplos_profs);$j++)
 		{
 			if(($array_multiplos_profs[$i]['grupo']==$array_multiplos_profs[$j]['grupo']) and ($array_multiplos_profs[$j]['turma']==$turma))
 			{
 				$profs2=explode("-",$array_multiplos_profs[$j]['coduser']);
-print_r($profs2);
+// print_r($profs2);
 				foreach($profs as $key => $value)
 					{
-					if(!in_array($value,$profs2)) {$array_profs[$array_multiplos_profs[$i]['codigo']][$array_multiplos_profs[$i]['turma']]=$value;$def_i=1;echo $value; break;} else $def_i=0;
+					if(!in_array($value,$profs2)) {$array_profs[$array_multiplos_profs[$i]['codigo']][$array_multiplos_profs[$i]['turma']]=$value;$def_i=1; break;} else $def_i=0;
 					}
 				foreach($profs2 as $key => $value)
                                         {
-                                        if(!in_array($value,$profs)) {$array_profs[$array_multiplos_profs[$j]['codigo']][$array_multiplos_profs[$j]['turma']]=$value;$def_j=1;echo $value; break;} else $def_j=0;
+                                        if(!in_array($value,$profs)) {$array_profs[$array_multiplos_profs[$j]['codigo']][$array_multiplos_profs[$j]['turma']]=$value;$def_j=1; break;} else $def_j=0;
                                         }
 				if($def_i==0) $array_profs[$array_multiplos_profs[$i]['codigo']][$array_multiplos_profs[$i]['turma']]=$profs[0];
 				if($def_j==0) $array_profs[$array_multiplos_profs[$j]['codigo']][$array_multiplos_profs[$j]['turma']]=$profs2[0];
@@ -1188,7 +1218,7 @@ print_r($profs2);
 
 	}
 }
-print_r($array_profs);
+// print_r($array_profs);
 return $array_profs;
 
 } // fim de function procura_prof_exercicio
