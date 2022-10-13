@@ -1,324 +1,347 @@
 --Geomentria Análitica
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 105881 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 105881 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 105881 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 105881 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 105881 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 105881 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 105881 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 105881 AND semestre = 2 AND ano = 2022 and turma = '2';
 
 --MAT1
-UPDATE oferta_lista_de_ofertas SET turma = 10 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'L';
-UPDATE oferta_lista_de_ofertas SET horarios = '321-521' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '10';
-UPDATE oferta_grupos_magistral_teoria SET turmas = 10 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'L';
-UPDATE oferta_grupos_magistral_teoria SET grupo = 4 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '10';
+UPDATE oferta_lista_de_ofertas SET turma = 10 WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 AND turma = 'L';
+UPDATE oferta_lista_de_ofertas SET horarios = '321-521' WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 and turma = '10';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 10 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = 'L';
+#UPDATE oferta_grupos_magistral_teoria SET grupo = 4 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '10';
 
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '1';
-UPDATE oferta_grupos_magistral_teoria SET turmas = 1 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'B';
-UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 and turma = '1';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 1 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = 'B';
+#UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 4 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'AB';
-UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '4';
-UPDATE oferta_grupos_magistral_teoria SET turmas = 4 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'AB';
-UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '4';
+UPDATE oferta_lista_de_ofertas SET turma = 4 WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 AND turma = 'AB';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 and turma = '4';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 4 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = 'AB';
+#UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '4';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '2';
-UPDATE oferta_grupos_magistral_teoria SET turmas = 2 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'A';
-UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 and turma = '2';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 2 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = 'A';
+#UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '2';
 
-UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'C';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '8';
-UPDATE oferta_grupos_magistral_teoria SET grupo = 2 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'C';
-UPDATE oferta_grupos_magistral_teoria SET turmas = 8 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '8';
+UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 AND turma = 'C';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 and turma = '8';
+UPDATE oferta_grupos_magistral_teoria SET grupo = 2 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = 'C';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 8 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = 'C';
 
-UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'E';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-419' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '11';
-UPDATE oferta_grupos_magistral_teoria SET turmas = 11 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'E';
-UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '11';
+UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 AND turma = 'E';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-419' WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 and turma = '11';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 11 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = 'E';
+#UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '11';
 
-UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'K';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-621' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '3';
-UPDATE oferta_grupos_magistral_teoria SET turmas = 3 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'K';
-UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '3';
+UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 AND turma = 'K';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-621' WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 and turma = '3';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 3 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = 'K';
+#UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '3';
 
-UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'M';
-UPDATE oferta_lista_de_ofertas SET horarios = '321-521' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '7';
-UPDATE oferta_grupos_magistral_teoria SET turmas = 7 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'M';
-UPDATE oferta_grupos_magistral_teoria SET grupo = 4 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '7';
+UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 AND turma = 'M';
+UPDATE oferta_lista_de_ofertas SET horarios = '321-521' WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 and turma = '7';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 7 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = 'M';
+#UPDATE oferta_grupos_magistral_teoria SET grupo = 4 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '7';
 
-UPDATE oferta_lista_de_ofertas SET turma = 9 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'N';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-419' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 and turma = '9';
-UPDATE oferta_grupos_magistral_teoria SET turmas = 9 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = 'N';
-UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '9';
+UPDATE oferta_lista_de_ofertas SET turma = 9 WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 AND turma = 'N';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-419' WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 and turma = '9';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 9 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = 'N';
+#UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '9';
 
 --C1
-UPDATE oferta_lista_de_ofertas SET turma = 27 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-614' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '27';
+UPDATE oferta_lista_de_ofertas SET turma = 27 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-614' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '27';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 27 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'A';
+#UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '27';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '2';
 
-UPDATE oferta_lista_de_ofertas SET turma = 31 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'C';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '31';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '2';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 2 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'B';
 
-UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'D';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '3';
+UPDATE oferta_lista_de_ofertas SET turma = 31 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'C';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '31';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 31 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'C';
 
-UPDATE oferta_lista_de_ofertas SET turma = 32 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'E';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '32';
+UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'D';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '3';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 3 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'D';
 
-UPDATE oferta_lista_de_ofertas SET turma = 13 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'F';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '13';
+UPDATE oferta_lista_de_ofertas SET turma = 32 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'E';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '32';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 32 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'E';
 
-UPDATE oferta_lista_de_ofertas SET turma = 26 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'G';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '26';
+UPDATE oferta_lista_de_ofertas SET turma = 13 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'F';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '13';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 13 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'F';
 
-UPDATE oferta_lista_de_ofertas SET turma = 21 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'H';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '21';
+UPDATE oferta_lista_de_ofertas SET turma = 26 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'G';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '26';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 26 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'G';
 
-UPDATE oferta_lista_de_ofertas SET turma = 23 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'I';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '23';
+UPDATE oferta_lista_de_ofertas SET turma = 21 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'H';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '21';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 21 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'H';
 
-UPDATE oferta_lista_de_ofertas SET turma = 22 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'J';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '22';
+UPDATE oferta_lista_de_ofertas SET turma = 23 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'I';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '23';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 23 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'I';
 
-UPDATE oferta_lista_de_ofertas SET turma = 24 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'K';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '24';
+UPDATE oferta_lista_de_ofertas SET turma = 22 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'J';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '22';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 22 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'J';
 
-UPDATE oferta_lista_de_ofertas SET turma = 14 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'M';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '14';
+UPDATE oferta_lista_de_ofertas SET turma = 24 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'K';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '24';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 24 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'K';
 
-UPDATE oferta_lista_de_ofertas SET turma = 6 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'N';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-410' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '6';
+UPDATE oferta_lista_de_ofertas SET turma = 14 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'M';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '14';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 14 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'M';
 
-UPDATE oferta_lista_de_ofertas SET turma = 9 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'O';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '9';
+UPDATE oferta_lista_de_ofertas SET turma = 6 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'N';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-410' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '6';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 6 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'N';
 
-UPDATE oferta_lista_de_ofertas SET turma = 19 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'P';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '19';
+UPDATE oferta_lista_de_ofertas SET turma = 9 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'O';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '9';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 9 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'O';
 
-UPDATE oferta_lista_de_ofertas SET turma = 29 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'Q';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-419-619' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '29';
+UPDATE oferta_lista_de_ofertas SET turma = 19 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'P';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '19';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 19 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'P';
 
-UPDATE oferta_lista_de_ofertas SET turma = 28 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'R';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '28';
+UPDATE oferta_lista_de_ofertas SET turma = 29 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'Q';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-419-619' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '29';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 29 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'Q';
 
-UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'S';
-UPDATE oferta_lista_de_ofertas SET horarios = '208-408-608' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '11';
+UPDATE oferta_lista_de_ofertas SET turma = 28 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'R';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '28';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 28 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'R';
 
-UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'T';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-419-619' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '7';
+UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'S';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-408-608' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '11';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 11 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'S';
 
-UPDATE oferta_lista_de_ofertas SET turma = 25 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'Y';
-UPDATE oferta_lista_de_ofertas SET horarios = '208-408-608' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '25';
+UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'T';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-419-619' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '7';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 7 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'T';
 
-UPDATE oferta_lista_de_ofertas SET turma = 16 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'Z';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 and turma = '16';
+UPDATE oferta_lista_de_ofertas SET turma = 25 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'Y';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-408-608' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '25';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 25 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'Y';
+
+UPDATE oferta_lista_de_ofertas SET turma = 16 WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 AND turma = 'Z';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '16';
+UPDATE oferta_grupos_magistral_teoria SET turmas = 16 WHERE codigo = 113034 AND semestre = 2 AND ano = 2022 AND turmas = 'Z';
 
 --Álgebra 1
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113107 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 113107 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113107 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 113107 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113107 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-608' WHERE disciplina = 113107 AND semestre = 1 AND ano = 2022 and turma = '3';
+UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113107 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-608' WHERE disciplina = 113107 AND semestre = 2 AND ano = 2022 and turma = '3';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113107 AND semestre = 1 AND ano = 2022 AND turma = 'C';
-UPDATE oferta_lista_de_ofertas SET horarios = '319-619' WHERE disciplina = 113107 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113107 AND semestre = 2 AND ano = 2022 AND turma = 'C';
+UPDATE oferta_lista_de_ofertas SET horarios = '319-619' WHERE disciplina = 113107 AND semestre = 2 AND ano = 2022 and turma = '2';
 
 --Álgebra 2
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113131 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 113131 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113131 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 113131 AND semestre = 2 AND ano = 2022 and turma = '1';
 
 --Álgebra 3
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117145 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 117145 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117145 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 117145 AND semestre = 2 AND ano = 2022 and turma = '1';
 
 --Álgebra Linear
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113123 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '216-316-516' WHERE disciplina = 113123 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113123 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-316-516' WHERE disciplina = 113123 AND semestre = 2 AND ano = 2022 and turma = '1';
 
 --Cálculo de Probabilidade 1
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113824 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113824 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113824 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113824 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113824 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-421-619' WHERE disciplina = 113824 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113824 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-421-619' WHERE disciplina = 113824 AND semestre = 2 AND ano = 2022 and turma = '2';
 
 --Análise 1
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113204 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '321-619' WHERE disciplina = 113204 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113204 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '321-619' WHERE disciplina = 113204 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113204 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 113204 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113204 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 113204 AND semestre = 2 AND ano = 2022 and turma = '2';
 
 --Análise 2
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113212 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-410' WHERE disciplina = 113212 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113212 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-410' WHERE disciplina = 113212 AND semestre = 2 AND ano = 2022 and turma = '1';
 
 --Análise 3
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117137 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '310-510' WHERE disciplina = 117137 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117137 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '310-510' WHERE disciplina = 117137 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113204 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 113204 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113204 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 113204 AND semestre = 2 AND ano = 2022 and turma = '2';
 
 --Cálculo Numérico
-UPDATE oferta_lista_de_ofertas SET turma = 5 WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 and turma = '5';
+UPDATE oferta_lista_de_ofertas SET turma = 5 WHERE disciplina = 113417 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 113417 AND semestre = 2 AND ano = 2022 and turma = '5';
 
-UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 and turma = '3';
+UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113417 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 113417 AND semestre = 2 AND ano = 2022 and turma = '3';
 
-UPDATE oferta_lista_de_ofertas SET turma = 4 WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 AND turma = 'C';
-UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 and turma = '4';
+UPDATE oferta_lista_de_ofertas SET turma = 4 WHERE disciplina = 113417 AND semestre = 2 AND ano = 2022 AND turma = 'C';
+UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 113417 AND semestre = 2 AND ano = 2022 and turma = '4';
 
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 AND turma = 'D';
-UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113417 AND semestre = 2 AND ano = 2022 AND turma = 'D';
+UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 113417 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 AND turma = 'E';
-UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113417 AND semestre = 2 AND ano = 2022 AND turma = 'E';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 113417 AND semestre = 2 AND ano = 2022 and turma = '2';
 
 --Geometria 1
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117161 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-321' WHERE disciplina = 117161 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117161 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-321' WHERE disciplina = 117161 AND semestre = 2 AND ano = 2022 and turma = '1';
 
 --Geometria 2
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina =  117170 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 117170 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina =  117170 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 117170 AND semestre = 2 AND ano = 2022 and turma = '1';
 
 --MAT2
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113026 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '414-614' WHERE disciplina = 113026 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113026 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '414-614' WHERE disciplina = 113026 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113026 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 113026 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113026 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 113026 AND semestre = 2 AND ano = 2022 and turma = '2';
 
 --Regencia 2
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117439 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '519-521' WHERE disciplina = 117439 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117439 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '519-521' WHERE disciplina = 117439 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 117439 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '608-610-708' WHERE disciplina = 117439 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 117439 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '608-610-708' WHERE disciplina = 117439 AND semestre = 2 AND ano = 2022 and turma = '2';
 
 --Regencia 1
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117510 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '519-521-714' WHERE disciplina = 117510 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117510 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '519-521-714' WHERE disciplina = 117510 AND semestre = 2 AND ano = 2022 and turma = '1';
 
 --TN 1
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113115 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '319-519' WHERE disciplina = 113115 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113115 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '319-519' WHERE disciplina = 113115 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113115 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '310-510' WHERE disciplina = 113115 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113115 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '310-510' WHERE disciplina = 113115 AND semestre = 2 AND ano = 2022 and turma = '2';
 
 --VC 1
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113069 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-314-514' WHERE disciplina = 113069 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113069 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-314-514' WHERE disciplina = 113069 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113069 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-314-514' WHERE disciplina = 113069 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113069 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-314-514' WHERE disciplina = 113069 AND semestre = 2 AND ano = 2022 and turma = '2';
 
 --C2
-UPDATE oferta_lista_de_ofertas SET turma = 12 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '208-308-508' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '12';
+UPDATE oferta_lista_de_ofertas SET turma = 12 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-308-508' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '12';
 
-UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '8';
+UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '8';
 
-UPDATE oferta_lista_de_ofertas SET turma = 17 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'C';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '17';
+UPDATE oferta_lista_de_ofertas SET turma = 17 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'C';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '17';
 
-UPDATE oferta_lista_de_ofertas SET turma = 6 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'D';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '6';
+UPDATE oferta_lista_de_ofertas SET turma = 6 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'D';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '6';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'E';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'E';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '2';
 
-UPDATE oferta_lista_de_ofertas SET turma = 4 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'F';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '4';
+UPDATE oferta_lista_de_ofertas SET turma = 4 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'F';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '4';
 
-UPDATE oferta_lista_de_ofertas SET turma = 18 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'G';
-UPDATE oferta_lista_de_ofertas SET horarios = '208-308-508' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '18';
+UPDATE oferta_lista_de_ofertas SET turma = 18 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'G';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-308-508' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '18';
 
-UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'H';
-UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '7';
+UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'H';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '7';
 
-UPDATE oferta_lista_de_ofertas SET turma = 14 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'I';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '14';
+UPDATE oferta_lista_de_ofertas SET turma = 14 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'I';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '14';
 
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'J';
-UPDATE oferta_lista_de_ofertas SET horarios = '321-519-619' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'J';
+UPDATE oferta_lista_de_ofertas SET horarios = '321-519-619' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 15 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'K';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '15';
+UPDATE oferta_lista_de_ofertas SET turma = 15 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'K';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '15';
 
-UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'L';
-UPDATE oferta_lista_de_ofertas SET horarios = '208-308-508' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '11';
+UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'L';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-308-508' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '11';
 
-UPDATE oferta_lista_de_ofertas SET turma = 13 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 AND turma = 'M';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2022 and turma = '13';
+UPDATE oferta_lista_de_ofertas SET turma = 13 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'M';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '13';
 
 --C3
-UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 and turma = '11';
+UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 and turma = '11';
 
-UPDATE oferta_lista_de_ofertas SET turma = 12 WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 and turma = '12';
+UPDATE oferta_lista_de_ofertas SET turma = 12 WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 and turma = '12';
 
-UPDATE oferta_lista_de_ofertas SET turma = 4 WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 AND turma = 'C';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 and turma = '4';
+UPDATE oferta_lista_de_ofertas SET turma = 4 WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 AND turma = 'C';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 and turma = '4';
 
-UPDATE oferta_lista_de_ofertas SET turma = 6 WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 AND turma = 'D';
-UPDATE oferta_lista_de_ofertas SET horarios = '321-521-619' WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 and turma = '6';
+UPDATE oferta_lista_de_ofertas SET turma = 6 WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 AND turma = 'D';
+UPDATE oferta_lista_de_ofertas SET horarios = '321-521-619' WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 and turma = '6';
 
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 AND turma = 'E';
-UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 AND turma = 'E';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 and turma = '1';
 
-UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 AND turma = 'F';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 and turma = '7';
+UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 AND turma = 'F';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 and turma = '7';
 
-UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 AND turma = 'G';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 and turma = '8';
+UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 AND turma = 'G';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 and turma = '8';
 
-UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 AND turma = 'I';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 and turma = '3';
+UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 AND turma = 'I';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 and turma = '3';
 
-UPDATE oferta_lista_de_ofertas SET turma = 9 WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 AND turma = 'J';
-UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113051 AND semestre = 1 AND ano = 2022 and turma = '9';
+UPDATE oferta_lista_de_ofertas SET turma = 9 WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 AND turma = 'J';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113051 AND semestre = 2 AND ano = 2022 and turma = '9';
 
 --IAL
-UPDATE oferta_lista_de_ofertas SET turma = 10 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '10';
+UPDATE oferta_lista_de_ofertas SET turma = 10 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '10';
 
-UPDATE oferta_lista_de_ofertas SET turma = 5 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '5';
+UPDATE oferta_lista_de_ofertas SET turma = 5 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '5';
 
-UPDATE oferta_lista_de_ofertas SET turma = 15 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'C';
-UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '15';
+UPDATE oferta_lista_de_ofertas SET turma = 15 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'C';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '15';
 
-UPDATE oferta_lista_de_ofertas SET turma = 6 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'D';
-UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '6';
+UPDATE oferta_lista_de_ofertas SET turma = 6 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'D';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '6';
 
-UPDATE oferta_lista_de_ofertas SET turma = 9 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'E';
-UPDATE oferta_lista_de_ofertas SET horarios = '319-519' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '9';
+UPDATE oferta_lista_de_ofertas SET turma = 9 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'E';
+UPDATE oferta_lista_de_ofertas SET horarios = '319-519' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '9';
 
-UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'F';
-UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '8';
+UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'F';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '8';
 
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'G';
-UPDATE oferta_lista_de_ofertas SET horarios = '319-519' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'G';
+UPDATE oferta_lista_de_ofertas SET horarios = '319-519' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '2';
 
-UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'H';
-UPDATE oferta_lista_de_ofertas SET horarios = '410-610' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '7';
+UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'H';
+UPDATE oferta_lista_de_ofertas SET horarios = '410-610' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '7';
 
-UPDATE oferta_lista_de_ofertas SET turma = 12 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'I';
-UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '12';
+UPDATE oferta_lista_de_ofertas SET turma = 12 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'I';
+UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '12';
 
-UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'J';
-UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '11';
+UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'J';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '11';
 
-UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 AND turma = 'K';
-UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 113093 AND semestre = 1 AND ano = 2022 and turma = '3';
+UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'K';
+UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '3';
 
 
 
