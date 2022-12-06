@@ -382,6 +382,11 @@ UPDATE oferta_lista_de_ofertas SET horarios = '214-314-514' WHERE disciplina = 1
 UPDATE lo_offer_list_temporary SET lol_clas = 2 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113069' AND lol_clas = 'A';
 UPDATE lo_offer_list_temporary SET lol_sche = '214-314-514' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113069' AND lol_clas = '2';
 
+UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113069 AND semestre = 2 AND ano = 2022 AND turma = 'C';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-321-521' WHERE disciplina = 113069 AND semestre = 2 AND ano = 2022 and turma = '3';
+UPDATE lo_offer_list_temporary SET lol_clas = 3 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113069' AND lol_clas = 'C';
+UPDATE lo_offer_list_temporary SET lol_sche = '219-321-521' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113069' AND lol_clas = '3';
+
 --C2
 UPDATE oferta_lista_de_ofertas SET turma = 12 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 AND turma = 'A';
 UPDATE oferta_lista_de_ofertas SET horarios = '208-308-508' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2022 and turma = '12';
