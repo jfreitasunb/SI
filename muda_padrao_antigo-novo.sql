@@ -243,6 +243,18 @@ UPDATE oferta_lista_de_ofertas SET horarios = '216-316-516' WHERE disciplina = 1
 UPDATE lo_offer_list_temporary SET lol_clas = 1 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113123' AND lol_clas = 'A';
 UPDATE lo_offer_list_temporary SET lol_sche = '216-316-516' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113123' AND lol_clas = '1';
 
+--Álgebra Para o Ensino 1
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117421 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-316-516' WHERE disciplina = 117421 AND semestre = 2 AND ano = 2022 and turma = '1';
+UPDATE lo_offer_list_temporary SET lol_clas = 1 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117421' AND lol_clas = 'B';
+UPDATE lo_offer_list_temporary SET lol_sche = '216-316-516' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117421' AND lol_clas = '1';
+
+--Álgebra Para o Ensino 2
+UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 117501 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '708-408-410' WHERE disciplina = 117501 AND semestre = 2 AND ano = 2022 and turma = '2';
+UPDATE lo_offer_list_temporary SET lol_clas = 2 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117501' AND lol_clas = 'B';
+UPDATE lo_offer_list_temporary SET lol_sche = '214-314-316' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117501' AND lol_clas = '2';
+
 --Cálculo de Probabilidade 1
 UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113824 AND semestre = 2 AND ano = 2022 AND turma = 'A';
 UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113824 AND semestre = 2 AND ano = 2022 and turma = '1';
