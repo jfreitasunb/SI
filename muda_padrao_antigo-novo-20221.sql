@@ -1,5 +1,5 @@
 --Geomentria Análitica
-UPDATE q SET turma = 1 WHERE disciplina = 105881 AND semestre = 1 AND ano = 2022 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 105881 AND semestre = 1 AND ano = 2022 AND turma = 'A';
 UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 105881 AND semestre = 1 AND ano = 2022 and turma = '1';
 UPDATE lo_offer_list_temporary SET lol_clas = 1 WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '105881' AND lol_clas = 'A';
 UPDATE lo_offer_list_temporary SET lol_sche = '316-516' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '105881' AND lol_clas = '1';

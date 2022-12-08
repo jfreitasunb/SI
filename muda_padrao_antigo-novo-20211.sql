@@ -1,5 +1,5 @@
 --Geomentria Análitica
-UPDATE q SET turma = 1 WHERE disciplina = 105881 AND semestre = 1 AND ano = 2021 AND turma = 'A';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 105881 AND semestre = 1 AND ano = 2021 AND turma = 'A';
 UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 105881 AND semestre = 1 AND ano = 2021 and turma = '1';
 UPDATE lo_offer_list_temporary SET lol_clas = 1 WHERE lol_seme = '1' AND lol_year='2021' AND lol_cdis = '105881' AND lol_clas = 'A';
 UPDATE lo_offer_list_temporary SET lol_sche = '316-516' WHERE lol_seme = '1' AND lol_year='2021' AND lol_cdis = '105881' AND lol_clas = '1';
@@ -574,10 +574,10 @@ UPDATE lo_offer_list_temporary SET lol_clas = 1 WHERE lol_seme = '1' AND lol_yea
 UPDATE lo_offer_list_temporary SET lol_sche = '210-410-610' WHERE lol_seme = '1' AND lol_year='2021' AND lol_cdis = '113522' AND lol_clas = '1';
 
 --MAT2
-UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113026 AND semestre = 1 AND ano = 2021 AND turma = 'A';
-UPDATE oferta_lista_de_ofertas SET horarios = '414-614' WHERE disciplina = 113026 AND semestre = 1 AND ano = 2021 and turma = '1';
-UPDATE lo_offer_list_temporary SET lol_clas = 1 WHERE lol_seme = '1' AND lol_year='2021' AND lol_cdis = '113026' AND lol_clas = 'A';
-UPDATE lo_offer_list_temporary SET lol_sche = '414-614' WHERE lol_seme = '1' AND lol_year='2021' AND lol_cdis = '113026' AND lol_clas = '1';
+UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113026 AND semestre = 1 AND ano = 2021 AND turma = 'C';
+UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 113026 AND semestre = 1 AND ano = 2021 and turma = '3';
+UPDATE lo_offer_list_temporary SET lol_clas = 3 WHERE lol_seme = '1' AND lol_year='2021' AND lol_cdis = '113026' AND lol_clas = 'C';
+UPDATE lo_offer_list_temporary SET lol_sche = '314-514' WHERE lol_seme = '1' AND lol_year='2021' AND lol_cdis = '113026' AND lol_clas = '3';
 
 UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113026 AND semestre = 1 AND ano = 2021 AND turma = 'B';
 UPDATE oferta_lista_de_ofertas SET horarios = '314-514' WHERE disciplina = 113026 AND semestre = 1 AND ano = 2021 and turma = '2';
