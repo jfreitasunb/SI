@@ -678,8 +678,13 @@ UPDATE lo_offer_list_temporary SET lol_sche = '208-308-508' WHERE lol_seme = '1'
 
 UPDATE oferta_lista_de_ofertas SET turma = 13 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2020 AND turma = 'M';
 UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2020 and turma = '13';
-UPDATE lo_offer_list_temporary SET lol_clas = 12 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113042' AND lol_clas = 'M';
+UPDATE lo_offer_list_temporary SET lol_clas = 13 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113042' AND lol_clas = 'M';
 UPDATE lo_offer_list_temporary SET lol_sche = '210-310-510' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113042' AND lol_clas = '13';
+
+UPDATE oferta_lista_de_ofertas SET turma = 19 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2020 AND turma = 'M';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2020 and turma = '19';
+UPDATE lo_offer_list_temporary SET lol_clas = 19 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113042' AND lol_clas = 'M';
+UPDATE lo_offer_list_temporary SET lol_sche = '214-414-614' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113042' AND lol_clas = '19';
 
 --C3
 UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113051 AND semestre = 1 AND ano = 2020 AND turma = 'A';

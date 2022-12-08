@@ -606,7 +606,7 @@ UPDATE lo_offer_list_temporary SET lol_sche = '208-308-508' WHERE lol_seme='2' A
 
 UPDATE oferta_lista_de_ofertas SET turma = 13 WHERE disciplina = 113042 AND semestre = 2 AND ano = 2021 AND turma = 'M';
 UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113042 AND semestre = 2 AND ano = 2021 and turma = '13';
-UPDATE lo_offer_list_temporary SET lol_clas = 12 WHERE lol_seme='2' AND lol_year='2021' AND lol_cdis = '113042' AND lol_clas = 'M';
+UPDATE lo_offer_list_temporary SET lol_clas = 13 WHERE lol_seme='2' AND lol_year='2021' AND lol_cdis = '113042' AND lol_clas = 'M';
 UPDATE lo_offer_list_temporary SET lol_sche = '210-310-510' WHERE lol_seme='2' AND lol_year='2021' AND lol_cdis = '113042' AND lol_clas = '13';
 
 --C3
