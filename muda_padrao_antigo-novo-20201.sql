@@ -390,7 +390,12 @@ UPDATE lo_offer_list_temporary SET lol_sche = '212-412-612' WHERE lol_seme = '1'
 UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 AND turma = 'H';
 UPDATE oferta_lista_de_ofertas SET horarios = '419-708-710' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 and turma = '8';
 UPDATE lo_offer_list_temporary SET lol_clas = 8 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'H';
-UPDATE lo_offer_list_temporary SET lol_sche = '419-708-710' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'H';
+UPDATE lo_offer_list_temporary SET lol_sche = '419-708-710' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = '8';
+
+UPDATE oferta_lista_de_ofertas SET turma = 9 WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 AND turma = 'I';
+UPDATE oferta_lista_de_ofertas SET horarios = '419-708-710' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 and turma = '9';
+UPDATE lo_offer_list_temporary SET lol_clas = 9 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'I';
+UPDATE lo_offer_list_temporary SET lol_sche = '419-708-710' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = '9';
 
 --Álgebra 1
 UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113107 AND semestre = 1 AND ano = 2020 AND turma = 'A';
@@ -681,9 +686,9 @@ UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 1
 UPDATE lo_offer_list_temporary SET lol_clas = 13 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113042' AND lol_clas = 'M';
 UPDATE lo_offer_list_temporary SET lol_sche = '210-310-510' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113042' AND lol_clas = '13';
 
-UPDATE oferta_lista_de_ofertas SET turma = 19 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2020 AND turma = 'M';
+UPDATE oferta_lista_de_ofertas SET turma = 19 WHERE disciplina = 113042 AND semestre = 1 AND ano = 2020 AND turma = 'N';
 UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113042 AND semestre = 1 AND ano = 2020 and turma = '19';
-UPDATE lo_offer_list_temporary SET lol_clas = 19 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113042' AND lol_clas = 'M';
+UPDATE lo_offer_list_temporary SET lol_clas = 19 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113042' AND lol_clas = 'N';
 UPDATE lo_offer_list_temporary SET lol_sche = '214-414-614' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113042' AND lol_clas = '19';
 
 --C3
@@ -834,3 +839,7 @@ UPDATE oferta_lista_de_ofertas SET turma = 5 WHERE disciplina = 117013 AND semes
 UPDATE oferta_lista_de_ofertas SET horarios = '212' WHERE disciplina = 117013 AND semestre = 1 AND ano = 2020 and turma = '5';
 UPDATE lo_offer_list_temporary SET lol_clas = 5 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '117013' AND lol_clas = 'E';
 UPDATE lo_offer_list_temporary SET lol_sche = '212' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '117013' AND lol_clas = '5';
+
+--LOGICA MAT E COMPUTACIONAL
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117358 AND semestre = 1 AND ano = 2020 AND turma = 'A';
+UPDATE lo_offer_list_temporary SET lol_clas = 1 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '117358' AND lol_clas = 'A';
