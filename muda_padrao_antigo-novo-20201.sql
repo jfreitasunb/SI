@@ -378,9 +378,9 @@ UPDATE lo_offer_list_temporary SET lol_clas = 5 WHERE lol_seme = '1' AND lol_yea
 UPDATE lo_offer_list_temporary SET lol_sche = '212-412-612' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'E';
 
 UPDATE oferta_lista_de_ofertas SET turma = 6 WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 AND turma = 'F';
-UPDATE oferta_lista_de_ofertas SET horarios = '419-710-712' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 and turma = '6';
+UPDATE oferta_lista_de_ofertas SET horarios = '419-708-710' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 and turma = '6';
 UPDATE lo_offer_list_temporary SET lol_clas = 6 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'F';
-UPDATE lo_offer_list_temporary SET lol_sche = '419-710-712' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'F';
+UPDATE lo_offer_list_temporary SET lol_sche = '419-708-710' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'F';
 
 UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 AND turma = 'G';
 UPDATE oferta_lista_de_ofertas SET horarios = '212-412-612' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 and turma = '7';
@@ -388,9 +388,9 @@ UPDATE lo_offer_list_temporary SET lol_clas = 7 WHERE lol_seme = '1' AND lol_yea
 UPDATE lo_offer_list_temporary SET lol_sche = '212-412-612' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'G';
 
 UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 AND turma = 'H';
-UPDATE oferta_lista_de_ofertas SET horarios = '419-710-712' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 and turma = '8';
+UPDATE oferta_lista_de_ofertas SET horarios = '419-708-710' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2020 and turma = '8';
 UPDATE lo_offer_list_temporary SET lol_clas = 8 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'H';
-UPDATE lo_offer_list_temporary SET lol_sche = '419-710-712' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'H';
+UPDATE lo_offer_list_temporary SET lol_sche = '419-708-710' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '200107' AND lol_clas = 'H';
 
 --Álgebra 1
 UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113107 AND semestre = 1 AND ano = 2020 AND turma = 'A';
