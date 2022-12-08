@@ -374,7 +374,7 @@ UPDATE lo_offer_list_temporary SET lol_sche = '216-316-516' WHERE lol_seme='2' A
 
 --Álgebra Para o Ensino 2
 UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 117501 AND semestre = 2 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '708-408-410' WHERE disciplina = 117501 AND semestre = 2 AND ano = 2022 and turma = '2';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-314-316' WHERE disciplina = 117501 AND semestre = 2 AND ano = 2022 and turma = '2';
 UPDATE lo_offer_list_temporary SET lol_clas = 2 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117501' AND lol_clas = 'B';
 UPDATE lo_offer_list_temporary SET lol_sche = '214-314-316' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117501' AND lol_clas = '2';
 
