@@ -37,21 +37,15 @@ UPDATE lo_offer_list_magisterial set lom_clas = 10 WHERE lom_seme = 1 AND lom_ye
 UPDATE lo_offer_list_magisterial set lom_clas = 10 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'L';
 UPDATE lo_offer_list_magisterial set lom_sche = '321' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = '10';
 
---UPDATE oferta_grupos_magistral_teoria SET grupo = 4 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '10';
-
 UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'B';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 1 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = 'B';
 UPDATE lo_offer_list_temporary SET lol_clas = 1 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = 'B';
 UPDATE lo_offer_list_magisterial set lom_clas = 1 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'B';
 
---UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '1';
-
 UPDATE oferta_lista_de_ofertas SET turma = 4 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'AB';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 4 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = 'AB';
 UPDATE lo_offer_list_temporary SET lol_clas = 4 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = 'AB';
 UPDATE lo_offer_list_magisterial set lom_clas = 4 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'AB';
-
---UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '4';
 
 UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'A';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 2 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = 'A';
@@ -59,8 +53,6 @@ UPDATE lo_offer_list_temporary SET lol_clas = 2 WHERE lol_seme = '1' AND lol_yea
 UPDATE lo_offer_list_magisterial set lom_clas = 2 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'A';
 UPDATE lo_offer_list_magisterial set lom_clas = '2-4-1' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'A-AB-B';
 UPDATE lo_offer_list_magisterial set lom_sche = '216' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = '2-4-1';
-
---UPDATE oferta_grupos_magistral_teoria SET grupo = 1 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '2';
 
 UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'C';
 UPDATE oferta_grupos_magistral_teoria SET grupo = 2 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = 'C';
@@ -72,28 +64,22 @@ UPDATE lo_offer_list_magisterial set lom_sche = '308' WHERE lom_seme = 1 AND lom
 UPDATE lo_offer_list_magisterial SET lom_clas = '8-5' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'C-H';
 UPDATE lo_offer_list_magisterial SET lom_clas = '8' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'C';
 
-
 UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'E';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 11 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = 'E';
 UPDATE lo_offer_list_temporary SET lol_clas = 11 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = 'E';
 UPDATE lo_offer_list_magisterial set lom_clas = 11 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'E';
 UPDATE lo_offer_list_magisterial set lom_clas = '11-3-9' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'E-K-N';
---UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '11';
 
 UPDATE oferta_lista_de_ofertas SET turma = 3 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'K';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 3 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = 'K';
 UPDATE lo_offer_list_temporary SET lol_clas = 3 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = 'K';
 UPDATE lo_offer_list_magisterial set lom_clas = 3 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'K';
---UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '3';
-
 
 UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'M';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 7 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = 'M';
 UPDATE lo_offer_list_temporary SET lol_clas = 7 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = 'M';
 UPDATE lo_offer_list_magisterial set lom_clas = '10-7' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'L-M';
 UPDATE lo_offer_list_magisterial set lom_clas = '7' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'M';
-
---UPDATE oferta_grupos_magistral_teoria SET grupo = 4 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '7';
 
 UPDATE oferta_lista_de_ofertas SET turma = 9 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'N';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 9 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = 'N';
@@ -106,7 +92,6 @@ UPDATE lo_offer_list_temporary SET lol_clas = 6 WHERE lol_seme = '1' AND lol_yea
 UPDATE lo_offer_list_magisterial set lom_clas = 6 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'G';
 UPDATE lo_offer_list_magisterial set lom_clas = '6-12' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'G-I';
 
-
 UPDATE oferta_lista_de_ofertas SET turma = 5 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'H';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 5 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = 'H';
 UPDATE lo_offer_list_temporary SET lol_clas = 5 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = 'H';
@@ -117,17 +102,12 @@ UPDATE oferta_grupos_magistral_teoria SET turmas = 12 WHERE codigo = 113018 AND 
 UPDATE lo_offer_list_temporary SET lol_clas = 12 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = 'I';
 UPDATE lo_offer_list_magisterial set lom_clas = 12 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'I';
 
---UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '9';
-
 --C1
 UPDATE oferta_lista_de_ofertas SET turma = 27 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2020 AND turma = 'A';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 27 WHERE codigo = 113034 AND semestre = 1 AND ano = 2020 AND turmas = 'A';
 UPDATE lo_offer_list_temporary SET lol_clas = 27 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113034' AND lol_clas = 'A';
 UPDATE lo_offer_list_magisterial set lom_clas = 27 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113034 AND lom_type = 'E' AND lom_clas = 'A';
 UPDATE lo_offer_list_magisterial set lom_clas = '27-13' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'A-F';
-
-
---UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '27';
 
 UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2020 AND turma = 'B';
 UPDATE oferta_grupos_magistral_teoria SET turmas = 2 WHERE codigo = 113034 AND semestre = 1 AND ano = 2020 AND turmas = 'B';
