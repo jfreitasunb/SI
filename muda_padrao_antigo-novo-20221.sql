@@ -9,6 +9,14 @@ UPDATE oferta_lista_de_ofertas SET horarios = '421-219' WHERE disciplina = 10588
 UPDATE lo_offer_list_temporary SET lol_clas = 2 WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '105881' AND lol_clas = 'B';
 UPDATE lo_offer_list_temporary SET lol_sche = '421-219' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '105881' AND lol_clas = '2';
 
+--História da Matemática
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113603 AND semestre = 1 AND ano = 2022 AND turma = 'A';
+
+--Introdução a Teoria da Medida e Integração
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117412 AND semestre = 1 AND ano = 2022 AND turma = 'A';
+
+--SEMINARIO DE TOP MAT APLICADA
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117307 AND semestre = 1 AND ano = 2022 AND turma = 'A';
 
 --MAT1
 UPDATE oferta_lista_de_ofertas SET turma = 10 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'L';
@@ -324,6 +332,26 @@ UPDATE oferta_lista_de_ofertas SET horarios = '419-708-710' WHERE disciplina = 2
 UPDATE lo_offer_list_temporary SET lol_clas = 4 WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '200107' AND lol_clas = 'D';
 UPDATE lo_offer_list_temporary SET lol_sche = '419-708-710' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '200107' AND lol_clas = '4';
 
+UPDATE oferta_lista_de_ofertas SET turma = 5 WHERE disciplina = 200107 AND semestre = 1 AND ano = 2022 AND turma = 'E';
+UPDATE oferta_lista_de_ofertas SET horarios = '212-412-612' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2022 and turma = '5';
+UPDATE lo_offer_list_temporary SET lol_clas = 5 WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '200107' AND lol_clas = 'E';
+UPDATE lo_offer_list_temporary SET lol_sche = '212-412-612' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '200107' AND lol_clas = 'E';
+
+UPDATE oferta_lista_de_ofertas SET turma = 6 WHERE disciplina = 200107 AND semestre = 1 AND ano = 2022 AND turma = 'F';
+UPDATE oferta_lista_de_ofertas SET horarios = '419-710-712' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2022 and turma = '6';
+UPDATE lo_offer_list_temporary SET lol_clas = 6 WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '200107' AND lol_clas = 'F';
+UPDATE lo_offer_list_temporary SET lol_sche = '419-710-712' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '200107' AND lol_clas = 'F';
+
+UPDATE oferta_lista_de_ofertas SET turma = 7 WHERE disciplina = 200107 AND semestre = 1 AND ano = 2022 AND turma = 'G';
+UPDATE oferta_lista_de_ofertas SET horarios = '212-412-612' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2022 and turma = '7';
+UPDATE lo_offer_list_temporary SET lol_clas = 7 WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '200107' AND lol_clas = 'G';
+UPDATE lo_offer_list_temporary SET lol_sche = '212-412-612' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '200107' AND lol_clas = 'G';
+
+UPDATE oferta_lista_de_ofertas SET turma = 8 WHERE disciplina = 200107 AND semestre = 1 AND ano = 2022 AND turma = 'H';
+UPDATE oferta_lista_de_ofertas SET horarios = '419-710-712' WHERE disciplina = 200107 AND semestre = 1 AND ano = 2022 and turma = '8';
+UPDATE lo_offer_list_temporary SET lol_clas = 8 WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '200107' AND lol_clas = 'H';
+UPDATE lo_offer_list_temporary SET lol_sche = '419-710-712' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '200107' AND lol_clas = 'H';
+
 --Álgebra 1
 UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113107 AND semestre = 1 AND ano = 2022 AND turma = 'A';
 UPDATE oferta_lista_de_ofertas SET horarios = '308-508' WHERE disciplina = 113107 AND semestre = 1 AND ano = 2022 and turma = '1';
@@ -451,6 +479,9 @@ UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 113417 AND semes
 UPDATE oferta_lista_de_ofertas SET horarios = '208-408' WHERE disciplina = 113417 AND semestre = 1 AND ano = 2022 and turma = '2';
 UPDATE lo_offer_list_temporary SET lol_clas = 2 WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '113417' AND lol_clas = 'E';
 UPDATE lo_offer_list_temporary SET lol_sche = '208-408' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '113417' AND lol_clas = '2';
+
+--Geometria Diferencial
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113328 AND semestre = 1 AND ano = 2022 AND turma = 'A';
 
 --Geometria 1
 UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117161 AND semestre = 1 AND ano = 2022 AND turma = 'A';
