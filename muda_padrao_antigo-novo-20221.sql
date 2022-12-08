@@ -42,6 +42,7 @@ UPDATE lo_offer_list_temporary SET lol_clas = 10 WHERE lol_seme = '1' AND lol_ye
 UPDATE lo_offer_list_temporary SET lol_sche = '321-521' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '113018' AND lol_clas = '10';
 UPDATE lo_offer_list_magisterial set lom_clas = 10 WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'L';
 UPDATE lo_offer_list_magisterial set lom_clas = 10 WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'L';
+UPDATE lo_offer_list_magisterial set lom_clas = '10-7' WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'L-M';
 UPDATE lo_offer_list_magisterial set lom_sche = '321' WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = '10';
 
 --UPDATE oferta_grupos_magistral_teoria SET grupo = 4 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '10';
@@ -85,8 +86,8 @@ UPDATE oferta_grupos_magistral_teoria SET turmas = 8 WHERE codigo = 113018 AND s
 UPDATE oferta_grupos_magistral_teoria SET horario = '308-508' WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '8';
 UPDATE lo_offer_list_temporary SET lol_clas = 8 WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '113018' AND lol_clas = 'C';
 UPDATE lo_offer_list_temporary SET lol_sche = '308-508' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '113018' AND lol_clas = '8';
-UPDATE lo_offer_list_magisterial set lom_clas = 8 WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = '8';
-UPDATE lo_offer_list_magisterial set lom_clas = 8 WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = '8';
+UPDATE lo_offer_list_magisterial set lom_clas = 8 WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'C';
+UPDATE lo_offer_list_magisterial set lom_clas = 8 WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'C';
 UPDATE lo_offer_list_magisterial set lom_sche = '308' WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = '8';
 
 UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2022 AND turma = 'E';
@@ -115,6 +116,7 @@ UPDATE oferta_grupos_magistral_teoria SET turmas = 7 WHERE codigo = 113018 AND s
 UPDATE oferta_grupos_magistral_teoria SET horario = '321-521' WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '7';
 UPDATE lo_offer_list_temporary SET lol_clas = 7 WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '113018' AND lol_clas = 'M';
 UPDATE lo_offer_list_temporary SET lol_sche = '321-521' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '113018' AND lol_clas = '7';
+UPDATE lo_offer_list_magisterial set lom_clas = 7 WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113018 AND lom_clas = 'M';
 
 --UPDATE oferta_grupos_magistral_teoria SET grupo = 4 WHERE codigo = 113018 AND semestre = 1 AND ano = 2022 AND turmas = '7';
 
@@ -317,6 +319,9 @@ UPDATE lo_offer_list_temporary SET lol_clas = 28 WHERE lol_seme = '1' AND lol_ye
 UPDATE lo_offer_list_temporary SET lol_sche = '214-414-614' WHERE lol_seme = '1' AND lol_year='2022' AND lol_cdis = '113034' AND lol_clas = '28';
 UPDATE lo_offer_list_magisterial set lom_clas = 28 WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113034 AND lom_type = 'E' AND lom_clas = 'R';
 UPDATE lo_offer_list_magisterial set lom_clas = '28-11-25' WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'R-S-Y';
+UPDATE lo_offer_list_magisterial set lom_clas = '11-25' WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'S-Y';
+UPDATE lo_offer_list_magisterial set lom_clas = '22-28' WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'J-R';
+UPDATE lo_offer_list_magisterial set lom_clas = '28' WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'R';
 UPDATE lo_offer_list_magisterial set lom_sche = '208' WHERE lom_seme = 1 AND lom_year=2022 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = '28-11-25';
 
 UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2022 AND turma = 'S';

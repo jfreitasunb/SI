@@ -62,8 +62,7 @@ UPDATE oferta_grupos_magistral_teoria SET turmas = 8 WHERE codigo = 113018 AND s
 UPDATE oferta_grupos_magistral_teoria SET horario = '308-508' WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '8';
 UPDATE lo_offer_list_temporary SET lol_clas = 8 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113018' AND lol_clas = 'C';
 UPDATE lo_offer_list_temporary SET lol_sche = '308-508' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113018' AND lol_clas = '8';
-UPDATE lo_offer_list_magisterial set lom_clas = 8 WHERE lom_seme=2 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = '8';
-UPDATE lo_offer_list_magisterial set lom_clas = 8 WHERE lom_seme=2 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = '8';
+UPDATE lo_offer_list_magisterial set lom_clas = 8 WHERE lom_seme=2 AND lom_year=2022 AND lom_cdis=113018 AND lom_clas = 'C';
 UPDATE lo_offer_list_magisterial set lom_sche = '308' WHERE lom_seme=2 AND lom_year=2022 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = '8';
 
 UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113018 AND semestre = 2 AND ano = 2022 AND turma = 'E';
@@ -124,6 +123,17 @@ UPDATE lo_offer_list_magisterial set lom_clas = 27 WHERE lom_seme=2 AND lom_year
 UPDATE lo_offer_list_magisterial set lom_sche = '210-310-510' WHERE lom_seme=2 AND lom_year=2022 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'A-F';
 UPDATE lo_offer_list_magisterial set lom_clas = '27-13' WHERE lom_seme=2 AND lom_year=2022 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'A-F';
 
+UPDATE oferta_lista_de_ofertas SET horarios = '212-412-612' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '1';
+UPDATE oferta_lista_de_ofertas SET horarios = '212-412-612' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '10';
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '12';
+UPDATE oferta_lista_de_ofertas SET horarios = '219-321-521' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '15';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '17';
+UPDATE oferta_lista_de_ofertas SET horarios = '310-510-610' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '18';
+UPDATE oferta_lista_de_ofertas SET horarios = '208-408-608' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '20';
+UPDATE oferta_lista_de_ofertas SET horarios = '412-708-710' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '4' and turno = 'Noturno';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '4' and turno = 'Diurno';
+UPDATE oferta_lista_de_ofertas SET horarios = '212-412-612' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '5';
+UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 113034 AND semestre = 2 AND ano = 2022 and turma = '8';
 
 --UPDATE oferta_grupos_magistral_teoria SET grupo = 3 WHERE codigo = 113018 AND semestre = 2 AND ano = 2022 AND turmas = '27';
 
@@ -373,10 +383,10 @@ UPDATE lo_offer_list_temporary SET lol_clas = 1 WHERE lol_seme='2' AND lol_year=
 UPDATE lo_offer_list_temporary SET lol_sche = '216-316-516' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117421' AND lol_clas = '1';
 
 --Álgebra Para o Ensino 2
-UPDATE oferta_lista_de_ofertas SET turma = 2 WHERE disciplina = 117501 AND semestre = 2 AND ano = 2022 AND turma = 'B';
-UPDATE oferta_lista_de_ofertas SET horarios = '214-314-316' WHERE disciplina = 117501 AND semestre = 2 AND ano = 2022 and turma = '2';
-UPDATE lo_offer_list_temporary SET lol_clas = 2 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117501' AND lol_clas = 'B';
-UPDATE lo_offer_list_temporary SET lol_sche = '214-314-316' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117501' AND lol_clas = '2';
+UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 117501 AND semestre = 2 AND ano = 2022 AND turma = 'B';
+UPDATE oferta_lista_de_ofertas SET horarios = '214-314-316' WHERE disciplina = 117501 AND semestre = 2 AND ano = 2022 and turma = '1';
+UPDATE lo_offer_list_temporary SET lol_clas = 1 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117501' AND lol_clas = 'B';
+UPDATE lo_offer_list_temporary SET lol_sche = '214-314-316' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117501' AND lol_clas = '1';
 
 --Cálculo de Probabilidade 1
 UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113824 AND semestre = 2 AND ano = 2022 AND turma = 'A';
@@ -678,6 +688,9 @@ UPDATE oferta_lista_de_ofertas SET horarios = '308-508-608' WHERE disciplina = 1
 UPDATE lo_offer_list_temporary SET lol_clas = 9 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113051' AND lol_clas = 'J';
 UPDATE lo_offer_list_temporary SET lol_sche = '308-508-608' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113051' AND lol_clas = '9';
 
+UPDATE oferta_lista_de_ofertas SET horarios = '210-310-510' WHERE semestre='2' AND ano='2022' AND disciplina = '113051' AND turma = '2';
+UPDATE oferta_lista_de_ofertas SET horarios = '321-521-619' WHERE semestre='2' AND ano='2022' AND disciplina = '113051' AND turma = '5';
+
 --IAL
 UPDATE oferta_lista_de_ofertas SET turma = 10 WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 AND turma = 'A';
 UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE disciplina = 113093 AND semestre = 2 AND ano = 2022 and turma = '10';
@@ -734,6 +747,11 @@ UPDATE oferta_lista_de_ofertas SET horarios = '316-516' WHERE disciplina = 11309
 UPDATE lo_offer_list_temporary SET lol_clas = 3 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113093' AND lol_clas = 'K';
 UPDATE lo_offer_list_temporary SET lol_sche = '316-516' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '113093' AND lol_clas = '3';
 
+UPDATE oferta_lista_de_ofertas SET horarios = '319-519' WHERE semestre='2' AND ano='2022' AND disciplina = '113093' AND turma = '1';
+UPDATE oferta_lista_de_ofertas SET horarios = '410-610' WHERE semestre='2' AND ano='2022' AND disciplina = '113093' AND turma = '13';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE semestre='2' AND ano='2022' AND disciplina = '113093' AND turma = '14';
+UPDATE oferta_lista_de_ofertas SET horarios = '216-416' WHERE semestre='2' AND ano='2022' AND disciplina = '113093' AND turma = '4';
+
 --Seminários de Tópicos em Análise
 UPDATE oferta_lista_de_ofertas SET turma = 1 WHERE disciplina = 113671 AND semestre = 2 AND ano = 2022 AND turma = 'A';
 UPDATE oferta_lista_de_ofertas SET horarios = '214-414' WHERE disciplina = 113671 AND semestre = 2 AND ano = 2022 and turma = '1';
@@ -765,3 +783,6 @@ UPDATE oferta_lista_de_ofertas SET turma = 5 WHERE disciplina = 117013 AND semes
 UPDATE oferta_lista_de_ofertas SET horarios = '212' WHERE disciplina = 117013 AND semestre = 2 AND ano = 2022 and turma = '5';
 UPDATE lo_offer_list_temporary SET lol_clas = 5 WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117013' AND lol_clas = 'E';
 UPDATE lo_offer_list_temporary SET lol_sche = '212' WHERE lol_seme='2' AND lol_year='2022' AND lol_cdis = '117013' AND lol_clas = '5';
+
+UPDATE oferta_lista_de_ofertas SET horarios = '512' WHERE semestre='2' AND ano='2022' AND disciplina = '117013' AND turma = '6';
+UPDATE oferta_lista_de_ofertas SET horarios = '514' WHERE semestre='2' AND ano='2022' AND disciplina = '117013' AND turma = '7';
