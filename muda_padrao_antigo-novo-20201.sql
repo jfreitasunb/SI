@@ -88,6 +88,9 @@ UPDATE lo_offer_list_temporary SET lol_sche = '308-508' WHERE lol_seme = '1' AND
 UPDATE lo_offer_list_magisterial set lom_clas = 8 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = '8';
 UPDATE lo_offer_list_magisterial set lom_clas = 8 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = '8';
 UPDATE lo_offer_list_magisterial set lom_sche = '308' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = '8';
+UPDATE lo_offer_list_magisterial SET lom_clas = '8-5' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'C-H';
+UPDATE lo_offer_list_magisterial SET lom_clas = '8' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'C';
+
 
 UPDATE oferta_lista_de_ofertas SET turma = 11 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'E';
 UPDATE oferta_lista_de_ofertas SET horarios = '219-419' WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 and turma = '11';
@@ -115,6 +118,8 @@ UPDATE oferta_grupos_magistral_teoria SET turmas = 7 WHERE codigo = 113018 AND s
 UPDATE oferta_grupos_magistral_teoria SET horario = '321-521' WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '7';
 UPDATE lo_offer_list_temporary SET lol_clas = 7 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = 'M';
 UPDATE lo_offer_list_temporary SET lol_sche = '321-521' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = '7';
+UPDATE lo_offer_list_magisterial set lom_clas = '10-7' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'L-M';
+UPDATE lo_offer_list_magisterial set lom_clas = '7' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'M';
 
 --UPDATE oferta_grupos_magistral_teoria SET grupo = 4 WHERE codigo = 113018 AND semestre = 1 AND ano = 2020 AND turmas = '7';
 
@@ -133,6 +138,7 @@ UPDATE oferta_grupos_magistral_teoria SET horario = '419-619' WHERE codigo = 113
 UPDATE lo_offer_list_temporary SET lol_clas = 6 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = 'G';
 UPDATE lo_offer_list_temporary SET lol_sche = '419-619' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113018' AND lol_clas = '6';
 UPDATE lo_offer_list_magisterial set lom_clas = 6 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'E' AND lom_clas = 'G';
+UPDATE lo_offer_list_magisterial set lom_clas = '6-12' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113018 AND lom_type = 'T' AND lom_clas = 'G-I';
 
 
 UPDATE oferta_lista_de_ofertas SET turma = 5 WHERE disciplina = 113018 AND semestre = 1 AND ano = 2020 AND turma = 'H';
@@ -300,6 +306,7 @@ UPDATE lo_offer_list_temporary SET lol_sche = '219-321-521' WHERE lol_seme = '1'
 UPDATE lo_offer_list_magisterial set lom_clas = 19 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113034 AND lom_type = 'E' AND lom_clas = 'P';
 UPDATE lo_offer_list_magisterial set lom_clas = '9-29-28' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'P-Q-R';
 UPDATE lo_offer_list_magisterial set lom_clas = '9-29-7' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'P-Q-T';
+UPDATE lo_offer_list_magisterial set lom_clas = '9-7' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'P-T';
 
 UPDATE oferta_lista_de_ofertas SET turma = 29 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2020 AND turma = 'Q';
 UPDATE oferta_lista_de_ofertas SET horarios = '219-419-619' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2020 and turma = '29';
@@ -342,6 +349,7 @@ UPDATE oferta_grupos_magistral_teoria SET horario = '208-408-608' WHERE codigo =
 UPDATE lo_offer_list_temporary SET lol_clas = 25 WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113034' AND lol_clas = 'Y';
 UPDATE lo_offer_list_temporary SET lol_sche = '208-408-608' WHERE lol_seme = '1' AND lol_year='2020' AND lol_cdis = '113034' AND lol_clas = '25';
 UPDATE lo_offer_list_magisterial set lom_clas = 25 WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113034 AND lom_type = 'E' AND lom_clas = 'Y';
+UPDATE lo_offer_list_magisterial set lom_clas = '11-25' WHERE lom_seme = 1 AND lom_year=2020 AND lom_cdis=113034 AND lom_type = 'T' AND lom_clas = 'S-Y';
 
 UPDATE oferta_lista_de_ofertas SET turma = 16 WHERE disciplina = 113034 AND semestre = 1 AND ano = 2020 AND turma = 'Z';
 UPDATE oferta_lista_de_ofertas SET horarios = '214-414-614' WHERE disciplina = 113034 AND semestre = 1 AND ano = 2020 and turma = '16';
