@@ -65,7 +65,7 @@ $codigos_disciplinas_sigaa[MAT0131] = '117480';
 $codigos_disciplinas_sigaa[MAT0132] = '117498';
 $codigos_disciplinas_sigaa[MAT0134] = '117501';
 $codigos_disciplinas_sigaa[MAT0136] = '117510';
-$codigos_disciplinas_sigaa[MAT0137] = '113034';
+$codigos_disciplinas_sigaa[MAT0137] = '200107';
 $codigos_disciplinas_sigaa[MAT0370] = '113697';
 //Fim das equivalências de códigos do SIGAA para o SIGRA
 

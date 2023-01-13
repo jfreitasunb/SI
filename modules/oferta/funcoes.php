@@ -488,12 +488,11 @@ function atualiza_rodizio_noturno($semestre, $ano){
 		os.semestre='".$semestre_anterior."' and os.ano='".$ano_anterior."'") 
 		or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
 
-    $registros = pg_fetch_all($query_profs);
-    
+    $registros = pg_fetch_all($query_profs);  
 
     foreach ($registros as $registro ) {
-		
-		if ($registro['turno'] == 'Noturno') {
+		if ($registro['turno'] == 'Noturno' and $registro['codigo'] != '200107') {
+			echo $registro['codigo']."<br>";
 			if (in_array($registro['codigo'], $disciplinas_magistrais)) {
 				if (in_array($registro['turma'], $lista_semipresencial)){
 					$credito_noturno_exercicio = 0;
@@ -522,7 +521,7 @@ function atualiza_rodizio_noturno($semestre, $ano){
 				
 	            $professor_teoria = pg_fetch_row($seleciona_professor_teoria);
 	            
-				$professor_teoria_coduser = str_replace("-", "",str_replace($professor_exercicio[3],"",$professor_teoria[9]));
+			$professor_teoria_coduser = str_replace("-", "",str_replace($professor_exercicio[3],"",$professor_teoria[9]));
 				
 				if ($professor_teoria_coduser == ""){
 					$credito_noturno_exercicio = $credito_noturno_teoria + 2;
@@ -536,12 +535,12 @@ function atualiza_rodizio_noturno($semestre, $ano){
                 $num_checa_prof_exercio = pg_num_rows($query_checa_prof_exercicio);
 
                 if ($num_checa_prof_exercio == 0) {
-                	$professor_exercicio[3] = 123;
                     pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_exercicio[3]."',
                             '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_exercicio."', '".$registro['codigo']."',
                             '".$registro['turma']."')") or die ("Erro 04 insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_exercicio[3]."',
                             '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_exercicio."', '".$registro['codigo']."',
                             '".$registro['turma']."')");
+
                 }else{
 					pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno_exercicio."'
                             where coduser='".$professor_exercicio[3]."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'
@@ -565,7 +564,9 @@ function atualiza_rodizio_noturno($semestre, $ano){
 					if ($num_checa == 0) {
 						pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_teoria_coduser."',
                             '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_teoria."', '".$registro['codigo']."',
-                            '".$registro['turma']."')") or die ("problema 03 de conexao com o banco");
+                            '".$registro['turma']."')") or die ("problema 03: insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_teoria_coduser."',
+                            '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_teoria."', '".$registro['codigo']."',
+                            '".$registro['turma']."')");
 					}else{
 						pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno_teoria."'
                             where coduser='".$professor_teoria_coduser."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'
@@ -619,7 +620,9 @@ function atualiza_rodizio_noturno($semestre, $ano){
 					
                     pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$registro['coduser']."',
                                 '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno[0]."', '".$registro['codigo']."',
-                                '".$registro['turma']."')") or die ("problema 03 de conexao com o banco");
+                                '".$registro['turma']."')") or die ("problema 05: insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$registro['coduser']."',
+                                '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno[0]."', '".$registro['codigo']."',
+                                '".$registro['turma']."')");
                 }else{
 						
                         pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno[0]."'
