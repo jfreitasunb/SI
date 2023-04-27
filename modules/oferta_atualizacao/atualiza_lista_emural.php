@@ -11,9 +11,6 @@ $ordena=$_POST['ordena'];
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   </header>
 <?php
-// Escolhe semestre e ano:
-
-//$query_acusa_lista=pg_query("select * from oferta_acusa_lista order by ano desc, semestre desc");
 $query_acusa_lista=pg_query("select * from oferta_acusa_lista where encaminhada<>'nova' order by ano desc, semestre desc");
 ?>
   <body>

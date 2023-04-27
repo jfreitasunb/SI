@@ -491,7 +491,7 @@ function atualiza_rodizio_noturno($semestre, $ano){
 
 	$query_profs=pg_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios from oferta_lista_sigra os, users u,fonctionnaire f where os.coduser 
 	like '%'||f.coduser||'%' and f.coduser=u.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and 
-	os.semestre='".$semestre_anterior."' and os.ano='".$ano_anterior."'") 
+	os.semestre='".$semestre_anterior."' and os.ano='".$ano_anterior."' and turma NOT LIKE 'SP%'") 
 	or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
 
 	$registros = pg_fetch_all($query_profs);
