@@ -52,6 +52,11 @@ class LinkUT {
 		return self::activityList($semester)."&csv".$order;
 	}
 
+	static public function LOListCSV($semester, $order) {
+		$order = $order? "&order" : "";
+		return self::LOList($semester)."&csv".$order;
+	}
+
 	static public function activityListOrder($semester, $order) {
 		$order = $order? "" : "&order";
 		return self::activityList($semester).$order;
@@ -60,6 +65,11 @@ class LinkUT {
 	static private function activityList($semester) {
 		$sem = $semester? "?semester=$semester->year-$semester->semester" : "";
 		return self::twoStepsLink("activity_list").$sem;
+	}
+
+	static private function LOList($semester) {
+		$sem = $semester? "?semester=$semester->year-$semester->semester" : "";
+		return self::twoStepsLink("impressao_LO").$sem;
 	}
 
 	static public function courseList() {

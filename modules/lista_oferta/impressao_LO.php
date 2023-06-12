@@ -11,7 +11,7 @@ require_once $ROOT_PATH.'modelController/userMC.php';
 require_once $ROOT_PATH.'utils/magisterialUT.php';
 require_once $ROOT_PATH.'utils/utilUT.php';
 
-require_once $ROOT_PATH.'viewController/activityList/alMainVC.php';
+require_once $ROOT_PATH.'viewController/activityList/LOMainVC.php';
 
 
 ModuleUT::validateUserModule($ID_MODULE);
@@ -69,7 +69,7 @@ $grantedCreditsList = $gcMC->listBySemester($semester);
 
 $gcMC->completeActivityDescription($grantedCreditsList);
 
-$vc = new ALMainVC();
+$vc = new LOMainVC();
 $vc->setOrder($order);
 $vc->setSemester($semester);
 $vc->fillSemestersList($semesters, $semester);
@@ -105,6 +105,7 @@ if (count($grantedCreditsList)) {
 		fputcsv($output, array('Professor','Atividade','Descrição','Código','Turma','Turno','Horários','Carga','Total'));
 
 		foreach ($professorList as $professor) {
+
 			$name = "$professor->name $professor->last_name";
 			$credits = "$professor->credits_total";
 			if (isset($professor->activity)) {
