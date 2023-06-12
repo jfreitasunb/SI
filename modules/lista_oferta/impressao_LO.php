@@ -87,8 +87,11 @@ if (count($grantedCreditsList)) {
 		}
 		$obj->credits = round($grantedCredit->credits, 2);
 
-		$professorList[$grantedCredit->teacher]->credits_total += $obj->credits;
-		$professorList[$grantedCredit->teacher]->activity[] = $obj;
+		if ($grantedCredit->group_id == 10) {
+			$professorList[$grantedCredit->teacher]->credits_total += $obj->credits;
+			$professorList[$grantedCredit->teacher]->activity[] = $obj;
+		}
+		
 		unset($obj);
 	}
 
