@@ -739,8 +739,6 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
             $codigo = $codigos_disciplinas_sigaa[$codigo_sigaa];
 
-            print($codigo_sigaa);
-
             if ($codigo_sigaa == "MAT0025") {
 
                 $dados_c1 = explode(",", $turma);
