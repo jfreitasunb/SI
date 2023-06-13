@@ -68,7 +68,6 @@ $codigos_disciplinas_sigaa[MAT0136] = '117510';
 $codigos_disciplinas_sigaa[MAT0137] = '200107';
 $codigos_disciplinas_sigaa[MAT0142] = '200142';
 $codigos_disciplinas_sigaa[MAT0143] = '200143';
-$codigos_disciplinas_sigaa[MAT0137] = '200107';
 //Fim das equivalências de códigos do SIGAA para o SIGRA
 
 
@@ -740,6 +739,8 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
             $codigo = $codigos_disciplinas_sigaa[$codigo_sigaa];
 
+            print($codigo_sigaa);
+
             if ($codigo_sigaa == "MAT0025") {
 
                 $dados_c1 = explode(",", $turma);
@@ -850,7 +851,7 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
                 $query_insere="insert into oferta_lista_sigra values ('".$codigo."','".$turma."','".$vagas."','".$turno."','".$horarios."','".$sala."','".$reserva."','".$semestre."','".$ano."','".$coduser."')";
                 echo "<br>Insere nova Turma: ".$query_insere."<br>";
 
-                $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 03: não foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
+                $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 03: n&atilde;o foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
             }
         }
     }
