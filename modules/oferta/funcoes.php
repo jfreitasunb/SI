@@ -580,14 +580,26 @@ function atualiza_rodizio_noturno($semestre, $ano){
 					}
 				}
 			}else{
-				$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser=' ".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'
-                and turma LIKE '%".$registro['turma']."%' and disciplina='".$registro['codigo']."'");
+				if ($registro['codigo'] != '200137') {
+					$query_credito=pg_query("select creditos from disciplinas_mat where codigo='".$registro['codigo']."' and status='grad'");
 
-			    $num_checa=pg_num_rows($query_checa);
+					$credito_noturno = pg_fetch_row($query_credito)[0];
+					
+					pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$registro['coduser']."',
+			                '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."', '".$registro['codigo']."',
+			                '".$registro['turma']."')") or die ("Erro 10 insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$registro['coduser']."',
+			                '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."', '".$registro['codigo']."',
+			                '".$registro['turma']."')");
+				}
+
+				// $query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser=' ".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'
+                // and turma LIKE '%".$registro['turma']."%' and disciplina='".$registro['codigo']."'");
+
+			    // $num_checa=pg_num_rows($query_checa);
 			    
-			    $query_credito_disciplina = pg_query("select creditos from disciplinas_mat where codigo = '".$registro['codigo']."'");
+			    // $query_credito_disciplina = pg_query("select creditos from disciplinas_mat where codigo = '".$registro['codigo']."'");
 			    
-			    $credito_noturno = pg_fetch_row($query_credito_disciplina);
+			    // $credito_noturno = pg_fetch_row($query_credito_disciplina);
 			}
 		}
 	}
