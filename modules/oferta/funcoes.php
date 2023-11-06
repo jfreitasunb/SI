@@ -596,18 +596,8 @@ function atualiza_rodizio_noturno($semestre, $ano){
 						pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno."' where coduser='".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'") or die ("problema 02 de conexao com o banco");
 					}
 				}
-
-				// $query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser=' ".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'
-                // and turma LIKE '%".$registro['turma']."%' and disciplina='".$registro['codigo']."'");
-
-			    // $num_checa=pg_num_rows($query_checa);
-			    
-			    // $query_credito_disciplina = pg_query("select creditos from disciplinas_mat where codigo = '".$registro['codigo']."'");
-			    
-			    // $credito_noturno = pg_fetch_row($query_credito_disciplina);
 			}
 		}
-	}
 }
 
 function atualiza_rodizio_noturno_antiga($semestre,$ano)
