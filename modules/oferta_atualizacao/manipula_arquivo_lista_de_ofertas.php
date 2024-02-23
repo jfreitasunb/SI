@@ -1,7 +1,8 @@
 <?php
-//Equivalência de código do SIGAA para o SIGRA
+//Equivalï¿½ncia de cï¿½digo do SIGAA para o SIGRA
 //
 $codigos_disciplinas_sigaa[MAT0002] = '105317';
+$codigos_disciplinas_sigaa[MAT0006] = '113825';
 $codigos_disciplinas_sigaa[MAT0010] = '105881';
 $codigos_disciplinas_sigaa[MAT0022] = '113018';
 $codigos_disciplinas_sigaa[MAT0023] = '113026';
@@ -65,11 +66,11 @@ $codigos_disciplinas_sigaa[MAT0131] = '117480';
 $codigos_disciplinas_sigaa[MAT0132] = '117498';
 $codigos_disciplinas_sigaa[MAT0134] = '117501';
 $codigos_disciplinas_sigaa[MAT0136] = '117510';
-$codigos_disciplinas_sigaa[MAT0137] = '200107';
+$codigos_disciplinas_sigaa[MAT0137] = '113034';
 $codigos_disciplinas_sigaa[MAT0142] = '200142';
 $codigos_disciplinas_sigaa[MAT0143] = '200143';
 $codigos_disciplinas_sigaa[MAT0144] = '200144';
-//Fim das equivalências de códigos do SIGAA para o SIGRA
+//Fim das equivalï¿½ncias de cï¿½digos do SIGAA para o SIGRA
 
 
 function monta_array_profs()
@@ -223,7 +224,7 @@ while ($p<count($linha))
 							$devolve[0]=$sala;
 	                                                $devolve[1]=$p;
         	                                        return $devolve;
-		//					break;
+		//					break;105317
 							}
 						else
 							{
@@ -927,7 +928,7 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
             echo "<br>Insere nova Turma: ".$query_insere."<br>";
 
-            $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 06: não foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
+            $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 06: nï¿½o foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
 
         }
     }
@@ -1101,11 +1102,11 @@ function monta_ofertas_emural($semestre,$ano)  // alterado em 18/12/2014
 $query_magistral_ou_turmas_unificadas=pg_query("select s.codigo,s.turma,s.turno,s.horarios,s.coduser,grupo from oferta_lista_sigra s inner join oferta_grupos_magistral_teoria mt on mt.codigo=s.codigo and mt.turmas=s.turma and mt.semestre=s.semestre and mt.ano=s.ano where s.semestre='".$semestre."' and s.ano='".$ano."' union (select s.codigo,s.turma,s.turno,s.horarios,s.coduser,'0' as grupo from oferta_lista_sigra s where  semestre='".$semestre."' and ano='".$ano."' and coduser like '%-%'  and codigo not in (select codigo from oferta_grupos_magistral_teoria where  semestre='".$semestre."' and ano='".$ano."' )) order by grupo,codigo,turma") or die ("monta_ofertas_emural: problema 01");
 $array_multiplos_profs=pg_fetch_all($query_magistral_ou_turmas_unificadas);
 
-// cria um array de profs de exercícios para as turmas do magistrsal e as turmas com mais de um prof.
+// cria um array de profs de exercï¿½cios para as turmas do magistrsal e as turmas com mais de um prof.
 $array_prof_exercicio=procura_prof_exercicio($array_multiplos_profs,$semestre,$ano);
 
 ////cria a tabela do SI com as disciplinas/turmas em esquema unificado.
-//alimenta_tabela_oferta_disc_turmas_unificadas_emural($array_multiplos_profs,$semestre,$ano); NÃO ESTÁ IMPLEMENTADO: A FUNÇÃO DEVE SER CORRIGIDA. 20/12/2014
+//alimenta_tabela_oferta_disc_turmas_unificadas_emural($array_multiplos_profs,$semestre,$ano); Nï¿½O ESTï¿½ IMPLEMENTADO: A FUNï¿½ï¿½O DEVE SER CORRIGIDA. 20/12/2014
 
 
 // inicia a motagem da LO para o e-mural
