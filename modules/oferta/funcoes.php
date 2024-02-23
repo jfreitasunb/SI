@@ -512,8 +512,8 @@ function atualiza_rodizio_noturno($semestre, $ano){
 							$credito_noturno_exercicio = 4;
 							$credito_noturno_teoria = 2;
 							break;
-						}
 					}
+				}
 				$seleciona_professor_exercicio = pg_query("select * from oferta_lista_de_ofertas where ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'");
 				
 			    $professor_exercicio = pg_fetch_row($seleciona_professor_exercicio);
@@ -598,6 +598,7 @@ function atualiza_rodizio_noturno($semestre, $ano){
 				}
 			}
 		}
+	}
 }
 
 function atualiza_rodizio_noturno_antiga($semestre,$ano)
