@@ -37,9 +37,6 @@ if(isset($type) && ($semester->status == SemesterDAO::STATUS_STAGE_1 || $semeste
 		$credit = $grantedCreditsMC->getFullById($_GET["credit"]);
 	}
 
-	p($credit);
-
-
 	$inserted = null;
 	if ($_POST) {
 		$dataPosted = UtilUT::postToObject($_POST, array('teacher', 'activity', 'credits', 'extra'));
