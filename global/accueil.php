@@ -2,11 +2,15 @@
    session_start();
    include("function_php.php");
 
-   //connection to the database
-   $idconn=db_connect();
+   // Conexão com o banco de dados (PDO)
+   $idconn = db_connect();
 
-   //check to the identification
-   $identification = secure($_SESSION['login'],$_SESSION['passwd'], $idmodule);
+   $idmodule = isset($idmodule) ? $idmodule : null;
+   $sess_login = isset($_SESSION['login']) ? $_SESSION['login'] : '';
+   $sess_passwd = isset($_SESSION['passwd']) ? $_SESSION['passwd'] : '';
+
+   // Checa a identificação
+   $identification = secure($sess_login, $sess_passwd, $idmodule);
    if (!$identification)
    {
 ?>
@@ -14,6 +18,7 @@
        document.location.href="../index.php"
      </script>
 <?php
+       exit; // Bloqueia o carregamento do resto da página
    }
 ?>
 <html>
@@ -21,33 +26,39 @@
     <link type="text/css" rel="stylesheet" href="grafic.css">    
   </head>
   <body>
-    <table class=big>
+    <table class="big">
     <tr>
-      <td class=header align=center>
+      <td class="header" align="center">
         <h1>P&aacute;gina principal:</h1>
       </td>
     </tr>
 <?php
-  $query="select m.name, m.descr from module m, permission p where m.idmodule=p.idmodule and p.login='".$_SESSION['login']."' and p.permission > 0";
-  $result=pg_query($query)or die(error());
-  $count=pg_numrows($result);
+  // PDO: Utilizando Prepared Statements
+  $query = "SELECT m.name, m.descr FROM module m, permission p WHERE m.idmodule=p.idmodule AND p.login = :login AND p.permission > 0";
+  try {
+      $stmt = $idconn->prepare($query);
+      $stmt->execute([':login' => $sess_login]);
+      $modules = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+      die(error());
+  }
 ?>
     <tr>
-      <td align=center valign=top><br>
+      <td align="center" valign="top"><br>
 <?php
-      for ($i=0;$i<$count;$i++)
+      // Substituição do for + pg_fetch_array por um foreach limpo
+      foreach ($modules as $tab)
       {
-        $tab=pg_fetch_array($result,$i);
 ?>
         <br>
-        <table class=form align=center width=60%>
+        <table class="form" align="center" width="60%">
         <tr>
-          <td class=header align=center>
+          <td class="header" align="center">
             <b><?php echo mb_convert_encoding($tab['name'], "HTML-ENTITIES", "auto").' : ' ?></b>
           </td> 
         </tr>
         <tr>
-          <td class=data>
+          <td class="data">
             <?php echo mb_convert_encoding($tab['descr'], "HTML-ENTITIES", "auto"); ?>
           </td> 
         </tr>
@@ -61,5 +72,6 @@
   </body> 
 </html>
 <?php
-  pg_close($idconn);
-?>  
+  // Fechando conexão PDO
+  $idconn = null;
+?>
