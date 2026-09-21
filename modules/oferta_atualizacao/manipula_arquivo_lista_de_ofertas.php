@@ -67,9 +67,16 @@ $codigos_disciplinas_sigaa[MAT0132] = '117498';
 $codigos_disciplinas_sigaa[MAT0134] = '117501';
 $codigos_disciplinas_sigaa[MAT0136] = '117510';
 $codigos_disciplinas_sigaa[MAT0137] = '113034';
+$codigos_disciplinas_sigaa[MAT0139] = '139';
+$codigos_disciplinas_sigaa[MAT0140] = '140';
+$codigos_disciplinas_sigaa[MAT0141] = '141';
 $codigos_disciplinas_sigaa[MAT0142] = '200142';
 $codigos_disciplinas_sigaa[MAT0143] = '200143';
 $codigos_disciplinas_sigaa[MAT0144] = '200144';
+$codigos_disciplinas_sigaa[MAT0163] = '163';
+$codigos_disciplinas_sigaa[MAT0164] = '164';
+$codigos_disciplinas_sigaa[MAT0166] = '166';
+$codigos_disciplinas_sigaa[MAT0174] = '174';
 //Fim das equival�ncias de c�digos do SIGAA para o SIGRA
 
 
