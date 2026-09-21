@@ -9,10 +9,10 @@ class ProfessorDAO extends DAO {
 	const SITUATION_ACTIVE = 'ativo';
 
 	const CONTRACT_TYPE_EXCLUSIVE       = 'dedicacao exclusiva           ';
-	const CONTRACT_TYPE_SUBSTITUTE_MS20 = 'substituto ms20               ';
-	const CONTRACT_TYPE_SUBSTITUTE_MS40 = 'substituto ms40               ';
-	const CONTRACT_TYPE_SUBSTITUTE_GR40 = 'substituto gr40               ';
-	const CONTRACT_TYPE_SUBSTITUTE_DR40 = 'substituto dr40               ';
+	const CONTRACT_TYPE_SUBSTITUTE_MS20 = 'substituto m20               ';
+	const CONTRACT_TYPE_SUBSTITUTE_MS40 = 'substituto m40               ';
+	const CONTRACT_TYPE_SUBSTITUTE_GR40 = 'substituto g40               ';
+	const CONTRACT_TYPE_SUBSTITUTE_DR40 = 'substituto d40               ';
 
 	private $attributeMapExtended;
 

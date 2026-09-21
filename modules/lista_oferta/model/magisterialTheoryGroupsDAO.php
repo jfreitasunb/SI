@@ -82,10 +82,10 @@ class MagisterialTheoryGroupsDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->isError($res)) {
-			print_r($res);
-			throw new Exception("Error: $sql");
-		}
+		//if($this->_db->isError($res)) {
+		//	print_r($res);
+		//	throw new Exception("Error: $sql");
+		//}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 

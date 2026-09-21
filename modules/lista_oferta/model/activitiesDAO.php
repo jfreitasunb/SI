@@ -161,10 +161,10 @@ class ActivitiesDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->isError($res)) {
-			print_r($res);
-			throw new Exception("Select error: $sql");
-		}
+		//if($this->_db->isError($res)) {
+		//	print_r($res);
+		//	throw new Exception("Select error: $sql");
+		//}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 

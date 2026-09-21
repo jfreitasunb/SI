@@ -101,10 +101,10 @@ class CreditsSemesterDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->isError($res)) {
-			print_r($res);
-			throw new Exception("Erro: $sql");
-		}
+		//if($this->_db->isError($res)) {
+		//	print_r($res);
+		//	throw new Exception("Erro: $sql");
+		//}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 

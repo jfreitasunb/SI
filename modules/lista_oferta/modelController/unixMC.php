@@ -34,6 +34,6 @@ class UnixMC extends MC {
 		if (count($list) > 0) {
 			return $list;
 		}
-		return NULL;
+		return null;
 	}
 }

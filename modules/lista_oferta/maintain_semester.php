@@ -67,7 +67,7 @@ if ($_POST) {
 
 		$professorMC = new ProfessorMC();
 		$professorMC->cloneFromSemesterToSemester($semesterBefore, $semester);
-		ModuleUT::updateNightShift($semester);
+		//ModuleUT::updateNightShift($semester);
 
 		$created = true;
 
@@ -93,7 +93,7 @@ if ($_POST) {
 
 				$emuralTriggerMC->finish($semester);
 
-				ModuleUT::updateNightShift($semester);
+				//ModuleUT::updateNightShift($semester);
 			}
 		}
 

@@ -53,7 +53,9 @@ abstract class DAO {
 		}
 
 		$where = "";
-
+		//Para versão do PHP no servidor
+		//if(is_array($filter) && sizeof($filter)) {
+		
 		if(sizeof($filter)) {
 			foreach($filter as $key => $value)
 			{
@@ -231,10 +233,10 @@ abstract class DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Error: $sql");
-		}
+		//if($this->_db->errorInfo($res)) {
+		//	print_r($res);
+		//	throw new Exception("Error: $sql");
+		//}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 

@@ -52,10 +52,10 @@ class MagisterialDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->isError($res)) {
-			print_r($res);
-			throw new Exception("Select error: $sql");
-		}
+		//if($this->_db->isError($res)) {
+		//	print_r($res);
+		//	throw new Exception("Select error: $sql");
+		//}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
@@ -74,11 +74,11 @@ class MagisterialDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->isError($res)) {
-			print_r($res);
-			$this->_db->rollback();
-			throw new Exception("PK error: ".$this->theoryGroupsTable."_".$this->amTheoryGroups["id"]."_seq");
-		}
+		//if($this->_db->isError($res)) {
+		//	print_r($res);
+		//	$this->_db->rollback();
+		//	throw new Exception("PK error: ".$this->theoryGroupsTable."_".$this->amTheoryGroups["id"]."_seq");
+		//}
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		$id = $list[0]->nextval;
@@ -99,11 +99,11 @@ class MagisterialDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->isError($res)) {
-			print_r($res);
-			$this->_db->rollback();
-			throw new Exception("Insertion error: $sql");
-		}
+		//if($this->_db->isError($res)) {
+		//	print_r($res);
+		//	$this->_db->rollback();
+		//	throw new Exception("Insertion error: $sql");
+		//}
 
 		if ($this->_db->inTransaction()) {
 			$this->_db->commit();
