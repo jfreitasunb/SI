@@ -1,16 +1,17 @@
 <?php
    session_start(); 
-
    include("function_php.php");
  
-   //connection to the database
-   $idconn=db_connect();
+   $idconn = db_connect();
+   $idmodule = isset($idmodule) ? $idmodule : null;
 
-   //check to the identification 
-   if (isset($_POST['login']) and isset($_POST['pass']))  
-       $identification = secure($_POST['login'],$_POST['pass'], $idmodule);
-   else
-       $identification = secure($_SESSION['login'],$_SESSION['passwd'], $idmodule); 
+   if (isset($_POST['login']) && isset($_POST['pass'])) {
+       $identification = secure($_POST['login'], $_POST['pass'], $idmodule);
+   } else {
+       $sess_login = isset($_SESSION['login']) ? $_SESSION['login'] : '';
+       $sess_passwd = isset($_SESSION['passwd']) ? $_SESSION['passwd'] : '';
+       $identification = secure($sess_login, $sess_passwd, $idmodule); 
+   }
    
    if (!$identification)
    {
@@ -19,5 +20,6 @@
        document.location.href="../../global/accueil.php"
      </script>
 <?php
+       exit;
    }
 ?>
