@@ -22,9 +22,10 @@ if (strcmp($semester->status, SemesterDAO::STATUS_STAGE_2) == 0 || strcmp($semes
 		$password = $_POST['password'];
 
 		$unixMC = new UnixMC();
-
+		//Para a versão do PHP no servidor		
+		$unixUser = $unixMC->getEmployeeByLogin($_POST['login'])[0];
+		
 		$unixUser = $unixMC->getEmployeeByLogin($_POST['login']);
-
 		if ($ENCRYPTED_PASSWORDS) {
 			$password = crypt($password, $unixUser->password);
 		}
