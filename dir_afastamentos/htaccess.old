@@ -1,7 +1,0 @@
-<Limit GET POST>
-order deny,allow
-allow from all
-#allow from 172.
-#allow from 164.41.38.
-</Limit>
-

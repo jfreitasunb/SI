@@ -1,3 +1,0 @@
-Disable the plug-in and use Acrobat as a helper application. To do this, launch Acrobat; in the File menu, Preferences, General, uncheck the option "Web Browser Integration" (for Acrobat 5: Edit, Preferences, Options, "Display PDF in Browser"). Then, the next time you load a PDF in IE, it displays the dialog box "Open it" or "Save it to disk". Uncheck the option "Always ask before opening this type of file" and choose Open. From now on, PDF files will open automatically in an external Acrobat window.
-The drawback of the method is that you need to alter the client configuration, which you can do in an intranet environment but not for the Internet.
-

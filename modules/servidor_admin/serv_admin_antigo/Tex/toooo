@@ -1,24 +1,0 @@
-\documentclass[12pt]{artigo} %o arquivo está em style!!! 
-\addtolength{\oddsidemargin}{-2pc}
-\addtolength{\evensidemargin}{2pc}
-\setlength{\topmargin}{.5cm}
-\setlength{\textwidth}{16cm} 
-\setlength{\textheight}{22.0cm}
-\pagestyle{empty}
-\begin{document}
-%\vspace*{4mm}
-%\hspace*{2mm} 
-\timbrado
-%\vspace*{2cm} \\
-\setlength{\baselineskip}{7mm}
-ATO DO MAT N\primo XX2004 \hfill DATA: LATEXDATA
-\vspace*{3.5cm} \\
-\hspace*{3cm} Insira aqui a mensagem.  Esse é um bom teste.pularlinhaNão é?  pularlinha		
-\vspace*{3cm} \\
-\hspace*{5cm} 
-\begin{tabular}{c}
-$\overline{\phantom{xxxxxxx} \mbox{\bf Prof. Guy Grebot\phantom{xxxxxx}}$
-\\
-Chefe do MATbarranormalUnB
-\end{tabular}
-\end{document}
