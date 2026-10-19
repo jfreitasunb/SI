@@ -6,7 +6,8 @@ require("muda_senha/pgsql.php");
 //require("muda_senha/header.php");
 
 $submit           = trim(addslashes($_POST['submit']));
-$usuario          = trim(addslashes($_POST['usuario']));
+// O login vai para o banco via Prepared Statement (sem addslashes).
+$usuario          = trim($_POST['usuario']);
 $senhaatual       = trim(addslashes($_POST['senhaatual']));
 
 $msgL="Login invalido.";
@@ -26,14 +27,15 @@ if(strlen($submit)>0)
         }
    else {
    
-     $res = pg_query("select login,passwd,tabela_user from unix where login='$usuario'");
+     $res = db_query("select login,passwd,tabela_user from unix where login=?", array($usuario), $con);
    
 //     $msg="Dados Invalidos!";
    
-     if(pg_num_rows($res)==1 )
+     if($res->rowCount()==1 )
 	{
-           $senhaBD = pg_result($res,0,1);
-	   $tipo_usuario=pg_result($res,0,2);
+           $linha = $res->fetch(PDO::FETCH_NUM);
+           $senhaBD = $linha[1];
+	   $tipo_usuario=$linha[2];
  
 		if((crypt($senhaatual,$senhaBD) == $senhaBD) and ($tipo_usuario=="fonctionnaire")) //:so permite acesso a professores e administrativos
 		{
@@ -115,11 +117,11 @@ if (!isset($_POST['submit']))
 <table border="0">
 <tr>
   <td> Usuario: </td>
-  <td> <INPUT type="TEXT" name="usuario" value="<?php echo $usuario;?>"> </td>
+  <td> <INPUT type="TEXT" name="usuario" value="<?php echo htmlspecialchars($usuario);?>"> </td>
 </tr>
 <tr>
   <td> Senha: </td>
-  <td> <INPUT type="password" name="senhaatual" value="<?php echo $senhaatual;?>"> </td>
+  <td> <INPUT type="password" name="senhaatual" value="<?php echo htmlspecialchars($senhaatual);?>"> </td>
 
 </tr>
 <tr>

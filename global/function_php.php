@@ -47,9 +47,18 @@ function db_query($sql, array $params = array(), $pdo = null)
         $pdo = db_connect();
     }
 
+    // O código legado concatenava os valores no SQL ('".$x."'): null/false viravam '' e true virava '1'.
+    // Mantém essa conversão para não mudar o resultado das consultas existentes.
+    $valores = array();
+    foreach ($params as $valor) {
+        if ($valor === null || $valor === false) $valor = '';
+        elseif ($valor === true) $valor = '1';
+        $valores[] = (string)$valor;
+    }
+
     try {
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(array_values($params));
+        $stmt->execute($valores);
         return $stmt;
     } catch (PDOException $e) {
         error_log("db_query: " . $e->getMessage() . " | SQL: " . $sql);

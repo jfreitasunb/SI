@@ -5,17 +5,22 @@
 
 
 $lang="pt_BR";
+require("autentica.php");
 require("pgsql.php");
 
 if(isset($_POST['salva_dados']) and !isset($_POST['relatorio']) and !isset($_POST['selecao1']))
 {
-$usuario=$_POST['usuario'];
+$usuario=$_SESSION['priori_coduser'];
 $data_de_hoje=date("Y-m-d");
 $semestre=$_POST['semestre'];
 $ano=$_POST['ano'];
 
-$query_historico_MAT=pg_query("select * from prio_licencas_historico_MAT where coduser='".$usuario."' and semestre='".$semestre."' and ano='".$ano."'");
-$num_query=pg_num_rows($query_historico_MAT);
+$query_historico_MAT=db_query("select * from prio_licencas_historico_MAT where coduser=? and semestre=? and ano=?", array($usuario,$semestre,$ano), $con);
+$num_query=$query_historico_MAT->rowCount();
+
+// valores informados no formulario, na ordem das colunas da tabela
+$valores=array();
+foreach (array('creditos','coord_massa','creditos_pesq_mestrado','creditos_pesq_doutorado','monografia_esp_mat','esp_profmat','pub_livro','pub_art_arb','pub_cap_livro','pub_res_an_div','apr_oral_evento','apr_poster_evento','coord_proj_fin','banca_mes_dou','exame_qualif_dou','exame_qualif_mest','exame_linguas','orient_pibs_pet','tutor_pet','coord_pibid','coord_ext_profmat','org_local_reg','org_nac_inter','coord_verao','coord_sem_mat','cargo_dir','coord','comis_mat','repr_cons','banca_conc') as $campo) $valores[]=$_POST[$campo];
 
 
 $inicio_ultima=$_POST['dia_inicio']."/".$_POST['mes_inicio']."/".$_POST['ano_inicio'];
@@ -23,14 +28,16 @@ $fim_ultima=$_POST['dia_fim']."/".$_POST['mes_fim']."/".$_POST['ano_fim'];
 
 if ($num_query==0)
 	{
-	$query_grava="insert into prio_licencas_historico_MAT values('".$usuario."','".$semestre."','".$ano."','".$_POST['creditos']."','".$_POST['coord_massa']."','".$_POST['creditos_pesq_mestrado']."','".$_POST['creditos_pesq_doutorado']."','".$_POST['monografia_esp_mat']."','".$_POST['esp_profmat']."','".$_POST['pub_livro']."','".$_POST['pub_art_arb']."','".$_POST['pub_cap_livro']."','".$_POST['pub_res_an_div']."','".$_POST['apr_oral_evento']."','".$_POST['apr_poster_evento']."','".$_POST['coord_proj_fin']."','".$_POST['banca_mes_dou']."','".$_POST['exame_qualif_dou']."','".$_POST['exame_qualif_mest']."','".$_POST['exame_linguas']."','".$_POST['orient_pibs_pet']."','".$_POST['tutor_pet']."','".$_POST['coord_pibid']."','".$_POST['coord_ext_profmat']."','".$_POST['org_local_reg']."','".$_POST['org_nac_inter']."','".$_POST['coord_verao']."','".$_POST['coord_sem_mat']."','".$_POST['cargo_dir']."','".$_POST['coord']."','".$_POST['comis_mat']."','".$_POST['repr_cons']."','".$_POST['banca_conc']."','".$inicio_ultima."','".$fim_ultima."')";
+	$query_grava="insert into prio_licencas_historico_MAT values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	$params_grava=array_merge(array($usuario,$semestre,$ano), $valores, array($inicio_ultima,$fim_ultima));
 	}
 else
 	{
-	$query_grava="update prio_licencas_historico_MAT set creditos='".$_POST['creditos']."',coord_massa='".$_POST['coord_massa']."',creditos_pesq_mestrado='".$_POST['creditos_pesq_mestrado']."',creditos_pesq_doutorado='".$_POST['creditos_pesq_doutorado']."',monografia_esp_mat='".$_POST['monografia_esp_mat']."',esp_profmat='".$_POST['esp_profmat']."',pub_livro='".$_POST['pub_livro']."',pub_art_arb='".$_POST['pub_art_arb']."',pub_cap_livro='".$_POST['pub_cap_livro']."',pub_res_an_div='".$_POST['pub_res_an_div']."',apr_oral_evento='".$_POST['apr_oral_evento']."', apr_poster_evento='".$_POST['apr_poster_evento']."', coord_proj_fin='".$_POST['coord_proj_fin']."',banca_mes_dou='".$_POST['banca_mes_dou']."',exame_qualif_dou='".$_POST['exame_qualif_dou']."',exame_qualif_mest='".$_POST['exame_qualif_mest']."',exame_linguas='".$_POST['exame_linguas']."',orient_pibs_pet='".$_POST['orient_pibs_pet']."',tutor_pet='".$_POST['tutor_pet']."',coord_pibid='".$_POST['coord_pibid']."',coord_ext_profmat='".$_POST['coord_ext_profmat']."',org_local_reg='".$_POST['org_local_reg']."',org_nac_inter='".$_POST['org_nac_inter']."',coord_verao='".$_POST['coord_verao']."',coord_sem_mat='".$_POST['coord_sem_mat']."',cargo_dir='".$_POST['cargo_dir']."',coord='".$_POST['coord']."',comis_mat='".$_POST['comis_mat']."',repr_cons='".$_POST['repr_cons']."',banca_conc='".$_POST['banca_conc']."', inicio_ultima='".$inicio_ultima."', fim_ultima='".$fim_ultima."' where coduser='".$usuario."' and semestre='".$semestre."' and ano='".$ano."'";
+	$query_grava="update prio_licencas_historico_MAT set creditos=?,coord_massa=?,creditos_pesq_mestrado=?,creditos_pesq_doutorado=?,monografia_esp_mat=?,esp_profmat=?,pub_livro=?,pub_art_arb=?,pub_cap_livro=?,pub_res_an_div=?,apr_oral_evento=?,apr_poster_evento=?,coord_proj_fin=?,banca_mes_dou=?,exame_qualif_dou=?,exame_qualif_mest=?,exame_linguas=?,orient_pibs_pet=?,tutor_pet=?,coord_pibid=?,coord_ext_profmat=?,org_local_reg=?,org_nac_inter=?,coord_verao=?,coord_sem_mat=?,cargo_dir=?,coord=?,comis_mat=?,repr_cons=?,banca_conc=?, inicio_ultima=?, fim_ultima=? where coduser=? and semestre=? and ano=?";
+	$params_grava=array_merge($valores, array($inicio_ultima,$fim_ultima,$usuario,$semestre,$ano));
 	}
 //echo $query_grava;
-$query_res=pg_query($query_grava) or die("problema de conexao com o banco");
+$query_res=db_query($query_grava, $params_grava, $con);
 
 }
 
@@ -110,7 +117,7 @@ if (isset($_POST['selecao1']))
 {
 $semestre=$_POST['semestre'];
 $ano=$_POST['ano'];
-$usuario=$_POST['usuario'];
+$usuario=$_SESSION['priori_coduser'];
 
 $semestre_inicio=$_POST['semestre_inicio'];
 $semestre_fim=$_POST['semestre_fim'];

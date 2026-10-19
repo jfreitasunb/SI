@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__FILE__)."/autentica.php");
 //function formulario11($usuario)
 //{
 //if ((($teste1==0) and ($teste3==0) and ($teste4==0)) or (($teste1!=0) and ($teste3!=0) and ($teste4!=0))) // --------------------------------------Fazer outra seleção
@@ -72,7 +73,7 @@ $ano=date("Y");
 	</body>
 	</html>
 <?php
-pg_close($com);
+//pg_close($com);
 //}
 ?>
 

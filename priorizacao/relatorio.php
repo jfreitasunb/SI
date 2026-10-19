@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__FILE__)."/autentica.php");
 //function relatorio($usuario,$semestre_inicio,$ano_inicio,$semestre_fim,$ano_fim,$teste3,$teste4)
 //{
 //if (($teste1==0) and (($teste3!=0) or ($teste4!=0))) //------------------------------------------"escolheu relatorio no periodo";
@@ -6,25 +7,23 @@
 
 if($teste3!=0 and $teste4!=0)
 {
-if (($semestre_inicio==1) and ($semestre_fim==2)) $where=" ano>='".$ano_inicio."' and ano<= '".$ano_fim."'";
-if (($semestre_inicio==1) and ($semestre_fim==1)) $where=" ((ano>='".$ano_inicio."' and ano< '".$ano_fim."') or (ano='".$ano_fim."' and semestre='1'))";
-if (($semestre_inicio==2) and ($semestre_fim==1)) $where=" ((ano>'".$ano_inicio."' and ano< '".$ano_fim."') or (ano='".$ano_fim."' and semestre='1') or (ano='".$ano_inicio."' and semestre='2'))";
-if (($semestre_inicio==2) and ($semestre_fim==2)) $where=" ((ano>'".$ano_inicio."' and ano<= '".$ano_fim."') or (ano='".$ano_inicio."' and semestre='2'))";
+if (($semestre_inicio==1) and ($semestre_fim==2)) { $dados="select * from prio_licencas_historico_MAT where coduser=? and ano>=? and ano<=?"; $params_dados=array($usuario,$ano_inicio,$ano_fim); }
+if (($semestre_inicio==1) and ($semestre_fim==1)) { $dados="select * from prio_licencas_historico_MAT where coduser=? and ((ano>=? and ano<?) or (ano=? and semestre='1'))"; $params_dados=array($usuario,$ano_inicio,$ano_fim,$ano_fim); }
+if (($semestre_inicio==2) and ($semestre_fim==1)) { $dados="select * from prio_licencas_historico_MAT where coduser=? and ((ano>? and ano<?) or (ano=? and semestre='1') or (ano=? and semestre='2'))"; $params_dados=array($usuario,$ano_inicio,$ano_fim,$ano_fim,$ano_inicio); }
+if (($semestre_inicio==2) and ($semestre_fim==2)) { $dados="select * from prio_licencas_historico_MAT where coduser=? and ((ano>? and ano<=?) or (ano=? and semestre='2'))"; $params_dados=array($usuario,$ano_inicio,$ano_fim,$ano_inicio); }
 }
 
 if($teste3!=0 and $teste4==0)
 {
-$where=" ano='".$ano_inicio."' and semestre='".$semestre_inicio."'";
+$dados="select * from prio_licencas_historico_MAT where coduser=? and ano=? and semestre=?"; $params_dados=array($usuario,$ano_inicio,$semestre_inicio);
 }
 
 if($teste3==0 and $teste4!=0)
 {
-$where=" ano='".$ano_fim."' and semestre='".$semestre_fim."'";
+$dados="select * from prio_licencas_historico_MAT where coduser=? and ano=? and semestre=?"; $params_dados=array($usuario,$ano_fim,$semestre_fim);
 }
 
-$dados="select * from prio_licencas_historico_MAT where coduser='".$usuario."' and ".$where;
-//echo $dados;
-$query_dados=pg_query($dados);
+$query_dados=db_query($dados, $params_dados, $con);
 
 $creditos=0;
 $coord_massa=0;
@@ -60,7 +59,7 @@ $repr_cons="";
 $inicio_ultima="";
 $fim_ultima="";
 
-while ($registro=pg_fetch_row($query_dados))
+while ($registro=$query_dados->fetch(PDO::FETCH_NUM))
 {
 $creditos=$creditos+$registro[3];
 $coord_massa=$coord_massa+$registro[4];

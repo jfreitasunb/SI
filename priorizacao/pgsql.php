@@ -8,10 +8,16 @@ $porta="5432";
 $senha="estudos";
 
 //isso deve estar dentro do connect.php
-$parametros="dbname=$basededados host=$host port=$porta user=$usuario_b ";
-$parametros.="password=$senha";
+require_once(dirname(__FILE__)."/../global/function_php.php");
 
-$con=pg_connect($parametros) or die ("Ocorreu um erro com a conexao com o banco");
+// Conexao PDO; as consultas sao feitas com db_query(..., ..., $con)
+try {
+   $con = new PDO("pgsql:host=$host;port=$porta;dbname=$basededados", $usuario_b, $senha);
+   $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   $con->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, true);
+} catch (PDOException $e) {
+   die("Ocorreu um erro com a conexao com o banco");
+}
 
 
 ?>

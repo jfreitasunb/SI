@@ -6,7 +6,9 @@ require("muda_senha/pgsql.php");
 //require("muda_senha/header.php");
 
 $submit 	  = trim(addslashes($_POST['submit']));
-$usuario 	  = trim(addslashes($_POST['usuario']));
+// O login vai para o banco via Prepared Statement; as senhas mantem o addslashes
+// por compatibilidade com os hashes ja gravados (nao e usado em SQL).
+$usuario 	  = trim($_POST['usuario']);
 $senhaatual 	  = trim(addslashes($_POST['senhaatual']));
 $senhanova        = trim(addslashes($_POST['senhanova']));
 $senhaconfirmacao = trim(addslashes($_POST['senhaconfirmacao']));
@@ -28,28 +30,29 @@ if(strlen($submit)>0){
    } else {
    
      $matricula = substr($usuario,1);
-     $res = pg_query("select login,passwd,erro,erro_data from unix where login='$usuario'");
+     $res = db_query("select login,passwd,erro,erro_data from unix where login=?", array($usuario), $con);
    
      $msg="Dados Invalidos!";
    
-     if(pg_num_rows($res)==1 ){
-           $senhaBD = pg_result($res,0,1);
-	   $qtErros = pg_result($res,0,2);
-	   $timeErro = pg_result($res,0,3);
+     if($res->rowCount()==1 ){
+           $linha = $res->fetch(PDO::FETCH_NUM);
+           $senhaBD = $linha[1];
+	   $qtErros = $linha[2];
+	   $timeErro = $linha[3];
    
 	   if($qtErros>=5){
                 $msg="Conta bloqueada por excesso de tentativas frustradas. Entre em contato com o CPD.";
            } elseif(crypt($senhaatual,$senhaBD) == $senhaBD) {
    
               // Hora de mudar a senha
-              $res = pg_query("update unix set passwd='".crypt($senhanova)."' where login='$usuario' ");
+              $res = db_query("update unix set passwd=? where login=?", array(crypt($senhanova), $usuario), $con);
    
               $msg="Senha alterada com sucesso! Estara atualizada em no maximo 15 minutos.";
           }else {
 	      if($timeErro + 60*10 > time()){
-                 $res = pg_query("update unix set erro= erro+1,erro_data='".time()."'  where login='$usuario' ");
+                 $res = db_query("update unix set erro= erro+1,erro_data=? where login=?", array(time(), $usuario), $con);
                }else {
-                 $res = pg_query("update unix set erro=1,erro_data='".time()."'  where login='$usuario' ");
+                 $res = db_query("update unix set erro=1,erro_data=? where login=?", array(time(), $usuario), $con);
                } 
           } 
      } 
@@ -74,19 +77,19 @@ if(strlen($submit)>0){
 <table border="0">
 <tr>
   <td> Usuario: </td>
-  <td> <INPUT type="TEXT" name="usuario" value="<?php echo $usuario;?>"> </td>
+  <td> <INPUT type="TEXT" name="usuario" value="<?php echo htmlspecialchars($usuario);?>"> </td>
 </tr>
 <tr>
   <td> Senha Atual: </td>
-  <td> <INPUT type="password" name="senhaatual" value="<?php echo $senhaatual;?>"> </td>
+  <td> <INPUT type="password" name="senhaatual" value="<?php echo htmlspecialchars($senhaatual);?>"> </td>
 </tr>
 <tr>
   <td> Senha Nova: </td>
-  <td> <INPUT type="password" name="senhanova" value="<?php echo $senhanova;?>"> </td>
+  <td> <INPUT type="password" name="senhanova" value="<?php echo htmlspecialchars($senhanova);?>"> </td>
 </tr>
 <tr>
   <td> Confirmacao da Senha Nova: </td>
-  <td> <INPUT type="password" name="senhaconfirmacao" value="<?php echo $senhaconfirmacao;?>"> </td>
+  <td> <INPUT type="password" name="senhaconfirmacao" value="<?php echo htmlspecialchars($senhaconfirmacao);?>"> </td>
 </tr>
 <tr>
   <td> </td>

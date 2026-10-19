@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__FILE__)."/autentica.php");
 //function cria_atulaiza($usuario,$semestre,$ano)
 //{
 //if (($teste1!=0) and ($teste3==0) and ($teste4==0))  //------------------------------------- "escolheu fazer atualizar/inserir semestre";
@@ -10,17 +11,17 @@
 $data_de_hoje=date("Y-m-d");
 $ano_atual=date("Y");
 
-$query_pesq_mestrado=pg_query("select sum(creditos) as creditos from oferta_escolha_creditos_est_pesq_pos where coduser='".$usuario."' and semestre='".$semestre."' and ano='".$ano."' and orientando in (select coduser from student where formation='mestrado' and depart_date1<='".$data_de_hoje."')");
-$num_mestrado=pg_fetch_array($query_pesq_mestrado);
-$query_pesq_doutorado=pg_query("select sum(creditos) as creditos from oferta_escolha_creditos_est_pesq_pos where coduser='".$usuario."' and semestre='".$semestre."' and ano='".$ano."' and orientando in (select coduser from student where formation='doutorado' and depart_date1<='".$data_de_hoje."')");
-$num_doutorado=pg_fetch_array($query_pesq_doutorado);
+$query_pesq_mestrado=db_query("select sum(creditos) as creditos from oferta_escolha_creditos_est_pesq_pos where coduser=? and semestre=? and ano=? and orientando in (select coduser from student where formation='mestrado' and depart_date1<=?)", array($usuario,$semestre,$ano,$data_de_hoje), $con);
+$num_mestrado=$query_pesq_mestrado->fetch();
+$query_pesq_doutorado=db_query("select sum(creditos) as creditos from oferta_escolha_creditos_est_pesq_pos where coduser=? and semestre=? and ano=? and orientando in (select coduser from student where formation='doutorado' and depart_date1<=?)", array($usuario,$semestre,$ano,$data_de_hoje), $con);
+$num_doutorado=$query_pesq_doutorado->fetch();
 
-$query_creditos_grad=pg_query("select sum(creditos) as creditos from oferta_escolha_creditos where coduser='".$usuario."' and semestre='".$semestre."' and ano='".$ano."'");
-$num_creditos_grad=pg_fetch_array($query_creditos_grad);
+$query_creditos_grad=db_query("select sum(creditos) as creditos from oferta_escolha_creditos where coduser=? and semestre=? and ano=?", array($usuario,$semestre,$ano), $con);
+$num_creditos_grad=$query_creditos_grad->fetch();
 
 
-$query_creditos_pos=pg_query("select sum(creditos) as creditos from oferta_escolha_creditos_pos where coduser='".$usuario."' and semestre='".$semestre."' and ano='".$ano."'");
-$num_creditos_pos=pg_fetch_array($query_creditos_pos);
+$query_creditos_pos=db_query("select sum(creditos) as creditos from oferta_escolha_creditos_pos where coduser=? and semestre=? and ano=?", array($usuario,$semestre,$ano), $con);
+$num_creditos_pos=$query_creditos_pos->fetch();
 
 if (isset($num_mestrado['creditos'])) $creditos_pesq_mestrado=$num_mestrado['creditos'];else $creditos_pesq_mestrado=0;
 if (isset($num_doutorado['creditos'])) $creditos_pesq_doutorado=$num_doutorado['creditos']; else $creditos_pesq_doutorado=0;
@@ -32,13 +33,13 @@ $creditos=$creditos_pos+$creditos_grad;
 
 
 
-$query_historico_MAT=pg_query("select * from prio_licencas_historico_MAT where coduser='".$usuario."' and semestre='".$semestre."' and ano='".$ano."'");
+$query_historico_MAT=db_query("select * from prio_licencas_historico_MAT where coduser=? and semestre=? and ano=?", array($usuario,$semestre,$ano), $con);
 
 //coduser|semestre|ano|creditos|creditos_pesq_mestrado|creditos_pesq_doutorado|monografia_esp_mat|esp_profmat|pub_livro|pub_art_arb|pub_cap_livro|pub_res_an_div|apr_oral_evento|apr_poster_evento|
 //coord_proj_fin|banca_mes_dou| exame_qualif_dou| exame_qualif_mest(0/1)|exame_linguas(0/1)|orient_pibs_pet|tutor_pet(0/1)|coord_pibid(0/1)|coord_ext_profmat|org_local_reg|org_nac_inter|
 //coord_verao(0/1)|coord_sem_mat(0/1)|cargo_dir(opcoes)|coord(opcoes)|comis_mat(opcoes)|repr_cons(opcoes)|banca_conc | inicio_ultima | fim_ultima
 
-if (pg_num_rows($query_historico_MAT)==0) $historico=array("creditos" => $creditos,"coord_massa" => 0,"creditos_pesq_mestrado" => $creditos_pesq_mestrado, "creditos_pesq_doutorado" => $creditos_pesq_doutorado, "monografia_esp_mat" => 0, "esp_profmat" => 0, "pub_livro" => 0, "pub_art_arb" => 0, "pub_cap_livro" => 0, "pub_res_an_div" => 0, "apr_oral_evento" => 0, "apr_poster_evento" => 0, "coord_proj_fin" => 0, "banca_mes_dou" => 0, "exame_qualif_dou" => 0, "exame_qualif_mest" => 0, "exame_linguas" => 0, "orient_pibs_pet" => 0, "tutor_pet" => 0, "coord_pibid" => 0, "coord_ext_profmat" => 0, "org_local_reg" => 0, "org_nac_inter" => 0, "coord_verao" => 0, "coord_sem_mat" => 0, "cargo_dir" => "nulo", "coord" => "nulo", "comis_mat" => "nulo", "repr_cons" => "nulo", "banca_conc" => 0, "inicio_ultima" => "0/0/0", "fim_ultima" => "0/0/0"); else $historico=pg_fetch_array($query_historico_MAT);
+if ($query_historico_MAT->rowCount()==0) $historico=array("creditos" => $creditos,"coord_massa" => 0,"creditos_pesq_mestrado" => $creditos_pesq_mestrado, "creditos_pesq_doutorado" => $creditos_pesq_doutorado, "monografia_esp_mat" => 0, "esp_profmat" => 0, "pub_livro" => 0, "pub_art_arb" => 0, "pub_cap_livro" => 0, "pub_res_an_div" => 0, "apr_oral_evento" => 0, "apr_poster_evento" => 0, "coord_proj_fin" => 0, "banca_mes_dou" => 0, "exame_qualif_dou" => 0, "exame_qualif_mest" => 0, "exame_linguas" => 0, "orient_pibs_pet" => 0, "tutor_pet" => 0, "coord_pibid" => 0, "coord_ext_profmat" => 0, "org_local_reg" => 0, "org_nac_inter" => 0, "coord_verao" => 0, "coord_sem_mat" => 0, "cargo_dir" => "nulo", "coord" => "nulo", "comis_mat" => "nulo", "repr_cons" => "nulo", "banca_conc" => 0, "inicio_ultima" => "0/0/0", "fim_ultima" => "0/0/0"); else $historico=$query_historico_MAT->fetch();
 
 $data_inicio_ultima=explode("/",$historico['inicio_ultima']);
 $data_fim_ultima=explode("/",$historico['fim_ultima']);
@@ -215,9 +216,9 @@ function verif_touche(e)
 										  <option value='nulo' <?php if ($historico['repr_cons']=="nulo") echo "selected";?>> ---nenhum---</option> 
 										<?php
 										//usar tabela com: descricao| sigla. Ok.
-										$query_conselhos=pg_query("select * from estudos_conselhos_camaras order by descricao") or die ("problemas de conexao com o banco");
+										$query_conselhos=db_query("select * from estudos_conselhos_camaras order by descricao", array(), $con);
 
-										while($registro=pg_fetch_row($query_conselhos))
+										while($registro=$query_conselhos->fetch(PDO::FETCH_NUM))
 											{
 											if ($registro[1]==$historico['repr_cons']) $selected="selected"; else $selected="";
 											echo "<option value=\"".$registro[1]."\" ".$selected.">".$registro[0]."</option>";
@@ -237,6 +238,6 @@ function verif_touche(e)
 </body>
 </html>
 <?php  
-pg_close($con);
+$con = null;
 //}
 ?>
