@@ -1,4 +1,0 @@
-#!/bin/sh
-PATH=/usr/local/share/aspell:$PATH
-export PATH
-exec $@

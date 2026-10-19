@@ -1,5 +1,0 @@
-
-si=# alter table student drop constraint pk_student restrict;
-si=# alter table student add primary key (matricul);
-    
-si=# alter table visitor drop constraint pk_visitor restrict;

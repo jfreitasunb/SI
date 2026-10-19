@@ -1,4 +1,0 @@
-#!/usr/local/bin/python
-
-from idlelib.PyShell import main
-main()

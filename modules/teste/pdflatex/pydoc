@@ -1,4 +1,0 @@
-#!/usr/local/bin/python
-
-import pydoc
-pydoc.cli()
