@@ -1,0 +1,80 @@
+volumes:
+  pg_data:
+  pgadmin_data:
+
+services:
+  # Web Server Service
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    container_name: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+      - db
+      
+  db:
+    container_name: db
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=si
+      - POSTGRES_PASSWORD=estudos
+      - POSTGRES_DB=si
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  init-pgadmin:
+    image: dpage/pgadmin4:latest
+    user: root
+    entrypoint:
+      - sh
+      - -c
+      - |
+        mkdir -p /var/lib/pgadmin/storage/pgadmin4_pgadmin.org/
+        cp /config/pgpass /var/lib/pgadmin/storage/pgadmin4_pgadmin.org/pgpass
+        chown -R pgadmin /var/lib/pgadmin
+    volumes:
+      - ./docker/pgadmin:/config
+      - pgadmin_data:/var/lib/pgadmin
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=jota@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=estudos
+      - PGADMIN_CONFIG_SERVER_MODE=True
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
+    depends_on:
+      init-pgadmin:
+        condition: service_completed_successfully
+
+  # Application Service
+  app:
+    container_name: si
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    ports:
+      - "9000:9000"
+    working_dir: /var/www
+    depends_on:
+      - db
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
