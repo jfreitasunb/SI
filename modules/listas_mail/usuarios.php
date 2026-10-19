@@ -1,5 +1,5 @@
 <?php
-include("head_listas.php");
+require("head_listas.php");
 
 if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, faça .....
 {

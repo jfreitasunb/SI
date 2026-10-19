@@ -1,5 +1,5 @@
 <?php
-include("head_admin.php");?>
+require("head_admin.php");?>
 <?php
 $dado=$_POST["dado"];                //vari?el que cont? as informa?es do documento
 $acao=$_POST["acao"];                //vari?el que cont? a a?o de visualizar ou de salvar no rascunho
@@ -486,77 +486,15 @@ else if ($acao=="Visualizar"){
         	}
 
 
-	foreach ($seds as $colchete => $valor)
-		{
-		$seds[$colchete]=str_replace("ê",'?,$seds[$colchete]);
-		$seds[$colchete]=str_replace("ç",'?,$seds[$colchete]);
-		$seds[$colchete]=str_replace("?",'?,$seds[$colchete]);
-		$seds[$colchete]=str_replace("ó",'?,$seds[$colchete]);
-		$seds[$colchete]=str_replace("õ",'?,$seds[$colchete]);
-		$seds[$colchete]=str_replace("ã",'?,$seds[$colchete]);
-		$seds[$colchete]=str_replace("?,'?,$seds[$colchete]);
-		$seds[$colchete]=str_replace("á",'?,$seds[$colchete]);
-//print "$seds[$colchete]=  ".$seds[$colchete];
-
-		if 	($colchete=="LATEXMENSAGEM")
-			{
-//			$seds[$colchete]=str_replace("\n",'^M',$seds[$colchete]);
-			$seds[$colchete]=str_replace("\n",'',$seds[$colchete]);
-			if ($_POST['segunda']!="ok")  $seds[$colchete]=addslashes($seds[$colchete]);
-			}
-		else
-			$seds[$colchete]=str_replace("\n",'',$seds[$colchete]);
-		$seds[$colchete]=str_replace("/",'\/',$seds[$colchete]);
-               	$seds[$colchete]=str_replace('&','\&',$seds[$colchete]);
-               	$seds[$colchete]=str_replace("$",'\$',$seds[$colchete]);
-               	$seds[$colchete]=str_replace("%",'\%',$seds[$colchete]);
-               	$seds[$colchete]=str_replace("-",'\-',$seds[$colchete]);
-		}
 
 //	print "a array seds ? ".print_r($seds);	
 
-	$tmpfname = tempnam("/var/www/si/modules/servidor_admin/Tex/", "XDLD");     			
-	exec("cat ./modelo_tex/".$arquivo." > ".$tmpfname.".tex");
-	exec(" chmod 777 ".$tmpfname.".tex");
+	// Gera o PDF sem passar pelo shell (ver global/latex_pdf.php)
+	require_once("../../../global/latex_pdf.php");
+	$pdf = gera_pdf_latex("./modelo_tex/".$arquivo, $seds);
+	if ($pdf === false) die("N\xe3o foi poss\xedvel gerar o documento.");
 	Header("Content-type: application/pdf");
-	foreach($seds as $key => $val )
-		{
-//print "o valor do campo ".$key." e: ".$val."---//---";
-
-//	exec('sed \'s/'.$key.'./'.$val.'/\' '.$tmpfname.'.tex > '.$tmpfname.'.tex.tmp; mv '.$tmpfname.'.tex.tmp'.$tmpfname.'.tex');
-
-//exemplo: sed  "s/happy/enchanted/g" chap1  >chap1.new							
-	$cmd = "sed \" s/".$key."/".$val."/\" ".$tmpfname.".tex > ".$tmpfname.".tex.tmp";	//do Guy
-//	print "o comando de copia e: ".$cmd;
-	exec($cmd);										//do Guy
-	$cmd2=" mv ".$tmpfname.".tex.tmp  ".$tmpfname.".tex";					//do Guy
-	exec($cmd2);										//do Guy
-	exec(" chmod 777 ".$tmpfname.".tex");
-//	exec('sed \'s/'.$key.'./'.$val.'/\' '.$tmpfname.'.tex > '.$tmpfname.'.tex.tmp; mv '.$tmpfname.'.tex.tmp'.$tmpfname.'.tex');
-		}
-
-	exec("cd /var/www/si/modules/servidor_admin/Tex/; pwd; pdflatex ".$tmpfname.".tex");
-//	echo "pdflatex ".$tmpfname.".tex";
-
-//	$cmd_pdf="pdflatex -interaction nonstopmode ".$tmpfname.".tex"; // /usr/bin/
-//        exec($cmd_pdf); //guy
-//exec('./sh.sh '.$tmpfname.'.tex');
-//echo './sh.sh '.$tmpfname.'.tex';
-//exec('cd ./Tex ; /bin/csh /usr/local/bin/pdflatex -interaction nonstopmode '.$tmpfname.'.tex &>/tmp/oi ; mv *.pdf /var/tmp/');
-//echo 'cd ./Tex ; /bin/csh /usr/local/bin/pdflatex -interaction nonstopmode '.$tmpfname.'.tex &>/tmp/oi ; mv *.pdf /var/tmp/';
-// exec('/bin/csh /usr/bin/pdflatex -interaction nonstopmode '.$tmpfname.'.tex &>/tmp/oi ; mv *.pdf /var/tmp/');
-//echo '/bin/csh /usr/local/bin/pdflatex -interaction nonstopmode '.$tmpfname.'.tex &>/tmp/oi ; mv *.pdf /var/tmp/';
-
-	if($fp=fopen("".$tmpfname.".pdf","r")){
- 		while (!feof($fp))
-		{
-   		$buffer = fgets($fp, 4096);
- 		echo $buffer;
- 		}
-	   fclose($fp);
-//	exec("cd /var/www/si/modules/servidor_admin/Tex/; pwd; /bin/rm -f ".$tmpfname."*");
-	exec("/bin/rm -f ".$tmpfname."*");
-	}
+	echo $pdf;
 }
 ?>
 <?php

@@ -1,5 +1,5 @@
 <?php
-  include("head_conta_SI.php");
+  require("head_conta_SI.php");
 
  if($_POST['retira']=="sim")
 	{

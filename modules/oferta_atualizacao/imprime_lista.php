@@ -1,5 +1,5 @@
 <?PHP
-include("head_oferta.php");
+require("head_oferta.php");
 
 function pega_carga_na_turma($disciplina,$turma,$professores,$array_carga)
 {

@@ -1,5 +1,5 @@
 <?php
-  include("head_account.php");
+  require("head_account.php");
   include("gera_senha.php");
 ?>
  <script language=javascript src="formu.js">

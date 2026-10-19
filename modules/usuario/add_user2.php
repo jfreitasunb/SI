@@ -1,5 +1,5 @@
 <?php
-  include("head_user.php");
+  require("head_user.php");
 //   $query="select * from users where matricul='".$_POST['matricul']."' or identity= '".$_POST['identity']."' or cpf='".$_POST['cpf']."'";
 
 if ($_POST['modificacao']=="nao")

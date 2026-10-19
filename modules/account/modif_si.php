@@ -1,5 +1,5 @@
 <?php
-  include("head_account.php");
+  require("head_account.php");
 
   if ( isset($_POST['prec']) && $_POST['prec']=="si" )
   {                

@@ -1,5 +1,5 @@
 <?php
-include("head_oferta.php");
+require("head_oferta.php");
 //include ("recupera_lista_SAA_2.php");
 include("manipula_arquivo_lista_de_ofertas.php");
 

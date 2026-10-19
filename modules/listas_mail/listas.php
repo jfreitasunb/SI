@@ -1,5 +1,5 @@
 <?php
-include("head_listas.php");
+require("head_listas.php");
 
 
 //select * from listas_de_mails;

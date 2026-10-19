@@ -1,5 +1,5 @@
 <?php
-include("head_contas_especiais.php");
+require("head_contas_especiais.php");
 
 
 

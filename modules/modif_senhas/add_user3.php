@@ -1,5 +1,5 @@
 <?php
-  include("head_account.php");
+  require("head_account.php");
 
   $queryverif2="select * from unix where login='".$_POST['login']."'";
   $resverif2=pg_query($queryverif2);

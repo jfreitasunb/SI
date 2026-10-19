@@ -1,6 +1,6 @@
 <?php
 
-include("head_account.php");
+require("head_account.php");
 
  
 function generatePassword() 

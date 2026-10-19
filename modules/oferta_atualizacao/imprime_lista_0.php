@@ -1,5 +1,5 @@
 <?PHP
-include("head_oferta.php");
+require("head_oferta.php");
 
 $ordena=$_POST['ordena'];
 

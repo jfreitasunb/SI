@@ -1,5 +1,5 @@
 <?php
    $idmodule=xx;
-   include("../../global/header.php");
+   require("../../global/header.php");
    include("./c_admin.php");
 ?>

@@ -1,7 +1,7 @@
 <?php 
 // Seleciona os dados das maquinas de usuarios; permite eliminar e/ou modificar dados de maquinas
 
-  include("head_redes.php"); //necessita deste arquivo para conectar arquivos de acesso, banco de dados e etc...
+  require("head_redes.php"); //necessita deste arquivo para conectar arquivos de acesso, banco de dados e etc...
   include("funcoes_gera_arquivos.php");
 
 //include("date.php");

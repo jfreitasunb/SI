@@ -1,5 +1,5 @@
 <?php
-include("head_oferta.php");
+require("head_oferta.php");
 
 
 // Recebe o semestre e o ano:

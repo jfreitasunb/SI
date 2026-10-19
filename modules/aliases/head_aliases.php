@@ -1,6 +1,6 @@
 <?php
    $idmodule=95;
-   include("../../global/header.php");
+   require("../../global/header.php");
 
 // The db_connect function allows to connect to the database, an id_connection is returned.
 

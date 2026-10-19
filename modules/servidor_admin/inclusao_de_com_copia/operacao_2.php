@@ -1,4 +1,4 @@
-<?php include("head_admin.php"); 
+<?php require("head_admin.php"); 
 
 
 if(($_POST['acao2']!="Visualizar") and ($_GET['acao2']!="Visualizar"))
@@ -313,49 +313,14 @@ else if(($_POST['acao2']=="Visualizar")||($_GET['acao2']=="Visualizar")){
                 $arquivo="modelo_ata.tex";
                 }
 
-        foreach ($seds as $colchete => $valor){
-                if ($colchete=="LATEXMENSAGEM")
-                        $seds[$colchete]=str_replace("\n",'',$seds[$colchete]);
-//                        $seds[$colchete]=str_replace("\n",'^M',$seds[$colchete]);
-                else
-                        $seds[$colchete]=str_replace("\n",'',$seds[$colchete]);
-                $seds[$colchete]=str_replace("/",'\/',$seds[$colchete]);
-                $seds[$colchete]=str_replace('&','\&',$seds[$colchete]);
-                $seds[$colchete]=str_replace("$",'\$',$seds[$colchete]);
-                $seds[$colchete]=str_replace("%",'\%',$seds[$colchete]);
-                $seds[$colchete]=str_replace("-",'\-',$seds[$colchete]);
-                }
 
 
-        $tmpfname = tempnam("/var/www/si/modules/servidor_admin/Tex", "ABAB");
-        exec("cat ./modelo_tex/".$arquivo." > ".$tmpfname.".tex");
-	exec(" chmod 777 ".$tmpfname.".tex");
+	// Gera o PDF sem passar pelo shell (ver global/latex_pdf.php)
+	require_once("../../../global/latex_pdf.php");
+	$pdf = gera_pdf_latex("./modelo_tex/".$arquivo, $seds);
+	if ($pdf === false) die("N\xe3o foi poss\xedvel gerar o documento.");
 	Header("Content-type: application/pdf");
-        foreach($seds as $key => $val )
-                {
-//exec('sed \'s/'.$key.'./'.$val.'/\' '.$tmpfname.'.tex > '.$tmpfname.'.tex.tmp; mv '.$tmpfname.'.tex.tmp  '.$tmpfname.'.tex');
-	$cmd = "sed \" s/".$key."/".$val."/\" ".$tmpfname.".tex > ".$tmpfname.".tex.tmp";	//do Guy
-	exec($cmd);										//do Guy
-	$cmd2=" mv ".$tmpfname.".tex.tmp  ".$tmpfname.".tex";					//do Guy
-	exec($cmd2);										//do Guy
-	exec(" chmod 777 ".$tmpfname.".tex");
-                }
-/*
-exec('cd /tmp/oliveira/ ; ./conversor2 '.$tmpfname.'.tex > '.$tmpfname.'.tex.mod ; mv '.$tmpfname.'.tex.mod '.$tmpfname.'.tex;
-        /usr/local/bin/pdflatex -interaction nonstopmode '.$tmpfname.'.tex');
-*/
-
-//	exec('cd ../Tex/ ;/usr/local/bin/pdflatex -interaction nonstopmode '.$tmpfname.'.tex');
-	exec("cd /var/www/si/modules/servidor_admin/Tex; pwd; pdflatex ".$tmpfname.".tex");
-
-        if($fp=fopen("".$tmpfname.".pdf","r")){
-        while (!feof($fp)) {
-                $buffer = fgets($fp, 4096);
-                echo $buffer;
-                }
-        fclose($fp);
-        exec('/bin/rm -f '.$tmpfname.'*');
-	}
+	echo $pdf;
 }
 
 ?>

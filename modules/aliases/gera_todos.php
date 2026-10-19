@@ -1,5 +1,5 @@
 <?php
-  include("head_aliases.php");
+  require("head_aliases.php");
 
 
 function retira_acentos($texto)

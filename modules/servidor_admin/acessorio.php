@@ -1,4 +1,4 @@
-<?php //include("head_account.php");
+<?php //require("head_account.php");
 if ($documento !=5){
 if ($documento!=4){
 	$vetor_destino=pg_query("SELECT nomedepartamento FROM admin_departamento WHERE id_departamento ='".$destino."'")

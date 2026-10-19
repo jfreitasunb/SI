@@ -1,5 +1,5 @@
 <?php
-  include("head_account.php");
+  require("head_account.php");
    $query="select * from users where matricul='".$_POST['matricul']."' or identity= '".$_POST['identity']."' or cpf='".$_POST['cpf']."'";
    $result=pg_query($query);
    $count=pg_num_rows($result);

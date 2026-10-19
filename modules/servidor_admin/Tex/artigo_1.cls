@@ -828,7 +828,7 @@
 \typeout{ *** este documento saira' trimbrado(carta)  
 (Vic/setembro/1995)}
 \typeout{...}
-\input{/var/www/si/modules/sistema_admin/Tex/epic.sty}
+\input{epic.sty}
 \drawline( -3.95 ,-13.85641 )( -3.500 ,-14.38749 )
 ( -3.000,-14.83240 )( -2.500 ,-15.19868 )( -2.000 ,-15.49193 )
 (-1.500 ,-15.71623 )( -1.000 ,-15.87451 )( -0.2,-16)
@@ -880,7 +880,7 @@ Fone: (061) 273-3356 --
 medindo: 13x7mm}
 \typeout{ *** (Vicente/janeiro/1996)}
 \typeout{...}
-\input{/var/www/si/modules/sistema_admin/Tex/epic.sty}
+\input{epic.sty}
 \put(-1.8,-14.7){\scriptsize UnB}
 \put(-3.3,-17.3){\scriptsize IE-MAT}
 \drawline( -3.95 ,-13.85641 )( -3.500 ,-14.38749 )
@@ -916,7 +916,7 @@ medindo: 13x7mm}
 medindo: 21x12mm}
 \typeout{ *** (Vicente/janeiro/1996)}
 \typeout{...}
-\input{/var/www/si/modules/sistema_admin/Tex/epic.sty}
+\input{epic.sty}
 \put(-1.6,-14.7){UnB}
 \put(-2.9,-17.3){\small IE}
 \put(0.4,-17.3){\small MAT}
@@ -968,7 +968,7 @@ medindo: 21x12mm}
 \end{picture}}
 \def\mensu{\setlength{\unitlength}{1mm}
 \begin{picture}(4,0)(1,1.5)
-\input{/var/www/si/modules/sistema_admin/Tex/epic.sty}
+\input{epic.sty}
 	\put(0,1.8){\em m}      
 	\drawline(3.5,2.5)(3.6,3)(3.7,3.5)(3.8,3.7)(3.7,3.7)(3.5,3.9)
 	(3.4,4)(3.2,4.2)(3,4.25)(2.5,4.4)(2.25,4.4)(2.3,4.4)(1.5,4.35)
@@ -979,7 +979,7 @@ medindo: 21x12mm}
 \def\inabla{
 \setlength{\unitlength}{1mm}
 \begin{picture}(4,3)(0,0)
-\input{/var/www/si/modules/sistema_admin/Tex/epic.sty}
+\input{epic.sty}
 \put(0,0){$\nabla$}
 \drawline(1,0.1)(-0.4,2.75)
 \end{picture}}

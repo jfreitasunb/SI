@@ -1,5 +1,5 @@
 <?php 
-	include("head_admin.php"); 
+	require("head_admin.php"); 
 ?>
 
 <html>

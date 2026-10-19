@@ -1,4 +1,4 @@
-<?php include("head_admin.php");?>
+<?php require("head_admin.php");?>
 <html>
 <header>
     <script language=javascript src="function_js.js">

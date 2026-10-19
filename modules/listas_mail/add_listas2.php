@@ -1,5 +1,5 @@
 <?php
-  include("head_licencas.php");
+  require("head_listas.php");
 
 
 if ($_POST['licenca']=="palestra") $id_licence=0;

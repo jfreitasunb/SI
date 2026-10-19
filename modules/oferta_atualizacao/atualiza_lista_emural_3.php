@@ -1,5 +1,5 @@
 <?PHP
-include("head_oferta.php");
+require("head_oferta.php");
 
 $e_mural=$_POST['e_mural'];
 print_r($e_mural);

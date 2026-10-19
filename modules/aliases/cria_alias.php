@@ -1,5 +1,5 @@
 <?php
-  include("head_aliases.php");
+  require("head_aliases.php");
 
 $usuario=explode("-",$_POST['user']);
 

@@ -1,4 +1,5 @@
-<?phpinclude("head_admin.php");
+<?php
+require("head_admin.php");
 
 
 if (!isset($_POST['grava']))

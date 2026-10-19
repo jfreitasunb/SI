@@ -1,5 +1,5 @@
 <?php
-  include("head_account.php");
+  require("head_account.php");
   include("gera_senha.php");
 //  include("imprime_dados_conta.php");
 

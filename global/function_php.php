@@ -25,9 +25,35 @@ function db_connect()
     try {
         $pdo = new PDO($dsn, $user, $passwd);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Devolve os valores como string, igual às funções pg_* que o código legado usava.
+        $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, true);
         return $pdo;
     } catch (PDOException $e) {
         die("The server ".$host." seems to be have many problem. Please try again in a few time.");
+    }
+}
+
+
+///////////////////////////////////////
+////////////   DB_QUERY   /////////////
+///////////////////////////////////////
+
+// Executa uma consulta parametrizada (Prepared Statement) e devolve o PDOStatement.
+// Os valores vão sempre em $params, nunca concatenados no SQL.
+// $pdo permite usar outra conexão (ex.: scripts com usuário de banco próprio).
+function db_query($sql, array $params = array(), $pdo = null)
+{
+    if ($pdo === null) {
+        $pdo = db_connect();
+    }
+
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array_values($params));
+        return $stmt;
+    } catch (PDOException $e) {
+        error_log("db_query: " . $e->getMessage() . " | SQL: " . $sql);
+        die(error());
     }
 }
 

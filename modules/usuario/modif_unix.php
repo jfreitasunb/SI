@@ -1,5 +1,5 @@
 <?php
-  include("head_account.php");
+  require("head_user.php");
 ?>
 <html>
   <header>

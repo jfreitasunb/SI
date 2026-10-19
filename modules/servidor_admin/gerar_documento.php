@@ -1,6 +1,6 @@
 <?php 
 
-include("head_admin.php");
+require("head_admin.php");
 $tipo_documento=$_POST['tipo_documento'];
 ?>
 <html>

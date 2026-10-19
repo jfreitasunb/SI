@@ -1,5 +1,5 @@
 <?php
- include("head_user.php");
+ require("head_user.php");
 
 if ( $_REQUEST['formulario'] ) {
 	$_SESSION['funcionario'] = array(

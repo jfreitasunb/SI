@@ -1,5 +1,5 @@
 <?php
-  include("head_account.php");
+  require("head_account.php");
 
   $query="select idmodule,name from module order by name";
   $result=pg_query($query);

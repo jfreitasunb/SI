@@ -1,5 +1,6 @@
 <?php
-include("head_account.php");
+require("head_account.php");
+require_once("../../global/latex_pdf.php");
 
 $coduser=$_POST['coduser'];
 $senha=$_POST['senha'];
@@ -120,52 +121,19 @@ if ($dados_pessoais['tabela_user']=="fonctionnaire")
 
 // #$%&?!*: latex   % \%; & \&; # \#; $ \$;  
 
+        // Os campos da carta são texto puro (nome, login, senha...): escapa para LaTeX.
         foreach ($seds as $colchete => $valor)
 		{
-                if ($colchete=="LATEXMENSAGEM")
-                        $seds[$colchete]=str_replace("\n",'',$seds[$colchete]);
-                else
-                        $seds[$colchete]=str_replace("\n",'',$seds[$colchete]);
-                $seds[$colchete]=str_replace("/",'\/',$seds[$colchete]);
-                $seds[$colchete]=str_replace('&','\&',$seds[$colchete]);
-                $seds[$colchete]=str_replace("$",'\$',$seds[$colchete]);
-                $seds[$colchete]=str_replace("%",'\%',$seds[$colchete]);
-                $seds[$colchete]=str_replace("#",'\#',$seds[$colchete]);
-//                $seds[$colchete]=str_replace("#",'\\#',$seds[$colchete]);
-                $seds[$colchete]=str_replace("-",'\-',$seds[$colchete]);
-                $seds[$colchete]=str_replace("_",'\_',$seds[$colchete]);
-                $seds[$colchete]=str_replace("cao",'ção',$seds[$colchete]);
 		$seds[$colchete]=str_replace("sem_vinculo",'sem vínculo',$seds[$colchete]);
-                }
-	
-        $tmpfname = tempnam("/var/www/si/modules/servidor_admin/Tex", "CDCD");
-        exec("cat ./modelo_tex/".$arquivo." > ".$tmpfname.".tex");
-	exec(" chmod 777 ".$tmpfname.".tex");
-	Header("Content-type: application/pdf");
-//	Header("Content-type: application/ps");
-        foreach($seds as $key => $val )
-                {
-//exec('sed \'s/'.$key.'./'.$val.'/\' '.$tmpfname.'.tex > '.$tmpfname.'.tex.tmp; mv '.$tmpfname.'.tex.tmp  '.$tmpfname.'.tex');
-	$cmd = "sed \" s/".$key."/".$val."/\" ".$tmpfname.".tex > ".$tmpfname.".tex.tmp";	//do Guy
-	exec($cmd);										//do Guy
-	$cmd2=" mv ".$tmpfname.".tex.tmp  ".$tmpfname.".tex";					//do Guy
-	exec($cmd2);										//do Guy
-	exec(" chmod 777 ".$tmpfname.".tex");
-                }
+		$seds[$colchete]=str_replace("cao",'ção',$seds[$colchete]);
+		$seds[$colchete]=latex_escape($seds[$colchete]);
+		}
 
-	exec("cd /var/www/si/modules/servidor_admin/Tex; pwd; pdflatex ".$tmpfname.".tex");
-//	exec("cd /var/www/si/modules/servidor_admin/Tex; pwd; latex ".$tmpfname.".tex; dvips ".$tmpfname.".dvi");
-        if($fp=fopen("".$tmpfname.".pdf","r"))
-//        if($fp=fopen("".$tmpfname.".ps","r"))
-	{
-        while (!feof($fp)) 
-	        {
-                $buffer = fgets($fp, 4096);
-                echo $buffer;
-                }
-        fclose($fp);
-        //exec('/bin/rm -f '.$tmpfname.'*');
-	}
+	// Gera o PDF sem passar pelo shell (ver global/latex_pdf.php)
+	$pdf = gera_pdf_latex("./modelo_tex/".$arquivo, $seds);
+	if ($pdf === false) die("N\xe3o foi poss\xedvel gerar o documento.");
+	Header("Content-type: application/pdf");
+	echo $pdf;
 //}
 
 ?>
