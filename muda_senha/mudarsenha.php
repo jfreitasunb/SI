@@ -1,7 +1,5 @@
 <?php
 $lang="pt_BR";
-require("libs.php");
-require("forms.php");
 require("pgsql.php");
 require("header.php");
 
