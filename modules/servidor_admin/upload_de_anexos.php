@@ -217,29 +217,35 @@ for ($i=0;$i<5;$i++)
 	 	// Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
 	 
 		// Faz a verificação da extensão do arquivo
-		$extensao = strtolower(end(explode('.', $_FILES['arquivo']['name'][$i])));
-		if (array_search($extensao, $_UP['extensoes']) === false) 
+		$extensao = strtolower(pathinfo($_FILES['arquivo']['name'][$i], PATHINFO_EXTENSION));
+		if (array_search($extensao, $_UP['extensoes']) === false)
 			{
 			echo "Por favor, envie arquivos com as seguintes extens&otilde;es: pdf, jpg, png ou gif";
 			}
-	 
+
 		// Faz a verificação do tamanho do arquivo
-			else if ($_UP['tamanho'] < $_FILES['arquivo']['size'][$i]) 
+			else if ($_UP['tamanho'] < $_FILES['arquivo']['size'][$i])
 			{
 			echo "O arquivo enviado &eacute; muito grande, envie arquivos de at&eacute; 2Mb.";
 			}
-	 
+
+		// Verifica se o conteudo do arquivo confere com a extensao (anti-disfarce)
+			else if (!upload_mime_ok($_FILES['arquivo']['tmp_name'][$i], $extensao))
+			{
+			echo "O conte&uacute;do do arquivo n&atilde;o confere com a extens&atilde;o informada.";
+			}
+
 		// O arquivo passou em todas as verificações, hora de tentar movê-lo para a pasta
 			else {
 		// Primeiro verifica se deve trocar o nome do arquivo
-				if ($_UP['renomeia'] == true) 
+				if ($_UP['renomeia'] == true)
 					{
 		// Cria um nome baseado no UNIX TIMESTAMP atual e com extensão .jpg
 					$nome_final = $id_documento."_".$numero_anexo.".".$extensao;
-					} else 
+					} else
 					{
-		// Mantém o nome original do arquivo
-					$nome_final = $_FILES['arquivo']['name'][$i];
+		// Mantém o nome original do arquivo (sanitizado: sem caminho nem caracteres perigosos)
+					$nome_final = preg_replace('/[^A-Za-z0-9._-]/', '_', basename($_FILES['arquivo']['name'][$i]));
 					}
 	 
 		// Depois verifica se é possível mover o arquivo para a pasta escolhida

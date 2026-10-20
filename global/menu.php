@@ -8,9 +8,8 @@
    if (isset($_POST['login']) && isset($_POST['pass'])) {
        $identification = secure($_POST['login'], $_POST['pass'], $idmodule);
    } else {
-       $sess_login = isset($_SESSION['login']) ? $_SESSION['login'] : '';
-       $sess_passwd = isset($_SESSION['passwd']) ? $_SESSION['passwd'] : '';
-       $identification = secure($sess_login, $sess_passwd, $idmodule);
+       // Sessao existente: autenticacao validada pela flag de sessao + vinculo de IP.
+       $identification = secure('', '', $idmodule);
    }
 
    if (!$identification)

@@ -24,8 +24,8 @@ $myarray='';
 while ($row < $nlinha) 
 	{
 	$data = db_fetch_object($qu, $row); 
-	$myarray= $myarray. "host " . $data->host . "{" . "\n" . "Hardware Ethernet " . $data->mac . ";" . "\n" . "fixed-address " . $data->ipnet . 
-";". "\n" . "option host-name  \"ws_" . $data->host . "\";}" . "\n" . "\n";
+	$myarray= $myarray. "host " . cfg_host($data->host) . "{" . "\n" . "Hardware Ethernet " . cfg_mac($data->mac) . ";" . "\n" . "fixed-address " . cfg_ip($data->ipnet) . 
+";". "\n" . "option host-name  \"ws_" . cfg_host($data->host) . "\";}" . "\n" . "\n";
   	$row++;
 	}
 
@@ -76,7 +76,7 @@ $newfile = 'hosts.new.txt';
 		$myarray='';
 			while ($row < $nlinha) {
 				$data = db_fetch_object($qu, $row); 
-  				$myarray= $myarray.$data->ipnet. "		ws_".$data->host.".ltsp"."		ws_".$data->host. "\n" . "\n";
+  				$myarray= $myarray.cfg_ip($data->ipnet). "		ws_".cfg_host($data->host).".ltsp"."		ws_".cfg_host($data->host). "\n" . "\n";
 			  	$row++;}
 
 				// Tendo certeza que o arquivo existe e que há permissão de escrita primeiro.
@@ -136,7 +136,7 @@ $newfile = 'lts.conf.new.txt';
 							else 
 								$mouse_device = '"/dev/udev"';
 
-  				$myarray= $myarray. "[ws_".$data->host."]". "\n" . "SERVER		=\"".$server."\""."\n"."X_MOUSE_PROTOCOL   = \"" . $data->mouse . "\"" . "\n" . "X_MOUSE_DEVICE     = " . $mouse_device."\n"."X_MODE_0           = ".$data->resolucao. "\n" . "\n";
+  				$myarray= $myarray. "[ws_".cfg_host($data->host)."]". "\n" . "SERVER		=\"".$server."\""."\n"."X_MOUSE_PROTOCOL   = \"" . cfg_texto($data->mouse) . "\"" . "\n" . "X_MOUSE_DEVICE     = " . $mouse_device."\n"."X_MODE_0           = ".cfg_texto($data->resolucao). "\n" . "\n";
 			  	$row++;}
 
 				// Tendo certeza que o arquivo existe e que há permissão de escrita primeiro.

@@ -7,10 +7,9 @@
 
    $idmodule = isset($idmodule) ? $idmodule : null;
    $sess_login = isset($_SESSION['login']) ? $_SESSION['login'] : '';
-   $sess_passwd = isset($_SESSION['passwd']) ? $_SESSION['passwd'] : '';
 
-   // Checa a identificação
-   $identification = secure($sess_login, $sess_passwd, $idmodule);
+   // Checa a identificação (sessao existente: flag + vinculo de IP).
+   $identification = secure('', '', $idmodule);
    if (!$identification)
    {
 ?>

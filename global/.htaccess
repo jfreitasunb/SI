@@ -1,2 +1,13 @@
 Order allow,deny
 Allow from all
+
+# Bloqueia acesso direto pela web aos arquivos de credenciais do banco.
+<FilesMatch "(?i)^db_config.*\.php$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>

@@ -1,6 +1,59 @@
 <?php
 
 ///////////////////////////////////////
+////////////  DB_CONFIG   /////////////
+///////////////////////////////////////
+// Credenciais do banco NAO ficam no codigo versionado. Sao lidas, nesta ordem
+// de precedencia:
+//   1. variaveis de ambiente (SI_DB_*, PYKOTA_DB_* — ex.: SetEnv no Apache);
+//   2. arquivo local global/db_config.php (fora do versionamento; ver .sample);
+//   3. defaults nao-sensiveis abaixo (host/porta/base/usuario; a SENHA nunca
+//      tem default — se ausente, a conexao falha com mensagem clara).
+
+function db_config()
+{
+    static $cfg = null;
+    if ($cfg !== null) {
+        return $cfg;
+    }
+
+    $cfg = array(
+        'host'   => '192.168.122.36',
+        'port'   => '5432',
+        'dbname' => 'si',
+        'user'   => 'si',
+        'passwd' => null,
+        'pykota_host'   => '127.0.0.1',
+        'pykota_port'   => '5432',
+        'pykota_dbname' => 'pykotanovo',
+        'pykota_user'   => 'pykotaadmin',
+        'pykota_passwd' => null,
+    );
+
+    $arquivo = __DIR__ . '/db_config.php';
+    if (is_readable($arquivo)) {
+        $local = include $arquivo;
+        if (is_array($local)) {
+            $cfg = array_merge($cfg, $local);
+        }
+    }
+
+    foreach (array('host', 'port', 'dbname', 'user', 'passwd') as $k) {
+        $env = getenv('SI_DB_' . strtoupper($k));
+        if ($env !== false && $env !== '') {
+            $cfg[$k] = $env;
+        }
+        $envp = getenv('PYKOTA_DB_' . strtoupper($k));
+        if ($envp !== false && $envp !== '') {
+            $cfg['pykota_' . $k] = $envp;
+        }
+    }
+
+    return $cfg;
+}
+
+
+///////////////////////////////////////
 ////////////  DB_CONNECT  /////////////
 ///////////////////////////////////////
 
@@ -14,14 +67,19 @@ function db_connect()
         return $pdo;
     }
 
-    $host = "192.168.122.36";
-    $port = "5432";
-    $dbname = "si";
-    $user = "si";
-    $passwd = "estudos";
-    
+    $cfg = db_config();
+    $host   = $cfg['host'];
+    $port   = $cfg['port'];
+    $dbname = $cfg['dbname'];
+    $user   = $cfg['user'];
+    $passwd = $cfg['passwd'];
+
+    if ($passwd === null || $passwd === '') {
+        die(error("Configuracao do banco ausente: defina a senha em global/db_config.php ou na variavel de ambiente SI_DB_PASSWD."));
+    }
+
     $dsn = "pgsql:host={$host};port={$port};dbname={$dbname}";
-    
+
     try {
         $pdo = new PDO($dsn, $user, $passwd);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -345,30 +403,40 @@ function secure($login, $pass, $idmodule)
         return false;
     }
 
-    if (isset($_SESSION['login']) && isset($_SESSION['passwd']) && !verif_session_ip()) {
+    // Sessao ja autenticada: NAO re-verifica a senha (ela nunca e guardada em
+    // sessao). Valida o vinculo de IP/sessao e desliza a janela de validade.
+    if (!empty($_SESSION['autenticado']) && isset($_SESSION['login'])) {
+        if (!verif_session_ip()) {
+            clear_session_ip();
+            session_destroy();
+            return false;
+        }
+        record_session_ip(); // renova a janela (sessao deslizante)
         clear_session_ip();
-        session_destroy();
-        return false;
+        return verif_permission($idmodule);
     }
 
-    if (verif_pass_login($login, $pass)) {
+    // Login com credenciais (apenas no envio do formulario de login).
+    if ($login !== '' && $pass !== '' && verif_pass_login($login, $pass)) {
+        // Previne session fixation: novo id apos autenticar.
+        session_regenerate_id(true);
         $_SESSION['login'] = $login;
-        $_SESSION['passwd'] = $pass;
+        $_SESSION['autenticado'] = true;
         record_session_ip();
         clear_session_ip();
         $_SESSION['tentatives'] = 0;
-        
+
         return verif_permission($idmodule);
-    } else {
-        clear_session_ip();
-        
-        if(isset($_SESSION['login']) && isset($_SESSION['passwd'])) {
-            session_destroy();
-        } else {
-            $_SESSION['tentatives']++;
-        }
-        return false;
     }
+
+    // Falha de autenticacao.
+    clear_session_ip();
+    if (!empty($_SESSION['autenticado'])) {
+        session_destroy();
+    } else {
+        $_SESSION['tentatives']++;
+    }
+    return false;
 }
 
 
@@ -527,6 +595,59 @@ function hash_senha_app($senha)
 function h($valor)
 {
     return htmlspecialchars((string)$valor, ENT_QUOTES, 'ISO-8859-1');
+}
+
+// Sanitizam valores vindos do banco antes de escreve-los em arquivos de
+// configuracao de rede (dhcpd.conf, hosts, lts.conf). Impedem injecao de novas
+// diretivas/linhas (config injection) removendo quebras de linha e caracteres
+// fora do formato esperado de cada campo.
+function cfg_host($v)  { return preg_replace('/[^A-Za-z0-9._-]/', '', (string)$v); }
+function cfg_mac($v)   { return preg_replace('/[^0-9A-Fa-f:.-]/', '', (string)$v); }
+function cfg_ip($v)    { return preg_replace('/[^0-9.]/', '', (string)$v); }
+function cfg_texto($v) { return str_replace('"', '', preg_replace('/[\x00-\x1F\x7F]/', '', (string)$v)); }
+
+// Valida que o conteudo real (MIME detectado) do arquivo enviado confere com a
+// extensao permitida. Defesa em profundidade: a whitelist de extensao ja barra
+// scripts; isto evita um arquivo malicioso disfarcado com extensao permitida.
+function upload_mime_ok($tmp_name, $extensao)
+{
+    if (!is_uploaded_file($tmp_name)) {
+        return false;
+    }
+
+    $mapa = array(
+        'txt'  => array('text/plain'),
+        'pdf'  => array('application/pdf'),
+        'jpg'  => array('image/jpeg'),
+        'jpeg' => array('image/jpeg'),
+        'png'  => array('image/png'),
+        'gif'  => array('image/gif'),
+    );
+
+    $extensao = strtolower($extensao);
+    if (!isset($mapa[$extensao])) {
+        return false; // extensao fora da whitelist conhecida
+    }
+
+    $mime = false;
+    if (function_exists('finfo_open')) {
+        $fi = finfo_open(FILEINFO_MIME_TYPE);
+        if ($fi) {
+            $mime = finfo_file($fi, $tmp_name);
+            finfo_close($fi);
+        }
+    }
+
+    if ($mime === false) {
+        return true; // sem finfo disponivel: nao bloqueia (extensao ja validada)
+    }
+
+    // Arquivos de texto tem deteccao de MIME inconsistente entre ambientes.
+    if ($extensao === 'txt') {
+        return strpos($mime, 'text/') === 0 || $mime === 'application/octet-stream';
+    }
+
+    return in_array($mime, $mapa[$extensao], true);
 }
 
 // Verifica $senha contra $hash armazenado. Devolve true/false.
