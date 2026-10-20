@@ -30,11 +30,8 @@ $LATEX_MAIL: mail institucional do usuario
 
 
 //busca dos dados pessoais e da conta
-$resultado_pessoais=pg_query("SELECT 
-us.name as nome,us.firstname as sobrenome,us.matricul as matricula,ux.login as login,ux.cota_disco as cota_disco,ux.cota_mail as cota_mail,ux.cota_impressao as cota_impressao,ux.tabela_user 
-as tabela_user FROM users us, unix ux WHERE 
-us.coduser='".$coduser."' and ux.coduser=us.coduser") or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
-	$dados_pessoais= pg_fetch_array($resultado_pessoais);
+$resultado_pessoais=db_query("SELECT \nus.name as nome,us.firstname as sobrenome,us.matricul as matricula,ux.login as login,ux.cota_disco as cota_disco,ux.cota_mail as cota_mail,ux.cota_impressao as cota_impressao,ux.tabela_user \nas tabela_user FROM users us, unix ux WHERE \nus.coduser=? and ux.coduser=us.coduser", array($coduser)) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
+	$dados_pessoais= db_fetch_array($resultado_pessoais);
 
 $seds[LATEX_NOME]=$dados_pessoais['nome'];
 $seds[LATEX_SOBRENOME]=$dados_pessoais['sobrenome'];
@@ -51,24 +48,24 @@ $seds[LATEX_QUOTADISCO]=$dados_pessoais['cota_disco'];
 
 if ($dados_pessoais['tabela_user']=="visitor") 
 	{
-	$resultado_contrato=pg_query("SELECT to_char(date_begin, 'DD/MM/YYYY') as data_abertura,to_char(date_end, 'DD/MM/YYYY') as data_encerramento, tipo_visitor FROM visitor WHERE coduser='".$coduser."'") or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
-	$dados_contrato= pg_fetch_array($resultado_contrato);
+	$resultado_contrato=db_query("SELECT to_char(date_begin, 'DD/MM/YYYY') as data_abertura,to_char(date_end, 'DD/MM/YYYY') as data_encerramento, tipo_visitor FROM visitor WHERE coduser=?", array($coduser)) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
+	$dados_contrato= db_fetch_array($resultado_contrato);
 	$data_abertura=$dados_contrato['data_abertura'];
 	$data_encerramento=$dados_contrato['data_encerramento'];
 	$vinculo=$dados_contrato['tipo_visitor'];
 	}
 if ($dados_pessoais['tabela_user']=="student")
 	{
-	$resultado_contrato=pg_query("SELECT to_char(coming_date, 'DD/MM/YYYY') as data_abertura,to_char(depart_date1,'DD/MM/YYYY') as data_encerramento, formation FROM student WHERE coduser='".$coduser."'") or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
-	$dados_contrato= pg_fetch_array($resultado_contrato);
+	$resultado_contrato=db_query("SELECT to_char(coming_date, 'DD/MM/YYYY') as data_abertura,to_char(depart_date1,'DD/MM/YYYY') as data_encerramento, formation FROM student WHERE coduser=?", array($coduser)) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
+	$dados_contrato= db_fetch_array($resultado_contrato);
 	$data_abertura=$dados_contrato['data_abertura'];
 	$data_encerramento=$dados_contrato['data_encerramento'];
 	$vinculo="Aluno de ".$dados_contrato['formation'];
 	}
 if ($dados_pessoais['tabela_user']=="fonctionnaire")
 	{
-	$resultado_contrato=pg_query("SELECT to_char(contract_date, 'DD/MM/YYYY') as data_abertura,to_char(contract_end, 'DD/MM/YYYY') as data_encerramento, statut, contract_type FROM fonctionnaire WHERE coduser='".$coduser."'") or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
-	$dados_contrato= pg_fetch_array($resultado_contrato);
+	$resultado_contrato=db_query("SELECT to_char(contract_date, 'DD/MM/YYYY') as data_abertura,to_char(contract_end, 'DD/MM/YYYY') as data_encerramento, statut, contract_type FROM fonctionnaire WHERE coduser=?", array($coduser)) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
+	$dados_contrato= db_fetch_array($resultado_contrato);
 	$data_abertura=$dados_contrato['data_abertura'];
 	$data_encerramento=$dados_contrato['data_encerramento'];
 	$vinculo=$dados_contrato['statut']."-".$dados_contrato['contract_type'];
@@ -80,15 +77,15 @@ if ($dados_pessoais['tabela_user']=="fonctionnaire")
 
 
 //busca do alias
-	$resultado_alias=pg_query("SELECT alias FROM aliases WHERE coduser='".$coduser."'") or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
-	$dados_alias= pg_fetch_array($resultado_alias);
+	$resultado_alias=db_query("SELECT alias FROM aliases WHERE coduser=?", array($coduser)) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
+	$dados_alias= db_fetch_array($resultado_alias);
 
 	$seds[LATEX_MAIL]=$dados_alias['alias']."@mat.unb.br";
 
 //busca outros mails
-	$resultado_mails=pg_query("SELECT mail FROM mail WHERE coduser='".$coduser."' and mail not like '%mat.unb.br'") or die ("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
-        $dados_mails= pg_fetch_all($resultado_mails);
-	$num_mails=pg_num_rows($resultado_mails);
+	$resultado_mails=db_query("SELECT mail FROM mail WHERE coduser=? and mail not like '%mat.unb.br'", array($coduser)) or die ("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
+        $dados_mails= db_fetch_all($resultado_mails);
+	$num_mails=db_num_rows($resultado_mails);
 	if ($num_mails==0) $seds[LATEX_OUTROSMAILS]="favor cadastrar outro mail"; 
 	else 
  	     {

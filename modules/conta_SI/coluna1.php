@@ -22,16 +22,16 @@
           <td class=header align=center colspan=2>Selecione um usu&aacute;rio: </td></tr>
         <tr><td>
 <?php
-     $query="select ad.login, u.* from users u, admin ad where u.coduser=ad.coduser and ad.login<>'root' order by u.name";
-     $result=pg_query($query);
-     $nb_enreg=pg_num_rows($result);
+     $query="select ad.login, u.* from users u, admin ad where u.coduser=ad.coduser and ad.login<>'root' order by u.name"; $query__p = array();
+     $result=db_query($query, $query__p);
+     $nb_enreg=db_num_rows($result);
      $i=0;
 ?>
             <select name='user' onchange="enregistrement_modif(utilisateurs,this.selectedIndex,nb_enreg);">>
 <?php
             for ($i=0;$i<$nb_enreg;$i++)
             {
-               $tab=pg_fetch_array($result, $i);
+               $tab=db_fetch_array($result, $i);
 
                $param="'".$tab['login']."'"; // ,'".$tab3."'".$nb_perm."'"; //tab['firstname']."','".$tab['matricul']."'";
               $param=str_replace(CHR(10)," ",$param);
@@ -66,5 +66,5 @@
     </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

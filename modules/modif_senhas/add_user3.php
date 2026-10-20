@@ -1,10 +1,10 @@
 <?php
   require("head_account.php");
 
-  $queryverif2="select * from unix where login='".$_POST['login']."'";
-  $resverif2=pg_query($queryverif2);
-  $countverif2=pg_num_rows($resverif2);
-  $confere_senha=pg_fetch_array($resverif2); //// teste 13:34 Cristiano
+  $queryverif2="select * from unix where login=?"; $queryverif2__p = array($_POST['login']);
+  $resverif2=db_query($queryverif2, $queryverif2__p);
+  $countverif2=db_num_rows($resverif2);
+  $confere_senha=db_fetch_array($resverif2); //// teste 13:34 Cristiano
 
 //  if ( ($countverif1==0)&&($countverif2==0)&&($countverif3==0) )
   if ($countverif2==0)
@@ -12,9 +12,9 @@
   else
     {$verifbool=false;}
 
-  $query_tabela_user="select tipo_users from users where coduser='".$_POST['coduser']."'";
-  $result_tabela_user=pg_query($query_tabela_user);
-  $result_tabela_user1=pg_fetch_array($result_tabela_user,0);
+  $query_tabela_user="select tipo_users from users where coduser=?"; $query_tabela_user__p = array($_POST['coduser']);
+  $result_tabela_user=db_query($query_tabela_user, $query_tabela_user__p);
+  $result_tabela_user1=db_fetch_array($result_tabela_user,0);
 
 	if ($_POST['cota_mail']=='nao_modifica') {$cota_mail=$_POST['cota_mail1'];} else {$cota_mail=$_POST['cota_mail'];}
 	if ($_POST['cota_disco']=='nao_modifica') {$cota_disco=$_POST['cota_disco1'];} else {$cota_disco=$_POST['cota_disco'];}
@@ -24,9 +24,9 @@
 
   if (!$verifbool)
   {
-	$query_confere_senha="select passwd from unix where coduser='".$_POST['coduser']."'";
-	$confere_senha=pg_query($query_confere_senha);
-	$confere_senha_array=pg_fetch_array($confere_senha,0);
+	$query_confere_senha="select passwd from unix where coduser=?"; $query_confere_senha__p = array($_POST['coduser']);
+	$confere_senha=db_query($query_confere_senha, $query_confere_senha__p);
+	$confere_senha_array=db_fetch_array($confere_senha,0);
 
 
     $compte2= new c_conta_unix;
@@ -94,5 +94,5 @@
   </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

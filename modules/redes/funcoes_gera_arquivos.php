@@ -16,14 +16,14 @@ else
 	echo "<br />";
 	echo "<br />";
 
-$qu = pg_query(" select * from computers where status<>0 and codloc<>'lab. grad.';");
+$qu = db_query(" select * from computers where status<>0 and codloc<>'lab. grad.';", array());
 $row = 0; // postgres needs a row counter
-$nlinha = pg_num_rows($qu);
+$nlinha = db_num_rows($qu);
 
 $myarray='';
 while ($row < $nlinha) 
 	{
-	$data = pg_fetch_object($qu, $row); 
+	$data = db_fetch_object($qu, $row); 
 	$myarray= $myarray. "host " . $data->host . "{" . "\n" . "Hardware Ethernet " . $data->mac . ";" . "\n" . "fixed-address " . $data->ipnet . 
 ";". "\n" . "option host-name  \"ws_" . $data->host . "\";}" . "\n" . "\n";
   	$row++;
@@ -70,12 +70,12 @@ $newfile = 'hosts.new.txt';
 		echo "Arquivo gravado com sucesso\n";}
 		echo "<br />";
 		echo "<br />";
-		$qu = pg_query(" select * from computers where status<>0 and codloc<>'lab. grad.';");
+		$qu = db_query(" select * from computers where status<>0 and codloc<>'lab. grad.';", array());
 		$row = 0; 
-		$nlinha = pg_num_rows($qu);
+		$nlinha = db_num_rows($qu);
 		$myarray='';
 			while ($row < $nlinha) {
-				$data = pg_fetch_object($qu, $row); 
+				$data = db_fetch_object($qu, $row); 
   				$myarray= $myarray.$data->ipnet. "		ws_".$data->host.".ltsp"."		ws_".$data->host. "\n" . "\n";
 			  	$row++;}
 
@@ -115,12 +115,12 @@ $newfile = 'lts.conf.new.txt';
 		echo "Arquivo gravado com sucesso\n";}
 		echo "<br />";
 		echo "<br />";
-		$qu = pg_query(" select * from computers where status<>0 and codloc<>'lab. grad.';");
+		$qu = db_query(" select * from computers where status<>0 and codloc<>'lab. grad.';", array());
 		$row = 0; 
-		$nlinha = pg_num_rows($qu);
+		$nlinha = db_num_rows($qu);
 		$myarray='';
 			while ($row < $nlinha) {
-				$data = pg_fetch_object($qu, $row); 
+				$data = db_fetch_object($qu, $row); 
 				$servidor = $data->ipnet;
 				$servidor_rede = array();
 				$servidor_rede = explode (".",$servidor);
@@ -167,15 +167,14 @@ function antigo_gera_IP ($id_maquina,$sala)
 {
 if ($sala=="lab. grad. 2")
 {
-$query_labgrad="select ipnet from computers where ipnet like '10.0.0.%' and status<>'0' order by 
-ipnet"; 
-$res_query_labgrad=pg_query($query_labgrad);
-$nlinha_labgrad = pg_num_rows($res_query_labgrad);
+$query_labgrad="select ipnet from computers where ipnet like '10.0.0.%' and status<>'0' order by \nipnet"; $query_labgrad__p = array(); 
+$res_query_labgrad=db_query($query_labgrad, $query_labgrad__p);
+$nlinha_labgrad = db_num_rows($res_query_labgrad);
 $ip_1001=array();
 for ($lt = 0; $lt < $nlinha_labgrad; $lt++)
                 {
-//        $ip_1001[$lt] = pg_result($res_query_labgrad, $lt,'ipnet');   // o número da coluna que tem o IP é 1.
-		$ip_1001_ipnet=pg_fetch_array($res_query_labgrad, $lt);
+//        $ip_1001[$lt] = db_result($res_query_labgrad, $lt,'ipnet');   // o número da coluna que tem o IP é 1.
+		$ip_1001_ipnet=db_fetch_array($res_query_labgrad, $lt);
 		$ip_test_explodido=explode(".",$ip_1001_ipnet['ipnet']);
                 $ip_1001[$lt] = $ip_test_explodido[3];   // o número da coluna que tem o IP é 1.
                 }
@@ -202,14 +201,14 @@ $ip_36=array();
 $ip_37=array();
 $ip_38=array();
 $ip_39=array();
-$qu = pg_query("select * from computers where ipnet like '172.16.%' and status='1' order by ipnet;");
-$nlinha = pg_num_rows($qu);
+$qu = db_query("select * from computers where ipnet like '172.16.%' and status='1' order by ipnet;", array());
+$nlinha = db_num_rows($qu);
 
 ///////////////processa os dados em ordem crescente de ip ///////////////////////////////////////////////////////////////////
 
 for ($lt = 0; $lt < $nlinha; $lt++)
  	        {
-		$ip_test=pg_fetch_array($qu,$lt);
+		$ip_test=db_fetch_array($qu,$lt);
 //o número da coluna que tem o IP 
 		$ip_test_explodido=explode(".",$ip_test['ipnet']);
                 if ($ip_test_explodido[2]==38) {$ip_38[$lt]=$ip_test_explodido[3];$rede_38=$lt;}  
@@ -268,9 +267,9 @@ return $ip;
 // funcao feita apos a inclusao das redfes 36 e 37.
 function gera_IP_na_faixa ($faixa)
 {
-$qu_faixa= pg_query("select substring(ipnet,11) as digitos_finais from computers where ipnet like '".$faixa."%' and status='1' order by ipnet;");
-$res_faixa=pg_fetch_all($qu_faixa);
-$num_faixa=pg_num_rows($qu_faixa);
+$qu_faixa= db_query("select substring(ipnet,11) as digitos_finais from computers where ipnet like ? and status='1' order by ipnet;", array($faixa.'%'));
+$res_faixa=db_fetch_all($qu_faixa);
+$num_faixa=db_num_rows($qu_faixa);
 
 // cria uma array de digitos finais que sera ordenada:
 $digitos_finais=array();
@@ -348,16 +347,16 @@ else
 function gera_sem_patrimonio()
 {
 $num_patrimonio=array();
-$query_patrimonio="select maqcod from computers where maqcod like 'sp_%'"; 
-$res_query_patrimonio=pg_query($query_patrimonio);
-$nlinha_patrimonio = pg_num_rows($res_query_patrimonio);
+$query_patrimonio="select maqcod from computers where maqcod like 'sp_%'"; $query_patrimonio__p = array(); 
+$res_query_patrimonio=db_query($query_patrimonio, $query_patrimonio__p);
+$nlinha_patrimonio = db_num_rows($res_query_patrimonio);
 
 if ($nlinha_patrimonio==0) {$sem_patrimonio="sp_1";}
 else 
 	{
 	for ($lt = 0; $lt < $nlinha_patrimonio; $lt++)
                 {
-                $patrimonio_test=pg_fetch_array($res_query_patrimonio,$lt);
+                $patrimonio_test=db_fetch_array($res_query_patrimonio,$lt);
                 $patrimonio_explodido=explode("_",$patrimonio_test['maqcod']);
 		$num_patrimonio[$lt]=$patrimonio_explodido[1];
                 }
@@ -372,16 +371,16 @@ return $sem_patrimonio;
 function gera_hostname($host)
 {
 $num_host=array();
-$query_host="select host from computers where host like '".$host."%' ";
-$res_host=pg_query($query_host);
-$linhas_host=pg_num_rows($res_host);
+$query_host="select host from computers where host like ? "; $query_host__p = array($host.'%');
+$res_host=db_query($query_host, $query_host__p);
+$linhas_host=db_num_rows($res_host);
 
 if ($linhas_host==0) {$novo_host=$host."_1";}
 else 
 	{
 	for ($lt = 0; $lt < $linhas_host; $lt++)
                 {
-                $host_test=pg_fetch_array($res_host,$lt);
+                $host_test=db_fetch_array($res_host,$lt);
                 $host_explodido=explode("_",$host_test['host']);
                 $num_host[$lt]=$host_explodido[1];
                 }

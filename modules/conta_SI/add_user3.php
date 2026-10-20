@@ -30,12 +30,10 @@
     </script>
     <?php
 
-  $queryverif1="select * from admin where login='".$_POST['login']."'";
-  $resverif1=pg_query($queryverif1);
-  $countverif1=pg_num_rows($resverif1);
-  $queryverif2="select * from unix where login='".$_POST['login']."'";
-  $resverif2=pg_query($queryverif2);
-  $countverif2=pg_num_rows($resverif2);
+  $resverif1=db_query("select * from admin where login=?", array($_POST['login']));
+  $countverif1=db_num_rows($resverif1);
+  $resverif2=db_query("select * from unix where login=?", array($_POST['login']));
+  $countverif2=db_num_rows($resverif2);
 
  if (($countverif1==0) and ($countverif2==0))
     $verifbool=true;
@@ -50,15 +48,12 @@
     $compte3->set_coduser($_POST['coduser']);
     $compte3->create_account();
     
-    $query4="select idmodule from module";
-    $result4=pg_query($query4);
+    $result4=db_query("select idmodule from module");
     $i=0;
     foreach($_POST['droits'] as $arr)
     {
-      $sl=pg_fetch_array($result4,$i);
-      //$query3="insert into permission values('".$compte3->get_login()."',".$sl['idmodule'].",".$arr.")";
-      $query3="update permission set permission='".$arr."' where login='".$compte3->get_login()."' and idmodule='".$sl['idmodule']."'";
-      $result3=pg_query($query3);
+      $sl=db_fetch_array($result4,$i);
+      $result3=db_query("update permission set permission=? where login=? and idmodule=?", array($arr, $compte3->get_login(), $sl['idmodule']));
       $i+=1;
     }
 
@@ -138,5 +133,5 @@
   </body>
 </html>
 <?php
-  pg_close($idconn);
+  $idconn = null;
 ?>

@@ -20,12 +20,12 @@
                <title>Servidor Administrativo</title>
 <?php
 $tipo_modelo=$_POST["tipo_modelo"]; //busca pelo "modelo" na tabela "modelo".
-$vetor_modelo=pg_query("SELECT * FROM admin_modelo WHERE id_modelo = '$tipo_modelo'") or die("Não foi possível executar a operação. Contacte a Coordenação de Informática.");
-$col= pg_fetch_array($vetor_modelo,0);
+$vetor_modelo=db_query("SELECT * FROM admin_modelo WHERE id_modelo = ?", array($tipo_modelo)) or die("Não foi possível executar a operação. Contacte a Coordenação de Informática.");
+$col= db_fetch_array($vetor_modelo,0);
 
-$res=pg_query("SELECT nometipo FROM admin_tipo WHERE id_tipo='$col[1]'")
+$res=db_query("SELECT nometipo FROM admin_tipo WHERE id_tipo=?", array($col[1]))
                 or die ("N\xe3o foi poss\xedvel consultar o banco.");
-                $registro=pg_fetch_row($res,$i);
+                $registro=db_fetch_row($res,$i);
                 $nome=$registro[0];
 ?>
 	<form action='ati.php' method='post'>
@@ -34,9 +34,9 @@ $res=pg_query("SELECT nometipo FROM admin_tipo WHERE id_tipo='$col[1]'")
 	<tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Tipo de Documento:</p></font></td>
                 <td><select name= 'dado[]' size='1'>
                 <?php
-                $res=pg_query("SELECT nometipo FROM admin_tipo WHERE id_tipo='$col[1]'")
+                $res=db_query("SELECT nometipo FROM admin_tipo WHERE id_tipo=?", array($col[1]))
                 or die ("N\xe3o foi poss\xedvel consultar o banco.");
-                $registro=pg_fetch_row($res,0);
+                $registro=db_fetch_row($res,0);
                 $nome=$registro[0];
 
                 echo"<option value=$col[id_tipo]>$nome</option>";
@@ -65,10 +65,10 @@ if($col[1]=="1") //memorando
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Destino:</p></font></td>
                 <td><select name= 'dado[]' size='1'>
 		<?php
-                $res1=pg_query("SELECT id_departamento,nomedepartamento FROM admin_departamento")
+                $res1=db_query("SELECT id_departamento,nomedepartamento FROM admin_departamento", array())
 		or die ("Não foi possível consultar o banco.");
 		$i=0;
-                while($registro1=pg_fetch_row($res1,$i))
+                while($registro1=db_fetch_row($res1,$i))
                 {
                         $cod1=$registro1[0];
                         $nome1=$registro1[1];
@@ -99,9 +99,9 @@ if($col[1]=="1") //memorando
            <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
            <td><select name= 'dado[]' size='1'>
 		<?php
-                $res2=pg_query("SELECT id_assinatura,cargo FROM admin_assinatura") or die ("Nao foi possivel consultar o banco.");
+                $res2=db_query("SELECT id_assinatura,cargo FROM admin_assinatura", array()) or die ("Nao foi possivel consultar o banco.");
 		$i=0;
-                while($registro2=pg_fetch_row($res2,$i))
+                while($registro2=db_fetch_row($res2,$i))
                 {
                         $cod2=$registro2[0];
                         $cargo2=$registro2[1];
@@ -114,9 +114,9 @@ if($col[1]=="1") //memorando
            <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinante:</p></font></td>
            <td><select name= 'dado[]' size='1'>
 		<?php
-                $res3=pg_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by name") or die ("Nao foi possivel consultar o banco.");
+                $res3=db_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by name", array()) or die ("Nao foi possivel consultar o banco.");
 		$i=0;
-                while($registro3=pg_fetch_row($res3,$i))
+                while($registro3=db_fetch_row($res3,$i))
                 {
                         $cod3=$registro3[0];
                         $nome3=$registro3[1];
@@ -149,10 +149,10 @@ else if (($col[1]=="3")||($col[1]=="6"))//ofício interno ou externo
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Destino:</p></font></td>
                 <td><select name= 'dado[]' size='1'>
 		<?php
-                $res1=pg_query("SELECT id_departamento,nomedepartamento FROM admin_departamento")
+                $res1=db_query("SELECT id_departamento,nomedepartamento FROM admin_departamento", array())
 		or die ("Não foi possível consultar o banco.");
 		$i=0;
-                while($registro1=pg_fetch_row($res1,$i))
+                while($registro1=db_fetch_row($res1,$i))
                 {
                         $cod1=$registro1[0];
                         $nome1=$registro1[1];
@@ -183,9 +183,9 @@ else if (($col[1]=="3")||($col[1]=="6"))//ofício interno ou externo
            <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
            <td><select name= 'dado[]' size='1'>
 		<?php
-                $res2=pg_query("SELECT id_assinatura,cargo FROM admin_assinatura") or die ("Nao foi possivel consultar o banco.");
+                $res2=db_query("SELECT id_assinatura,cargo FROM admin_assinatura", array()) or die ("Nao foi possivel consultar o banco.");
 		$i=0;
-                while($registro2=pg_fetch_row($res2,$i))
+                while($registro2=db_fetch_row($res2,$i))
                 {
                         $cod2=$registro2[0];
                         $cargo2=$registro2[1];
@@ -198,9 +198,9 @@ else if (($col[1]=="3")||($col[1]=="6"))//ofício interno ou externo
            <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinante:</p></font></td>
            <td><select name= 'dado[]' size='1'>
 		<?php
-                $res3=pg_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by name") or die ("Nao foi possivel consultar o banco.");
+                $res3=db_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by name", array()) or die ("Nao foi possivel consultar o banco.");
 		$i=0;
-                while($registro3=pg_fetch_row($res3,$i))
+                while($registro3=db_fetch_row($res3,$i))
                 {
                         $cod3=$registro3[0];
                         $nome3=$registro3[1];
@@ -229,9 +229,9 @@ else if ($col[1]=="2") //circular
            <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Remetente:</p></font></td>
            <td><select name= 'dado[]' size='1'>
 		<?php
-                $res2=pg_query("SELECT id_assinatura,cargo FROM admin_assinatura") or die ("Nao foi possivel consultar o banco.");
+                $res2=db_query("SELECT id_assinatura,cargo FROM admin_assinatura", array()) or die ("Nao foi possivel consultar o banco.");
 		$i=0;
-                while($registro2=pg_fetch_row($res2,$i))
+                while($registro2=db_fetch_row($res2,$i))
                 {
                         $cod2=$registro2[0];
                         $cargo2=$registro2[1];
@@ -244,9 +244,9 @@ else if ($col[1]=="2") //circular
            <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinante:</p></font></td>
            <td><select name= 'dado[]' size='1'>
 		<?php
-                $res3=pg_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by name") or die ("Nao foi possivel consultar o banco.");
+                $res3=db_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by name", array()) or die ("Nao foi possivel consultar o banco.");
 		$i=0;
-                while($registro3=pg_fetch_row($res3,$i))
+                while($registro3=db_fetch_row($res3,$i))
                 {
                         $cod3=$registro3[0];
                         $nome3=$registro3[1];
@@ -259,10 +259,10 @@ else if ($col[1]=="2") //circular
 	   <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Destinatário:</p></font></td>
                 <td><select name= 'dado[]' size='1'>
 		<?php
-                $res1=pg_query("SELECT id_departamento,nomedepartamento FROM admin_departamento")
+                $res1=db_query("SELECT id_departamento,nomedepartamento FROM admin_departamento", array())
 		or die ("Não foi possível consultar o banco.");
 		$i=0;
-                while($registro1=pg_fetch_row($res1,$i))
+                while($registro1=db_fetch_row($res1,$i))
                 {
                         $cod1=$registro1[0];
                         $nome1=$registro1[1];
@@ -314,9 +314,9 @@ else if ($col[1]=="4") //ato
 <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
            <td><select name= 'dado[]' size='1'>
 		<?php
-                $res2=pg_query("SELECT id_assinatura,cargo FROM admin_assinatura") or die ("Nao foi possivel consultar o banco.");
+                $res2=db_query("SELECT id_assinatura,cargo FROM admin_assinatura", array()) or die ("Nao foi possivel consultar o banco.");
 		$i=0;
-                while($registro2=pg_fetch_row($res2,$i))
+                while($registro2=db_fetch_row($res2,$i))
                 {
                         $cod2=$registro2[0];
                         $cargo2=$registro2[1];
@@ -329,9 +329,9 @@ else if ($col[1]=="4") //ato
            <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinante:</p></font></td>
            <td><select name= 'dado[]' size='1'>
 		<?php
-                $res3=pg_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by name") or die ("Nao foi possivel consultar o banco.");
+                $res3=db_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by name", array()) or die ("Nao foi possivel consultar o banco.");
 		$i=0;
-                while($registro3=pg_fetch_row($res3,$i))
+                while($registro3=db_fetch_row($res3,$i))
                 {
                         $cod3=$registro3[0];
                         $nome3=$registro3[1];
@@ -365,9 +365,9 @@ else if ($col[1]=="5") //ata
 	<tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
            <td><select name= 'dado[]' size='1'>
                 <?php
-                $res2=pg_query("SELECT id_assinatura,cargo FROM admin_assinatura") or die ("Nao foi possivel consultar o banco");
+                $res2=db_query("SELECT id_assinatura,cargo FROM admin_assinatura", array()) or die ("Nao foi possivel consultar o banco");
                 $i=0;
-                while($registro2=pg_fetch_row($res2,$i))
+                while($registro2=db_fetch_row($res2,$i))
                 {
                         $cod2=$registro2[0];
                         $cargo2=$registro2[1];
@@ -380,10 +380,9 @@ else if ($col[1]=="5") //ata
 	   <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinante:</p></font></td>
            <td><select name= 'dado[]' size='1'>
                 <?php
-                $res3=pg_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by 
-name") or die ("Nao foi possivel consultar o banco");
+                $res3=db_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by \nname", array()) or die ("Nao foi possivel consultar o banco");
                 $i=0;
-                while($registro3=pg_fetch_row($res3,$i))
+                while($registro3=db_fetch_row($res3,$i))
                 {
                         $cod3=$registro3[0];
                         $nome3=$registro3[1];
@@ -397,9 +396,9 @@ name") or die ("Nao foi possivel consultar o banco");
  <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
            <td><select name= 'dado[]' size='1'>
                 <?php   
-                $res4=pg_query("SELECT id_assinatura,cargo FROM admin_assinatura") or die ("Nao foi possivel consultar o banco");
+                $res4=db_query("SELECT id_assinatura,cargo FROM admin_assinatura", array()) or die ("Nao foi possivel consultar o banco");
                 $i=0;
-                while($registro4=pg_fetch_row($res4,$i))
+                while($registro4=db_fetch_row($res4,$i))
                 {
                         $cod4=$registro4[0];
                         $cargo4=$registro4[1];
@@ -412,10 +411,9 @@ name") or die ("Nao foi possivel consultar o banco");
            <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinante:</p></font></td>
            <td><select name= 'dado[]' size='1'>
                 <?php
-		$res5=pg_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by
-name") or die ("Nao foi possivel consultar o banco");
+		$res5=db_query("SELECT coduser,name, firstname FROM users where tipo_users='professor' or tipo_users='administrativo' order by\nname", array()) or die ("Nao foi possivel consultar o banco");
                 $i=0;
-                while($registro5=pg_fetch_row($res5,$i))
+                while($registro5=db_fetch_row($res5,$i))
                 {
                         $cod5=$registro5[0];
                         $nome5=$registro5[1];
@@ -441,5 +439,5 @@ name") or die ("Nao foi possivel consultar o banco");
 </form>
 </div>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

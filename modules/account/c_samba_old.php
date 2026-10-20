@@ -13,24 +13,24 @@
      //be get the data in the data-base and will put them in the object.
      function get_samba($login)
      {
-       $query="select * from samba where login=".$login;
-       $result=pg_query($query);
-       $tab=pg_fetch_array($result, 0);
+       $query="select * from samba where login=?"; $query__p = array($login);
+       $result=db_query($query, $query__p);
+       $tab=db_fetch_array($result, 0);
        $this->login=$tab['login'];
        $this->passwd=$tab['passwd'];
        $this->expire=$tab['expire'];
        $this->date= $tab['date'];
        $this->coduser=$tab['coduser'];
-       pg_free_result($result);
+       db_free_result($result);
      }
 
       //The create_account function will record this object c_samba into the data-base.
      function create_account()
      {
-       $query="insert into samba values('".$this->login."','".$this->passwd."','".$this->date."','".$this->expire."',".$this->coduser.")";
+       $query="insert into samba values(?,?,?,?,?)"; $query__p = array($this->login, $this->passwd, $this->date, $this->expire, $this->coduser);
   echo $query;    
-       $result=pg_query($query);
-       pg_free_result($result);
+       $result=db_query($query, $query__p);
+       db_free_result($result);
      }
 
      //The Set methods allows to access to datas members

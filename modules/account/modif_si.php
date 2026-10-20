@@ -3,15 +3,15 @@
 
   if ( isset($_POST['prec']) && $_POST['prec']=="si" )
   {                
-     $query="select idmodule,name from module order by name";
-     $result=pg_query($query);
-     $count=pg_num_rows($result);
+     $query="select idmodule,name from module order by name"; $query__p = array();
+     $result=db_query($query, $query__p);
+     $count=db_num_rows($result);
      $i=0;
      foreach($_POST['droits']as $arr)
      {
-       $tab=pg_fetch_array($result,$i);
-       $query3="update permission set permission=".$arr." where login='".$_POST['login']."' and idmodule=".$tab['idmodule'];
-       $result3=pg_query($query3);
+       $tab=db_fetch_array($result,$i);
+       $query3="update permission set permission=? where login=? and idmodule=?"; $query3__p = array($arr, $_POST['login'], $tab['idmodule']);
+       $result3=db_query($query3, $query3__p);
        $i+=1;
       } 
   }
@@ -24,10 +24,10 @@
     <table class=big>
     <form method=POST action="modif_si.php?cu=<?php echo $_GET['cu'] ?>">
 <?php
-    $query4="select login from admin where coduser=".$_GET['cu'];
-    $result4=pg_query($query4);
-    $count4=pg_num_rows($result4);
-    $tab4=pg_fetch_array($result4,0);
+    $query4="select login from admin where coduser=?"; $query4__p = array($_GET['cu']);
+    $result4=db_query($query4, $query4__p);
+    $count4=db_num_rows($result4);
+    $tab4=db_fetch_array($result4,0);
     echo "<input type='hidden' name='login' value='".$tab4['login']."'>"; 
 ?>
     <input type=hidden name=prec value=si>
@@ -47,18 +47,18 @@
         <?php
            if (!isset($_POST['prec']))
            {
-              $query="select idmodule,name from module order by name";
-              $result=pg_query($query);
-              $count=pg_num_rows($result);
+              $query="select idmodule,name from module order by name"; $query__p = array();
+              $result=db_query($query, $query__p);
+              $count=db_num_rows($result);
            }
             for ($y=0;$y<$count;$y++)
             {
-               $tab=pg_fetch_array($result,$y);
-               $query2="select permission from permission where idmodule=".$tab['idmodule']." and login='".$tab4['login']."'";
-               $result2=pg_query($query2);
-               $count2=pg_num_rows($result2);
+               $tab=db_fetch_array($result,$y);
+               $query2="select permission from permission where idmodule=? and login=?"; $query2__p = array($tab['idmodule'], $tab4['login']);
+               $result2=db_query($query2, $query2__p);
+               $count2=db_num_rows($result2);
                if ($count2!=0)
-                 $tab2=pg_fetch_array($result2,0);
+                 $tab2=db_fetch_array($result2,0);
         ?>
         <tr>
           <td>
@@ -106,5 +106,5 @@
    </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

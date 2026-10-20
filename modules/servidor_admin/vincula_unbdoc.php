@@ -101,11 +101,11 @@ function verif_touche(e)
         <table class=form>
 <?php
 
-$query_tipos=pg_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo");
+$query_tipos=db_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo", array());
 
 $documento=$_POST['documento'];
 $docs_numero=0;
-while ($tipo=pg_fetch_row($query_tipos))
+while ($tipo=db_fetch_row($query_tipos))
         {
         if (isset($_POST['documento']) and $documento[$tipo[0]]!="nulo") $docs_numero=$docs_numero+1;
         }
@@ -125,17 +125,17 @@ if (($docs_numero!=1) or (!isset($_POST['unbdoc'])) or !ctype_digit($_POST['unbd
 	<tr><td colspan=2><b>Escolha o documento:  <blink><?php echo $mensagem;?></blink></b></td></tr>
 	
 <?php
-	$query_tipos=pg_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo");
-	while($tipo=pg_fetch_row($query_tipos))
+	$query_tipos=db_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo", array());
+	while($tipo=db_fetch_row($query_tipos))
 		{
-		$query_documentos="select ad.id_documentador as id_documentador,ad.numerodocumento as numerodocumento,SUBSTR(ad.data,1,2) as dia,SUBSTR(ad.data,4,2) as mes,SUBSTR(ad.data,7,4) as ano ,add.nomedepartamento as destino,ad.assunto as assunto from admin_documentador ad,admin_departamento add where ad.id_tipo='".$tipo[0]."' and add.id_departamento=ad.id_departamento order by ano desc,mes desc,dia desc,numerodocumento desc"; 
-		$query_tipo[$tipo[0]]=pg_query($query_documentos);
+		$query_documentos="select ad.id_documentador as id_documentador,ad.numerodocumento as numerodocumento,SUBSTR(ad.data,1,2) as dia,SUBSTR(ad.data,4,2) as mes,SUBSTR(ad.data,7,4) as ano ,add.nomedepartamento as destino,ad.assunto as assunto from admin_documentador ad,admin_departamento add where ad.id_tipo=? and add.id_departamento=ad.id_departamento order by ano desc,mes desc,dia desc,numerodocumento desc"; $query_documentos__p = array($tipo[0]); 
+		$query_tipo[$tipo[0]]=db_query($query_documentos, $query_documentos__p);
 		echo "<tr><td><b>".strtoupper($tipo[1]).":</b></td><td> <select name='documento[".$tipo[0]."]' style=\"width: 500px\"><option value=\"nulo\" selected> --- </option>";
 		$cor_de_fundo="#FFFFFF";
-		while($registro=pg_fetch_row($query_tipo[$tipo[0]]))
+		while($registro=db_fetch_row($query_tipo[$tipo[0]]))
 			{
-			$query_unbdoc=pg_query("select unbdoc from admin_unbdoc where id_documentador='".$registro[0]."'");
-			$unbdoc_registro=pg_fetch_row($query_unbdoc);
+			$query_unbdoc=db_query("select unbdoc from admin_unbdoc where id_documentador=?", array($registro[0]));
+			$unbdoc_registro=db_fetch_row($query_unbdoc);
 
 			if ($registro[0]==$documento[$tipo[0]]) $selected="selected"; else $selected="";
 
@@ -179,8 +179,8 @@ $documento=$_POST['documento'];
 $unbdoc_dado=$_POST['unbdoc'];
 $ano_unbdoc=$_POST['ano_unbdoc'];
 
-$query_tipos=pg_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo");
-        while($tipo=pg_fetch_row($query_tipos))
+$query_tipos=db_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo", array());
+        while($tipo=db_fetch_row($query_tipos))
 		{
 		if ($documento[$tipo[0]]!="nulo") {$documento=$documento[$tipo[0]]; break;}
 		}
@@ -191,22 +191,22 @@ $unbdoc=$unbdoc_dado."/".$ano_unbdoc;
 if (is_int($unbdoc_dado)) echo "inteiro!"; else "nao e inteiro!";
 
 
-$query_unbdoc=pg_query("select * from admin_unbdoc where id_documentador='".$documento."'");
-$num_query=pg_num_rows($query_unbdoc);
+$query_unbdoc=db_query("select * from admin_unbdoc where id_documentador=?", array($documento));
+$num_query=db_num_rows($query_unbdoc);
 
 if ($num_query==0) 
 	{
 	//incluir 
-	$query_incluir="insert into admin_unbdoc values ('".$documento."','".$unbdoc."')";
-	$res_query=pg_query($query_incluir) or die ("problema de conexao com o banco de dados");
+	$query_incluir="insert into admin_unbdoc values (?,?)"; $query_incluir__p = array($documento, $unbdoc);
+	$res_query=db_query($query_incluir, $query_incluir__p) or die ("problema de conexao com o banco de dados");
 //	echo $query_incluir;
 	echo "UnBDoc inserido com sucesso";
 	}
 	else 
 	{
 	//atualizar
-        $query_atauliza="update admin_unbdoc set unbdoc='".$unbdoc."' where id_documentador='".$documento."'";
-      $res_query=pg_query($query_atauliza) or die ("problema de conexao com o banco de dados");
+        $query_atauliza="update admin_unbdoc set unbdoc=? where id_documentador=?"; $query_atauliza__p = array($unbdoc, $documento);
+      $res_query=db_query($query_atauliza, $query_atauliza__p) or die ("problema de conexao com o banco de dados");
 //        echo $query_atauliza;
 	echo "UnBDoc atualizado com sucesso";
 	}
@@ -220,6 +220,6 @@ if ($num_query==0)
 
 <?php
 }
-pg_close($idconn);
+db_close($idconn);
 ?>
 

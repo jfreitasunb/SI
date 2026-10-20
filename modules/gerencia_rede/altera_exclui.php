@@ -74,8 +74,8 @@ if ((!isset($_POST['usuario'])) and (!isset($_POST['maquina'])))// Se o usuario 
 				<option value="MAT">M&aacute;quina do MAT</option>
 	<?php                                   		// gera a lista de usuarios registrados
 								// seleciona usuario e patrimonio das máquinas do usuario.
-		$res = pg_query("SELECT * FROM users where name<>'root' order by name");
-		while($registro = pg_fetch_row($res)) //enquanto ouver registro escreva
+		$res = db_query("SELECT * FROM users where name<>'root' order by name", array());
+		while($registro = db_fetch_row($res)) //enquanto ouver registro escreva
 		{
 			$host = $registro[0];  		// primeira coluna da tabela usuario
 			$titulo = $registro[1]." ".$registro[2];         // segunda coluna da tabela usuario
@@ -106,15 +106,15 @@ else if ((isset($_POST['usuario'])) and (!isset($_POST['maquina'])))
           </tr>
 <?php
 	$host=$_POST['host'];
-	$query_maquinas="SELECT * FROM computers where host like '".$host."%' order by ipnet";
-	$res_maquinas = pg_query($query_maquinas);
-	$linhas_maquinas=pg_num_rows($res_maquinas);
+	$query_maquinas="SELECT * FROM computers where host like ? order by ipnet"; $query_maquinas__p = array($host.'%');
+	$res_maquinas = db_query($query_maquinas, $query_maquinas__p);
+	$linhas_maquinas=db_num_rows($res_maquinas);
 ?>
             <tr><td><select name='maquina' onchange="enregistrement(utilisateurs,this.selectedIndex,nb_enreg);">
 <?php
             for ($i=0;$i<$linhas_maquinas;$i++)
             {
-               $tab=pg_fetch_array($res_maquinas, $i);
+               $tab=db_fetch_array($res_maquinas, $i);
 
 		$mac=explode(":",$tab['mac']);
 		$data_encerramento=explode("-",$tab['data_encerramento']);
@@ -184,8 +184,8 @@ else if ((isset($_POST['usuario'])) and (!isset($_POST['maquina'])))
               <select size="1" name="sala">
 				<OPTION value="nao_altera" selected> n&atilde;o altera 
         <?php                                                   // gera a lista de salas registradas
-                $res_sala = pg_query("SELECT * FROM room where codloc<>'123' order by codloc");
-                while($registro_sala = pg_fetch_row($res_sala)) //enquanto ouver registro escreva
+                $res_sala = db_query("SELECT * FROM room where codloc<>'123' order by codloc", array());
+                while($registro_sala = db_fetch_row($res_sala)) //enquanto ouver registro escreva
                 {
                         $codloc = $registro_sala[0];                // primeira coluna da tabela usuario
                         $descricao=$registro_sala[1];
@@ -221,7 +221,7 @@ else if ((isset($_POST['usuario'])) and (!isset($_POST['maquina'])))
 	    </body>
 	</html>
 	<?php
-       pg_close($idconn);
+       db_close($idconn);
 
 	
 	} 
@@ -239,9 +239,9 @@ else if (isset($_POST['maquina']))
 	$data=$_POST['ano']."-".$_POST['mes']."-".$_POST['dia'];
 	$mac=$_POST['mac1'].":".$_POST['mac2'].":".$_POST['mac3'].":".$_POST['mac4'].":".$_POST['mac5'].":".$_POST['mac6'];
 	// compara o status fornecido com o status do banco para atribuir um novo IP se necessario
-	$query_status="select status from computers where host='".$_POST['host']."'";
-	$res_status=pg_query($query_status);
-	$status=pg_fetch_array($res_status);
+	$query_status="select status from computers where host=?"; $query_status__p = array($_POST['host']);
+	$res_status=db_query($query_status, $query_status__p);
+	$status=db_fetch_array($res_status);
 	if ($status[0]==$_POST['status']) 
 		{
 		$ipnet=$_POST['ipnet'];
@@ -254,18 +254,15 @@ else if (isset($_POST['maquina']))
 //
 //      Antes de cadastrar, verifica se existe uma máquina ativa com o memso endereço MAC: se houver, o cadastro não será efetuado!
 //
-        $query_mac="select host,maqcod from computers where 
-mac='".$mac."' and status='1'";
-        $res_mac=pg_query($query_mac);
-	$dados_banco=pg_fetch_array($res_mac);
-        $linhas_mac=pg_num_rows($res_mac);
+        $query_mac="select host,maqcod from computers where \nmac=? and status='1'"; $query_mac__p = array($mac);
+        $res_mac=db_query($query_mac, $query_mac__p);
+	$dados_banco=db_fetch_array($res_mac);
+        $linhas_mac=db_num_rows($res_mac);
         if (($ipnet <> "out_of_range") and (($linhas_mac==0) or (($linhas_mac==1) and 
 ($dados_banco['maqcod']==$_POST['patrimonio']))) )
         {
-        $query_muda="update computers set ipnet='".$ipnet."', codloc='".$sala."', mac='".$mac."', mouse='".$mouse."', keyboard='".$teclado."', layout_teclado='".$layout_teclado."',
-        resolucao='".$resolucao."', tipo_maquina='".$id_maquina."', status='".$_POST['status']."', 
-data_encerramento='".$data."' where maqcod='".$_POST['patrimonio']."'";
-        $res_muda=pg_query($query_muda);
+        $query_muda="update computers set ipnet=?, codloc=?, mac=?, mouse=?, keyboard=?, layout_teclado=?,\n        resolucao=?, tipo_maquina=?, status=?, \ndata_encerramento=? where maqcod=?"; $query_muda__p = array($ipnet, $sala, $mac, $mouse, $teclado, $layout_teclado, $resolucao, $id_maquina, $_POST['status'], $data, $_POST['patrimonio']);
+        $res_muda=db_query($query_muda, $query_muda__p);
         gera_dhcp ();
         gera_hosts ();
         gera_lts ();
@@ -273,11 +270,11 @@ data_encerramento='".$data."' where maqcod='".$_POST['patrimonio']."'";
 	}
         else
         {
-        $host_cadastrado=pg_fetch_array($res_mac);
+        $host_cadastrado=db_fetch_array($res_mac);
 	echo "A m&aacute;quina n&atilde;o p&ocirc;de ser cadastrada porque a ".$host_cadastrado[0]." j&aacute; 
 est&aacute; ativa e cadastrada com mesmo MAC! Ou A margem de IP já extrapolou:".$ipnet."!";
 	}
-	pg_close($idconn);
+	db_close($idconn);
 	}
 
 ?>

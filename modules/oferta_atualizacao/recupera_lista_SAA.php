@@ -95,7 +95,7 @@ include("manipula_arquivo_lista_de_ofertas.php");
 if (!isset($_POST['continuar']))
 {
 //$query_acusa_lista=pg_query("select * from oferta_acusa_lista order by ano desc,semestre desc");
-$query_acusa_lista=pg_query("select * from oferta_acusa_lista where encaminhada<>'nova' order by ano desc,semestre desc"); //CORRIGIDO EM 18/12/2014
+$query_acusa_lista=db_query("select * from oferta_acusa_lista where encaminhada<>'nova' order by ano desc,semestre desc", array()); //CORRIGIDO EM 18/12/2014
 ?>
    <form method="POST" name="formu" action="recupera_lista_SAA.php"  enctype="multipart/form-data">
       <tr>
@@ -108,7 +108,7 @@ $query_acusa_lista=pg_query("select * from oferta_acusa_lista where encaminhada<
         </select>
         <select name='lista'>
         <?php
-        while ($registro=pg_fetch_row($query_acusa_lista))
+        while ($registro=db_fetch_row($query_acusa_lista))
         {
         ?>
         <option name='lista' value="<?php echo $registro[0]."_".$registro[1];?>"> <?php echo $registro[0];?> &ordm;/ <?php echo $registro[1];?></option>
@@ -253,7 +253,7 @@ echo "<BR> Manipulando os arquivos <BR>";
 set_time_limit(60);
 // processa lista de ofertas:
 	$array_linhas=manipula_arquivo_sigaa_atualiza_lista($semestre,$ano,$nome[0]);
-        $query_limpa=pg_query("delete from oferta_lista_sigra where semestre='".$semestre."' and ano='".$ano."'") or die("problema de acesso ao banco");
+        $query_limpa=db_query("delete from oferta_lista_sigra where semestre=? and ano=?", array($semestre, $ano)) or die("problema de acesso ao banco");
 	$processadas=processa_linhas_sigaa($array_linhas,$semestre,$ano);
 
 	//CORRIGIDO EM 18/12/2014
@@ -270,7 +270,7 @@ set_time_limit(60);
 	*/
 
 echo "<BR> Atualizando a lista de ofertas para o e-mural <BR>";
-        $query_limpa=pg_query("delete from oferta_lista_de_ofertas where semestre='".$semestre."' and ano='".$ano."'") or die ("problema de acesso ao banco");
+        $query_limpa=db_query("delete from oferta_lista_de_ofertas where semestre=? and ano=?", array($semestre, $ano)) or die ("problema de acesso ao banco");
 	$monta_emural=monta_ofertas_emural($semestre,$ano);
 
 echo "<BR> Atualizando a tabela oferta_semestres <BR>";
@@ -288,6 +288,6 @@ echo "<BR> Atualiza&ccedil;&otilde;es efetuadas.<BR>";
 <?php
 }
 
-pg_close($idconn);
+db_close($idconn);
 ?>
 

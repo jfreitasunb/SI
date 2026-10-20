@@ -37,8 +37,8 @@ function verif_touche(e)
 <table><br>
         <tr><td><b>Tipo de documento: </b></td><td><select name= 'id_tipo' size = '1'>
 		<?php
-                $res=pg_query("SELECT id_tipo,nometipo FROM admin_tipo") or die ("N? foi poss?el consultar o banco.");
-                while($registro=pg_fetch_row($res,$i))
+                $res=db_query("SELECT id_tipo,nometipo FROM admin_tipo", array()) or die ("N? foi poss?el consultar o banco.");
+                while($registro=db_fetch_row($res,$i))
                 	{
                         $cod=$registro[0];
                         $nome=$registro[1];

@@ -24,9 +24,9 @@
      //be get the data in the data-base and will put them in the object.
      function get_unix ($login)
      {
-       $query="select * from unix where login='".$login."'";
-       $result=pg_query($query);
-       $tab=pg_fetch_array($result,0);
+       $query="select * from unix where login=?"; $query__p = array($login);
+       $result=db_query($query, $query__p);
+       $tab=db_fetch_array($result,0);
        $this->login=$tab['login'];
        $this->passwd0=$tab['passwd0'];
        $this->passwd=$tab['passwd'];
@@ -45,7 +45,7 @@
        $this->cota_mail=$tab['cota_mail'];
        $this->tabela_user=$tab['tabela_user'];
        $this->ssh=$tab['ssh'];
-       pg_free_result($result);
+       db_free_result($result);
      }
 
      //The create_account function will record this object c_unix in the data-base.
@@ -54,9 +54,9 @@
      // $query="insert into unix values ('".$this->login."','".$this->passwd."',".$this->uid.",".$this->gid.",'".$this->class."','".$this->expire."',
        //                            '".$this->gecos."','".$this->homedir."','".$this->shell."','".$this->change."','".$this->coduser."')";
 
-	$query_confere_senha="select passwd from unix where coduser='".$_POST['coduser']."'";
-	$confere_senha=pg_query($query_confere_senha);
-	$confere_senha_array=pg_fetch_array($confere_senha,0);
+	$query_confere_senha="select passwd from unix where coduser=?"; $query_confere_senha__p = array($_POST['coduser']);
+	$confere_senha=db_query($query_confere_senha, $query_confere_senha__p);
+	$confere_senha_array=db_fetch_array($confere_senha,0);
 
 	$senha_a_conferir=crypt($this->passwd0);
 //echo "senha que esta no banco: ".$confere_senha_array[0];
@@ -69,28 +69,26 @@
 	if ((!empty($this->passwd)) and ((crypt($this->passwd0,$confere_senha_array[0])==$confere_senha_array[0]) or ($muda_senha=="sim")))
 //	if ((!empty($this->passwd)) and ($this->passwd0==$confere_senha_array[0]))
 	{
-	$query="update unix set passwd='".crypt($this->passwd)."', cota_impressao='".$this->cota_impressao."',cota_disco='".$this->cota_disco."',cota_mail='".$this->cota_mail."',ssh='".$this->ssh."' where coduser='".$_POST['coduser']."'";
+	$query="update unix set passwd=?, cota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?"; $query__p = array(crypt($this->passwd), $this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $_POST['coduser']);
 //	require 'atualiza_samba.php';
 //	$nt_has=ntPasswordHash($this->passwd);
 //	$lan_has=lmPasswordHash($this->$passwd);
 //	$query="update unix set passwd='".crypt($this->passwd)."', cota_impressao='".$this->cota_impressao."',cota_disco='".$this->cota_disco."',cota_mail='".$this->cota_mail."',ssh='".$this->ssh."', lan_has='".$lan_hash."',nt_hash='".$nt_hash."' where coduser='".$_POST['coduser']."'";
 
 // muda senha na tabela admin se exustir usuario:
-	$select_admin=pg_query("select * from admin where coduser='".$_POST['coduser']."'");
-	$num_admin=pg_num_rows($select_admin);
+	$select_admin=db_query("select * from admin where coduser=?", array($_POST['coduser']));
+	$num_admin=db_num_rows($select_admin);
 	if ($num_admin!=0) 
 		{
-		$query_update="update admin set passwd='".md5($this->passwd)."' where coduser='".$_POST['coduser']."'";
-		$res_query=pg_query($query_update) or die ("problemas de conexao com o banco");
+		$query_update="update admin set passwd=? where coduser=?"; $query_update__p = array(md5($this->passwd), $_POST['coduser']);
+		$res_query=db_query($query_update, $query_update__p) or die ("problemas de conexao com o banco");
 		}
 	}
 	else
 	{
-	$query="update unix set 
-cota_impressao='".$this->cota_impressao."',cota_disco='".$this->cota_disco."',cota_mail='".$this->cota_mail."',ssh='".$this->ssh."' 
-where coduser='".$_POST['coduser']."'";
+	$query="update unix set \ncota_impressao=?,cota_disco=?,cota_mail=?,ssh=? \nwhere coduser=?"; $query__p = array($this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $_POST['coduser']);
 	}
-	$result=pg_query($query);
+	$result=db_query($query, $query__p);
         }
 	
 

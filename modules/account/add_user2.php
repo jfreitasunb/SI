@@ -1,8 +1,7 @@
 <?php
   require("head_account.php");
-   $query="select * from users where matricul='".$_POST['matricul']."' or identity= '".$_POST['identity']."' or cpf='".$_POST['cpf']."'";
-   $result=pg_query($query);
-   $count=pg_num_rows($result);
+   $result=db_query("select * from users where matricul=? or identity= ? or cpf=?", array($_POST['matricul'], $_POST['identity'], $_POST['cpf']));
+   $count=db_num_rows($result);
 ?>
 <html>
    <header>
@@ -82,25 +81,21 @@
      $compte->set_cp         ($_POST['cp']         ) ;
      $compte->set_city       ($_POST['city']       ) ;
      $compte->set_coduser($compte->add_user ());
-     $query="insert into mail values('".$_POST['mail1']."',". $compte->get_coduser().")";
-     $result=pg_query($query);
-     pg_free_result($result);
+     $result=db_query("insert into mail values(?,?)", array($_POST['mail1'], $compte->get_coduser()));
+      db_free_result($result);
   
      if (!empty($_POST['mail2']))
      {
-       $query="insert into mail values('".$_POST['mail2']."',". $compte->get_coduser().")";
-       $result=pg_query($query);
-       pg_free_result($result);
+       $result=db_query("insert into mail values(?,?)", array($_POST['mail2'], $compte->get_coduser()));
+        db_free_result($result);
        if (!empty($_POST['mail3']))
        {
-         $query="insert into mail values('".$_POST['mail3']."',". $compte->get_coduser().")";
-         $result=pg_query($query);
-         pg_free_result($result);
+         $result=db_query("insert into mail values(?,?)", array($_POST['mail3'], $compte->get_coduser()));
+          db_free_result($result);
          if (!empty($_POST['mail4']))
          {
-           $query="insert into mail values('".$_POST['mail4']."',". $compte->get_coduser().")";
-           $result=pg_query($query);
-           pg_free_result($result);
+           $result=db_query("insert into mail values(?,?)", array($_POST['mail4'], $compte->get_coduser()));
+            db_free_result($result);
          }
        }
      }   
@@ -198,11 +193,11 @@
         </tr>
 <?php
   $query2="select idmodule,name from module";
-  $result2=pg_query($query2);
-  $count2=pg_num_rows($result2);
+  $result2=db_query($query2);
+  $count2=db_num_rows($result2);
   for ($y;$y<$count2;$y++)
   {
-    $tab2=pg_fetch_array($result2,$y);
+    $tab2=db_fetch_array($result2,$y);
 ?>
   <tr>
     <td>
@@ -246,5 +241,5 @@
 </html>
 <?php
   }
-  pg_close($idconn);
+  $idconn = null;
 ?>

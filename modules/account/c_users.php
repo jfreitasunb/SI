@@ -20,9 +20,9 @@
      function get_user ($coduser)
      {
        $this->coduser=$coduser;
-       $query="select from users where coduser=".$coduser;
-       $result=pg_query($query);
-       $obj=pg_fetcht_array($result,0);
+       $query="select from users where coduser=?"; $query__p = array($coduser);
+       $result=db_query($query, $query__p);
+       $obj=db_fetch_array($result,0);
        $this->name=$obj['name'];
        $this->firstname=$obj['firstname'];
        $this->matricul=$obj['matricul'];
@@ -38,29 +38,19 @@
      //The add_user function will record this object c_user in the data-base.
      function add_user ()
      {
-       $query="insert into users (name, firstname, matricul, cpf, identity, phone_home,
-                      phone_work, adresse, cp, city, is_actif)values(
-                      '".$this->name."', '".$this->firstname."',
-                      '".$this->matricul."', '".$this->cpf."',
-                      '".$this->identity."', '".$this->phone_home."',
-                      '".$this->phone_work."', '".$this->adresse."',
-                      '".$this->cp."', '".$this->city."', true)";
-      $result=pg_query($query);
-      $query2="select coduser from users where matricul='".$this->matricul."' and cpf='".$this->cpf."' and identity='".$this->identity."'";
-      $result2=pg_query($query2);
-      $tab=pg_fetch_array($result2);
+       $query="insert into users (name, firstname, matricul, cpf, identity, phone_home,\n                      phone_work, adresse, cp, city, is_actif)values(\n                      ?, ?,\n                      ?, ?,\n                      ?, ?,\n                      ?, ?,\n                      ?, ?, true)"; $query__p = array($this->name, $this->firstname, $this->matricul, $this->cpf, $this->identity, $this->phone_home, $this->phone_work, $this->adresse, $this->cp, $this->city);
+      $result=db_query($query, $query__p);
+      $query2="select coduser from users where matricul=? and cpf=? and identity=?"; $query2__p = array($this->matricul, $this->cpf, $this->identity);
+      $result2=db_query($query2, $query2__p);
+      $tab=db_fetch_array($result2);
       return $tab['coduser'];
      }
 
      //The update_user function will record the modifications to this user.
      function update_user ()
      {
-        $query="update users set name='Grebot', firstname='Yannick', 
-                      matricul='007', cpf='007', 
-                      identity='007', phone_home='0494895687', 
-                      phone_work='-----', adresse='France : 465 chemin des terriers', 
-                      cp='83470', city='Saint Maximin', is_actif=true";        
-        $result=pg_query($query);
+        $query="update users set name='Grebot', firstname='Yannick', \n                      matricul='007', cpf='007', \n                      identity='007', phone_home='0494895687', \n                      phone_work='-----', adresse='France : 465 chemin des terriers', \n                      cp='83470', city='Saint Maximin', is_actif=true"; $query__p = array();        
+        $result=db_query($query, $query__p);
      }
 
      //The Set methods allows to access to datas members

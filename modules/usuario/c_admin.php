@@ -11,34 +11,34 @@
      //be get the data in the data-base and will put them in the object.
      function get_admin($login)
      {
-       $query="select * from admin where login=".$login;
-       $result=pg_query($query);
-       $tab=pg_fetch_array($result, 0);
+       $query="select * from admin where login=?"; $query__p = array($login);
+       $result=db_query($query, $query__p);
+       $tab=db_fetch_array($result, 0);
        $this->login=$tab['login'];
        $this->passwd=$tab['passwd'];
        $this->coduser=$tab['coduser'];
-       pg_free_result($result);
+       db_free_result($result);
      }
 
       //The create_account function will record this object c_samba into the data-base.
      function create_account()
      {
        //We create the account in the database
-       $query="insert into admin values('".$this->login."','".md5($this->passwd)."','".$this->coduser."')";
-       $result=pg_query($query);
-       pg_free_result($result);
+       $query="insert into admin values(?,?,?)"; $query__p = array($this->login, md5($this->passwd), $this->coduser);
+       $result=db_query($query, $query__p);
+       db_free_result($result);
        //Foreach module we give the default right 0 for the new user
-       $query2="select idmodule from module";
-       $result2=pg_query($query2);
-       $count2=pg_num_rows($result2);
+       $query2="select idmodule from module"; $query2__p = array();
+       $result2=db_query($query2, $query2__p);
+       $count2=db_num_rows($result2);
        for ($i=0; $i<$count2; $i++)
        { 
-          $tab2=pg_fetch_array($result2,$i);
-          $query3="insert into permission values('".$this->login."','".$tab2['idmodule']."','0')";
-          $result3=pg_query($query3);
-          pg_free_result($result3); 
+          $tab2=db_fetch_array($result2,$i);
+          $query3="insert into permission values(?,?,'0')"; $query3__p = array($this->login, $tab2['idmodule']);
+          $result3=db_query($query3, $query3__p);
+          db_free_result($result3); 
        } 
-       pg_free_result($result2);
+       db_free_result($result2);
      }
 
      //The Set methods allows to access to datas members

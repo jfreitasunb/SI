@@ -56,16 +56,16 @@
           <td>
 
 <?php
-     $query="select * from users where name<>'root' and (tipo_users='professor' or tipo_users='administrativo') order by name";
-     $result=pg_query($query);
-     $nb_enreg=pg_num_rows($result);
+     $query="select * from users where name<>'root' and (tipo_users='professor' or tipo_users='administrativo') order by name"; $query__p = array();
+     $result=db_query($query, $query__p);
+     $nb_enreg=db_num_rows($result);
      $i=0;
 ?>
             <select name='user' onchange="enregistrement(utilisateurs,this.selectedIndex,nb_enreg);">>
 <?php
             for ($i=0;$i<$nb_enreg;$i++)
             {
-               $tab=pg_fetch_array($result, $i);
+               $tab=db_fetch_array($result, $i);
 
                $param="'".$tab['coduser']."'"; //,'".$tab['name']."','".$tab['firstname']."','".$tab['matricul']."'";
               $param=str_replace(CHR(10)," ",$param);
@@ -114,12 +114,12 @@
           </td>
         </tr>
 <?php
-  $query2="select idmodule,name from module";
-  $result2=pg_query($query2);
-  $count2=pg_num_rows($result2);
+  $query2="select idmodule,name from module"; $query2__p = array();
+  $result2=db_query($query2, $query2__p);
+  $count2=db_num_rows($result2);
   for ($y;$y<$count2;$y++)
   {
-    $tab2=pg_fetch_array($result2,$y);
+    $tab2=db_fetch_array($result2,$y);
 ?>
   <tr>
     <td>
@@ -156,5 +156,5 @@
 </html>
 <?php
 
-  pg_close($idconn);
+  db_close($idconn);
 ?>

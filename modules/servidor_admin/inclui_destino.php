@@ -43,8 +43,8 @@ $cidade=mb_convert_encoding($dado[7],"UTF-8");
 
 // id_departamento | nomedepartamento | sigla | descricao | fone | pessoadecontato | rua | bairro | cidade | uf | cep
 
-$query_admin_departamento="insert into admin_departamento values(default,'$nomedepartamento','$sigla','$descricao','$dado[3]','$pessoadecontato','$rua','$bairro','$cidade','$dado[8]','$dado[9]')";
-$result=pg_query($query_admin_departamento);
+$query_admin_departamento="insert into admin_departamento values(default,?,?,?,?,?,?,?,?,?,?)"; $query_admin_departamento__p = array($nomedepartamento, $sigla, $descricao, $dado[3], $pessoadecontato, $rua, $bairro, $cidade, $dado[8], $dado[9]);
+$result=db_query($query_admin_departamento, $query_admin_departamento__p);
 //}
 }
 ?>

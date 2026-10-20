@@ -56,12 +56,12 @@ else {
 	}
 
 //busca pelos documentos a partir do "tipo" especificado.
-$resultado=pg_query("SELECT id_documentador,$coluna,id_departamento,mensagem,id_assinatura,assinante,assunto
+$resultado=db_query("SELECT id_documentador,$coluna,id_departamento,mensagem,id_assinatura,assinante,assunto
       FROM $tabela
-      WHERE id_tipo='$id_tipo'
+      WHERE id_tipo=?
       ORDER BY id_documentador DESC
-      LIMIT 10 OFFSET $xpagina") or die ("N? foi poss?el realizar a consulta ao banco de dados");
-$contador=pg_num_rows($resultado);
+      LIMIT 10 OFFSET ?", array($id_tipo, (int)$xpagina));
+$contador=db_num_rows($resultado);
 
 //mostrar na tela o resultado.
 if ($contador == 0)
@@ -77,7 +77,7 @@ else
 	$i=0;
 	while ($i<$contador)
 			{
-			$linha=pg_fetch_array($resultado,$i);
+			$linha=db_fetch_array($resultado,$i);
 			$id_documentador=trim($linha["id_documentador"]);
 			$_coluna=trim($linha[$coluna]);
 
@@ -88,10 +88,8 @@ else
 				// busca pelo "destino"
 				if ($id_departamento!="")
 				{
-				$query1="SELECT nomedepartamento FROM admin_departamento WHERE id_departamento ='".$id_departamento."'";
-                        	$resultado1=pg_query($query1) or die("N? foi poss?el executar a opera?o. Contacte a Coordena?o de
-                         	Inform?ica.");
-                        	$row1=pg_fetch_row($resultado1);
+				$resultado1=db_query("SELECT nomedepartamento FROM admin_departamento WHERE id_departamento =?", array($id_departamento));
+                        	$row1=db_fetch_row($resultado1);
 				}
 				else $row1[0]="";
 				}
@@ -103,16 +101,14 @@ else
 				// busca pelo "nome" e "cargo" de assinatura
 				if ($assinatura!="")
 				{
-				$query2="SELECT cargo FROM admin_assinatura WHERE id_assinatura = '".$assinatura."'";
-				$resultado2=pg_query($query2) or die("N? foi poss?el executar a opera?o. Contacte a Coordena?o de Inform?ica.");
-				$row2= pg_fetch_row($resultado2);
+				$resultado2=db_query("SELECT cargo FROM admin_assinatura WHERE id_assinatura = ?", array($assinatura));
+				$row2= db_fetch_row($resultado2);
 				}
 				else $row2[0]="";
 				if ($assinante!="")
 				{
-				$query21="SELECT name, firstname FROM users WHERE coduser = '".$assinante."'";
-				$resultado21=pg_query($query21) or die("N? foi poss?el executar a opera?o. Contacte a Coordena?o de Inform?ica.");
-				$row21= pg_fetch_row($resultado21);
+				$resultado21=db_query("SELECT name, firstname FROM users WHERE coduser = ?", array($assinante));
+				$row21= db_fetch_row($resultado21);
 				}
 				else 
 				{

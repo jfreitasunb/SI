@@ -3,7 +3,7 @@ require("head_contas_especiais.php");
 
 
 
-$query_contas=pg_query("select * from contas_especiais order by nome_conta");
+$query_contas=db_query("select * from contas_especiais order by nome_conta", array());
 
 
 //print $num_submetido;
@@ -39,7 +39,7 @@ r>
         <tr><td colspan=4 class=header align=center>Contas j&aacute; existentes</td></tr>
         <tr><td><b>Ativar/Desativar</b></td><td> <b>Nome da conta</b></td><td><b>Descri&ccedil;&atilde;o</b></td><td><b>Status</b></td></b></tr>
                 <?php
-                 while($registro = pg_fetch_row($query_contas)) //enquanto houver                           
+                 while($registro = db_fetch_row($query_contas)) //enquanto houver                           
                         {
 //			$descricao=mb_convert_encoding($registro[2],"UTF-8");
 			$descricao=$registro[2];
@@ -79,12 +79,12 @@ if (isset($_POST['seleciona']))
 	{
        $valor_da_conta=explode("-",$_POST['eliminar']);
         if ($valor_da_conta[2]=="desativada") $status="ativa"; else $status="desativada";
-	$query_elimina="update contas_especiais set status='".$status."' where codigo='".$valor_da_conta[0]."'";
-	$res_elimina=pg_query($query_elimina);
+	list($query_elimina, $query_elimina__p) = array("update contas_especiais set status=? where codigo=?", array($status, $valor_da_conta[0]));
+	$res_elimina=db_query($query_elimina, $query_elimina__p);
         $nome_da_conta=$valor_da_conta[1];
-	$pega_descricao="select descricao from contas_especiais where codigo='".$valor_da_conta[0]."'";
-        $query_descricao=pg_query($pega_descricao);
-        $res_descricao=pg_fetch_row($query_descricao);
+	list($pega_descricao, $pega_descricao__p) = array("select descricao from contas_especiais where codigo=?", array($valor_da_conta[0]));
+        $query_descricao=db_query($pega_descricao, $pega_descricao__p);
+        $res_descricao=db_fetch_row($query_descricao);
 // ##############  Permitir o estabelecimento de uma nova senha
         if ($status=="ativa") 
            {
@@ -172,8 +172,8 @@ if (isset($_POST['seleciona']))
 	   }
 	else 
 	   {
-	   $atualiza_unix="update unix set passwd='".crypt($_POST['senha1'])."' where login='".$_POST['nome_conta']."'";
-           $query_unix=pg_query($atualiza_unix);
+	   list($atualiza_unix, $atualiza_unix__p) = array("update unix set passwd=? where login=?", array(crypt($_POST['senha1']), $_POST['nome_conta']));
+           $query_unix=db_query($atualiza_unix, $atualiza_unix__p);
            //echo $atualiza_unix;
 	   echo "\n";
            echo "Conta ".$_POST['nome_conta']."@mat.unb.br atualizada com sucesso.";	   
@@ -202,9 +202,9 @@ if (isset($_POST['seleciona']))
 	//NMBUPGRADE// $nome_limpo=preg_replace($substituto,'',$_POST['nome_conta']);
     $nome_limpo=preg_replace_callback($substituto, function ($matches) { return ''; }, $_POST['nome_conta']);
 
-        $pega_nome="select login from unix where login='".$nome_limpo."'";
-        $query_unix=pg_query($pega_nome);
-        $num_unix=pg_num_rows($query_unix);
+        list($pega_nome, $pega_nome__p) = array("select login from unix where login=?", array($nome_limpo));
+        $query_unix=db_query($pega_nome, $pega_nome__p);
+        $num_unix=db_num_rows($query_unix);
 
 // ver como determinar se esses caracteres fazem parte do nome
 	// Se houver acentos ou caracteres proibidos, solicitar outro nome antes de continuar:
@@ -240,7 +240,7 @@ if (isset($_POST['seleciona']))
         <tr><td colspan=4 class=header align=center>Contas j&aacute; existentes</td></tr>
       <tr><td><b>Ativar/Desativar</b></td><td> <b>Nome da conta</b></td><td><b>Descri&ccedil;&atilde;o</b></td><td><b>Status</b></td></b></tr>
                 <?php
-                 while($registro = pg_fetch_row($query_contas)) //enquanto houver
+                 while($registro = db_fetch_row($query_contas)) //enquanto houver
                         {
 //                        $descricao=mb_convert_encoding($registro[2],"UTF-8");
                         $descricao=$registro[2];
@@ -280,21 +280,21 @@ rmar senha</b></td></tr>
 		{
 //		$descricao=mb_convert_encoding($_POST['descricao'],"ISO-8859-1","UTF-8");
 		$descricao=$_POST['descricao'];
-		$query_cria="insert into contas_especiais values(default,'".$_POST['nome_conta']."','".$descricao."','".$data_de_hoje."','ativa')";
-		$res_cria=pg_query($query_cria);
-                $pega_codigo="select codigo from contas_especiais where nome_conta='".$_POST['nome_conta']."'";
-                $query_codigo=pg_query($pega_codigo);
-                $res_codigo=pg_fetch_row($query_codigo);
+		list($query_cria, $query_cria__p) = array("insert into contas_especiais values(default,?,?,?,'ativa')", array($_POST['nome_conta'], $descricao, $data_de_hoje));
+		$res_cria=db_query($query_cria, $query_cria__p);
+                list($pega_codigo, $pega_codigo__p) = array("select codigo from contas_especiais where nome_conta=?", array($_POST['nome_conta']));
+                $query_codigo=db_query($pega_codigo, $pega_codigo__p);
+                $res_codigo=db_fetch_row($query_codigo);
 
-                $pega_uid="select uid+1 from unix order by uid desc limit 1"; 
-                $query_uid=pg_query($pega_uid);
-                $res_uid=pg_fetch_row($query_uid);
+                list($pega_uid, $pega_uid__p) = array("select uid+1 from unix order by uid desc limit 1", array()); 
+                $query_uid=db_query($pega_uid, $pega_uid__p);
+                $res_uid=db_fetch_row($query_uid);
                 $uid=$res_uid[0];
 
                 $homedir="/home/".$_POST['nome_conta'];
 //		echo "insert into unix values('".$_POST['nome_conta']."','".crypt($_POST['senha1'])."','".$uid."','10000','1','','".$homedir."','/bin/tcsh','0','0','500Mb','100Mb','contas_especiais','nao')"; 
-		$query_unix="insert into unix values('".$_POST['nome_conta']."','".crypt($_POST['senha1'])."','".$uid."','10000','1','','".$homedir."','/bin/tcsh','0','0','500Mb','100Mb','contas_especiais','nao')"; 
-		$res_unix=pg_query($query_unix);
+		list($query_unix, $query_unix__p) = array("insert into unix values(?,?,?,'10000','1','',?,'/bin/tcsh','0','0','500Mb','100Mb','contas_especiais','nao')", array($_POST['nome_conta'], crypt($_POST['senha1']), $uid, $homedir)); 
+		$res_unix=db_query($query_unix, $query_unix__p);
 
 // $query="insert into unix values ('".$this->login."','".crypt($this->passwd)."','".$uid[0]."','".$gid."','1','".$this->gecos."','/home/".$this->login."','bash','0','".$cota_impressao."','".$cota_disco."','".$cota_mail."','".$tabela_user."','".$ssh."')";
 
@@ -303,5 +303,5 @@ rmar senha</b></td></tr>
 		}
 	}
 }
-pg_close($idconn);
+db_close($idconn);
 ?>

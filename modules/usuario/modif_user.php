@@ -31,26 +31,26 @@
           <td>Utilize o menu para selecionar o Usuário</td>
           <td>
 <?php
-     $query="select * from users order by name";
-     $result=pg_query($query);
-     $nb_enreg=pg_num_rows($result);
+     list($query, $query__p) = array("select * from users order by name", array());
+     $result=db_query($query, $query__p);
+     $nb_enreg=db_num_rows($result);
      $i=0;
 ?>
             <select name='user' onchange="enregistrement(utilisateurs,this.selectedIndex,nb_enreg);">>
 <?php
             for ($i=0;$i<$nb_enreg;$i++)
             {
-               $tab=pg_fetch_array($result, $i);
+               $tab=db_fetch_array($result, $i);
 
-       $test1="select * from admin where coduser=".$tab['coduser'];
-       $test2="select * from unix where coduser=".$tab['coduser'];
-       $test3="select * from samba where coduser=".$tab['coduser'];
-       $res1=pg_query($test1);
-       $res2=pg_query($test2);
-       $res3=pg_query($test3);
-       $nbre1=pg_num_rows($res1);
-       $nbre2=pg_num_rows($res2);
-       $nbre3=pg_num_rows($res3);
+       list($test1, $test1__p) = array("select * from admin where coduser=?", array($tab['coduser']));
+       list($test2, $test2__p) = array("select * from unix where coduser=?", array($tab['coduser']));
+       list($test3, $test3__p) = array("select * from samba where coduser=?", array($tab['coduser']));
+       $res1=db_query($test1, $test1__p);
+       $res2=db_query($test2, $test2__p);
+       $res3=db_query($test3, $test3__p);
+       $nbre1=db_num_rows($res1);
+       $nbre2=db_num_rows($res2);
+       $nbre3=db_num_rows($res3);
                $param="'".$tab['coduser']."','".$tab['name']."','".$tab['firstname']."','".$tab['matricul']."','".$tab['cpf']."','".$tab['identity']."','".$tab['phone_work']."','".$tab['phone_home']."','".$tab['adresse']."','".$tab['cp']."','".$tab['city']."',".$nbre1.",".$nbre2.",".$nbre3;
                $param=str_replace(CHR(10)," ",$param);
                $param=str_replace(CHR(13)," ",$param);
@@ -82,9 +82,9 @@
 <?php
   if (isset($_GET['US']))
   { 
-    $query2="select * from users where coduser=".$_GET['US'];
-    $result2=pg_query($query2);
-    $tab2=pg_fetch_array($result2,0);
+    list($query2, $query2__p) = array("select * from users where coduser=?", array($_GET['US']));
+    $result2=db_query($query2, $query2__p);
+    $tab2=db_fetch_array($result2,0);
   }
 ?>
     <tr>
@@ -215,5 +215,5 @@
     </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

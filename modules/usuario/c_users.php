@@ -21,9 +21,9 @@
      function get_user ($coduser)
      {
        $this->coduser=$coduser;
-       $query="select from users where coduser=".$coduser;
-       $result=pg_query($query);
-       $obj=pg_fetcht_array($result,0);
+       $query="select from users where coduser=?"; $query__p = array($coduser);
+       $result=db_query($query, $query__p);
+       $obj=db_fetch_array($result,0);
        $this->name=$obj['name'];
        $this->firstname=$obj['firstname'];
        $this->matricul=$obj['matricul'];
@@ -46,17 +46,11 @@
         $endereco=mb_convert_encoding($this->adresse,"UTF-8");
         $cidade=mb_convert_encoding($this->city,"UTF-8");
 
-       $query="insert into users (name, firstname, matricul, cpf, identity, phone_home,
-                      phone_work, adresse, cp, city, is_actif,tipo_users)values(
-                      '".$nome."', '".$sobrenome."',
-                      '".$this->matricul."', '".$this->cpf."',
-                      '".$this->identity."', '".$this->phone_home."',
-                      '".$this->phone_work."', '".$endereco."',
-                      '".$this->cp."', '".$cidade."', 'true','".$this->status_usuario."')";
-      $result=pg_query($query);
-      $query2="select coduser from users where matricul='".$this->matricul."' and cpf='".$this->cpf."' and identity='".$this->identity."'";
-      $result2=pg_query($query2);
-      $tab=pg_fetch_array($result2);
+       $query="insert into users (name, firstname, matricul, cpf, identity, phone_home,\n                      phone_work, adresse, cp, city, is_actif,tipo_users)values(\n                      ?, ?,\n                      ?, ?,\n                      ?, ?,\n                      ?, ?,\n                      ?, ?, 'true',?)"; $query__p = array($nome, $sobrenome, $this->matricul, $this->cpf, $this->identity, $this->phone_home, $this->phone_work, $endereco, $this->cp, $cidade, $this->status_usuario);
+      $result=db_query($query, $query__p);
+      $query2="select coduser from users where matricul=? and cpf=? and identity=?"; $query2__p = array($this->matricul, $this->cpf, $this->identity);
+      $result2=db_query($query2, $query2__p);
+      $tab=db_fetch_array($result2);
       return $tab['coduser'];
      }
 
@@ -79,8 +73,8 @@
      {
 //	$this->coduser=$coduser
 // $this->coduser=$coduser;
-       $query="select coduser from users where matricul=".$coduser;
-	$matricula_a_mudar=pg_query($query);
+       $query="select coduser from users where matricul=?"; $query__p = array($coduser);
+	$matricula_a_mudar=db_query($query, $query__p);
 
 /*        $query="update users set name='teste3', firstname='Cristiano', 
                       matricul='222222', cpf='2222222', 
@@ -89,10 +83,9 @@
                       cp='22222', city='teste2', is_actif=true where coduser=".$coduser;        
 */
 	$new_coduser=$matricula_a_mudar+1;
-        $query="insert into users values ('".$new_coduser."','teste3', 'teste3','332222', '3322222', '332222', '222222', '-----', 'teste2', 
-                    '22222', 'teste2', 't','visitor')";
+        $query="insert into users values (?,'teste3', 'teste3','332222', '3322222', '332222', '222222', '-----', 'teste2', \n                    '22222', 'teste2', 't','visitor')"; $query__p = array($new_coduser);
 
-        $result=pg_query($query);
+        $result=db_query($query, $query__p);
      }
 
      //The Set methods allows to access to datas members

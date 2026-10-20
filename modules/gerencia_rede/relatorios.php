@@ -11,9 +11,9 @@
 function relatorio($query_pesquisa,$host)
 {
 
-	$result=pg_query($query_pesquisa);
-	$retorna=pg_fetch_all($result);
-	$linhas=pg_num_rows($result);
+	$result=db_query($query_pesquisa);
+	$retorna=db_fetch_all($result);
+	$linhas=db_num_rows($result);
 
 	if (!empty($retorna)) 
 	{
@@ -114,8 +114,8 @@ if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, fa√
 				<option value="todos">Todos os usu&aacute;rios</option>
 				<option value="MAT">M&aacute;quina do MAT</option>
 				<?php                                   		 	// gera a lista de usuarios registrados
-				$res = pg_query("SELECT * FROM users where name<>'root' order by name");
-				while($registro = pg_fetch_row($res)) 				//enquanto houver registro escreva
+				$res = db_query("SELECT * FROM users where name<>'root' order by name");
+				while($registro = db_fetch_row($res)) 				//enquanto houver registro escreva
 					{
 					$coduser = $registro[0];  		         	// primeira coluna da tabela usuario
 					$titulo = $registro[1]." ".$registro[2];         	// segunda coluna da tabela usuario
@@ -150,8 +150,8 @@ if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, fa√
         <td> Sala: </td><td><select size="1" name="sala">
                                 <option value="todas">Todas as salas</option>
 			        <?php                                                   	// gera a lista de salas registradas
-			         $res_sala = pg_query("SELECT * FROM room where codloc<>'123' order by codloc");
-		                 while($registro_sala = pg_fetch_row($res_sala)) 		//enquanto houver registro escreva
+			         $res_sala = db_query("SELECT * FROM room where codloc<>'123' order by codloc");
+		                 while($registro_sala = db_fetch_row($res_sala)) 		//enquanto houver registro escreva
 			                {
                         		$codloc = $registro_sala[0];                		// primeira coluna da tabela usuario
 					$descricao=$registro_sala[1];
@@ -203,38 +203,38 @@ else	////////////////// Pesquisa do equipamento ////////////////////////////////
 and computers.host like '".$host."_%'"; 
 	else 
 	$query_pesquisa="select users.name, users.firstname, computers.* from users,computers where (substring(computers.host from 
-'^...')=users.coduser and coduser='".$host."')"; 
+'^...')=users.coduser and coduser=".db_quote($host).")"; 
 //	else $query_pesquisa="select users.name, users.firstname, computers.* from users, computers where host like '".$host."_%' and 
-//coduser='".$host."'";
+//coduser=".db_quote($host)."";
 	if (!empty($_POST['patrimonio'])) $query_pesquisa=$query_pesquisa." and maqcod like '%".$_POST['patrimonio']."%'";
-	if ($tipo!="todos") $query_pesquisa=$query_pesquisa." and tipo_maquina='".$tipo."'";
-	if ($status!="todas") $query_pesquisa=$query_pesquisa." and computers.status='".$status."'";
-	if ($sala!="todas") $query_pesquisa=$query_pesquisa." and codloc='".$sala."'";
-	if (($_POST['IP1']!="") and ($_POST['IP2']!="")) $query_pesquisa=$query_pesquisa." and ipnet='".$ipnet."'";
+	if ($tipo!="todos") $query_pesquisa=$query_pesquisa." and tipo_maquina=".db_quote($tipo)."";
+	if ($status!="todas") $query_pesquisa=$query_pesquisa." and computers.status=".db_quote($status)."";
+	if ($sala!="todas") $query_pesquisa=$query_pesquisa." and codloc=".db_quote($sala)."";
+	if (($_POST['IP1']!="") and ($_POST['IP2']!="")) $query_pesquisa=$query_pesquisa." and ipnet=".db_quote($ipnet)."";
 	if (($_POST['IP1']!="") and ($_POST['IP2']=="")) $query_pesquisa=$query_pesquisa." and ipnet like '".$_POST['IP0'].".".$_POST['IP1'].".%'";
 	if (($_POST['IP1']=="") and ($_POST['IP2']!="")) $query_pesquisa=$query_pesquisa." and ipnet like '".$_POST['IP0'].".%.".$_POST['IP2']."'";
-	if ($data!="nulo") $query_pesquisa=$query_pesquisa." and data_encerramento <= '".$data."'";
-	$query_pesquisa=$query_pesquisa." and mac like '".$mac."' order by host";
+	if ($data!="nulo") $query_pesquisa=$query_pesquisa." and data_encerramento <= ".db_quote($data)."";
+	$query_pesquisa=$query_pesquisa." and mac like ".db_quote($mac)." order by host";
 	}
 	else 
 	{
 	$query_pesquisa="select users.name, users.firstname, computers.* from users,computers where (substring(computers.host from 
 '^...')=users.coduser or (users.name='Guy' and computers.host like 'MAT_%'))"; 
 	if (!empty($_POST['patrimonio'])) $query_pesquisa=$query_pesquisa." and maqcod like '%".$_POST['patrimonio']."%'";
-	if ($tipo!="todos") $query_pesquisa=$query_pesquisa." and tipo_maquina='".$tipo."'";
-	if ($status!="todas") $query_pesquisa=$query_pesquisa." and computers.status='".$status."'";
-	if ($sala!="todas") $query_pesquisa=$query_pesquisa." and codloc='".$sala."'";
-	if (($_POST['IP1']!="") and ($_POST['IP2']!="")) $query_pesquisa=$query_pesquisa." and ipnet='".$ipnet."'";
+	if ($tipo!="todos") $query_pesquisa=$query_pesquisa." and tipo_maquina=".db_quote($tipo)."";
+	if ($status!="todas") $query_pesquisa=$query_pesquisa." and computers.status=".db_quote($status)."";
+	if ($sala!="todas") $query_pesquisa=$query_pesquisa." and codloc=".db_quote($sala)."";
+	if (($_POST['IP1']!="") and ($_POST['IP2']!="")) $query_pesquisa=$query_pesquisa." and ipnet=".db_quote($ipnet)."";
 	if (($_POST['IP1']!="") and ($_POST['IP2']=="")) $query_pesquisa=$query_pesquisa." and ipnet like '".$_POST['IP0'].".".$_POST['IP1'].".%'";
 	if (($_POST['IP1']=="") and ($_POST['IP2']!="")) $query_pesquisa=$query_pesquisa." and ipnet like '".$_POST['IP0'].".%.".$_POST['IP2']."'";
-	if ($data!="nulo") $query_pesquisa=$query_pesquisa." and data_encerramento <= '".$data."'";
-	$query_pesquisa=$query_pesquisa." and mac like '".$mac."' order by name, host";
+	if ($data!="nulo") $query_pesquisa=$query_pesquisa." and data_encerramento <= ".db_quote($data)."";
+	$query_pesquisa=$query_pesquisa." and mac like ".db_quote($mac)." order by name, host";
 	}
 ///////////////////////////////////
 
-//	$res_pesquisa=pg_query($query_pesquisa);
-//	$linhas_pesquisa=pg_num_rows($res_pesquisa);
-//	$data_pesquisa=pg_fetch_array($res_pesquisa,0);
+//	$res_pesquisa=db_query($query_pesquisa);
+//	$linhas_pesquisa=db_num_rows($res_pesquisa);
+//	$data_pesquisa=db_fetch_array($res_pesquisa,0);
 
 // escrever os dados ordenados!!
 ?>
@@ -261,5 +261,5 @@ and computers.host like '".$host."_%'";
 		</html>
 <?php
 }
-pg_close($idconn);
+db_close($idconn);
 ?>

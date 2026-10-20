@@ -4,7 +4,7 @@ require("head_listas.php");
 
 //select * from listas_de_mails;
 // id_lista | nome_lista | descricao | e_mails (lista de coduser) | status (ativada/desativada)
-$query_contas=pg_query("select * from listas_de_mails order by nome_lista");
+$query_contas=db_query("select * from listas_de_mails order by nome_lista", array());
 
 
 //print $num_submetido;
@@ -40,7 +40,7 @@ r>
         <tr><td colspan=4 class=header align=center>Editar uma lista j&aacute; existentes</td></tr>
         <tr><td><b>Ativar/Desativar</b></td><td> <b>Nome da lista</b></td><td><b>Descri&ccedil;&atilde;o</b></td><td><b>Status</b></td></b></tr>
                 <?php
-                 while($registro = pg_fetch_row($query_contas)) //enquanto houver                           
+                 while($registro = db_fetch_row($query_contas)) //enquanto houver                           
                         {
 //			$descricao=mb_convert_encoding($registro[2],"UTF-8");
                         $valor_da_conta=$registro[0]."-".$registro[1]."-".$registro[3]."-".$registro[4];
@@ -70,5 +70,5 @@ r>
 <?php
 }
 
-pg_close($idconn);
+db_close($idconn);
 ?>

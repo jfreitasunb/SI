@@ -11,7 +11,7 @@ $ordena=$_POST['ordena'];
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   </header>
 <?php
-$query_acusa_lista=pg_query("select * from oferta_acusa_lista where encaminhada<>'nova' order by ano desc, semestre desc");
+$query_acusa_lista=db_query("select * from oferta_acusa_lista where encaminhada<>'nova' order by ano desc, semestre desc", array());
 ?>
   <body>
       <table class=big>
@@ -24,7 +24,7 @@ $query_acusa_lista=pg_query("select * from oferta_acusa_lista where encaminhada<
       <tr><td>Escolha o semestre:
         <select name='lista'>
         <?php
-        while ($registro=pg_fetch_row($query_acusa_lista))
+        while ($registro=db_fetch_row($query_acusa_lista))
         {
         ?>
         <option value="<?php echo $registro[0]."_".$registro[1];?>"> <?php echo $registro[0];?> &ordm;/ <?php echo $registro[1];?></option>
@@ -42,6 +42,6 @@ $query_acusa_lista=pg_query("select * from oferta_acusa_lista where encaminhada<
         </BODY>
 </html>
 <?php
-pg_close($idconn);
+db_close($idconn);
 ?>
 

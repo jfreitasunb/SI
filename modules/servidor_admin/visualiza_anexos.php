@@ -91,11 +91,11 @@ require("head_admin.php");
         <table class=form>
 <?php
 
-$query_tipos=pg_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo");
+$query_tipos=db_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo", array());
 
 $documento=$_POST['documento'];
 $docs_numero=0;
-while ($tipo=pg_fetch_row($query_tipos))
+while ($tipo=db_fetch_row($query_tipos))
         {
         if (isset($_POST['documento']) and $documento[$tipo[0]]!="nulo") $docs_numero=$docs_numero+1;
         }
@@ -140,14 +140,14 @@ if ($docs_numero!=1)
 	<tr><td colspan=2><b>Escolha o documento correspondente ao anexo:  <blink><?php echo $mensagem;?></blink></b></td></tr>
 	
 <?php
-	$query_tipos=pg_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo");
-	while($tipo=pg_fetch_row($query_tipos))
+	$query_tipos=db_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo", array());
+	while($tipo=db_fetch_row($query_tipos))
 		{
-		$query_documentos="select ad.id_documentador as id_documentador,ad.numerodocumento as numerodocumento,SUBSTR(ad.data,1,2) as dia,SUBSTR(ad.data,4,2) as mes,SUBSTR(ad.data,7,4) as ano ,add.nomedepartamento as destino,ad.assunto as assunto from admin_documentador ad,admin_departamento add where ad.id_tipo='".$tipo[0]."' and add.id_departamento=ad.id_departamento order by ano desc,mes desc,dia desc,numerodocumento desc"; 
-		$query_tipo[$tipo[0]]=pg_query($query_documentos);
+		$query_documentos="select ad.id_documentador as id_documentador,ad.numerodocumento as numerodocumento,SUBSTR(ad.data,1,2) as dia,SUBSTR(ad.data,4,2) as mes,SUBSTR(ad.data,7,4) as ano ,add.nomedepartamento as destino,ad.assunto as assunto from admin_documentador ad,admin_departamento add where ad.id_tipo=? and add.id_departamento=ad.id_departamento order by ano desc,mes desc,dia desc,numerodocumento desc"; $query_documentos__p = array($tipo[0]); 
+		$query_tipo[$tipo[0]]=db_query($query_documentos, $query_documentos__p);
 		echo "<tr><td><b>".strtoupper($tipo[1]).":</b></td><td> <select name='documento[".$tipo[0]."]' style=\"width: 500px\"><option value=\"nulo\" selected> --- </option>";
 		$cor_de_fundo="#FFFFFF";
-		while($registro=pg_fetch_row($query_tipo[$tipo[0]]))
+		while($registro=db_fetch_row($query_tipo[$tipo[0]]))
 			{
 			if ($registro[0]==$documento[$tipo[0]]) $selected="selected"; else $selected="";
 
@@ -172,11 +172,11 @@ if ($docs_numero!=1)
 
 if ($docs_numero==1) //and !isset($_POST['confirmar']))
 {
-$query_tipos=pg_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo");
+$query_tipos=db_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo", array());
 
 $documento=$_POST['documento'];
 
-while ($tipo=pg_fetch_row($query_tipos))
+while ($tipo=db_fetch_row($query_tipos))
         {
         if ($documento[$tipo[0]]!="nulo") {$id_documento=$documento[$tipo[0]]; $sigla=$tipo[2];}
         }
@@ -186,14 +186,14 @@ $_UP['pasta'] = 'http://www.mat.unb.br/si/modules/servidor_admin/anexos/';
  
 // tabela admin_anexos: id_documento, numero_anexo, nome_arquivo
 
-$query_anexos=pg_query("select nome_arquivo,numero_anexo from admin_anexos where id_documento='".$id_documento."' order by numero_anexo");
-$query_documento=pg_query("select numerodocumento,SUBSTR(data,1,2) as dia,SUBSTR(data,4,2) as mes,SUBSTR(data,7,4) as ano from admin_documentador where id_documentador='".$id_documento."'");
-$documento=pg_fetch_array($query_documento);
+$query_anexos=db_query("select nome_arquivo,numero_anexo from admin_anexos where id_documento=? order by numero_anexo", array($id_documento));
+$query_documento=db_query("select numerodocumento,SUBSTR(data,1,2) as dia,SUBSTR(data,4,2) as mes,SUBSTR(data,7,4) as ano from admin_documentador where id_documentador=?", array($id_documento));
+$documento=db_fetch_array($query_documento);
 
 echo "<tr><td colspan=2><b>Lista de anexos ao documento :".$sigla." ".$documento['numerodocumento']." de ".$documento['dia']."/".$documento['mes']."/".$documento['ano']."</b></td></tr>";
 
 
-while ($registro=pg_fetch_row($query_anexos))
+while ($registro=db_fetch_row($query_anexos))
 	{
 	echo "<br /><a href=\"" . $_UP['pasta'] . $registro[0] . "\"> ".$registro[0]. " Clique aqui para acessar o arquivo</a>";
 	}
@@ -207,6 +207,6 @@ while ($registro=pg_fetch_row($query_anexos))
 
 <?php
 }
-pg_close($idconn);
+db_close($idconn);
 ?>
 

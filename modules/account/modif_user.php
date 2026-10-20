@@ -23,20 +23,18 @@
           <td class=header align=center colspan=2></td></tr>
         <tr><td>
 <?php
-     $query="select * from users order by name";
-     $result=pg_query($query);
-     $nb_enreg=pg_num_rows($result);
+     $result=db_query("select * from users order by name");
+     $nb_enreg=db_num_rows($result);
      $i=0;
 ?>
             <select name='user' onchange="enregistrement(utilisateurs,this.selectedIndex,nb_enreg);">>
 <?php
             for ($i=0;$i<$nb_enreg;$i++)
             {
-               $tab=pg_fetch_array($result, $i);
+               $tab=db_fetch_array($result, $i);
 
-       $test2="select * from unix where coduser=".$tab['coduser'];
-       $res3=pg_query($test3);
-       $nbre3=pg_num_rows($res3);
+       $res3=db_query("select * from unix where coduser=?", array($tab['coduser']));
+       $nbre3=db_num_rows($res3);
           
 ?>
 	       <script language="javascript">
@@ -58,9 +56,8 @@
 <?php
   if (isset($_GET['US']))
   {
-    $query2="select * from users where coduser=".$_GET['US'];
-    $result2=pg_query($query2);
-    $tab2=pg_fetch_array($result2,0);
+    $result2=db_query("select * from users where coduser=?", array($_GET['US']));
+    $tab2=db_fetch_array($result2,0);
   }
 ?>
     <tr>
@@ -110,5 +107,5 @@
     </body>
 </html>
 <?php
-  pg_close($idconn);
+  $idconn = null;
 ?>

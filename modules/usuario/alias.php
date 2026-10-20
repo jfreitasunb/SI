@@ -12,9 +12,9 @@ function gera_alias($coduser)
 $lista = array("DE","DA","DO","DOS","DAS","");
 
 
-$query="select name, firstname from users where coduser='".$coduser."'";
-$result=pg_query($query);
-$resultados=pg_fetch_array($result);
+$query="select name, firstname from users where coduser=?"; $query__p = array($coduser);
+$result=db_query($query, $query__p);
+$resultados=db_fetch_array($result);
 //$nome=mb_convert_encoding($resultados['name'],"ISO-8859-1","UTF-8");
 //$sobrenome=mb_convert_encoding($resultados['firstname'],"ISO-8859-1","UTF-8");
 $nome=$resultados['name'];
@@ -64,15 +64,15 @@ return $alias;
 
 function grava_alias($coduser,$alias)
 {
-$query_banco="select * from aliases where coduser='".$coduser."'";
-$res_query=pg_query($query_banco);
-$num_res=pg_num_rows($res_query);
+$query_banco="select * from aliases where coduser=?"; $query_banco__p = array($coduser);
+$res_query=db_query($query_banco, $query_banco__p);
+$num_res=db_num_rows($res_query);
 
 //$alias0=mb_convert_encoding($alias,"UTF-8");
 $alias0=$alias;
 
-$query_grava="insert into aliases values('".$coduser."','".$alias0."','')";
-$res=pg_query($query_grava);
+$query_grava="insert into aliases values(?,?,'')"; $query_grava__p = array($coduser, $alias0);
+$res=db_query($query_grava, $query_grava__p);
 echo "Alias inserido";
 }
 
@@ -82,9 +82,9 @@ function checa_alias($alias)
 //$alias0=mb_convert_encoding($alias,"UTF-8");
 $alias0=$alias;
 
-$query_checa="select * from aliases where alias='".$alias0."' or alias2='".$alias0."'";
-$res_query_checa=pg_query($query_checa);
-$num_res_checa=pg_num_rows($res_query_checa);
+$query_checa="select * from aliases where alias=? or alias2=?"; $query_checa__p = array($alias0, $alias0);
+$res_query_checa=db_query($query_checa, $query_checa__p);
+$num_res_checa=db_num_rows($res_query_checa);
 
 if ($num_res_checa==0) $checa_alias="ok"; else $checa_alias="ja_existe_um";
 

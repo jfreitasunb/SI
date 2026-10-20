@@ -27,9 +27,9 @@ $diretorio="listas_SAA/";
 //$trimmed = file('listas_SAA/lista_de_oferta_1_2012.txt');
 $trimmed=file($diretorio.$arquivo);
 
-$query_disciplinas=pg_query("select codigo,creditos from disciplinas_MAT order by codigo");
-$num_disc=pg_num_rows($query_disciplinas);
-$disc_0=pg_fetch_all($query_disciplinas);
+$query_disciplinas=db_query("select codigo,creditos from disciplinas_MAT order by codigo", array());
+$num_disc=db_num_rows($query_disciplinas);
+$disc_0=db_fetch_all($query_disciplinas);
 for ($k=0;$k<$num_disc;$k++)
 	{
 	$disciplinas[$k]=$disc_0[$k]['codigo'];
@@ -142,8 +142,8 @@ echo "<BR>";
 					}
 				}
 			//Processar resto da linha para extrair nome do professor e sala:
-			$query_profs=pg_query ("select name,firstname,coduser,matricul from users where tipo_users='professor' order by name");		
-			while ($registro=pg_fetch_row($query_profs))
+			$query_profs=db_query("select name,firstname,coduser,matricul from users where tipo_users='professor' order by name", array());		
+			while ($registro=db_fetch_row($query_profs))
 				{
 				$registro_0=implode(explode(" ",$registro[0]));
 				$registro_1=implode(explode(" ",$registro[1]));
@@ -176,7 +176,7 @@ echo "<BR>";
 					$turmas_a_incluir[$num_a_incluir]="('".$codigo."','".$turma."','".$turno."','".$coduser."','".$semestre."','".$ano."','".$horarios."')";
 					}
 /*				$query_checa_turma=pg_query("select * from oferta_lista_de_ofertas where disciplina='".$codigo."' and turma='".$turma."' and semestre='".$semestre."' and ano='".$ano."'");
-                                $checa_turma=pg_fetch_row($query_checa_turma);
+                                $checa_turma=db_fetch_row($query_checa_turma);
 
 
                                 if (empty($checa_turma)) 
@@ -231,7 +231,7 @@ echo "<BR>";
 					$turmas_a_incluir[$num_a_incluir]="('".$codigo."','".$turma."','".$turno."','".$coduser."','".$semestre."','".$ano."','".$horarios."')";
 					}
 /*				$query_checa_turma=pg_query("select * from oferta_lista_de_ofertas where disciplina='".$codigo."' and turma='".$turma."' and semestre='".$semestre."' and ano='".$ano."'");
-				$checa_turma=pg_fetch_row($query_checa_turma);
+				$checa_turma=db_fetch_row($query_checa_turma);
 				if (empty($checa_turma)) 
 					{
 					if (!_value_in_array($turmas_disc_outros_campi[$codigo],$turma)) 

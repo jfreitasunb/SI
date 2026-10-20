@@ -69,8 +69,8 @@ if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, fa�
               <select size="1" name="host">
 				<option value="MAT">M&aacute;quina do MAT</option>
 	<?php                                   		// gera a lista de usuarios registrados
-		$res = pg_query("SELECT * FROM users where name<>'root' order by name");
-		while($registro = pg_fetch_row($res)) //enquanto ouver registro escreva
+		$res = db_query("SELECT * FROM users where name<>'root' order by name", array());
+		while($registro = db_fetch_row($res)) //enquanto ouver registro escreva
 		{
 			$coduser = $registro[0];  		// primeira coluna da tabela usuario
 			$titulo = $registro[1]." ".$registro[2];         // segunda coluna da tabela usuario
@@ -104,8 +104,8 @@ if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, fa�
             <td>
               <select size="1" name="sala">
         <?php                                                   // gera a lista de salas registradas
-                $res_sala = pg_query("SELECT * FROM room where codloc<>'123' order by codloc");
-                while($registro_sala = pg_fetch_row($res_sala)) //enquanto ouver registro escreva
+                $res_sala = db_query("SELECT * FROM room where codloc<>'123' order by codloc", array());
+                while($registro_sala = db_fetch_row($res_sala)) //enquanto ouver registro escreva
                 {
                         $codloc = $registro_sala[0];                // primeira coluna da tabela usuario
 			$descricao=$registro_sala[1];
@@ -154,7 +154,7 @@ else	//////////////////Cadastra o equipamento //////////////////////////////////
 /*
 	$query_host="select host from computers where host like '".$host."%' order by host DESC";
 	$res_host=pg_query($query_host);
-	$linhas_host=pg_num_rows($res_host);
+	$linhas_host=db_num_rows($res_host);
 	$final=$linhas_host + 1;
 	$host=$host."_".$final;
 */
@@ -174,7 +174,7 @@ else	//////////////////Cadastra o equipamento //////////////////////////////////
 //		$patrimonio=$_POST['mac1'].$_POST['mac2'].$_POST['mac3'].$_POST['mac4'].$_POST['mac5'].$_POST['mac6'];
 		$query_maqcod="select maqcod from computers where maqcod like 'sp_%'";
 		$res_maqcod=pg_query($query_maqcod);
-		$num_sp=pg_num_rows($res_maqcod) + 1;
+		$num_sp=db_num_rows($res_maqcod) + 1;
 		$patrimonio="sp_".$num_sp;
 		}
 */
@@ -192,13 +192,13 @@ else	//////////////////Cadastra o equipamento //////////////////////////////////
 	$ip_38=array();
 	$ip_39=array();
 	$qu = pg_query("select * from computers where status<>0 order by ipnet;");
-	$nlinha = pg_num_rows($qu);
+	$nlinha = db_num_rows($qu);
 
 	///////////////processa os dados em ordem crescente de ip ///////////////////////////////////////////////////////////////////
 
 	for ($lt = 0; $lt < $nlinha; $lt++) 
   		{
-		$ip_test = pg_result($qu, $lt,'ipnet'); 							// o número da coluna que tem o IP é 1.
+		$ip_test = db_result($qu, $lt,'ipnet'); 							// o número da coluna que tem o IP é 1.
 		$ip_test_explodido=explode(".",$ip_test);
 		if ($ip_test_explodido[2]==38)  {$ip_38[$lt]=$ip_test;$rede_38=$lt;}	// seleciona os ip da rede 38 na array $ip_38:
 		if ($ip_test_explodido[2]==39)  $ip_39[$lt-$rede_38-1]=$ip_test;	// seleciona os ip da rede 39 na array $ip_39:
@@ -249,23 +249,23 @@ else	//////////////////Cadastra o equipamento //////////////////////////////////
 		}
 	else
 		{
-		$query_data_visitor="select date_end from visitor where coduser='".$_POST['host']."' order by date_end DESC";
-		$res_data_visitor=pg_query($query_data_visitor);
-		$linhas_visitor=pg_num_rows($res_data_visitor);
+		$query_data_visitor="select date_end from visitor where coduser=? order by date_end DESC"; $query_data_visitor__p = array($_POST['host']);
+		$res_data_visitor=db_query($query_data_visitor, $query_data_visitor__p);
+		$linhas_visitor=db_num_rows($res_data_visitor);
 
-		$query_data_student="select depart_date1 from student where coduser='".$_POST['host']."' order by depart_date1 DESC";
-		$res_data_student=pg_query($query_data_student);
-		$linhas_student=pg_num_rows($res_data_student);
+		$query_data_student="select depart_date1 from student where coduser=? order by depart_date1 DESC"; $query_data_student__p = array($_POST['host']);
+		$res_data_student=db_query($query_data_student, $query_data_student__p);
+		$linhas_student=db_num_rows($res_data_student);
 
-		$query_data_fonctionnaire="select contract_end from fonctionnaire where coduser='".$_POST['host']."'";
-		$res_data_fonctionnaire=pg_query($query_data_fonctionnaire);
-		$linhas_fonctionnaire=pg_num_rows($res_data_fonctionnaire);
+		$query_data_fonctionnaire="select contract_end from fonctionnaire where coduser=?"; $query_data_fonctionnaire__p = array($_POST['host']);
+		$res_data_fonctionnaire=db_query($query_data_fonctionnaire, $query_data_fonctionnaire__p);
+		$linhas_fonctionnaire=db_num_rows($res_data_fonctionnaire);
 
 		if (($linhas_visitor!=0) and ($linhas_student!=0) and ($linhas_fonctionnaire!=0))
 			{
-			$data_visitor_0=pg_fetch_array($res_data_visitor,0);
-			$data_student_0=pg_fetch_array($res_data_student,0);
-			$data_fonctionnaire_0=pg_fetch_array($res_data_fonctionnaire,0);
+			$data_visitor_0=db_fetch_array($res_data_visitor,0);
+			$data_student_0=db_fetch_array($res_data_student,0);
+			$data_fonctionnaire_0=db_fetch_array($res_data_fonctionnaire,0);
 			$data_visitor=$data_visitor_0[0];
 			$data_student=$data_student_0[0];
 			$data_fonctionnaire=$data_fonctionnaire_0[0];
@@ -280,8 +280,8 @@ else	//////////////////Cadastra o equipamento //////////////////////////////////
 
 		if (($linhas_visitor!=0) and ($linhas_student!=0))
 			{
-			$data_visitor_0=pg_fetch_array($res_data_visitor,0);
-			$data_student_0=pg_fetch_array($res_data_student,0);
+			$data_visitor_0=db_fetch_array($res_data_visitor,0);
+			$data_student_0=db_fetch_array($res_data_student,0);
 			$data_visitor=$data_visitor_0[0];
 			$data_student=$data_student_0[0];
 			$data_vis_0=explode("-",$data_visitor);
@@ -290,8 +290,8 @@ else	//////////////////Cadastra o equipamento //////////////////////////////////
 			}
 		if (($linhas_fonctionnaire!=0) and ($linhas_student!=0))
 			{
-			$data_fonctionnaire_0=pg_fetch_array($res_data_fonctionnaire,0);
-			$data_student_0=pg_fetch_array($res_data_student,0);
+			$data_fonctionnaire_0=db_fetch_array($res_data_fonctionnaire,0);
+			$data_student_0=db_fetch_array($res_data_student,0);
 			$data_fonctionnaire=$data_fonctionnaire_0[0];
 			$data_student=$data_student_0[0];
 			$data_fon_0=explode("-",$data_fonctionnaire);
@@ -300,8 +300,8 @@ else	//////////////////Cadastra o equipamento //////////////////////////////////
 			}
 		if (($linhas_visitor!=0) and ($linhas_fonctionnaire!=0))
 			{
-			$data_visitor_0=pg_fetch_array($res_data_visitor,0);
-			$data_fonctionnaire_0=pg_fetch_array($res_data_fonctionnaire,0);
+			$data_visitor_0=db_fetch_array($res_data_visitor,0);
+			$data_fonctionnaire_0=db_fetch_array($res_data_fonctionnaire,0);
 			$data_visitor=$data_visitor_0[0];
 			$data_fonctionnaire=$data_fonctionnaire_0[0];
 			$data_vis_0=explode("-",$data_visitor);
@@ -310,20 +310,20 @@ else	//////////////////Cadastra o equipamento //////////////////////////////////
 			}
 		if (($linhas_visitor!=0) and ($linhas_student==0) and ($linhas_fonctionnaire==0))
 			{
-			$data_visitor_0=pg_fetch_array($res_data_visitor,0);
+			$data_visitor_0=db_fetch_array($res_data_visitor,0);
 			$data_visitor=$data_visitor_0[0];
 			$new_data=$data_visitor;
 			}
 
 		if (($linhas_visitor==0) and ($linhas_student!=0) and ($linhas_fonctionnaire==0))
 			{
-			$data_student_0=pg_fetch_array($res_data_student,0);
+			$data_student_0=db_fetch_array($res_data_student,0);
 			$data_student=$data_student_0[0];
 			$new_data=$data_student;
 			}
 		if (($linhas_visitor==0) and ($linhas_student==0) and ($linhas_fonctionnaire!=0))
 			{
-			$data_fonctionnaire_0=pg_fetch_array($res_data_fonctionnaire,0);
+			$data_fonctionnaire_0=db_fetch_array($res_data_fonctionnaire,0);
 			$data_fonctionnaire=$data_fonctionnaire_0[0];
 print " data de encerramento: ".$data_fonctionnaire;
 			$new_data=$data_fonctionnaire;
@@ -332,14 +332,14 @@ print " data de encerramento: ".$data_fonctionnaire;
 //
 //	Antes de cadastrar, verifica se existe um amáquina ativa com o memso endereço MAC: se houver, o cadastro não será efetuado!
 //	
-	$query_mac="select host from computers where mac='".$mac."' and status='1'";
-        $res_mac=pg_query($query_mac);
-        $linhas_mac=pg_num_rows($res_mac);
+	$query_mac="select host from computers where mac=? and status='1'"; $query_mac__p = array($mac);
+        $res_mac=db_query($query_mac, $query_mac__p);
+        $linhas_mac=db_num_rows($res_mac);
         if (($linhas_mac==0) and ($ip <> "out_of_range"))
 	{
-	$query_computers="INSERT INTO computers VALUES('".$patrimonio."','".$ip."','".$sala."','".$host."','".$mac."','".$tipo_mouse."','".$tipo_teclado."','".$resolucao."','".$id_maquina."','".$status."','".$new_data."','".$tipo_layout_teclado."')";
-	$res = pg_query($query_computers);
-	if(pg_affected_rows($res)>0)
+	$query_computers="INSERT INTO computers VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"; $query_computers__p = array($patrimonio, $ip, $sala, $host, $mac, $tipo_mouse, $tipo_teclado, $resolucao, $id_maquina, $status, $new_data, $tipo_layout_teclado);
+	$res = db_query($query_computers, $query_computers__p);
+	if(db_affected_rows($res)>0)
 		{
 		echo "<p align='center'>Maquina cadastrada!</p>";
 		///////////////////////////////////////////////////gera os arquivos /////////////////////////////////////////////
@@ -349,14 +349,14 @@ print " data de encerramento: ".$data_fonctionnaire;
 		}
 	else	
 		{
-	//	$erro = pg_last_error();
+	//	$erro = db_last_error();
 	//	echo "<p align='center'>Erro: $erro</p>";
 		echo "Observe se a data foi escrita no formato xx/xx/xxxx, como por exemplo 16/11/2007";
 		}
 	}
 	else 
 	{
-	$host_cadastrado=pg_fetch_array($res_mac);
+	$host_cadastrado=db_fetch_array($res_mac);
 	echo "A maquina nao pode ser cadastrada porque a ".$host_cadastrado['host']." já esta cadastrada com o 
 mesmo mac! ou a margem de IP extrapolou:".$ip."!";
 	}

@@ -28,9 +28,9 @@
 	<tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Tipo de Documento:</p></font></td>
         	<td><select name= 'id_tipo' size = '1'>
 		<?php
-                $res=pg_query("SELECT id_tipo,nometipo FROM admin_tipo") or die ("Não foi possível consultar o banco.");
+                $res=db_query("SELECT id_tipo,nometipo FROM admin_tipo", array()) or die ("Não foi possível consultar o banco.");
 		$i=0;
-                while($registro=pg_fetch_row($res,$i))
+                while($registro=db_fetch_row($res,$i))
                 	{
                         $cod=$registro[0];
                         $nome=$registro[1];
@@ -49,10 +49,10 @@
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Destino:</p></font></td>
                 <td><select name= 'destino' size='1'>
 		<?php
-                $res1=pg_query("SELECT id_departamento,nomedepartamento FROM admin_departamento")
+                $res1=db_query("SELECT id_departamento,nomedepartamento FROM admin_departamento", array())
 		or die ("Não foi possível consultar o banco.");
 		$i=0;
-                while($registro1=pg_fetch_row($res1,$i))
+                while($registro1=db_fetch_row($res1,$i))
                 {
                         $cod1=$registro1[0];
                         $nome1=$registro1[1];

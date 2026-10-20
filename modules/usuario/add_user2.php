@@ -4,13 +4,13 @@
 
 if ($_POST['modificacao']=="nao")
  {
-  if (($_POST['status_usuario']=='visitor') or ($_POST['status_usuario']=='Visitante')) $query="select * from users where identity='".$_POST['identity']."' and cpf='".$_POST['cpf']."'"; 
-	else $query="select * from users where identity= '".$_POST['identity']."' or cpf='".$_POST['cpf']."'";
+  if (($_POST['status_usuario']=='visitor') or ($_POST['status_usuario']=='Visitante')) list($query, $query__p) = array("select * from users where identity=? and cpf=?", array($_POST['identity'], $_POST['cpf'])); 
+	else list($query, $query__p) = array("select * from users where identity= ? or cpf=?", array($_POST['identity'], $_POST['cpf']));
 //   $query="select * from users where identity= '".$_POST['identity']."' or cpf='".$_POST['cpf']."'";
   }
-else $query="select * from users where coduser='".$_POST['user']."'"; 
-   $result=pg_query($query);
-   $count=pg_num_rows($result);
+else list($query, $query__p) = array("select * from users where coduser=?", array($_POST['user'])); 
+   $result=db_query($query, $query__p);
+   $count=db_num_rows($result);
 
 ?>
 <html>
@@ -86,19 +86,19 @@ else $query="select * from users where coduser='".$_POST['user']."'";
 	if (($status_usuario=='Administrativo') or ($status_usuario=='administrativo')) {$tipo_users="administrativo";$status_usuario=='administrativo';}
 	
 //	if ($_POST['status_usuario']=='Aluno') {$tipo_users='student';} else if ($_POST['status_usuario']=='Visitante') {$tipo_users='visitor';} else {$tipo_users=$_POST['status_usuario'];}
-       $usuario_a_mudar0=pg_fetch_array($result,0);
+       $usuario_a_mudar0=db_fetch_array($result,0);
        $matricul_atual=str_replace("/", "", $usuario_a_mudar0['matricul']);
        $usuario_a_mudar=$usuario_a_mudar0['coduser'];
        $tipo_users_atual=$usuario_a_mudar0['tipo_users'];
 
 	//se houve modificacao da $_POST['tipo_contrato'] entao matricul deve ser distinto; Se nao for assim entao a modificacao nao pode ocorrer.
 
-	if ($tipo_users_atual=='student') $busca_tipo_contract="select formation from student where matricul=".$matricul_atual;
-	if (($tipo_users_atual=='professor') or ($tipo_users_atual=='administrativo')) $busca_tipo_contract="select contract_type from fonctionnaire where coduser=".$usuario_a_mudar;
-	if ($tipo_users_atual=='visitor') $busca_tipo_contract="select tipo_visitor from visitor where coduser='".$usuario_a_mudar."' order by date_begin DESC  limit 1";
-	$query_busca_tipo_contract=pg_query($busca_tipo_contract);
-	//$tipo_contrato_atual=pg_fetch_array($query_busca_tipo_contract);
-	$tipo_contrato_atual=pg_fetch_row($query_busca_tipo_contract);
+	if ($tipo_users_atual=='student') list($busca_tipo_contract, $busca_tipo_contract__p) = array("select formation from student where matricul=?", array($matricul_atual));
+	if (($tipo_users_atual=='professor') or ($tipo_users_atual=='administrativo')) list($busca_tipo_contract, $busca_tipo_contract__p) = array("select contract_type from fonctionnaire where coduser=?", array($usuario_a_mudar));
+	if ($tipo_users_atual=='visitor') list($busca_tipo_contract, $busca_tipo_contract__p) = array("select tipo_visitor from visitor where coduser=? order by date_begin DESC  limit 1", array($usuario_a_mudar));
+	$query_busca_tipo_contract=db_query($busca_tipo_contract, $busca_tipo_contract__p);
+	//$tipo_contrato_atual=db_fetch_array($query_busca_tipo_contract);
+	$tipo_contrato_atual=db_fetch_row($query_busca_tipo_contract);
 
 	if (($_POST['tipo_contrato']=='nao_modifica')) $tipo_contrato=$tipo_contrato_atual[0]; else $tipo_contrato=$_POST['tipo_contrato'];
 
@@ -143,44 +143,42 @@ else $query="select * from users where coduser='".$_POST['user']."'";
 
 // Atualizacao da tabela unix:
 	if (($tipo_users=="professor") or ($tipo_users=="administrativo")) $tabela_user="fonctionnaire"; else $tabela_user=$tipo_users;
-	$query_unix="update unix set tabela_user='".$tabela_user."' where coduser='".$usuario_a_mudar."'";
-	$res_unix=pg_query($query_unix);
+	list($query_unix, $query_unix__p) = array("update unix set tabela_user=? where coduser=?", array($tabela_user, $usuario_a_mudar));
+	$res_unix=db_query($query_unix, $query_unix__p);
 
 
 
 //Atualizacao da taberla users:
-       $query="update users set name='".$nome."', firstname='".$sobrenome."',
-               matricul='".str_replace("/", "", $_POST['matricul']) ."', cpf='".$_POST['cpf'] ."',identity='".$_POST['identity']."', phone_home='".$_POST['phone_home']."',
-               phone_work='".$_POST['phone_work']. "', adresse='".$endereco. "', cp='".$_POST['cp']."', city='".$cidade."', is_actif=true,  tipo_users='".$tipo_users."' where coduser=".$usuario_a_mudar;
-        $result=pg_query($query);
-//        pg_free_result($result);
+       list($query, $query__p) = array("update users set name=?, firstname=?,\n               matricul=?, cpf=?,identity=?, phone_home=?,\n               phone_work=?, adresse=?, cp=?, city=?, is_actif=true,  tipo_users=? where coduser=?", array($nome, $sobrenome, str_replace("/", "", $_POST['matricul']), $_POST['cpf'], $_POST['identity'], $_POST['phone_home'], $_POST['phone_work'], $endereco, $_POST['cp'], $cidade, $tipo_users, $usuario_a_mudar));
+        $result=db_query($query, $query__p);
+//        db_free_result($result);
 // update mails
-	$deleta_mails="delete from mail where coduser='".$usuario_a_mudar."'";
-	$res_deleta_mail=pg_query($deleta_mails);
+	list($deleta_mails, $deleta_mails__p) = array("delete from mail where coduser=?", array($usuario_a_mudar));
+	$res_deleta_mail=db_query($deleta_mails, $deleta_mails__p);
 /////
      if (!empty($_POST['mail1']))
         {
-	$query="insert into mail values('".$_POST['mail1']."','". $usuario_a_mudar."')";
-	$result=pg_query($query);
-//	pg_free_result($result);
+	list($query, $query__p) = array("insert into mail values(?,?)", array($_POST['mail1'], $usuario_a_mudar));
+	$result=db_query($query, $query__p);
+//	db_free_result($result);
 	}
 
 	if (!empty($_POST['mail2']))
 	{
-       $query="insert into mail values('".$_POST['mail2']."','". $usuario_a_mudar."')";
-       $result=pg_query($query);
-       pg_free_result($result);
+       list($query, $query__p) = array("insert into mail values(?,?)", array($_POST['mail2'], $usuario_a_mudar));
+       $result=db_query($query, $query__p);
+       db_free_result($result);
 	}
 
 	if (!empty($_POST['mail3']))
 	{
-       $query="insert into mail values('".$_POST['mail3']."','". $usuario_a_mudar."')";
-       $result=pg_query($query);
+       list($query, $query__p) = array("insert into mail values(?,?)", array($_POST['mail3'], $usuario_a_mudar));
+       $result=db_query($query, $query__p);
 	}
 	if (!empty($_POST['mail4']))
 	{
-       $query="insert into mail values('".$_POST['mail4']."','". $usuario_a_mudar."')";
-       $result=pg_query($query);
+       list($query, $query__p) = array("insert into mail values(?,?)", array($_POST['mail4'], $usuario_a_mudar));
+       $result=db_query($query, $query__p);
 	}
 
 	if ($_POST['especialidade']=='nao_modifica') {$especialidade=$_POST['especialidade1'];} else {$especialidade=$_POST['especialidade'];}
@@ -190,10 +188,10 @@ else $query="select * from users where coduser='".$_POST['user']."'";
 
 //alteraçao incuida em 18/10/2018
 //
-$query_ja_credenciado = "select * from orientateur where coduser='".$usuario_a_mudar."'";
+list($query_ja_credenciado, $query_ja_credenciado__p) = array("select * from orientateur where coduser=?", array($usuario_a_mudar));
 
-$result_credenciado=pg_query($query_ja_credenciado);
-$count_credenciado=pg_num_rows($result_credenciado);
+$result_credenciado=db_query($query_ja_credenciado, $query_ja_credenciado__p);
+$count_credenciado=db_num_rows($result_credenciado);
 
 if ($count_credenciado == 0) 
 	{
@@ -201,18 +199,18 @@ if ($count_credenciado == 0)
 		{
 		$data_hoje= date('Y-m-d');
 //		echo $data_hoje;
-		$query_credencia_orientador="insert into orientateur (coduser,date_debut,date_fin,orientacao) values('".$usuario_a_mudar."','".$data_hoje."','".$_POST['fim_credencia_ano']."-".$_POST['fim_credencia_mes']."-".$_POST['fim_credencia_dia']."','".$_POST['credencia_nivel']."')";
-		$result_fonctionnaire=pg_query($query_credencia_orientador);
+		list($query_credencia_orientador, $query_credencia_orientador__p) = array("insert into orientateur (coduser,date_debut,date_fin,orientacao) values(?,?,?,?)", array($usuario_a_mudar, $data_hoje, $_POST['fim_credencia_ano'].'-'.$_POST['fim_credencia_mes'].'-'.$_POST['fim_credencia_dia'], $_POST['credencia_nivel']));
+		$result_fonctionnaire=db_query($query_credencia_orientador, $query_credencia_orientador__p);
 		}
 	}
 	else
 	{ 
 	if ($_POST['credencia_nivel']=='nao_modifica')
 		{
-      		$query_orientador="update orientateur set date_fin='".$_POST['fim_credencia_ano']."-".$_POST['fim_credencia_mes']."-".$_POST['fim_credencia_dia']."' where coduser='".$usuario_a_mudar."'";}
+      		list($query_orientador, $query_orientador__p) = array("update orientateur set date_fin=? where coduser=?", array($_POST['fim_credencia_ano'].'-'.$_POST['fim_credencia_mes'].'-'.$_POST['fim_credencia_dia'], $usuario_a_mudar));}
 		else 
-		{$query_orientador="update orientateur set date_fin='".$_POST['fim_credencia_ano']."-".$_POST['fim_credencia_mes']."-".$_POST['fim_credencia_dia']."', orientacao='".$_POST['credencia_nivel']."' where coduser='".$usuario_a_mudar."'";}
-	$result_fonctionnaire=pg_query($query_orientador);
+		{list($query_orientador, $query_orientador__p) = array("update orientateur set date_fin=?, orientacao=? where coduser=?", array($_POST['fim_credencia_ano'].'-'.$_POST['fim_credencia_mes'].'-'.$_POST['fim_credencia_dia'], $_POST['credencia_nivel'], $usuario_a_mudar));}
+	$result_fonctionnaire=db_query($query_orientador, $query_orientador__p);
 	}
 		
 //fim alteracao 18/10/2018
@@ -224,14 +222,14 @@ if ($count_credenciado == 0)
 	if ((($status_usuario=='professor') or ($status_usuario=='administrativo'))  and ($_POST['status_usuario1']=='nao_modifica') )
 		{  //dia_dois,mes_dois,ano_dois,especialidade,funcional,prof_orientador
 		$data_saida=$_POST['ano_dois'].$_POST['mes_dois'].$_POST['dia_dois'];
-		$query_fonctionnaire="update fonctionnaire set contract_end='".$data_saida."', contract_type='".$tipo_contrato."' where coduser=".$usuario_a_mudar;
-		$result_fonctionnaire=pg_query($query_fonctionnaire);
+		list($query_fonctionnaire, $query_fonctionnaire__p) = array("update fonctionnaire set contract_end=?, contract_type=? where coduser=?", array($data_saida, $tipo_contrato, $usuario_a_mudar));
+		$result_fonctionnaire=db_query($query_fonctionnaire, $query_fonctionnaire__p);
 	 	//if ($_POST['status_usuario']=='professor')
 		if ($status_usuario=='professor')
 		   {
 		if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situacao=$_POST['situacao'];
-           	    $query_profs="update profs set niveau_fonctionnel='".$funcional."',bolsista='".$bolsista."', area_atuacao='".$especialidade."', situacao='".$situacao."' where coduser=".$usuario_a_mudar;
-		    $result_profs=pg_query($query_profs);
+           	    list($query_profs, $query_profs__p) = array("update profs set niveau_fonctionnel=?,bolsista=?, area_atuacao=?, situacao=? where coduser=?", array($funcional, $bolsista, $especialidade, $situacao, $usuario_a_mudar));
+		    $result_profs=db_query($query_profs, $query_profs__p);
 
 		    if ($_POST['tipo_contrato']!='nao_modifica')
 			{
@@ -246,8 +244,8 @@ if ($count_credenciado == 0)
 		        $data_entrada=$_POST['ano_novo']."-".$_POST['mes_novo']."-".$_POST['dia_novo'];
 			$data_de_saida= gera_data_saida($_POST['dia_novo'],$_POST['mes_novo'],$_POST['ano_novo'],$periodo);
 		//        $query="update fonctionnaire set contract_date='".$data_entrada."', contract_type='".$_POST['tipo_contrato']."',statut='".$_POST['status_usuario']."',contract_end='".$data_de_saida."' where coduser=".$usuario_a_mudar;
-        $query="update fonctionnaire set contract_date='".$data_entrada."', contract_type='".$_POST['tipo_contrato']."',statut='".$status_usuario."',contract_end='".$data_de_saida."' where coduser=".$usuario_a_mudar;
-		        $result=pg_query($query);
+        list($query, $query__p) = array("update fonctionnaire set contract_date=?, contract_type=?,statut=?,contract_end=? where coduser=?", array($data_entrada, $_POST['tipo_contrato'], $status_usuario, $data_de_saida, $usuario_a_mudar));
+		        $result=db_query($query, $query__p);
 			}
 		   }
 		}
@@ -260,8 +258,8 @@ if ($count_credenciado == 0)
 		//tabela profs:  coduser | orientateur |    area_atuacao     | niveau_fonctionnel | bolsista  |   situacao 
 		if ($funcional=="indefinido") $orientateur="f"; else $orientateur="t";
 if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situacao=$_POST['situacao'];
-           	$query_profs="insert into profs (coduser,orientateur,niveau_fonctionnel,bolsista,area_atuacao,situacao) values('".$usuario_a_mudar."','".$orientateur."','".$funcional."','".$bolsista."','".$especialidade."','".$situacao."')";
-                $result_profs=pg_query($query_profs);
+           	list($query_profs, $query_profs__p) = array("insert into profs (coduser,orientateur,niveau_fonctionnel,bolsista,area_atuacao,situacao) values(?,?,?,?,?,?)", array($usuario_a_mudar, $orientateur, $funcional, $bolsista, $especialidade, $situacao));
+                $result_profs=db_query($query_profs, $query_profs__p);
                 if ($_POST['tipo_contrato']!='nao_modifica')
                         {
                         //if (($_POST['tipo_contrato']=="dedicacao exclusiva") or ($_POST['tipo_contrato']=="professor associado")) $periodo="35 anos";
@@ -275,8 +273,8 @@ if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situ
                         $data_entrada=$_POST['ano_novo']."-".$_POST['mes_novo']."-".$_POST['dia_novo'];
                         $data_de_saida= gera_data_saida($_POST['dia_novo'],$_POST['mes_novo'],$_POST['ano_novo'],$periodo);
 			//tabela fonctionnaire:  coduser | contract_date |         contract_type          |     statut     | contract_end 
-		        $query="insert into fonctionnaire (coduser,contract_date,contract_type,statut,contract_end) values('".$usuario_a_mudar."','".$data_entrada."','".$_POST['tipo_contrato']."','".$status_usuario."','".$data_de_saida."')";
-                        $result=pg_query($query);
+		        list($query, $query__p) = array("insert into fonctionnaire (coduser,contract_date,contract_type,statut,contract_end) values(?,?,?,?,?)", array($usuario_a_mudar, $data_entrada, $_POST['tipo_contrato'], $status_usuario, $data_de_saida));
+                        $result=db_query($query, $query__p);
                         }
                   }
 
@@ -287,8 +285,8 @@ if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situ
 			{
 			$data_saida=$_POST['ano_dois'].$_POST['mes_dois'].$_POST['dia_dois'];
 if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situacao=$_POST['situacao'];
-			$query_student="update student set depart_date1='".$data_saida."', speciality='".$especialidade."',orientateur='".$prof_orientador."',bolsista='".$bolsista."', status='".$situacao."' where matricul=".$matricul_atual;
-			$result_student=pg_query($query_student);
+			list($query_student, $query_student__p) = array("update student set depart_date1=?, speciality=?,orientateur=?,bolsista=?, status=? where matricul=?", array($data_saida, $especialidade, $prof_orientador, $bolsista, $situacao, $matricul_atual));
+			$result_student=db_query($query_student, $query_student__p);
 			}
 		else
 			{
@@ -301,11 +299,11 @@ if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situ
 
         		$data_entrada=$_POST['ano_novo']."-".$_POST['mes_novo']."-".$_POST['dia_novo'];
         		$data_saida= gera_data_saida($_POST['dia_novo'],$_POST['mes_novo'],$_POST['ano_novo'],$periodo);
-        		$query="insert into student values('".$usuario_a_mudar."','".$data_entrada."','".$data_saida."','".$especialidade."','".$prof_orientador."','ativo','".$_POST['tipo_contrato']."','".$bolsista."','".str_replace("/", "", $_POST['matricul'])."')";
-        		$result=pg_query($query);
-        		pg_free_result($result);
+        		list($query, $query__p) = array("insert into student values(?,?,?,?,?,'ativo',?,?,?)", array($usuario_a_mudar, $data_entrada, $data_saida, $especialidade, $prof_orientador, $_POST['tipo_contrato'], $bolsista, str_replace("/", "", $_POST['matricul'])));
+        		$result=db_query($query, $query__p);
+        		db_free_result($result);
 			}
-//		pg_free_result($result);
+//		db_free_result($result);
 		}
 //	if ($_POST['status_usuario']=='Visitante')
 	if ($status_usuario=='visitor')
@@ -314,16 +312,16 @@ if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situ
 			{
 		   	$data_entrada=$_POST['ano_novo']."-".$_POST['mes_novo']."-".$_POST['dia_novo'];
 		        $data_saida= gera_data_saida($_POST['dia_novo'],$_POST['mes_novo'],$_POST['ano_novo'],"30 dias");
-			$query_visitor="insert into visitor values('".$usuario_a_mudar."','".$data_entrada."','".$data_saida."','".$tipo_contrato."','".$especialidade."')";
-			$result_visitor=pg_query($query_visitor);
-			pg_free_result($result_visitor);
+			list($query_visitor, $query_visitor__p) = array("insert into visitor values(?,?,?,?,?)", array($usuario_a_mudar, $data_entrada, $data_saida, $tipo_contrato, $especialidade));
+			$result_visitor=db_query($query_visitor, $query_visitor__p);
+			db_free_result($result_visitor);
 			}
 		else
 			{//dia_dois,mes_dois,ano_dois
 			$data_saida=$_POST['ano_dois'].$_POST['mes_dois'].$_POST['dia_dois'];
-			$query_visitor="update visitor set date_end='".$data_saida."',area_atuacao='".$especialidade."' where coduser=".$usuario_a_mudar;
-			$result_visitor=pg_query($query_visitor);
-			pg_free_result($result_visitor);
+			list($query_visitor, $query_visitor__p) = array("update visitor set date_end=?,area_atuacao=? where coduser=?", array($data_saida, $especialidade, $usuario_a_mudar));
+			$result_visitor=db_query($query_visitor, $query_visitor__p);
+			db_free_result($result_visitor);
 			}
 		}
 
@@ -363,25 +361,25 @@ if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situ
      $compte->set_coduser($compte->add_user ());
      if (!empty($_POST['mail1']))
 	{
-     $query="insert into mail values('".$_POST['mail1']."','". $compte->get_coduser()."')";
-     $result=pg_query($query);
-     pg_free_result($result);
+     list($query, $query__p) = array("insert into mail values(?,?)", array($_POST['mail1'], $compte->get_coduser()));
+     $result=db_query($query, $query__p);
+     db_free_result($result);
 	}
 	if (!empty($_POST['mail2']))
 	{
-       $query="insert into mail values('".$_POST['mail2']."','". $compte->get_coduser()."')";
-       $result=pg_query($query);
-       pg_free_result($result);
+       list($query, $query__p) = array("insert into mail values(?,?)", array($_POST['mail2'], $compte->get_coduser()));
+       $result=db_query($query, $query__p);
+       db_free_result($result);
 	}
 	if (!empty($_POST['mail3']))
 	{
-       $query="insert into mail values('".$_POST['mail3']."','". $compte->get_coduser()."')";
-       $result=pg_query($query);
+       list($query, $query__p) = array("insert into mail values(?,?)", array($_POST['mail3'], $compte->get_coduser()));
+       $result=db_query($query, $query__p);
 	}
 	if (!empty($_POST['mail4']))
 	{
-       $query="insert into mail values('".$_POST['mail4']."','". $compte->get_coduser()."')";
-       $result=pg_query($query);
+       list($query, $query__p) = array("insert into mail values(?,?)", array($_POST['mail4'], $compte->get_coduser()));
+       $result=db_query($query, $query__p);
 	}
 
 //novo visitante
@@ -389,9 +387,9 @@ if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situ
         {
 	$data_entrada=$_POST['ano_dois']."-".$_POST['mes_dois']."-".$_POST['dia_dois'];
         $data_saida= gera_data_saida($_POST['dia_dois'],$_POST['mes_dois'],$_POST['ano_dois'],"30 dias");
-	$query="insert into visitor values('".$compte->get_coduser()."','".$data_entrada."','".$data_saida."','".$_POST['tipo_contrato']."','".$_POST['especialidade']."')";
-	$result=pg_query($query);
-	pg_free_result($result);
+	list($query, $query__p) = array("insert into visitor values(?,?,?,?,?)", array($compte->get_coduser(), $data_entrada, $data_saida, $_POST['tipo_contrato'], $_POST['especialidade']));
+	$result=db_query($query, $query__p);
+	db_free_result($result);
 	}
 // novo fonctionnaire
      if (($_POST['status_usuario']=="professor") or ($_POST['status_usuario']=="administrativo"))
@@ -405,15 +403,15 @@ if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situ
          if ($_POST['tipo_contrato']=="estagiario tec") $periodo="1 ano";
          $data_entrada=$_POST['ano_dois']."-".$_POST['mes_dois']."-".$_POST['dia_dois'];
 	 $data_de_saida= gera_data_saida($_POST['dia_dois'],$_POST['mes_dois'],$_POST['ano_dois'],$periodo);
-         $query="insert into fonctionnaire values('".$compte->get_coduser()."','".$data_entrada."','".$_POST['tipo_contrato']."','".$_POST['status_usuario']."','".$data_de_saida."')";
-         $result=pg_query($query);
-//       pg_free_result($result);
+         list($query, $query__p) = array("insert into fonctionnaire values(?,?,?,?,?)", array($compte->get_coduser(), $data_entrada, $_POST['tipo_contrato'], $_POST['status_usuario'], $data_de_saida));
+         $result=db_query($query, $query__p);
+//       db_free_result($result);
 	 if ($_POST['status_usuario']=="professor")
 	    {
 	    //if(($_POST['tipo_contrato']=="dedicacao exclusiva") or ($_POST['tipo_contrato']=="professor associado")) $orientateur='true'; else $orientateur='false';
 	if(($_POST['tipo_contrato']=="dedicacao exclusiva") or ($_POST['tipo_contrato']=="pesquisador associado")) $orientateur='true'; else $orientateur='false'; //corrigido em 18/10/2018
-             $query_profs="insert into profs values('".$compte->get_coduser()."','".$orientateur."','".$_POST['especialidade']."','".$_POST['nivel_funcional']."','".$_POST['bolsista']."','ativo')";
-             $result_profs=pg_query($query_profs);
+             list($query_profs, $query_profs__p) = array("insert into profs values(?,?,?,?,?,'ativo')", array($compte->get_coduser(), $orientateur, $_POST['especialidade'], $_POST['nivel_funcional'], $_POST['bolsista']));
+             $result_profs=db_query($query_profs, $query_profs__p);
 	     // acrescentado em 18/10/2018
 //       var_dump($_POST); 
 		if($_POST['credencia_nivel']!="nulo")
@@ -422,9 +420,9 @@ if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situ
 //var_dump($data_credencia);
 			$data_cred_ini=$_POST['cred_ano']."-".$_POST['cred_mes']."-".$_POST['cred_dia'];
 		        $data_cred_fim= gera_data_saida($_POST['cred_dia'],$_POST['cred_mes'],$_POST['cred_ano'],"5 anos");
-			$query_credencia="insert into orientateur values('".$compte->get_coduser()."','".$data_cred_ini."','".$data_cred_fim."','".$_POST['credencia_nivel']."')";
+			list($query_credencia, $query_credencia__p) = array("insert into orientateur values(?,?,?,?)", array($compte->get_coduser(), $data_cred_ini, $data_cred_fim, $_POST['credencia_nivel']));
 echo $query_credencia;
-		        $result_credencia=pg_query($query_credencia);
+		        $result_credencia=db_query($query_credencia, $query_credencia__p);
 			}
 		// fin acrescimo 18/10/2018
 	     }
@@ -440,9 +438,9 @@ echo $query_credencia;
 
         $data_entrada=$_POST['ano_dois']."-".$_POST['mes_dois']."-".$_POST['dia_dois'];
         $data_saida= gera_data_saida($_POST['dia_dois'],$_POST['mes_dois'],$_POST['ano_dois'],$periodo);
-        $query="insert into student values('".$compte->get_coduser()."','".$data_entrada."','".$data_saida."','".$_POST['especialidade']."','".$_POST['prof_orientador']."','ativo','".$_POST['tipo_contrato']."','".$_POST['bolsista']."','".str_replace("/", "", $_POST['matricul'])."')";
-        $result=pg_query($query);
-        pg_free_result($result);
+        list($query, $query__p) = array("insert into student values(?,?,?,?,?,'ativo',?,?,?)", array($compte->get_coduser(), $data_entrada, $data_saida, $_POST['especialidade'], $_POST['prof_orientador'], $_POST['tipo_contrato'], $_POST['bolsista'], str_replace("/", "", $_POST['matricul'])));
+        $result=db_query($query, $query__p);
+        db_free_result($result);
         }
 	$coduser=$compte->get_coduser();
 ?>
@@ -492,5 +490,5 @@ echo $query_credencia;
 </html>
 <?php
 //  }
-  pg_close($idconn);
+  db_close($idconn);
 ?>

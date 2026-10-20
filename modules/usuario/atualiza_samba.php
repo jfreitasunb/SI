@@ -98,10 +98,10 @@
        echo "o nt_has e: ".$nt_hash;
        $lan_hash=lmPasswordHash($password);
        echo "o lan_hash e: ".$lan_hash;
-       $query="insert into samba_test values('".$login."','".$lan_hash."','".$nt_hash."')";
+       $query="insert into samba_test values(?,?,?)"; $query__p = array($login, $lan_hash, $nt_hash);
        echo $query;
-       $result=pg_query($query);
-       pg_free_result($result);
+       $result=db_query($query, $query__p);
+       db_free_result($result);
      }
 
 // fim funcoes cript e salvar no banco

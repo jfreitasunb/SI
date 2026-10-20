@@ -31,13 +31,13 @@
     </script>
     <?php
 
-  $queryverif1="select * from admin where login='".$_POST['login_novo']."'";
-  $queryverif2="select * from unix where login='".$_POST['login_novo']."'";
+  $queryverif1="select * from admin where login=?"; $queryverif1__p = array($_POST['login_novo']);
+  $queryverif2="select * from unix where login=?"; $queryverif2__p = array($_POST['login_novo']);
 
-  $resverif1=pg_query($queryverif1);
-  $resverif2=pg_query($queryverif2);
-  $countverif1=pg_num_rows($resverif1);
-  $countverif2=pg_num_rows($resverif2);
+  $resverif1=db_query($queryverif1, $queryverif1__p);
+  $resverif2=db_query($queryverif2, $queryverif2__p);
+  $countverif1=db_num_rows($resverif1);
+  $countverif2=db_num_rows($resverif2);
 
   if (($countverif2==0) and ($countverif1==0))
     $verifbool=true;
@@ -49,9 +49,9 @@
    $pass1=generatePassword();
 	if ($_POST['login']=='student')
 	{
-	$query_contrato="select formation from student where coduser='".$_POST['coduser']."'";
-	$contrato=pg_query($query_contrato);
-	$tipo_contrato=pg_fetch_array($contrato,0);
+	$query_contrato="select formation from student where coduser=?"; $query_contrato__p = array($_POST['coduser']);
+	$contrato=db_query($query_contrato, $query_contrato__p);
+	$tipo_contrato=db_fetch_array($contrato,0);
 	}
     $compte2= new c_unix;
     $compte2->set_login($_POST['login_novo']);
@@ -167,5 +167,5 @@
   </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

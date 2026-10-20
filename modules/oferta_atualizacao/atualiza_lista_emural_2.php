@@ -18,28 +18,28 @@ $ano=$periodo[1];
 
 //$query_dados_sigra=pg_query("select name||' '||firstname as nome,c.* from oferta_carga_professor c,users u where c.coduser=u.coduser and semestre='".$semestre."' and ano='".$ano."' and nivel='GR' order by codigo,turma_disc,creditos_prof") or die("problema de conexa 1 em atualiza_lista_emural_2.php");
 
-$query_professores=pg_query("select u.coduser,name||' '||firstname from users u inner join profs p on u.coduser=p.coduser inner join fonctionnaire f on u.coduser=f.coduser where f.statut='professor' and u.is_actif='t' order by name");
-while($dados=pg_fetch_row($query_professores))
+$query_professores=db_query("select u.coduser,name||' '||firstname from users u inner join profs p on u.coduser=p.coduser inner join fonctionnaire f on u.coduser=f.coduser where f.statut='professor' and u.is_actif='t' order by name", array());
+while($dados=db_fetch_row($query_professores))
 {
 $nome[$dados[0]]=$dados[1];
 }
 
-$query_sigra=pg_query("select codigo,turma,coduser from oferta_lista_sigra where semestre='".$semestre."' and ano='".$ano."' order by codigo,turma");
+$query_sigra=db_query("select codigo,turma,coduser from oferta_lista_sigra where semestre=? and ano=? order by codigo,turma", array($semestre, $ano));
 
 
 
-$query_dados_lista_de_ofertas=pg_query("select professor,disciplina,turma from oferta_lista_de_ofertas where semestre='".$semestre."' and ano='".$ano."' order by disciplina,turma") or die ("problema de conexa 2 em atualiza_lista_emural_2.php");
+$query_dados_lista_de_ofertas=db_query("select professor,disciplina,turma from oferta_lista_de_ofertas where semestre=? and ano=? order by disciplina,turma", array($semestre, $ano)) or die ("problema de conexa 2 em atualiza_lista_emural_2.php");
 // Monta um array de alocacao de professor por discilpina/turma: 
 $LO_prof=array();
-while($registro_disc=pg_fetch_row($query_dados_lista_de_ofertas))
+while($registro_disc=db_fetch_row($query_dados_lista_de_ofertas))
 	{
 	$LO_prof[$registro_disc[1]][$registro_disc[2]]=$registro_disc[0];
 	}
 
 
-$query_disciplinas=pg_query("select codigo,nome from disciplinas_mat where status='grad' order by codigo") or die("problema de conexa 3 em atualiza_lista_emural_2.php");
+$query_disciplinas=db_query("select codigo,nome from disciplinas_mat where status='grad' order by codigo", array()) or die("problema de conexa 3 em atualiza_lista_emural_2.php");
 $Disciplinas=array();
-while($registro_0=pg_fetch_row($query_disciplinas))
+while($registro_0=db_fetch_row($query_disciplinas))
 	{
 	$Disciplinas[$registro_0[0]]=$registro_0[1];
 	}
@@ -65,7 +65,7 @@ while($registro_0=pg_fetch_row($query_disciplinas))
 	<?php
 	$cor_de_fundo="#ffffff";
 	$disc=0;
-	while ($registro=pg_fetch_row($query_sigra))// USAR UMA ARRAY COM CHAVE SENDO O CÓDIGO DA DISCIPLINA/TURMA corrigido em 20/12/2014
+	while ($registro=db_fetch_row($query_sigra))// USAR UMA ARRAY COM CHAVE SENDO O CÓDIGO DA DISCIPLINA/TURMA corrigido em 20/12/2014
 		{
 		if ($disc===0) $disc=$registro[0].$registro[1]; 
 		if ($registro[0].$registro[1]!==$disc) 
@@ -102,6 +102,6 @@ while($registro_0=pg_fetch_row($query_disciplinas))
 	</body>
 </html>
 <?php
-	pg_close($idconn);
+	db_close($idconn);
 ?>
 

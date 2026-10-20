@@ -3,15 +3,13 @@
 
 
 /* // somente para carreagr as matriculas na tabela student
-     $query_provisorio="select matricul,coduser from users where tipo_users='student'";
-     $result_provisorio=pg_query($query_provisorio);
-     $nb_enreg_provisorio=pg_num_rows($result_provisorio);
+     $result_provisorio=db_query("select matricul,coduser from users where tipo_users='student'");
+     $nb_enreg_provisorio=db_num_rows($result_provisorio);
      $i=0;
             for ($i=0;$i<$nb_enreg_provisorio;$i++)
             {
-               $tab_provisorio=pg_fetch_array($result_provisorio, $i);
-	       $muda_student="update student set matricul=".$tab_provisorio['matricul']." where coduser=".$tab_provisorio['coduser'];
-	       $muda=pg_query($muda_student);
+               $tab_provisorio=db_fetch_array($result_provisorio, $i);
+	       $muda=db_query("update student set matricul=? where coduser=?", array($tab_provisorio['matricul'], $tab_provisorio['coduser']));
 		}
 */
 ?>
@@ -44,27 +42,26 @@
         <tr>
           <td>
 <?php
-     $query="select * from users where name<>'root' order by name";
-     $result=pg_query($query);
-     $nb_enreg=pg_num_rows($result);
+     $result=db_query("select * from users where name<>'root' order by name");
+     $nb_enreg=db_num_rows($result);
      $i=0;
 ?>
             <select name='user' onchange='enregistrement(utilisateurs,this.selectedIndex,nb_enreg);'>
 <?php
             for ($i=0;$i<$nb_enreg;$i++)
             {
-               $tab=pg_fetch_array($result, $i);
+               $tab=db_fetch_array($result, $i);
 
-       $test1="select * from admin where coduser=".$tab['coduser'];
-       $test2="select * from unix where coduser=".$tab['coduser'];
+       $test1="select * from admin where coduser=?";
+       $test2="select * from unix where coduser=?";
 //       $test3="select * from samba where coduser=".$tab['coduser']; // o objetivo e fazer com que os e-mail sejam tambem trazidos para a tela
-       $test3="select mail from mail where coduser=".$tab['coduser'];
-       $res1=pg_query($test1);
-       $res2=pg_query($test2);
-       $res3=pg_query($test3);
-       $nbre1=pg_num_rows($res1);
-       $nbre2=pg_num_rows($res2);
-       $nbre3=pg_num_rows($res3);
+       $test3="select mail from mail where coduser=?";
+       $res1=db_query($test1, array($tab['coduser']));
+       $res2=db_query($test2, array($tab['coduser']));
+       $res3=db_query($test3, array($tab['coduser']));
+       $nbre1=db_num_rows($res1);
+       $nbre2=db_num_rows($res2);
+       $nbre3=db_num_rows($res3);
 /////////////////////////////////////////////////////////////// recuperacao de dados profissionais//////////////////////////////////////////////
 //	$sql="select * from users where coduser=".$tab['coduser'];
 //	$sql_query=pg_query($sql);
@@ -74,9 +71,8 @@
 
 	if ($tabela=='fonctionnaire')
 		{
-		$sql2="select * from ". $tabela. " where coduser=".$tab['coduser'];
-		$sql2=pg_query($sql2);
-		$status1=pg_fetch_array($sql2,0);		//data_admissao
+		$sql2=db_query("select * from ".$tabela." where coduser=?", array($tab['coduser']));
+		$status1=db_fetch_array($sql2,0);		//data_admissao
 		$data_de_entrada=$status1['contract_date'];
 		$data_encerramento=$status1['contract_end'];
 		$data_encerramento=explode('-',$data_encerramento);
@@ -89,8 +85,8 @@
 		$tipo_contrato=$status1['contract_type'];
 	        if (($status_usuario=='professor') or ($status_usuario=='Professor'))
 			{
-			$sql1=pg_query("select * from profs where coduser=".$tab['coduser']);
-			$sql1_array=pg_fetch_array($sql1, 0);
+			$sql1=db_query("select * from profs where coduser=?", array($tab['coduser']));
+			$sql1_array=db_fetch_array($sql1, 0);
 			$especialidade=$sql1_array['area_atuacao'];
 			$funcional=$sql1_array['niveau_fonctionnel'];
 			$bolsista=$sql1_array['bolsista'];
@@ -98,8 +94,8 @@
 		// acrescentado em 18/10/2018: credenciamento
 //			$data_hoje=date("Y-m-d"); echo $data_hoje
 //			$sql_cred=pg_query("select * from orientateur where coduser='".$tab['coduser']."' and date_debut<='".$data_hoje."' and '".$data_hoje."'<=date_fin");
-			$sql_cred=pg_query("select date_fin,orientacao from orientateur where coduser='".$tab['coduser']."'");
-			$cred_array=pg_fetch_array($sql_cred, 0);
+			$sql_cred=db_query("select date_fin,orientacao from orientateur where coduser=?", array($tab['coduser']));
+			$cred_array=db_fetch_array($sql_cred, 0);
 var_dump($cred_array);
 			//$debut_credencia=$cred_array['date_debut'];
 			if(!empty($cred_array))
@@ -137,9 +133,8 @@ var_dump($cred_array);
 
 	if ($tabela=='student')
 		{
-		$sql2="select * from ". $tabela. " where matricul=".$tab['matricul'];
-		$sql2=pg_query($sql2);
-		$status1=pg_fetch_array($sql2,0);		//data_admissao
+		$sql2=db_query("select * from ".$tabela." where matricul=?", array($tab['matricul']));
+		$status1=db_fetch_array($sql2,0);		//data_admissao
 		$status_usuario='Aluno';
 		$funcional='Indeterminado';
 		$data_de_entrada=$status1['coming_date'];
@@ -163,17 +158,15 @@ var_dump($cred_array);
 			$prof_orientador2='indefinido';
 		else
 			{
-			$query_users="select name,firstname from users where coduser='".$prof_orientador."'";
-			$prof_orientador1=pg_fetch_array(pg_query($query_users),0);
+			$prof_orientador1=db_fetch_array(db_query("select name,firstname from users where coduser=?", array($prof_orientador)),0);
 			$prof_orientador2=$prof_orientador1[0]." ".$prof_orientador1[1];
 			}
 		}
 
 	if ($tabela=='visitor') 
 		{ 
-		$sql2="select * from ". $tabela. " where coduser=".$tab['coduser']." order by date_begin DESC limit 1";
-		$sql2=pg_query($sql2);
-		$status1=pg_fetch_array($sql2,0);		
+		$sql2=db_query("select * from ".$tabela." where coduser=? order by date_begin DESC limit 1", array($tab['coduser']));
+		$status1=db_fetch_array($sql2,0);		
 		$status_usuario='Visitante'; 
 		$especialidade=$status1['area_atuacao']; 
 		$funcional='Indeterminado'; 
@@ -203,7 +196,7 @@ var_dump($cred_array);
 	$mail_user=array();
 	while ($k_mail<$nbre3)
 	{
-        $tab3=pg_fetch_array($res3,$k_mail);
+        $tab3=db_fetch_array($res3,$k_mail);
         $mail_user[$k_mail]=$tab3[0];
 	$k_mail=$k_mail+1;
 	}
@@ -261,9 +254,8 @@ var_dump($cred_array);
 <?php
 /*  if (isset($_GET['US']))
   { 
-    $query2="select * from users where coduser=".$_GET['US'];
-    $result2=pg_query($query2);
-    $tab2=pg_fetch_array($result2,0);
+    $result2=db_query("select * from users where coduser=?", array($_GET['US']));
+    $tab2=db_fetch_array($result2,0);
 
 ///////////////////////////////////////////////////////////
 
@@ -381,8 +373,8 @@ var_dump($cred_array);
 							<td><SELECT name='tipo_contrato'>
 							<OPTION selected value="nao_modifica">n&atilde;o altera
 							<?php            // gera a lista de usuarios registrados
-							$res_tipo_cont = pg_query("SELECT * FROM users_tipo_contrato order by descricao");
-							while($reg_tipo_cont = pg_fetch_row($res_tipo_cont)) 
+							$res_tipo_cont = db_query("SELECT * FROM users_tipo_contrato order by descricao");
+							while($reg_tipo_cont = db_fetch_row($res_tipo_cont)) 
 								{
 								echo "<option value='".$reg_tipo_cont[0]."'>".$reg_tipo_cont[1]."</option>";
 								}
@@ -398,8 +390,8 @@ var_dump($cred_array);
 							<td><SELECT name='funcional'>
 							<OPTION selected value="nao_modifica">n&atilde;o altera
 							<?php            // gera a lista de usuarios registrados
-							$res_nivel = pg_query("SELECT * FROM users_nivel_funcional order by descricao");
-							while($reg_nivel = pg_fetch_row($res_nivel)) 
+							$res_nivel = db_query("SELECT * FROM users_nivel_funcional order by descricao");
+							while($reg_nivel = db_fetch_row($res_nivel)) 
 								{
 								echo "<option value='".$reg_nivel[0]."'>".$reg_nivel[1]."</option>";
 								}
@@ -423,9 +415,9 @@ var_dump($cred_array);
 				<OPTION selected value="nao_modifica">n&atilde;o altera</OPTION>
 		<?php               // gera a lista de usuarios registrados
 					//$res = pg_query("SELECT coduser FROM profs where orientateur='true'");
-$res = pg_query("SELECT pf.coduser, us.name, us.firstname FROM profs pf,users us where pf.orientateur='true' and pf.coduser=us.coduser order by us.name");
+$res = db_query("SELECT pf.coduser, us.name, us.firstname FROM profs pf,users us where pf.orientateur='true' and pf.coduser=us.coduser order by us.name");
 					//seleciona coduser onde status é prof em fonctionnaire e depois, selecione em users nome onde coduser=coduser
-					while($registro = pg_fetch_row($res)) //enquanto ouver registro escreva
+					while($registro = db_fetch_row($res)) //enquanto ouver registro escreva
 						{
 						$cod = $registro[0];  		// primeira coluna da tabela usuario
 						//$res2 = pg_query("SELECT name,firstname FROM users where coduser=$cod");
@@ -464,8 +456,8 @@ $res = pg_query("SELECT pf.coduser, us.name, us.firstname FROM profs pf,users us
 							<td><SELECT name='bolsista'>
 							<OPTION selected value="nao_modifica">n&atilde;o altera
 							<?php            // gera a lista de usuarios registrados
-							$res_bolsas = pg_query("SELECT * FROM users_bolsas order by descricao");
-							while($reg_bolsas = pg_fetch_row($res_bolsas)) 
+							$res_bolsas = db_query("SELECT * FROM users_bolsas order by descricao");
+							while($reg_bolsas = db_fetch_row($res_bolsas)) 
 								{
 								echo "<option value='".$reg_bolsas[0]."'>".$reg_bolsas[1]."</option>";
 /*
@@ -566,5 +558,5 @@ $res = pg_query("SELECT pf.coduser, us.name, us.firstname FROM profs pf,users us
     </body>
 </html>
 <?php
-  pg_close($idconn);
+  $idconn = null;
 ?>

@@ -37,9 +37,9 @@
         <tr><td>
 <?php
 //     $query="select * from users order by name";
-   $query="select us.coduser from users us where us.coduser<>'0' except select ux.coduser from unix ux";
-     $result=pg_query($query);
-     $nb_enreg=pg_num_rows($result);
+   $query="select us.coduser from users us where us.coduser<>'0' except select ux.coduser from unix ux"; $query__p = array();
+     $result=db_query($query, $query__p);
+     $nb_enreg=db_num_rows($result);
      $i=0;
     if ($nb_enreg!=0)
 	{
@@ -48,11 +48,11 @@
 <?php
             for ($i=0;$i<$nb_enreg;$i++)
             {
-               $tab0=pg_fetch_array($result, $i);
-		$query="select matricul, name, firstname, tipo_users from users where coduser='".$tab0['coduser']."' and name<> 'root'";
-		$result1=pg_query($query);
+               $tab0=db_fetch_array($result, $i);
+		$query="select matricul, name, firstname, tipo_users from users where coduser=? and name<> 'root'"; $query__p = array($tab0['coduser']);
+		$result1=db_query($query, $query__p);
 
-               $tab=pg_fetch_array($result1,0);
+               $tab=db_fetch_array($result1,0);
                $param="'".$tab0['coduser']."','".$tab['tipo_users']."','','',''"; // o nome de tipo_users no formulário é login. os campos 											// cota_impressao,cota_disco,cota_mail voltam vazios.
                $param=str_replace(CHR(10)," ",$param);
                $param=str_replace(CHR(13)," ",$param);
@@ -131,7 +131,7 @@ else
     </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>
 
 

@@ -12,8 +12,8 @@ if (isset($_POST['seleciona']) and ($chave!="atualizar"))
 	{
         $valor_da_conta=explode("-",$_POST['eliminar']);
         if ($valor_da_conta[3]=="desativada") $status="ativa"; else $status="desativada";
-	$query_elimina="update listas_de_mails set status='".$status."' where id_lista='".$valor_da_conta[0]."'";
-	$res_elimina=pg_query($query_elimina);
+	$query_elimina="update listas_de_mails set status=? where id_lista=?"; $query_elimina__p = array($status, $valor_da_conta[0]);
+	$res_elimina=db_query($query_elimina, $query_elimina__p);
         $nome_da_conta=$valor_da_conta[1];
 	// ##############  Permitir a edicao da lista
         if ($status=="ativa") 
@@ -35,9 +35,9 @@ if (isset($_POST['seleciona']) and ($chave!="atualizar"))
 	//NMBUPGRADE// $nome_limpo=preg_replace($substituto,'',$_POST['nome_conta']);
     $nome_limpo=preg_replace_callback($substituto, function ($matches) { return ''; }, $_POST['nome_conta']);
 
-        $pega_nome="select * from listas_de_mails where nome_lista='".$nome_limpo."'";
-        $query_listas=pg_query($pega_nome);
-        $num_listas=pg_num_rows($query_listas);
+        $pega_nome="select * from listas_de_mails where nome_lista=?"; $pega_nome__p = array($nome_limpo);
+        $query_listas=db_query($pega_nome, $pega_nome__p);
+        $num_listas=db_num_rows($query_listas);
 
 	// Se houver acentos ou caracteres proibidos, solicitar outro nome antes de continuar:
 	if ((strlen($nome_limpo)!=strlen($_POST['nome_conta'])) OR ($num_listas!=0)) 
@@ -70,7 +70,7 @@ if (isset($_POST['seleciona']) and ($chave!="atualizar"))
 		   <tr><td colspan=4 class=header align=center>Contas j&aacute; existentes</td></tr>
 		   <tr><td><b>Ativar/Desativar</b></td><td> <b>Nome da lista</b></td><td><b>Descri&ccedil;&atilde;o</b></td><td><b>Status</b></td></b></tr>
 		   <?php
-                   while($registro = pg_fetch_row($query_listas)) //enquanto houver
+                   while($registro = db_fetch_row($query_listas)) //enquanto houver
                         {
                         $descricao=$registro[2];
                         $valor_da_conta=$registro[0]."-".$registro[1]."-".$registro[3]."-".$registro[4];
@@ -108,11 +108,11 @@ if (isset($_POST['seleciona']) and ($chave!="atualizar"))
 		else 
 		{
 		$descricao=$_POST['descricao'];
-		$query_cria="insert into listas_de_mails values(default,'".$_POST['nome_conta']."','".$descricao."','','ativa')";
-		$res_cria=pg_query($query_cria);
-                $pega_codigo="select id_lista from listas_de_mails where nome_lista='".$_POST['nome_conta']."'";
-                $query_codigo=pg_query($pega_codigo);
-                $res_codigo=pg_fetch_row($query_codigo);
+		$query_cria="insert into listas_de_mails values(default,?,?,'','ativa')"; $query_cria__p = array($_POST['nome_conta'], $descricao);
+		$res_cria=db_query($query_cria, $query_cria__p);
+                $pega_codigo="select id_lista from listas_de_mails where nome_lista=?"; $pega_codigo__p = array($_POST['nome_conta']);
+                $query_codigo=db_query($pega_codigo, $pega_codigo__p);
+                $res_codigo=db_fetch_row($query_codigo);
                 
 		$chave="atualizar";
 		$id_lista=$res_codigo[0];
@@ -139,53 +139,53 @@ $data=getdate();
 $data_de_hoje=$data['year']."-".$data['mon']."-".$data['mday'];
 
 //$pega_prof_do_quadro="select ux.login as login,us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.contract_end from fonctionnaire f, users us, profs pr, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and us.coduser=pr.coduser and f.contract_type='dedicacao exclusiva' and f.statut='professor' and pr.situacao='ativo' order by nome,sobrenome";
-$pega_prof_do_quadro="select ux.login as login,us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.contract_end from fonctionnaire f, users us, profs pr, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and us.coduser=pr.coduser and f.contract_type='dedicacao exclusiva' and f.statut='professor' order by nome,sobrenome";
+$pega_prof_do_quadro="select ux.login as login,us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.contract_end from fonctionnaire f, users us, profs pr, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and us.coduser=pr.coduser and f.contract_type='dedicacao exclusiva' and f.statut='professor' order by nome,sobrenome"; $pega_prof_do_quadro__p = array();
 
-$pega_prof_substitutos="select ux.login as login, us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.contract_end from fonctionnaire f,users us, profs pr, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and us.coduser=pr.coduser and f.contract_type like 'substituto%' and f.statut='professor' and pr.situacao='ativo' order by nome,sobrenome";
+$pega_prof_substitutos="select ux.login as login, us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.contract_end from fonctionnaire f,users us, profs pr, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and us.coduser=pr.coduser and f.contract_type like 'substituto%' and f.statut='professor' and pr.situacao='ativo' order by nome,sobrenome"; $pega_prof_substitutos__p = array();
 
-$pega_administrativos="select ux.login as login,us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.contract_end from fonctionnaire f,users us, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and f.statut='administrativo' and f.contract_end>'".$data_de_hoje."'order by nome,sobrenome";
+$pega_administrativos="select ux.login as login,us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.contract_end from fonctionnaire f,users us, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and f.statut='administrativo' and f.contract_end>?order by nome,sobrenome"; $pega_administrativos__p = array($data_de_hoje);
 
-$pega_alunos_graduacao="select ux.login as login, us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.depart_date1 from student f,users us, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and f.status='ativo' and f.depart_date1>'".$data_de_hoje."' and f.formation='graduacao'  order by nome,sobrenome";
+$pega_alunos_graduacao="select ux.login as login, us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.depart_date1 from student f,users us, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and f.status='ativo' and f.depart_date1>? and f.formation='graduacao'  order by nome,sobrenome"; $pega_alunos_graduacao__p = array($data_de_hoje);
 
-$pega_alunos_mestrado="select ux.login as login, us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.depart_date1 from student f,users us, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and f.status='ativo' and f.depart_date1>'".$data_de_hoje."' and f.formation='mestrado' order by nome,sobrenome";
+$pega_alunos_mestrado="select ux.login as login, us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.depart_date1 from student f,users us, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and f.status='ativo' and f.depart_date1>? and f.formation='mestrado' order by nome,sobrenome"; $pega_alunos_mestrado__p = array($data_de_hoje);
 
-$pega_alunos_doutorado="select ux.login as login,us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.depart_date1 from student f,users us, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and f.status='ativo' and f.depart_date1>'".$data_de_hoje."' and f.formation='doutorado' order by nome,sobrenome";
+$pega_alunos_doutorado="select ux.login as login,us.coduser as coduser,us.name as nome,us.firstname as sobrenome,f.depart_date1 from student f,users us, unix ux where us.coduser=f.coduser and us.coduser=ux.coduser and f.status='ativo' and f.depart_date1>? and f.formation='doutorado' order by nome,sobrenome"; $pega_alunos_doutorado__p = array($data_de_hoje);
 
 
-$query_prof_do_quadro=pg_query($pega_prof_do_quadro);
-$res_prof_do_quadro=pg_fetch_all($query_prof_do_quadro);
-$num_prof_do_quadro=pg_num_rows($query_prof_do_quadro);
+$query_prof_do_quadro=db_query($pega_prof_do_quadro, $pega_prof_do_quadro__p);
+$res_prof_do_quadro=db_fetch_all($query_prof_do_quadro);
+$num_prof_do_quadro=db_num_rows($query_prof_do_quadro);
 
 $linhas_prof_do_quadro=intval($num_prof_do_quadro/3)+1;
 
-$query_prof_substitutos=pg_query($pega_prof_substitutos);
-$res_prof_substitutos=pg_fetch_all($query_prof_substitutos);
-$num_prof_substitutos=pg_num_rows($query_prof_substitutos);
+$query_prof_substitutos=db_query($pega_prof_substitutos, $pega_prof_substitutos__p);
+$res_prof_substitutos=db_fetch_all($query_prof_substitutos);
+$num_prof_substitutos=db_num_rows($query_prof_substitutos);
 
 $linhas_prof_substitutos=intval($num_prof_substitutos/3)+1;
 
-$query_administrativos=pg_query($pega_administrativos);
-$res_administrativos=pg_fetch_all($query_administrativos);
-$num_administrativos=pg_num_rows($query_administrativos);
+$query_administrativos=db_query($pega_administrativos, $pega_administrativos__p);
+$res_administrativos=db_fetch_all($query_administrativos);
+$num_administrativos=db_num_rows($query_administrativos);
 
 $linhas_administrativos=intval($num_administrativos/3)+1;
 
-$query_alunos_graduacao=pg_query($pega_alunos_graduacao);
-$res_alunos_graduacao=pg_fetch_all($query_alunos_graduacao);
-$num_alunos_graduacao=pg_num_rows($query_alunos_graduacao);
+$query_alunos_graduacao=db_query($pega_alunos_graduacao, $pega_alunos_graduacao__p);
+$res_alunos_graduacao=db_fetch_all($query_alunos_graduacao);
+$num_alunos_graduacao=db_num_rows($query_alunos_graduacao);
 
 $linhas_alunos_graduacao=intval($num_alunos_graduacao/3)+1;
 
 
-$query_alunos_mestrado=pg_query($pega_alunos_mestrado);
-$res_alunos_mestrado=pg_fetch_all($query_alunos_mestrado);
-$num_alunos_mestrado=pg_num_rows($query_alunos_mestrado);
+$query_alunos_mestrado=db_query($pega_alunos_mestrado, $pega_alunos_mestrado__p);
+$res_alunos_mestrado=db_fetch_all($query_alunos_mestrado);
+$num_alunos_mestrado=db_num_rows($query_alunos_mestrado);
 
 $linhas_alunos_mestrado=intval($num_alunos_mestrado/3)+1;
 
-$query_alunos_doutorado=pg_query($pega_alunos_doutorado);
-$res_alunos_doutorado=pg_fetch_all($query_alunos_doutorado);
-$num_alunos_doutorado=pg_num_rows($query_alunos_doutorado);
+$query_alunos_doutorado=db_query($pega_alunos_doutorado, $pega_alunos_doutorado__p);
+$res_alunos_doutorado=db_fetch_all($query_alunos_doutorado);
+$num_alunos_doutorado=db_num_rows($query_alunos_doutorado);
 
 $linhas_alunos_doutorado=intval($num_alunos_doutorado/3)+1;
 
@@ -336,12 +336,12 @@ if (isset($_POST['enviar']))
          {
          if (!empty($usuario[$k])) {if ($k!=$total-1) $usuarios_lista.=$usuario[$k]."@mat.unb.br,"; else $usuarios_lista.=$usuario[$k]."@mat.unb.br";}
          }
-  $grava_usuarios_lista="update listas_de_mails set e_mails='".$usuarios_lista."' where id_lista='".$_POST['id_lista']."'";
-  $query_grava_usuarios_lista=pg_query($grava_usuarios_lista);
+  $grava_usuarios_lista="update listas_de_mails set e_mails=? where id_lista=?"; $grava_usuarios_lista__p = array($usuarios_lista, $_POST['id_lista']);
+  $query_grava_usuarios_lista=db_query($grava_usuarios_lista, $grava_usuarios_lista__p);
   echo "Lista ".$_POST['nome_lista']."@mat.unb.br atualizada com sucesso.";
 }
 
 
-pg_close($idconn);
+db_close($idconn);
 
 ?>

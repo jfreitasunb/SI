@@ -24,25 +24,25 @@ return $calcula;
 
 function prepara_array_de_linhas($semestre,$ano)
 {
-$query_deleta=pg_query("delete from oferta_tabela_impressao");
+$query_deleta=db_query("delete from oferta_tabela_impressao", array());
 
 $linhas=array();
 
-$query_profs=pg_query("select coduser,name||' '||firstname as nome from users where tipo_users='professor' order by nome") or die ("problemas de acesso ao banco");
-$nome_profs=pg_fetch_all($query_profs);
+$query_profs=db_query("select coduser,name||' '||firstname as nome from users where tipo_users='professor' order by nome", array()) or die ("problemas de acesso ao banco");
+$nome_profs=db_fetch_all($query_profs);
 $nomes_de_profs=array();
 foreach ($nome_profs as $key => $value)
 	{
 	$nomes_de_profs[$value['coduser']]=$value['nome'];
 	}
 
-$query_carga=pg_query("select * from oferta_carga_professor where semestre='".$semestre."' and ano='".$ano."' and nivel='GR' order by codigo, turma_disc") or die ("problemas de acesso ao banco");
-$array_carga=pg_fetch_all($query_carga);
+$query_carga=db_query("select * from oferta_carga_professor where semestre=? and ano=? and nivel='GR' order by codigo, turma_disc", array($semestre, $ano)) or die ("problemas de acesso ao banco");
+$array_carga=db_fetch_all($query_carga);
 
-$query_lista=pg_query("select os.codigo as codigo,os.turma as turma,os.turno as turno,os.horarios as horarios,os.coduser as coduser,dm.nome as nome_disciplina,dm.creditos as creditos from oferta_lista_sigra os, disciplinas_mat dm where os.semestre='".$semestre."' and os.ano='".$ano."' and os.codigo=dm.codigo order by codigo,turma") or die ("problemas de acesso ao banco");
+$query_lista=db_query("select os.codigo as codigo,os.turma as turma,os.turno as turno,os.horarios as horarios,os.coduser as coduser,dm.nome as nome_disciplina,dm.creditos as creditos from oferta_lista_sigra os, disciplinas_mat dm where os.semestre=? and os.ano=? and os.codigo=dm.codigo order by codigo,turma", array($semestre, $ano)) or die ("problemas de acesso ao banco");
 
 $i=0;
-while($registro=pg_fetch_row($query_lista))
+while($registro=db_fetch_row($query_lista))
 	{
 	$disciplina=$registro[0];
 	$turma=$registro[1];
@@ -56,7 +56,7 @@ while($registro=pg_fetch_row($query_lista))
 		{
 //		$linhas[$i]=array('nome'=> $nomes_de_profs[$professor[0]], 'codigo' => $disciplina, 'turma' => $turma, 'turno'=> $turno, 'horarios'=> $horarios, 'nome_disciplina'=> $nome_disciplina, 'creditos' => $creditos);
 //		$i=$i+1;
-		$query_insere=pg_query("insert into oferta_tabela_impressao values('".$nomes_de_profs[$professores[0]]."','".$disciplina."','".$turma."','".$turno."','".$horarios."','".$nome_disciplina."','".$creditos."')");
+		$query_insere=db_query("insert into oferta_tabela_impressao values(?,?,?,?,?,?,?)", array($nomes_de_profs[$professores[0]], $disciplina, $turma, $turno, $horarios, $nome_disciplina, $creditos));
 		}
 	else
 		{
@@ -65,7 +65,7 @@ while($registro=pg_fetch_row($query_lista))
 			$creditos=$row['creditos_prof']/100;
 //			$linhas[$i]=array('nome'=> $nomes_de_profs[$row['coduser']], 'codigo' => $disciplina, 'turma' => $turma, 'turno'=> $turno, 'horarios'=> $horarios, 'nome_disciplina'=> $nome_disciplina, 'creditos' => $creditos);
 //			$i=$i+1;
-			$query_insere=pg_query("insert into oferta_tabela_impressao values('".$nomes_de_profs[$row['coduser']]."','".$disciplina."','".$turma."','".$turno."','".$horarios."','".$nome_disciplina."','".$creditos."')");
+			$query_insere=db_query("insert into oferta_tabela_impressao values(?,?,?,?,?,?,?)", array($nomes_de_profs[$row['coduser']], $disciplina, $turma, $turno, $horarios, $nome_disciplina, $creditos));
 			}
 		}
 	
@@ -151,11 +151,11 @@ if (isset($_GET['ordena']))
 
 if ($ordena=="professor")
 //$query_dados=pg_query("select u.coduser,name||' '||firstname as nome, m.codigo as disciplina, m.nome as nome_disciplina, lo.turma as turma, lo.turno as turno, lo.horarios as horarios from ".$lista_oferta." lo, users u, disciplinas_mat m where u.coduser=lo.professor and m.codigo=lo.disciplina and lo.semestre='".$semestre."' and lo.ano='".$ano."' order by nome, disciplina");
-$query_dados=pg_query("select * from oferta_tabela_impressao order by nome,nome_disciplina,turma");
+$query_dados=db_query("select * from oferta_tabela_impressao order by nome,nome_disciplina,turma", array());
 else 
 //$query_dados=pg_query("select u.coduser,name||' '||firstname as nome, m.codigo as disciplina, m.nome as nome_disciplina, lo.turma as turma, lo.turno as turno, lo.horarios as horarios from ".$lista_oferta." lo, users u, disciplinas_mat m where u.coduser=lo.professor and m.codigo=lo.disciplina and lo.semestre='".$semestre."' and lo.ano='".$ano."' order by disciplina,turma,nome");
-$query_dados=pg_query("select * from oferta_tabela_impressao order by nome_disciplina,turma");
-$num_dados=pg_num_rows($query_dados);
+$query_dados=db_query("select * from oferta_tabela_impressao order by nome_disciplina,turma", array());
+$num_dados=db_num_rows($query_dados);
 //$num_dados=count($linhas_ordenadas);
 
 ?>
@@ -178,7 +178,7 @@ $num_dados=pg_num_rows($query_dados);
 	<?
 	$cor_de_fundo="#FFFFFF";
 	$prof=0;
-	while ($registro=pg_fetch_row($query_dados))
+	while ($registro=db_fetch_row($query_dados))
 //	for ($i=0;$i<count($linhas_ordenadas);$i++)
 		{
 		if ($prof===0) $prof=$registro[0]; 
@@ -207,6 +207,6 @@ $num_dados=pg_num_rows($query_dados);
 	</body>
 </html>
 <?
-pg_close($idconn);
+db_close($idconn);
 ?>
 

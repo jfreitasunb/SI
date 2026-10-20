@@ -48,9 +48,9 @@ if(!isset($_POST["model"]))
             <tr>
                 <td><select name= 'tipo_modelo' size='1'>
 <?php
-                	$r=pg_query("SELECT id_modelo,assunto FROM admin_modelo")or
+                	$r=db_query("SELECT id_modelo,assunto FROM admin_modelo", array())or
 			die("Nao foi possivel executar a operacao");
-			while($re=pg_fetch_row($r))
+			while($re=db_fetch_row($r))
 				{
 				$cod=$re[0];
 				$nome=$re[1];
@@ -73,9 +73,9 @@ if(!isset($_POST["model"]))
             <tr>
                 <td><select name='tipo_documento' size='1'>
 <?php
-		$res=pg_query("SELECT id_tipo,nometipo FROM admin_tipo") or die ("Nao foi possivel consultar o banco.");
+		$res=db_query("SELECT id_tipo,nometipo FROM admin_tipo", array()) or die ("Nao foi possivel consultar o banco.");
 		$i=0;
-                while($registro=pg_fetch_row($res,$i))
+                while($registro=db_fetch_row($res,$i))
                 {
                         $cod=$registro[0];
                         $nome=$registro[1];

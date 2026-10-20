@@ -20,9 +20,9 @@
      //be get the data in the data-base and will put them in the object.  
      function pega_unix ($login)
      {
-       $query="select * from unix where login='".$login."'";
-       $result=pg_query($query);
-       $tab=pg_fetch_array($result,0);
+       $query="select * from unix where login=?"; $query__p = array($login);
+       $result=db_query($query, $query__p);
+       $tab=db_fetch_array($result,0);
        $this->login=$tab['login'];
        $this->passwd=$tab['passwd'];   
        $this->uid=$tab['uid'];         
@@ -35,7 +35,7 @@
        $this->shell=$tab['shell'];   
        $this->coduser=$tab['coduser'];
        $this->ssh=$tab['ssh'];
-       pg_free_result($result);
+       db_free_result($result);
      } 
 
      //The create_account function will record this object c_unix in the data-base.
@@ -94,15 +94,14 @@
 	}
      // $query="insert into unix values ('".$this->login."','".$this->passwd."',".$this->uid.",".$this->gid.",'".$this->class."','".$this->expire."',
        //                            '".$this->gecos."','".$this->homedir."','".$this->shell."','".$this->change."','".$this->coduser."')";
-        $query_uid="select uid+1 from unix order by uid DESC  limit 1";
-	$uid=pg_query($query_uid);
-	$uid=pg_fetch_array($uid,0);
+        $query_uid="select uid+1 from unix order by uid DESC  limit 1"; $query_uid__p = array();
+	$uid=db_query($query_uid, $query_uid__p);
+	$uid=db_fetch_array($uid,0);
 	$ssh="nao";  //valor default de acesso ao ssh
- 	$query="insert into unix values 
-('".$this->login."','".crypt($this->passwd)."','".$uid[0]."','".$gid."','1','','/home/".$this->login."','bash','".$this->coduser."','".$cota_impressao."','".$cota_disco."','".$cota_mail."','".$tabela_user."','".$ssh."')";
-	$result=pg_query($query);
-      $query_mail="insert into mail values ('".$this->login."@mat.unb.br','".$this->coduser."')";
-	$result_mail=pg_query($query_mail);     
+ 	$query="insert into unix values \n(?,?,?,?,'1','',?,'bash',?,?,?,?,?,?)"; $query__p = array($this->login, crypt($this->passwd), $uid[0], $gid, '/home/'.$this->login, $this->coduser, $cota_impressao, $cota_disco, $cota_mail, $tabela_user, $ssh);
+	$result=db_query($query, $query__p);
+      $query_mail="insert into mail values (?,?)"; $query_mail__p = array($this->login.'@mat.unb.br', $this->coduser);
+	$result_mail=db_query($query_mail, $query_mail__p);     
      }
 
      //The Set methods allows to access to datas members

@@ -82,12 +82,12 @@ $codigos_disciplinas_sigaa[MAT0174] = '174';
 
 function monta_array_profs()
 {
- $query_profs=pg_query ("select name,firstname from users where tipo_users='professor' order by name");
+ $query_profs=db_query("select name,firstname from users where tipo_users='professor' order by name", array());
 $i=0;
 $devolve=array();
 $acentos=array(á,à,ã,é,è,ê,í,ó,ò,õ,ô,ö,ú,ù,ç);
 $letras=array(a,a,a,e,e,e,i,o,o,o,o,o,u,u,c);
-while ($registro=pg_fetch_row($query_profs))
+while ($registro=db_fetch_row($query_profs))
       {
       $registro_0=implode(explode(" ",$registro[0]));
       $registro_1=implode(explode(" ",$registro[1]));
@@ -429,8 +429,8 @@ return $devolve;
 function cria_array_disciplinas()
 {
 $disciplinas0=array();
-$query_codigos=pg_query("select codigo from disciplinas_mat order by codigo");
-$disciplinas=pg_fetch_all($query_codigos);
+$query_codigos=db_query("select codigo from disciplinas_mat order by codigo", array());
+$disciplinas=db_fetch_all($query_codigos);
 for ($i=0;$i<count($disciplinas);$i++)
 {
 $disciplinas0[$i]=$disciplinas[$i]['codigo'];
@@ -855,10 +855,10 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
                 $reserva = "sem registro";
 
-                $query_insere="insert into oferta_lista_sigra values ('".$codigo."','".$turma."','".$vagas."','".$turno."','".$horarios."','".$sala."','".$reserva."','".$semestre."','".$ano."','".$coduser."')";
+                $query_insere="insert into oferta_lista_sigra values (?,?,?,?,?,?,?,?,?,?)"; $query_insere__p = array($codigo, $turma, $vagas, $turno, $horarios, $sala, $reserva, $semestre, $ano, $coduser);
                 echo "<br>Insere nova Turma: ".$query_insere."<br>";
 
-                $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 03: n&atilde;o foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
+                $res_insere=db_query($query_insere, $query_insere__p) or die ("problema de acesso ao banco 03: n&atilde;o foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
             }
         }
     }
@@ -878,14 +878,14 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
             }
         }
 
-        $query_verifica_registro = "select * from oferta_lista_sigra where codigo='".$codigo_c1."' and turma='".$array_c1[$i]['turma']."' and semestre='".$semestre."' and ano='".$ano."'";
+        $query_verifica_registro ="select * from oferta_lista_sigra where codigo=? and turma=? and semestre=? and ano=?"; $query_verifica_registro__p = array($codigo_c1, $array_c1[$i]['turma'], $semestre, $ano);
 
-        $verifica_registro = pg_query($query_verifica_registro);
+        $verifica_registro = db_query($query_verifica_registro, $query_verifica_registro__p);
 
-        if (count(pg_fetch_row($verifica_registro)) == 1) {
-            $query_insere="insert into oferta_lista_sigra values ('".$codigo_c1."','".$array_c1[$i]['turma']."','".$array_c1[$i]['vagas']."','".$array_c1[$i]['turno']."','".$array_c1[$i]['horarios']."','".$array_c1[$i]['sala']."','sem reserva','".$semestre."','".$ano."','".$coduser."')";
+        if (count(db_fetch_row($verifica_registro)) == 1) {
+            $query_insere="insert into oferta_lista_sigra values (?,?,?,?,?,?,'sem reserva',?,?,?)"; $query_insere__p = array($codigo_c1, $array_c1[$i]['turma'], $array_c1[$i]['vagas'], $array_c1[$i]['turno'], $array_c1[$i]['horarios'], $array_c1[$i]['sala'], $semestre, $ano, $coduser);
 
-            $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 04: ".$query_insere."");
+            $res_insere=db_query($query_insere, $query_insere__p) or die ("problema de acesso ao banco 04: ".$query_insere."");
         }
     }
 
@@ -902,16 +902,16 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
             }
         }
 
-        $query_verifica_registro = "select * from oferta_lista_sigra where codigo='".$codigo_c1."' and turma='".$array_c1sp[$i]['turma']."' and semestre='".$semestre."' and ano='".$ano."'";
+        $query_verifica_registro ="select * from oferta_lista_sigra where codigo=? and turma=? and semestre=? and ano=?"; $query_verifica_registro__p = array($codigo_c1, $array_c1sp[$i]['turma'], $semestre, $ano);
 
-        $verifica_registro = pg_query($query_verifica_registro);
+        $verifica_registro = db_query($query_verifica_registro, $query_verifica_registro__p);
 
-        if (count(pg_fetch_row($verifica_registro)) == 1) {
-            $query_insere="insert into oferta_lista_sigra values ('".$codigo_c1."','".$array_c1sp[$i]['turma']."','".$array_c1sp[$i]['vagas']."','".$array_c1sp[$i]['turno']."','".$array_c1sp[$i]['horarios']."','".$array_c1sp[$i]['sala']."','sem reserva','".$semestre."','".$ano."','".$coduser."')";
+        if (count(db_fetch_row($verifica_registro)) == 1) {
+            $query_insere="insert into oferta_lista_sigra values (?,?,?,?,?,?,'sem reserva',?,?,?)"; $query_insere__p = array($codigo_c1, $array_c1sp[$i]['turma'], $array_c1sp[$i]['vagas'], $array_c1sp[$i]['turno'], $array_c1sp[$i]['horarios'], $array_c1sp[$i]['sala'], $semestre, $ano, $coduser);
 
             echo "<br>Insere nova Turma: ".$query_insere."<br>";
 
-            $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 05: ".$query_insere."");
+            $res_insere=db_query($query_insere, $query_insere__p) or die ("problema de acesso ao banco 05: ".$query_insere."");
         }
     }
 
@@ -926,16 +926,16 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
             }
         }
 
-        $query_verifica_registro = "select * from oferta_lista_sigra where codigo='".$codigo_mat1."' and turma='".$array_mat1[$i]['turma']."' and semestre='".$semestre."' and ano='".$ano."'";
+        $query_verifica_registro ="select * from oferta_lista_sigra where codigo=? and turma=? and semestre=? and ano=?"; $query_verifica_registro__p = array($codigo_mat1, $array_mat1[$i]['turma'], $semestre, $ano);
 
-        $verifica_registro = pg_query($query_verifica_registro);
+        $verifica_registro = db_query($query_verifica_registro, $query_verifica_registro__p);
 
-        if (count(pg_fetch_row($verifica_registro)) == 1) {
-            $query_insere="insert into oferta_lista_sigra values ('".$codigo_mat1."','".$array_mat1[$i]['turma']."','".$array_mat1[$i]['vagas']."','".$array_mat1[$i]['turno']."','".$array_mat1[$i]['horarios']."','".$array_mat1[$i]['sala']."','sem reserva','".$semestre."','".$ano."','".$coduser."')";
+        if (count(db_fetch_row($verifica_registro)) == 1) {
+            $query_insere="insert into oferta_lista_sigra values (?,?,?,?,?,?,'sem reserva',?,?,?)"; $query_insere__p = array($codigo_mat1, $array_mat1[$i]['turma'], $array_mat1[$i]['vagas'], $array_mat1[$i]['turno'], $array_mat1[$i]['horarios'], $array_mat1[$i]['sala'], $semestre, $ano, $coduser);
 
             echo "<br>Insere nova Turma: ".$query_insere."<br>";
 
-            $res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 06: n�o foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
+            $res_insere=db_query($query_insere, $query_insere__p) or die ("problema de acesso ao banco 06: n�o foi possivel inserir turma nova na tabela oferta_lista_sigra os dados referentes ao semestre='".$semestre."' e ano='".$ano."'");
 
         }
     }
@@ -960,9 +960,9 @@ if ($tipo=="nova disciplina")
 	if (($codigo_antigo!=0) and ($codigo_antigo!=$codigo))
 		{
 		// gravar no banco as informações da turma anterior;
-		$query_insere="insert into oferta_lista_sigra values ('".$codigo_antigo."','".$turma."','".$vagas."','".$turno."','".$horarios."','".$sala."','".$reserva."','".$semestre."','".$ano."','".$coduser."')";
+		$query_insere="insert into oferta_lista_sigra values (?,?,?,?,?,?,?,?,?,?)"; $query_insere__p = array($codigo_antigo, $turma, $vagas, $turno, $horarios, $sala, $reserva, $semestre, $ano, $coduser);
 		echo "<BR>Insere nova disciplina: ".$query_insere."<BR>";
-		$res_insere=pg_query($query_insere)  or die ("problema de acesso ao banco 00");
+		$res_insere=db_query($query_insere, $query_insere__p)  or die ("problema de acesso ao banco 00");
 		}
 	$nova_disciplina="sim";
 	}
@@ -973,9 +973,9 @@ if ($tipo=="nova turma")
 	$turma=$dados_turma1['turma'];
 	if (($turma_antiga!="") and ($turma!=$turma_antiga) and ($nova_disciplina=="nao"))
 		{
-		$query_insere="insert into oferta_lista_sigra values ('".$codigo."','".$turma_antiga."','".$vagas."','".$turno."','".$horarios."','".$sala."','".$reserva."','".$semestre."','".$ano."','".$coduser."')";
+		$query_insere="insert into oferta_lista_sigra values (?,?,?,?,?,?,?,?,?,?)"; $query_insere__p = array($codigo, $turma_antiga, $vagas, $turno, $horarios, $sala, $reserva, $semestre, $ano, $coduser);
         	echo "<BR>Insere nova Turma: ".$query_insere."<BR>";
-		$res_insere=pg_query($query_insere) or die ("problema de acesso ao banco 01");
+		$res_insere=db_query($query_insere, $query_insere__p) or die ("problema de acesso ao banco 01");
 		}
 
 	$vagas=$dados_turma1['vagas'];
@@ -998,9 +998,9 @@ if ($tipo=="novo dia")
 	}
 if ($key==count($array_linhas)-1)
 	{
-	$query_insere="insert into oferta_lista_sigra values ('".$codigo."','".$turma."','".$vagas."','".$turno."','".$horarios."','".$sala."','".$reserva."','".$semestre."','".$ano."','".$coduser."')";
+	$query_insere="insert into oferta_lista_sigra values (?,?,?,?,?,?,?,?,?,?)"; $query_insere__p = array($codigo, $turma, $vagas, $turno, $horarios, $sala, $reserva, $semestre, $ano, $coduser);
 //        echo "<BR>Insere nova disciplina: ".$query_insere."<BR>";
-        $res_insere=pg_query($query_insere)  or die ("problema de acesso ao banco 02");
+        $res_insere=db_query($query_insere, $query_insere__p)  or die ("problema de acesso ao banco 02");
 	}
 }
 }
@@ -1010,12 +1010,12 @@ if ($key==count($array_linhas)-1)
 
 function monta_array_de_profs()
 {
-    $query_profs=pg_query ("select name,firstname,coduser,matricul from users where tipo_users='professor' order by name");
+    $query_profs=db_query("select name,firstname,coduser,matricul from users where tipo_users='professor' order by name", array());
     $i=0;
     $devolve=array();
     $acentos=array(á,à,ã,é,è,ê,í,ó,ò,õ,ô,ö,ú,ù,ç);
     $letras=array(a,a,a,e,e,e,i,o,o,o,o,o,u,u,c);
-    while ($registro=pg_fetch_row($query_profs))
+    while ($registro=db_fetch_row($query_profs))
           {
 
           $registro_0=implode(explode(" ",$registro[0]));
@@ -1087,9 +1087,9 @@ for ($i=0;$i<count($array_arquivo);$i++)
                                 $k=$k-1;
                                 }
 			$turma_disc=$array_arquivo[$i][$k];
-			$query_insere="insert into oferta_carga_professor values('".$coduser."','".$codigo."','".$nivel."','".$turma_disc."','".$creditos_disc."','".$creditos_prof."','".$matriculas_na_turma."','".$semestre."','".$ano."')";
+			$query_insere="insert into oferta_carga_professor values(?,?,?,?,?,?,?,?,?)"; $query_insere__p = array($coduser, $codigo, $nivel, $turma_disc, $creditos_disc, $creditos_prof, $matriculas_na_turma, $semestre, $ano);
 			echo "<BR>".$query_insere."<br>";
-			$res_insere=pg_query($query_insere) or die ("problema de acesso ao banco em melhora_lista_carga");
+			$res_insere=db_query($query_insere, $query_insere__p) or die ("problema de acesso ao banco em melhora_lista_carga");
 //			echo "<BR>".$query_insere."<br>";
 			}
 
@@ -1106,8 +1106,8 @@ function monta_ofertas_emural($semestre,$ano)  // alterado em 18/12/2014
 	//
 	//redefinir a array_carga
 // select DAS turmas/disciplinas que trabalham no esquema magistral ou COM MAIS DE UM PROFESSOR POR TURMA
-$query_magistral_ou_turmas_unificadas=pg_query("select s.codigo,s.turma,s.turno,s.horarios,s.coduser,grupo from oferta_lista_sigra s inner join oferta_grupos_magistral_teoria mt on mt.codigo=s.codigo and mt.turmas=s.turma and mt.semestre=s.semestre and mt.ano=s.ano where s.semestre='".$semestre."' and s.ano='".$ano."' union (select s.codigo,s.turma,s.turno,s.horarios,s.coduser,'0' as grupo from oferta_lista_sigra s where  semestre='".$semestre."' and ano='".$ano."' and coduser like '%-%'  and codigo not in (select codigo from oferta_grupos_magistral_teoria where  semestre='".$semestre."' and ano='".$ano."' )) order by grupo,codigo,turma") or die ("monta_ofertas_emural: problema 01");
-$array_multiplos_profs=pg_fetch_all($query_magistral_ou_turmas_unificadas);
+$query_magistral_ou_turmas_unificadas=db_query("select s.codigo,s.turma,s.turno,s.horarios,s.coduser,grupo from oferta_lista_sigra s inner join oferta_grupos_magistral_teoria mt on mt.codigo=s.codigo and mt.turmas=s.turma and mt.semestre=s.semestre and mt.ano=s.ano where s.semestre=? and s.ano=? union (select s.codigo,s.turma,s.turno,s.horarios,s.coduser,'0' as grupo from oferta_lista_sigra s where  semestre=? and ano=? and coduser like '%-%'  and codigo not in (select codigo from oferta_grupos_magistral_teoria where  semestre=? and ano=? )) order by grupo,codigo,turma", array($semestre, $ano, $semestre, $ano, $semestre, $ano)) or die ("monta_ofertas_emural: problema 01");
+$array_multiplos_profs=db_fetch_all($query_magistral_ou_turmas_unificadas);
 
 // cria um array de profs de exerc�cios para as turmas do magistrsal e as turmas com mais de um prof.
 $array_prof_exercicio=procura_prof_exercicio($array_multiplos_profs,$semestre,$ano);
@@ -1117,9 +1117,9 @@ $array_prof_exercicio=procura_prof_exercicio($array_multiplos_profs,$semestre,$a
 
 
 // inicia a motagem da LO para o e-mural
-$query_lista=pg_query("select codigo,turma,turno,horarios,coduser from oferta_lista_sigra where semestre='".$semestre."' and ano='".$ano."' order by codigo,turma") or die ("problemas de acesso ao banco");
+$query_lista=db_query("select codigo,turma,turno,horarios,coduser from oferta_lista_sigra where semestre=? and ano=? order by codigo,turma", array($semestre, $ano)) or die ("problemas de acesso ao banco");
 
-while($registro=pg_fetch_row($query_lista))
+while($registro=db_fetch_row($query_lista))
 	{
 	$disciplina=$registro[0];
 	$turma=$registro[1];
@@ -1137,8 +1137,8 @@ while($registro=pg_fetch_row($query_lista))
 		{
 		if ($professores[0]=="") $coduser=0; else $coduser=$professores[0];
 		}
-	$insere="insert into oferta_lista_de_ofertas values('".$disciplina."','".$turma."','".$turno."','".$coduser."','".$semestre."','".$ano."','".$horarios."')";
-	pg_query($insere);
+	$insere="insert into oferta_lista_de_ofertas values(?,?,?,?,?,?,?)"; $insere__p = array($disciplina, $turma, $turno, $coduser, $semestre, $ano, $horarios);
+	db_query($insere, $insere__p);
 
 	echo "<BR> lista e-mural: ".$insere."<BR>";
 	}
@@ -1154,9 +1154,9 @@ for ($i=0;$i<count($array_multiplos_profs);$i++)
 	if($array_multiplos_profs[$i]['grupo']!=0)
 	{
 		$profs=explode("-",$array_multiplos_profs[$i]['coduser']);
-		$query_turma_gemea=pg_query("select turmas from oferta_grupos_magistral_teoria where grupo='".$array_multiplos_profs[$i]['grupo']."' and codigo='".$array_multiplos_profs[$i]['codigo']."' and semestre='".$semestre."' and ano='".$ano."' and horario in (select horario from oferta_grupos_magistral_teoria where codigo='".$array_multiplos_profs[$i]['codigo']."' and turmas='".$array_multiplos_profs[$i]['turma']."'  and semestre='".$semestre."' and ano='".$ano."') and turmas<>'".$array_multiplos_profs[$i]['turma']."'");
-		$turma=pg_result($query_turma_gemea,0,0);
-		if(pg_num_rows($query_turma_gemea)!=0)
+		$query_turma_gemea=db_query("select turmas from oferta_grupos_magistral_teoria where grupo=? and codigo=? and semestre=? and ano=? and horario in (select horario from oferta_grupos_magistral_teoria where codigo=? and turmas=?  and semestre=? and ano=?) and turmas<>?", array($array_multiplos_profs[$i]['grupo'], $array_multiplos_profs[$i]['codigo'], $semestre, $ano, $array_multiplos_profs[$i]['codigo'], $array_multiplos_profs[$i]['turma'], $semestre, $ano, $array_multiplos_profs[$i]['turma']));
+		$turma=db_result($query_turma_gemea,0,0);
+		if(db_num_rows($query_turma_gemea)!=0)
 		{
 // echo "turma: ".$turma;echo $i;echo "--";
 $k=$i+1;
@@ -1229,12 +1229,12 @@ return $coduser;
 
 function atualiza_oferta_semestres($semestre,$ano)
 {
-$query_oferta_sigra=pg_query("select * from oferta_lista_sigra where semestre='".$semestre."' and ano='".$ano."' and reserva<>'' and not( (codigo,turma) in (select codigo,turma from oferta_semestres where semestre<>'120'))") or die ("problema de acesso ao banco");
+$query_oferta_sigra=db_query("select * from oferta_lista_sigra where semestre=? and ano=? and reserva<>'' and not( (codigo,turma) in (select codigo,turma from oferta_semestres where semestre<>'120'))", array($semestre, $ano)) or die ("problema de acesso ao banco");
 
-while ($registro=pg_fetch_row($query_oferta_sigra))
+while ($registro=db_fetch_row($query_oferta_sigra))
 	{
-	$insere="insert into oferta_semestres values('".$registro[0]."','".$registro[1]."','".$registro[2]."','".$registro[3]."','".$registro[4]."','".$registro[5]."','".$registro[6]."','fixa','12')";
-	$res_insere=pg_query($insere);
+	$insere="insert into oferta_semestres values(?,?,?,?,?,?,?,'fixa','12')"; $insere__p = array($registro[0], $registro[1], $registro[2], $registro[3], $registro[4], $registro[5], $registro[6]);
+	$res_insere=db_query($insere, $insere__p);
 //echo "<BR>".$insere."<BR>";
 	}
 } // fim function atualiza_lista_semestre

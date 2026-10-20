@@ -2,8 +2,8 @@
   require("head_user.php");
 
   $query="select idmodule,name from module order by name";
-  $result=pg_query($query);
-  $count=pg_num_rows($result);
+  $result=db_query($query);
+  $count=db_num_rows($result);
   if ( isset($_POST['prec']) && $_POST['prec']=="si" )
   {    
      $account= new c_admin;
@@ -14,29 +14,26 @@
      $i=0;
      foreach($_POST['droits']as $arr)
      {
-       $tab=pg_fetch_array($result,$i);
-       $query3="update permission set permission=".$arr." where login='".$account->get_login()."' and idmodule=".$tab['idmodule'];
-       $result3=pg_query($query3);
+       $tab=db_fetch_array($result,$i);
+       $result3=db_query("update permission set permission=? where login=? and idmodule=?", array($arr, $account->get_login(), $tab['idmodule']));
        $i+=1;
       } 
   }
   if($_GET['un']!=0)
   {
-    $req1="select login from unix where coduser=".$_GET['cu'];
-    $res1=pg_query($req1);
-    $blo1=pg_fetch_array($res1,0);
+    $res1=db_query("select login from unix where coduser=?", array($_GET['cu']));
+    $blo1=db_fetch_array($res1,0);
     $loginsi=$blo1['login'];
-    pg_free_result($res1);    
+    db_free_result($res1);    
   }
   else
   {
      if($_GET['sa']!=0)
      {
-         $req2="select login from samba where coduser=".$_GET['cu'];
-         $res2=pg_query($req2);
-         $blo2=pg_fetch_array($res2,0);
+         $res2=db_query("select login from samba where coduser=?", array($_GET['cu']));
+         $blo2=db_fetch_array($res2,0);
          $loginsi=$blo2['login'];
-         pg_free_result($res2);   
+         db_free_result($res2);   
      }
      else
        $loginsi="";
@@ -93,7 +90,7 @@
 <?php
   for ($y=0;$y<$count;$y++)
   {
-    $tab=pg_fetch_array($result,$y);
+    $tab=db_fetch_array($result,$y);
 ?>
         <tr>
           <td>
@@ -124,5 +121,5 @@
   </body>
 </html>
 <?php
-  pg_close($idconn);
+  $idconn = null;
 ?>

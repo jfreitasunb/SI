@@ -34,15 +34,15 @@
     <?php
 
 
-  $queryverif1="select * from admin where login='".$_POST['login']."'";
-  $queryverif2="select * from unix where login='".$_POST['login']."'";
+  $queryverif1="select * from admin where login=?"; $queryverif1__p = array($_POST['login']);
+  $queryverif2="select * from unix where login=?"; $queryverif2__p = array($_POST['login']);
 //  $queryverif3="select * from samba where login='".$_POST['login']."'";
-  $resverif1=pg_query($queryverif1);
-  $resverif2=pg_query($queryverif2);
+  $resverif1=db_query($queryverif1, $queryverif1__p);
+  $resverif2=db_query($queryverif2, $queryverif2__p);
 //  $resverif3=pg_query($queryverif3);
-  $countverif1=pg_num_rows($resverif1);
-  $countverif2=pg_num_rows($resverif2);
-//  $countverif3=pg_num_rows($resverif3);
+  $countverif1=db_num_rows($resverif1);
+  $countverif2=db_num_rows($resverif2);
+//  $countverif3=db_num_rows($resverif3);
 
  // if ( ($countverif1==0)&&($countverif2==0)&&($countverif3==0) )
   if ( ($countverif1==0)&&($countverif2==0) )
@@ -101,7 +101,7 @@
     	$i=0;
     	foreach($_POST['droits']as $arr)
     		{
-	         $sl=pg_fetch_array($result4,$i);
+	         $sl=db_fetch_array($result4,$i);
 	      //$query3="insert into permission values('".$compte3->get_login()."',".$sl['idmodule'].",".$arr.")";
 	         $query3="update permission set permission=".$arr." where login='".$compte3->get_login()."' and idmodule=".$sl['idmodule'];
 		 $result3=pg_query($query3);
@@ -125,7 +125,7 @@
     $i=0;
     foreach($_POST['droits']as $arr)
     {
-      $sl=pg_fetch_array($result4,$i);
+      $sl=db_fetch_array($result4,$i);
       //$query3="insert into permission values('".$compte3->get_login()."',".$sl['idmodule'].",".$arr.")";
       $query3="update permission set permission=".$arr." where login='".$compte3->get_login()."' and idmodule=".$sl['idmodule'];
       $result3=pg_query($query3);
@@ -238,5 +238,5 @@
   </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

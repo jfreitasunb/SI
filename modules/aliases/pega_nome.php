@@ -25,16 +25,16 @@
           <td class=header align=center colspan=2>Selecione um usu&aacute;rio: </td></tr>
         <tr><td>
 	<?php
-	     $query="select ux.login, u.* from users u, unix ux where u.coduser=ux.coduser and ux.coduser<>'0' order by u.name";
-	     $result=pg_query($query);
-	     $nb_enreg=pg_num_rows($result);
+	     $query="select ux.login, u.* from users u, unix ux where u.coduser=ux.coduser and ux.coduser<>'0' order by u.name"; $query__p = array();
+	     $result=db_query($query, $query__p);
+	     $nb_enreg=db_num_rows($result);
 	     $i=0;
 	?>
 	            <select name='user' onchange="enregistrement_modif(utilisateurs,this.selectedIndex,nb_enreg);">>
 	<?php
 	            for ($i=0;$i<$nb_enreg;$i++)
 	            {
-	               $tab=pg_fetch_array($result, $i);
+	               $tab=db_fetch_array($result, $i);
 // 		       $nome=mb_convert_encoding($tab['name'],"ISO-8859-1","UTF-8");
 //		       $sobrenome=mb_convert_encoding($tab['firstname'],"ISO-8859-1","UTF-8");
  		       $nome=$tab['name'];
@@ -69,7 +69,7 @@
 	    </body>
 	</html>
 <?php
-pg_close($idconn);
+db_close($idconn);
 
 ?>
 	

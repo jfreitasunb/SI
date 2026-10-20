@@ -50,5 +50,5 @@
 </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

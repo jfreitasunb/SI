@@ -20,12 +20,12 @@ $destino=mb_convert_encoding( $_POST['instituicao'],"UTF-8")."/$/".mb_convert_en
 $coduser=$_POST['coduser'];
 $titulo=mb_convert_encoding($_POST['titulo'],"UTF-8")."/$/".mb_convert_encoding($_POST['autor'],"UTF-8");
 
-	$query_user="select coduser from users where matricul='".$_POST['matricul']."'";
-	$res_user=pg_query($query_user);
-	$coduser=pg_fetch_array($res_user);
+	$query_user="select coduser from users where matricul=?"; $query_user__p = array($_POST['matricul']);
+	$res_user=db_query($query_user, $query_user__p);
+	$coduser=db_fetch_array($res_user);
 
-     $query="insert into licences values('".$id_licence."','".$date_debut."','".$date_fin."','".$destino."','".$coduser[0]."','".$titulo."')";
-     $result=pg_query($query);
+     $query="insert into licences values(?,?,?,?,?,?)"; $query__p = array($id_licence, $date_debut, $date_fin, $destino, $coduser[0], $titulo);
+     $result=db_query($query, $query__p);
 
 
 ?>
@@ -45,5 +45,5 @@ $titulo=mb_convert_encoding($_POST['titulo'],"UTF-8")."/$/".mb_convert_encoding(
 </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

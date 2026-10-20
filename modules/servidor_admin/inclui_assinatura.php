@@ -36,8 +36,8 @@ $dado=$_POST['dado'];
 $insere=mb_convert_encoding($dado[0],"UTF-8");
 $titulo=mb_convert_encoding($dado[1],"UTF-8");
 
-$query_admin_assinatura="insert into admin_assinatura values(default,'','$insere','$titulo')";
-$result=pg_query($query_admin_assinatura);
+$query_admin_assinatura="insert into admin_assinatura values(default,'',?,?)"; $query_admin_assinatura__p = array($insere, $titulo);
+$result=db_query($query_admin_assinatura, $query_admin_assinatura__p);
 //}
 }
 ?>

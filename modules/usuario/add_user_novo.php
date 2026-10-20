@@ -153,8 +153,8 @@
 ?>
 <td>Tipo Contratual :<td><select name="tipo_contrato">
 				<?php            // gera a lista de usuarios registrados
-					$res_tipo_cont = pg_query("SELECT * from users_tipo_contrato order by descricao");
-					while($reg_tipo_cont = pg_fetch_row($res_tipo_cont)) 
+					$res_tipo_cont = db_query("SELECT * from users_tipo_contrato order by descricao", array());
+					while($reg_tipo_cont = db_fetch_row($res_tipo_cont)) 
 						{
 						echo "<option value='".$reg_tipo_cont[0]."'>".$reg_tipo_cont[1]."</option>";
 						}
@@ -174,8 +174,8 @@
 							</SELECT></td>
 <tr><td>N&iacute;vel :</td><td><select name="nivel_funcional">
 				<?php            // gera a lista de usuarios registrados
-					$res_nivel = pg_query("SELECT * from users_nivel_funcional order by descricao");
-					while($reg_nivel = pg_fetch_row($res_nivel)) 
+					$res_nivel = db_query("SELECT * from users_nivel_funcional order by descricao", array());
+					while($reg_nivel = db_fetch_row($res_nivel)) 
 						{
 						echo "<option value='".$reg_nivel[0]."'>".$reg_nivel[1]."</option>";
 						}
@@ -193,13 +193,13 @@ N&iacute;vel: <select name="credencia_nivel">
 				<?php            // gera a lista de usuarios registrados
 //					$res = pg_query("SELECT pf.coduser FROM profs pf,users us where pf.orientateur='true' and pf.coduser=us.coduser order by us.name");
 					$data_hoje=date("Y-m-d");
-					$res = pg_query("SELECT us.coduser,us.name,us.firstname,or.orientacao FROM users us,orientateur or where or.coduser=us.coduser and or.date_debut<='".$data_hoje."' and '".$data_hoje."'<= or.date_fin order by us.name"); // corrigido em 18/10/18.
+					$res = db_query("SELECT us.coduser,us.name,us.firstname,or.orientacao FROM users us,orientateur or where or.coduser=us.coduser and or.date_debut<=? and ?<= or.date_fin order by us.name", array($data_hoje, $data_hoje)); // corrigido em 18/10/18.
 					//seleciona coduser onde status é prof em fonctionnaire e depois, selecione em users nome onde coduser=coduser
-					while($registro = pg_fetch_row($res)) //enquanto houver registro escreva
+					while($registro = db_fetch_row($res)) //enquanto houver registro escreva
 						{
 						//$cod = $registro[0];  		// primeira coluna da tabela usuario
 						//$res2 = pg_query("SELECT name,firstname FROM users where coduser=$cod");
-						//$novo_registro = pg_fetch_array($res2);
+						//$novo_registro = db_fetch_array($res2);
 //						//$titulo=$novo_registro[0];
 						//echo "<option value='".$cod."'>".$novo_registro['name']." ".$novo_registro['firstname']."</	option>";
 						echo "<option value='".$registro[0]."'>".$registro[1]." ".$registro[2]."(".$registro[3].")</	option>";
@@ -207,8 +207,8 @@ N&iacute;vel: <select name="credencia_nivel">
 				?></select></td></tr>
 <tr> <td>Bolsista :</td><td><select name="bolsista">
 				<?php            // gera a lista de usuarios registrados
-					$res_bolsas = pg_query("SELECT * FROM users_bolsas order by descricao");
-					while($reg_bolsas = pg_fetch_row($res_bolsas)) 
+					$res_bolsas = db_query("SELECT * FROM users_bolsas order by descricao", array());
+					while($reg_bolsas = db_fetch_row($res_bolsas)) 
 						{
 						echo "<option value='".$reg_bolsas[0]."'>".$reg_bolsas[1]."</option>";
 						}
@@ -230,5 +230,5 @@ N&iacute;vel: <select name="credencia_nivel">
   </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

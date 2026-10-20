@@ -14,7 +14,7 @@ $ordena=$_POST['ordena'];
 // Escolhe semestre e ano:
 
 
-$query_acusa_lista=pg_query("select * from oferta_acusa_lista order by ano desc, semestre desc");
+$query_acusa_lista=db_query("select * from oferta_acusa_lista order by ano desc, semestre desc", array());
 ?>
   <body>
       <table class=big>
@@ -27,7 +27,7 @@ $query_acusa_lista=pg_query("select * from oferta_acusa_lista order by ano desc,
       <tr><td>Escolha o semestre:
         <select name='lista'>
         <?
-        while ($registro=pg_fetch_row($query_acusa_lista))
+        while ($registro=db_fetch_row($query_acusa_lista))
         {
         ?>
         <option value="<?echo $registro[0]."_".$registro[1];?>"> <? echo $registro[0];?> &ordm;/ <? echo $registro[1];?></option>
@@ -45,6 +45,6 @@ $query_acusa_lista=pg_query("select * from oferta_acusa_lista order by ano desc,
         </BODY>
 </html>
 <?
-pg_close($idconn);
+db_close($idconn);
 ?>
 

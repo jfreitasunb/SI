@@ -36,20 +36,20 @@
         <tr><td>
 <?php
 //     $query="select * from users order by name";
-   $query="select u.matricul, u.name, u.firstname, u.coduser from users u, unix ux where u.coduser=ux.coduser and ux.coduser<>'0' order by u.name ";
-     $result=pg_query($query);
-     $nb_enreg=pg_num_rows($result);
+   $query="select u.matricul, u.name, u.firstname, u.coduser from users u, unix ux where u.coduser=ux.coduser and ux.coduser<>'0' order by u.name "; $query__p = array();
+     $result=db_query($query, $query__p);
+     $nb_enreg=db_num_rows($result);
      $i=0;
 ?>
             <select name='user' onchange="enregistrement(utilisateurs,this.selectedIndex,nb_enreg);">>
 <?php
             for ($i=0;$i<$nb_enreg;$i++)
             {
-               $tab=pg_fetch_array($result, $i);
+               $tab=db_fetch_array($result, $i);
 
-       $test2="select * from unix where coduser=".$tab['coduser'];
-       $result2=pg_query($test2);
-       $tab2=pg_fetch_array($result2,0);
+       $test2="select * from unix where coduser=?"; $test2__p = array($tab['coduser']);
+       $result2=db_query($test2, $test2__p);
+       $tab2=db_fetch_array($result2,0);
                
 $param="'".$tab['coduser']."','".$tab2['login']."','".$tab2['cota_impressao']."','".$tab2['cota_disco']."','".$tab2['cota_mail']."','".$tab2['ssh']."'";
                $param=str_replace(CHR(10)," ",$param);
@@ -83,8 +83,8 @@ $param="'".$tab['coduser']."','".$tab2['login']."','".$tab2['cota_impressao']."'
 					<select name='cota_disco'>
 					<option value='nao_modifica' selected>n&atilde;o altera</option>
 					<?php 
-					$query_cotas_disco=pg_query("select * from cotas");
-					while($registro_cota_disco=pg_fetch_row($query_cotas_disco))
+					$query_cotas_disco=db_query("select * from cotas", array());
+					while($registro_cota_disco=db_fetch_row($query_cotas_disco))
 						{
 						echo "<option>".$registro_cota_disco[0]."</option>";
 						}
@@ -95,8 +95,8 @@ $param="'".$tab['coduser']."','".$tab2['login']."','".$tab2['cota_impressao']."'
 					<select name='cota_mail'>
 					<option value='nao_modifica' selected>n&atilde;o altera</option>
 					 <?php
-                                        $query_cotas_mail=pg_query("select * from cotas");
-                                        while($registro_cota_mail=pg_fetch_row($query_cotas_mail))
+                                        $query_cotas_mail=db_query("select * from cotas", array());
+                                        while($registro_cota_mail=db_fetch_row($query_cotas_mail))
                                                 {
                                                 echo "<option>".$registro_cota_mail[0]."</option>";
                                                 }
@@ -139,5 +139,5 @@ $param="'".$tab['coduser']."','".$tab2['login']."','".$tab2['cota_impressao']."'
     </body>
 </html>
 <?php
-  pg_close($idconn);
+  db_close($idconn);
 ?>

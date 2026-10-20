@@ -96,9 +96,9 @@ $alias=retira_acentos($alias);
 $alias_0=str_replace(" ",".",$alias);
 $alias0=mb_convert_encoding($alias_0,"UTF-8");
 
-$query_checa="select * from aliases where alias='".$alias0."' or alias2='".$alias0."'";
-$res_query_checa=pg_query($query_checa);
-$num_res_checa=pg_num_rows($res_query_checa);
+$query_checa="select * from aliases where alias=? or alias2=?"; $query_checa__p = array($alias0, $alias0);
+$res_query_checa=db_query($query_checa, $query_checa__p);
+$num_res_checa=db_num_rows($res_query_checa);
 
 if ($num_res_checa==0) $checa_alias="ok"; else $checa_alias="ja_existe_um";
 
@@ -112,20 +112,20 @@ $alias=retira_acentos($alias);
 $alias_0=str_replace(" ",".",$alias);
 $alias0=mb_convert_encoding($alias_0,"UTF-8");
 
-$query_banco="select * from aliases where coduser='".$coduser."'";
-$res_query=pg_query($query_banco);
-$num_res=pg_num_rows($res_query);
+$query_banco="select * from aliases where coduser=?"; $query_banco__p = array($coduser);
+$res_query=db_query($query_banco, $query_banco__p);
+$num_res=db_num_rows($res_query);
 
 if ($num_res!=0)
    {
-   $query_grava="update aliases set alias2='".$alias0."' where coduser='".$coduser."'";
-   $res=pg_query($query_grava);
+   $query_grava="update aliases set alias2=? where coduser=?"; $query_grava__p = array($alias0, $coduser);
+   $res=db_query($query_grava, $query_grava__p);
    echo "Alias atualizado";
    }
    else 
    {
-   $query_grava="insert into aliases values('".$coduser."','".$alias0."','')";
-   $res=pg_query($query_grava);
+   $query_grava="insert into aliases values(?,?,'')"; $query_grava__p = array($coduser, $alias0);
+   $res=db_query($query_grava, $query_grava__p);
    echo "Alias inserido";
    }
 }
@@ -162,9 +162,9 @@ else
 		//$alias=gera_alias($nome,$sobrenome);
 		if (isset($_POST['user']))
 		   {
-		   $pega_aliases="select alias,alias2 from aliases where coduser='".$usuario[0]."'";
-		   $query_aliases=pg_query($pega_aliases);
-		   $res_aliases=pg_fetch_array($query_aliases);
+		   $pega_aliases="select alias,alias2 from aliases where coduser=?"; $pega_aliases__p = array($usuario[0]);
+		   $query_aliases=db_query($pega_aliases, $pega_aliases__p);
+		   $res_aliases=db_fetch_array($query_aliases);
 		   $alias=mb_convert_encoding($res_aliases['alias'],"ISO-8859-1","UTF-8");
 		   if (isset($_POST['alias2'])) 
 		      {

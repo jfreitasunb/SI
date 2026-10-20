@@ -10,9 +10,9 @@ require("head_user.php");
 //
 function relatorio($query_pesquisa,$dados_pessoais,$dados_profissionais,$dados_academicos,$orientacao)
 {
-	$result=pg_query($query_pesquisa);
-	$retorna=pg_fetch_all($result);
-	$linhas=pg_num_rows($result);
+	$result=db_query($query_pesquisa);
+	$retorna=db_fetch_all($result);
+	$linhas=db_num_rows($result);
 	
 	if (!empty($retorna)) 
 	{
@@ -78,10 +78,10 @@ $cor_anterior=$nova_cor;}
 			{
 			$emails="";
 			$cod_usuario=$dados['coduser'];
-			$select_e_mails="select mail from mail where mail.coduser='".$cod_usuario."'";
-			$query_e_mails=pg_query($select_e_mails);
-			$e_mails=pg_fetch_all($query_e_mails);
-			for ($k=0; $k<pg_num_rows($query_e_mails);$k++) 
+			$select_e_mails="select mail from mail where mail.coduser=".db_quote($cod_usuario)."";
+			$query_e_mails=db_query($select_e_mails);
+			$e_mails=db_fetch_all($query_e_mails);
+			for ($k=0; $k<db_num_rows($query_e_mails);$k++) 
 				{$dado_mail=$e_mails[$k];
 				if (!empty($emails)) $emails=$emails.",".$dado_mail['mail'];
 				else $emails=$dado_mail['mail'];
@@ -171,9 +171,9 @@ $cor_anterior=$nova_cor;}
 			 else  if(!empty($dados['orientador_do_aluno']))
 				{
 				 $select_orientador="select name, firstname from users where 
-coduser='".$dados['orientador_do_aluno']."'";
-				 $query_orientateur=pg_query($select_orientador);
-				 $orientador_pg=pg_fetch_array($query_orientateur);
+coduser=".db_quote($dados['orientador_do_aluno'])."";
+				 $query_orientateur=db_query($select_orientador);
+				 $orientador_pg=db_fetch_array($query_orientateur);
 				 if ($orientador_pg['name']=="root") $orientador="cpg"; else 
 $orientador=mb_convert_encoding($orientador_pg['name'],"ISO-8859-1","UTF-8")." 
 ".mb_convert_encoding($orientador_pg['firstname'],"ISO-8859-1","UTF-8");
@@ -189,21 +189,21 @@ $orientador=mb_convert_encoding($orientador_pg['name'],"ISO-8859-1","UTF-8")."
                             {
                             if (!empty($orientacao[$k]))
                                       {
-                                      if(!empty($condicao_orientacao)) $condicao_orientacao=$condicao_orientacao." or std.formation='".$orientacao[$k]."'";
-                                      else $condicao_orientacao="std.formation='".$orientacao[$k]."'";
+                                      if(!empty($condicao_orientacao)) $condicao_orientacao=$condicao_orientacao." or std.formation=".db_quote($orientacao[$k])."";
+                                      else $condicao_orientacao="std.formation=".db_quote($orientacao[$k])."";
                                       }
                             }
 			if (!empty($dados['orientateur']))
 				{
 				if (empty($condicao_orientacao)) 
-				$select_orientando="select orientando.name, orientando.firstname, orientando.matricul, std.formation, std.status from users orientando, student std where std.orientateur='".$dados['coduser']."' and orientando.coduser=std.coduser order by std.formation, orientando.name";
+				$select_orientando="select orientando.name, orientando.firstname, orientando.matricul, std.formation, std.status from users orientando, student std where std.orientateur=".db_quote($dados['coduser'])." and orientando.coduser=std.coduser order by std.formation, orientando.name";
 				else 
 				$select_orientando="select orientando.name, orientando.firstname, orientando.matricul, std.formation, std.status from 
-users orientando, student std where std.orientateur='".$dados['coduser']."' and orientando.coduser=std.coduser and (".$condicao_orientacao.") order by 
+users orientando, student std where std.orientateur=".db_quote($dados['coduser'])." and orientando.coduser=std.coduser and (".$condicao_orientacao.") order by 
 std.formation,orientando.name";
-				$query_orientando=pg_query($select_orientando);
-        	                $dados_orientandos=pg_fetch_all($query_orientando);		
-				$num_orientandos=pg_num_rows($query_orientando);
+				$query_orientando=db_query($select_orientando);
+        	                $dados_orientandos=db_fetch_all($query_orientando);		
+				$num_orientandos=db_num_rows($query_orientando);
 				for ($k=0; $k< $num_orientandos; $k++)			
 					{
 					$dados_do_orientando=$dados_orientandos[$k];
@@ -279,8 +279,8 @@ if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, faÃ
         <td><b> Nome do usu&aacute;rio :</b> </td><td><select size="1" name="usuario">
 				<option value="todos">Todos os usu&aacute;rios</option>
 				<?php                                   		 	// gera a lista de usuarios registrados
-				$res = pg_query("SELECT * FROM users where name<>'root' order by name");
-				while($registro = pg_fetch_row($res)) 				//enquanto houver registro escreva
+				$res = db_query("SELECT * FROM users where name<>'root' order by name");
+				while($registro = db_fetch_row($res)) 				//enquanto houver registro escreva
 					{
 					$coduser = $registro[0];  		         	// primeira coluna da tabela usuario
 					$titulo = $registro[1]." ".$registro[2];         	// segunda coluna da tabela usuario
@@ -482,7 +482,7 @@ $dado_select="users.coduser,users.name,users.firstname,users.matricul as matricu
 as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_end,visitor.tipo_visitor,visitor.area_atuacao as area_visitor,student.coming_date,student.depart_date1,student.speciality,student.orientateur as orientador_do_aluno,student.status,student.formation,student.bolsista as bolsa_aluno,student.matricul as matricula_aluno, to_char(orientateur.date_fin,'dd/MM/yyyy') as fim_credenciamento, orientateur.orientacao as tipo_credenciamento"; // corrigido em 18/10/2018
 	$tabela_select="((((users left outer join fonctionnaire on users.coduser=fonctionnaire.coduser) left outer join profs on users.coduser=profs.coduser) left outer join visitor on users.coduser=visitor.coduser) left outer join student on users.coduser=student.coduser) left outer join orientateur on users.coduser=orientateur.coduser";// corrigido em 18/10/2018
 	$condicao_select=" users.coduser<>'0'";
-	if ($usuario!="todos") $condicao_select="users.coduser='".$usuario."'";	
+	if ($usuario!="todos") $condicao_select="users.coduser=".db_quote($usuario)."";	
 
 //	$ordenacao="name ASC, tipo_users, formation";
 
@@ -492,9 +492,9 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		{
 		$num_dados_profissionais=1;
 		if (!empty($condicao_select)) 
-			$condicao_select=$condicao_select." and ( contract_date like '".$_POST['ano_admissao']."%' or date_begin like '".$_POST['ano_admissao']."%' or coming_date like '".$_POST['ano_admissao']."%')"; 
+			$condicao_select=$condicao_select." and ( contract_date like ".db_quote($_POST['ano_admissao'].'%')." or date_begin like ".db_quote($_POST['ano_admissao'].'%')." or coming_date like ".db_quote($_POST['ano_admissao'].'%').")"; 
 		else 
-			$condicao_select=" (contract_date like '".$_POST['ano_admissao']."%' or date_begin like '".$_POST['ano_admissao']."%' or coming_date like '".$_POST['ano_admissao']."%')";
+			$condicao_select=" (contract_date like ".db_quote($_POST['ano_admissao'].'%')." or date_begin like ".db_quote($_POST['ano_admissao'].'%')." or coming_date like ".db_quote($_POST['ano_admissao'].'%').")";
 		}
 
 // pesquisa por ano de saida
@@ -502,9 +502,9 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		{
 		$num_dados_profissionais=1;
 		if (!empty($condicao_select)) 
-			$condicao_select=$condicao_select." and (contract_end like '".$_POST['ano_saida']."%' or date_end like '".$_POST['ano_saida']."%' or depart_date1 like '".$_POST['ano_saida']."%')"; 
+			$condicao_select=$condicao_select." and (contract_end like ".db_quote($_POST['ano_saida'].'%')." or date_end like ".db_quote($_POST['ano_saida'].'%')." or depart_date1 like ".db_quote($_POST['ano_saida'].'%').")"; 
 		else 
-			$condicao_select=" (contract_end like '".$_POST['ano_saida']."%' or date_end like '".$_POST['ano_saida']."%' or depart_date1 like '".$_POST['ano_saida']."%')";
+			$condicao_select=" (contract_end like ".db_quote($_POST['ano_saida'].'%')." or date_end like ".db_quote($_POST['ano_saida'].'%')." or depart_date1 like ".db_quote($_POST['ano_saida'].'%').")";
 		}
 
 // pesquisa por matricula			
@@ -512,9 +512,9 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		{
 		$num_dados_profissionais=1;
 		if (!empty($condicao_select)) 
-			$condicao_select=$condicao_select." and (users.matricul='".$_POST['matricula']."' or student.matricul='".$_POST['matricula']."')";
+			$condicao_select=$condicao_select." and (users.matricul=".db_quote($_POST['matricula'])." or student.matricul=".db_quote($_POST['matricula']).")";
 		 else 
-			$condicao_select=" (users.matricul='".$_POST['matricula']."' or student.matricul='".$_POST['matricula']."')";
+			$condicao_select=" (users.matricul=".db_quote($_POST['matricula'])." or student.matricul=".db_quote($_POST['matricula']).")";
 		}
 
 // pesquisa por telefone
@@ -522,9 +522,9 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		{
 		$num_dados_pessoais=1;
 		if (!empty($condicao_select)) 
-			$condicao_select=$condicao_select." and users.phone_home='".$_POST['telefone']."'"; 
+			$condicao_select=$condicao_select." and users.phone_home=".db_quote($_POST['telefone']).""; 
 		else 
-			$condicao_select=" users.phone_home='".$_POST['telefone']."'";	
+			$condicao_select=" users.phone_home=".db_quote($_POST['telefone'])."";	
 		}	
 
 // pesquisa por cidade	
@@ -532,9 +532,9 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		{
 		$num_dados_pessoais=1;
 		if (!empty($condicao_select)) 
-			$condicao_select=$condicao_select." and users.city='".$_POST['cidade']."'"; 
+			$condicao_select=$condicao_select." and users.city=".db_quote($_POST['cidade']).""; 
 		else 
-			$condicao_select=" users.city='".$_POST['cidade']."'";	
+			$condicao_select=" users.city=".db_quote($_POST['cidade'])."";	
 		}		
 	
 // pesquisa por situacao
@@ -544,8 +544,8 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		if (!empty($situacao[$i])) 
 			{
 			$num_dados_profissionais=1;
-			if (!empty($condicao_situacao)) $condicao_situacao=$condicao_situacao." or profs.situacao='".$situacao[$i]."' or student.status='".$situacao[$i]."'"; 
-			else $condicao_situacao=" profs.situacao='".$situacao[$i]."' or student.status='".$situacao[$i]."'";
+			if (!empty($condicao_situacao)) $condicao_situacao=$condicao_situacao." or profs.situacao=".db_quote($situacao[$i])." or student.status=".db_quote($situacao[$i]).""; 
+			else $condicao_situacao=" profs.situacao=".db_quote($situacao[$i])." or student.status=".db_quote($situacao[$i])."";
 			}
 		}
 	if (!empty($condicao_situacao)) 
@@ -560,8 +560,8 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		if (!empty($tipo_contrato[$i])) 
 			{
 			$num_dados_profissionais=1;
-			if (!empty($condicao_tipo_contrato)) $condicao_tipo_contrato=$condicao_tipo_contrato." or fonctionnaire.contract_type='".$tipo_contrato[$i]."' or visitor.tipo_visitor='".$tipo_contrato[$i]."'"; 
-			else $condicao_tipo_contrato=" fonctionnaire.contract_type='".$tipo_contrato[$i]."' or visitor.tipo_visitor='".$tipo_contrato[$i]."'";
+			if (!empty($condicao_tipo_contrato)) $condicao_tipo_contrato=$condicao_tipo_contrato." or fonctionnaire.contract_type=".db_quote($tipo_contrato[$i])." or visitor.tipo_visitor=".db_quote($tipo_contrato[$i]).""; 
+			else $condicao_tipo_contrato=" fonctionnaire.contract_type=".db_quote($tipo_contrato[$i])." or visitor.tipo_visitor=".db_quote($tipo_contrato[$i])."";
 			}
 		}
 	if (!empty($condicao_tipo_contrato)) 
@@ -580,9 +580,9 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 //			{
 //			if (!empty($orientacao[$i])) 
 //				{if (!empty($condicao_orientacao)) $condicao_orientacao=$condicao_orientacao." or (orientando.coduser=std.coduser and 
-//std.orientateur=users.coduser and std.formation='".$orientacao[$i]."')"; 
+//std.orientateur=users.coduser and std.formation=".db_quote($orientacao[$i]).")"; 
 //				else $condicao_orientacao="(orientando.coduser=std.coduser and std.orientateur=users.coduser and 
-//std.formation='".$orientacao[$i]."')";
+//std.formation=".db_quote($orientacao[$i]).")";
 //				}
 //			}
 //		if (!empty($condicao_select)) $condicao_select=$condicao_select." and (".$condicao_orientacao.")"; 
@@ -596,8 +596,8 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		if (!empty($area[$i])) 
 			{
 			$num_dados_academicos=1;
-			if (!empty($condicao_area)) $condicao_area=$condicao_area." or student.speciality='".$area[$i]."' or profs.area_atuacao='".$area[$i]."' or visitor.area_atuacao='".$area[$i]."'"; 
-			else $condicao_area=" student.speciality='".$area[$i]."' or profs.area_atuacao='".$area[$i]."' or visitor.area_atuacao='".$area[$i]."'";
+			if (!empty($condicao_area)) $condicao_area=$condicao_area." or student.speciality=".db_quote($area[$i])." or profs.area_atuacao=".db_quote($area[$i])." or visitor.area_atuacao=".db_quote($area[$i]).""; 
+			else $condicao_area=" student.speciality=".db_quote($area[$i])." or profs.area_atuacao=".db_quote($area[$i])." or visitor.area_atuacao=".db_quote($area[$i])."";
 			}
 		}
 	if (!empty($condicao_area)) 
@@ -615,8 +615,8 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		for ($i=0; $i< 7; $i++)
 			{
 			if (!empty($orientando[$i])) 
-				{if (!empty($condicao_orientando)) $condicao_orientando=$condicao_orientando." or (student.formation='".$orientando[$i]."' and orientador.coduser=student.orientateur and prof_orientador.coduser=student.orientateur and prof_orientador.orientateur='true')"; 
-				else $condicao_orientando=" (student.formation='".$orientando[$i]."' and orientador.coduser=student.orientateur and prof_orientador.coduser=student.orientateur and prof_orientador.orientateur='true')";
+				{if (!empty($condicao_orientando)) $condicao_orientando=$condicao_orientando." or (student.formation=".db_quote($orientando[$i])." and orientador.coduser=student.orientateur and prof_orientador.coduser=student.orientateur and prof_orientador.orientateur='true')"; 
+				else $condicao_orientando=" (student.formation=".db_quote($orientando[$i])." and orientador.coduser=student.orientateur and prof_orientador.coduser=student.orientateur and prof_orientador.orientateur='true')";
 				}
 			}
 		if (!empty($condicao_orientando)) 
@@ -633,8 +633,8 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		if (!empty($bolsa[$i])) 
 			{
 			$num_dados_academicos=1;
-			if (!empty($condicao_bolsa)) $condicao_bolsa=$condicao_bolsa." or (profs.bolsista='".$bolsa[$i]."' or student.bolsista='".$bolsa[$i]."')"; 
-			else $condicao_bolsa="(profs.bolsista='".$bolsa[$i]."' or student.bolsista='".$bolsa[$i]."')";
+			if (!empty($condicao_bolsa)) $condicao_bolsa=$condicao_bolsa." or (profs.bolsista=".db_quote($bolsa[$i])." or student.bolsista=".db_quote($bolsa[$i]).")"; 
+			else $condicao_bolsa="(profs.bolsista=".db_quote($bolsa[$i])." or student.bolsista=".db_quote($bolsa[$i]).")";
 			}
 		}
 	if (!empty($condicao_bolsa)) 
@@ -649,8 +649,8 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		{
 		if (!empty($tipo_funcionarios[$i])) 
 			{
-			if (!empty($condicao_tipo_funcionarios)) $condicao_tipo_funcionarios=$condicao_tipo_funcionarios." or (fonctionnaire.statut='administrativo' and  fonctionnaire.contract_type='".$tipo_funcionarios[$i]."')"; 
-			else $condicao_tipo_funcionarios=" (fonctionnaire.statut='administrativo' and  fonctionnaire.contract_type='".$tipo_funcionarios[$i]."')";
+			if (!empty($condicao_tipo_funcionarios)) $condicao_tipo_funcionarios=$condicao_tipo_funcionarios." or (fonctionnaire.statut='administrativo' and  fonctionnaire.contract_type=".db_quote($tipo_funcionarios[$i]).")"; 
+			else $condicao_tipo_funcionarios=" (fonctionnaire.statut='administrativo' and  fonctionnaire.contract_type=".db_quote($tipo_funcionarios[$i]).")";
 			}
 		}
 	if (!empty($condicao_tipo_funcionarios)) 
@@ -712,8 +712,8 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 	for ($i=0; $i< 6; $i++)
 		{
 		if (!empty($tipo_alunos[$i])) 
-			{if (!empty($condicao_tipo_alunos)) $condicao_tipo_alunos=$condicao_tipo_alunos." or (users.tipo_users='student' and student.formation='".$tipo_alunos[$i]."')"; 
-			else $condicao_tipo_alunos=" (users.tipo_users='student' and student.formation='".$tipo_alunos[$i]."')";
+			{if (!empty($condicao_tipo_alunos)) $condicao_tipo_alunos=$condicao_tipo_alunos." or (users.tipo_users='student' and student.formation=".db_quote($tipo_alunos[$i]).")"; 
+			else $condicao_tipo_alunos=" (users.tipo_users='student' and student.formation=".db_quote($tipo_alunos[$i]).")";
 			}
 		}
 	if (!empty($condicao_tipo_alunos)) 
@@ -727,9 +727,9 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 
 ///////////////////////////////////
 
-//	$res_pesquisa=pg_query($query_pesquisa);
-//	$linhas_pesquisa=pg_num_rows($res_pesquisa);
-//	$data_pesquisa=pg_fetch_array($res_pesquisa,0);
+//	$res_pesquisa=db_query($query_pesquisa);
+//	$linhas_pesquisa=db_num_rows($res_pesquisa);
+//	$data_pesquisa=db_fetch_array($res_pesquisa,0);
 
 // escrever os dados ordenados!!
 //
@@ -756,5 +756,5 @@ as bolsa_prof,profs.situacao as situacao_prof,visitor.date_begin,visitor.date_en
 		</html>
 <?php
 }
-pg_close($idconn);
+db_close($idconn);
 ?>
