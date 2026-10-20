@@ -113,27 +113,31 @@ else
 	while ($linha=db_fetch_array($resultado))
 			{
 			$id_documentador0=trim($linha["id_documentador"]);
-			$_coluna0=trim($linha[$coluna]);
+			$_coluna0=h(trim($linha[$coluna])); // escape XSS armazenado
 
 			if ($id_tipo=="1"){ //memorando, para imprimir o destino
 				$id_departamento0=trim($linha["id_departamento"]);
 				// busca pelo "destino"
                         	$resultado1=db_query("SELECT nomedepartamento FROM admin_departamento WHERE id_departamento =?", array($id_departamento0));
                         	$row1= db_fetch_row($resultado1,0);
+				if (isset($row1[0])) $row1[0]=h($row1[0]);
 				}
 
 			if ($id_tipo!="5"){ //se n? for 'ata', imprimir mensagem e assinatura
-				$mensagem0=trim($linha["mensagem"]);
+				$mensagem0=h(trim($linha["mensagem"])); // escape XSS armazenado
 				$assinatura0=trim($linha["id_assinatura"]);
 				$assinante0=trim($linha["assinante"]);
 				// busca pelo "nome" e "cargo" de assinatura
 				$resultado2=db_query("SELECT cargo FROM admin_assinatura WHERE id_assinatura = ?", array($assinatura0));
 				$row2= db_fetch_row($resultado2,0);
+				if (isset($row2[0])) $row2[0]=h($row2[0]);
 				$resultado21=db_query("SELECT name, firstname FROM users WHERE coduser = ?", array($assinante0));
 				$row21= db_fetch_row($resultado21,0);
+				if (isset($row21[0])) $row21[0]=h($row21[0]);
+				if (isset($row21[1])) $row21[1]=h($row21[1]);
 
 				if ($id_tipo!="4") //se n? for 'ato', acrescentar assunto
-					$assunto0=trim($linha["assunto"]);
+					$assunto0=h(trim($linha["assunto"])); // escape XSS armazenado
 				}
 
 

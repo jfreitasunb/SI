@@ -54,7 +54,14 @@
      // $query="insert into unix values ('".$this->login."','".$this->passwd."',".$this->uid.",".$this->gid.",'".$this->class."','".$this->expire."',
        //                            '".$this->gecos."','".$this->homedir."','".$this->shell."','".$this->change."','".$this->coduser."')";
 
-	$query_confere_senha="select passwd from unix where coduser=?"; $query_confere_senha__p = array($_POST['coduser']);
+	// SEGURANCA: o alvo da operacao e sempre o usuario autenticado (sessao),
+	// nunca um coduser vindo do cliente (evita IDOR / troca de senha alheia).
+	$coduser = coduser_sessao();
+	if ($coduser === null) {
+		die(error("Sessao invalida."));
+	}
+
+	$query_confere_senha="select passwd from unix where coduser=?"; $query_confere_senha__p = array($coduser);
 	$confere_senha=db_query($query_confere_senha, $query_confere_senha__p);
 	$confere_senha_array=db_fetch_array($confere_senha,0);
 
@@ -69,24 +76,24 @@
 	if ((!empty($this->passwd)) and ((crypt($this->passwd0,$confere_senha_array[0])==$confere_senha_array[0]) or ($muda_senha=="sim")))
 //	if ((!empty($this->passwd)) and ($this->passwd0==$confere_senha_array[0]))
 	{
-	$query="update unix set passwd=?, cota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?"; $query__p = array(crypt($this->passwd), $this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $_POST['coduser']);
+	$query="update unix set passwd=?, cota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?"; $query__p = array(cripta_senha_unix($this->passwd), $this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
 //	require 'atualiza_samba.php';
 //	$nt_has=ntPasswordHash($this->passwd);
 //	$lan_has=lmPasswordHash($this->$passwd);
 //	$query="update unix set passwd='".crypt($this->passwd)."', cota_impressao='".$this->cota_impressao."',cota_disco='".$this->cota_disco."',cota_mail='".$this->cota_mail."',ssh='".$this->ssh."', lan_has='".$lan_hash."',nt_hash='".$nt_hash."' where coduser='".$_POST['coduser']."'";
 
 // muda senha na tabela admin se exustir usuario:
-	$select_admin=db_query("select * from admin where coduser=?", array($_POST['coduser']));
+	$select_admin=db_query("select * from admin where coduser=?", array($coduser));
 	$num_admin=db_num_rows($select_admin);
-	if ($num_admin!=0) 
+	if ($num_admin!=0)
 		{
-		$query_update="update admin set passwd=? where coduser=?"; $query_update__p = array(md5($this->passwd), $_POST['coduser']);
+		$query_update="update admin set passwd=? where coduser=?"; $query_update__p = array(hash_senha_app($this->passwd), $coduser);
 		$res_query=db_query($query_update, $query_update__p) or die ("problemas de conexao com o banco");
 		}
 	}
 	else
 	{
-	$query="update unix set \ncota_impressao=?,cota_disco=?,cota_mail=?,ssh=? \nwhere coduser=?"; $query__p = array($this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $_POST['coduser']);
+	$query="update unix set \ncota_impressao=?,cota_disco=?,cota_mail=?,ssh=? \nwhere coduser=?"; $query__p = array($this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
 	}
 	$result=db_query($query, $query__p);
         }

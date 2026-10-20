@@ -45,7 +45,7 @@
   </header>
   <body>
     <table class=big>
-    <form method=POST action="add_si.php?cu=<?php echo $_GET['cu'] ?>">
+    <form method=POST action="add_si.php?cu=<?php echo h($_GET['cu']) ?>">
     <input type=hidden name=prec value=si>
     <tr> 
       <td class=header align=center>

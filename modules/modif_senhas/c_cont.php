@@ -54,7 +54,13 @@
      // $query="insert into unix values ('".$this->login."','".$this->passwd."',".$this->uid.",".$this->gid.",'".$this->class."','".$this->expire."',
        //                            '".$this->gecos."','".$this->homedir."','".$this->shell."','".$this->change."','".$this->coduser."')";
 
-	$query_confere_senha="select passwd from unix where coduser=?"; $query_confere_senha__p = array($_POST['coduser']);
+	// SEGURANCA: alvo sempre o usuario autenticado (sessao), nunca um coduser do cliente.
+	$coduser = coduser_sessao();
+	if ($coduser === null) {
+		die(error("Sessao invalida."));
+	}
+
+	$query_confere_senha="select passwd from unix where coduser=?"; $query_confere_senha__p = array($coduser);
 	$confere_senha=db_query($query_confere_senha, $query_confere_senha__p);
 	$confere_senha_array=db_fetch_array($confere_senha,0);
 
@@ -69,11 +75,11 @@
 	if ((!empty($this->passwd)) and (crypt($this->passwd0,$confere_senha_array[0])==$confere_senha_array[0]))
 //	if ((!empty($this->passwd)) and ($this->passwd0==$confere_senha_array[0]))
 	{
-	$query="update unix set passwd=?, \ncota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?"; $query__p = array(crypt($this->passwd), $this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $_POST['coduser']);
+	$query="update unix set passwd=?, \ncota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?"; $query__p = array(cripta_senha_unix($this->passwd), $this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
 	}
 	else
 	{
-	$query="update unix set \ncota_impressao=?,cota_disco=?,cota_mail=?,ssh=? \nwhere coduser=?"; $query__p = array($this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $_POST['coduser']);
+	$query="update unix set \ncota_impressao=?,cota_disco=?,cota_mail=?,ssh=? \nwhere coduser=?"; $query__p = array($this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
 	}
 	$result=db_query($query, $query__p);
         }

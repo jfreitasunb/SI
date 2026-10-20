@@ -22,7 +22,7 @@
   </header>
   <body>
     <table class=big>
-    <form method=POST action="modif_si.php?cu=<?php echo $_GET['cu'] ?>">
+    <form method=POST action="modif_si.php?cu=<?php echo h($_GET['cu']) ?>">
 <?php
     $query4="select login from admin where coduser=?"; $query4__p = array($_GET['cu']);
     $result4=db_query($query4, $query4__p);

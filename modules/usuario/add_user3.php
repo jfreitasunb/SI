@@ -171,7 +171,7 @@
 	<table class=form>
 	                <form method=POST name="utilisateur2" action='imprime_dados_conta.php'>
                         <tr>
-			<input type=hidden name='coduser' value="<?php echo $_POST['coduser']; ?>">
+			<input type=hidden name='coduser' value="<?php echo h($_POST['coduser']); ?>">
                         <input type=hidden name='senha' value="<?php echo $pass1; ?>">
                         <! td class=header align=center colspan=2>
                         <tr>
@@ -190,17 +190,17 @@
 //   			<form method=POST name="utilisateur2" action='add_user3.php' onsubmit="return verif_pass();">
    			<form method=POST name="utilisateur2" action='add_user3.php'>
   			<tr>
-			<input type=hidden name='uid' value="<?php echo $_POST['uid'] ?>">
-			<input type=hidden name='gid' value="<?php echo $_POST['gid'] ?>">
-			<input type=hidden name='class' value="<?php echo $_POST['class'] ?>">
-			<input type=hidden name='change' value="<?php echo $_POST['change'] ?>">
-			<input type=hidden name='expire' value="<?php echo $_POST['expire'] ?>">
-			<input type=hidden name='gecos' value="<?php echo $_POST['gecos'] ?>">
-			<input type=hidden name='homedir' value="<?php echo $_POST['homedir'] ?>">
-			<input type=hidden name='shell' value="<?php echo $_POST['shell'] ?>">
-			<input type=hidden name='coduser' value="<?php echo $_POST['coduser'] ?>">
-			<input type=hidden name='status_usuario' value="<?php echo $_POST['status_usuario'] ?>">
-			<input type=hidden name='tipo_contrato' value="<?php echo $_POST['tipo_contrato'] ?>">
+			<input type=hidden name='uid' value="<?php echo h($_POST['uid']) ?>">
+			<input type=hidden name='gid' value="<?php echo h($_POST['gid']) ?>">
+			<input type=hidden name='class' value="<?php echo h($_POST['class']) ?>">
+			<input type=hidden name='change' value="<?php echo h($_POST['change']) ?>">
+			<input type=hidden name='expire' value="<?php echo h($_POST['expire']) ?>">
+			<input type=hidden name='gecos' value="<?php echo h($_POST['gecos']) ?>">
+			<input type=hidden name='homedir' value="<?php echo h($_POST['homedir']) ?>">
+			<input type=hidden name='shell' value="<?php echo h($_POST['shell']) ?>">
+			<input type=hidden name='coduser' value="<?php echo h($_POST['coduser']) ?>">
+			<input type=hidden name='status_usuario' value="<?php echo h($_POST['status_usuario']) ?>">
+			<input type=hidden name='tipo_contrato' value="<?php echo h($_POST['tipo_contrato']) ?>">
       			<! td class=header align=center colspan=2>
         		<h1>O login fornecido j&aacute; existe</h1><br>Informa&ccedil;&otilde;es sobre a conta
       			<!/td>

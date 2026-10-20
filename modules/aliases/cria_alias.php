@@ -183,7 +183,7 @@ echo $alias2;
                 </table>
                 <br>
              <tr>
-	     <input type=hidden name='user' value="<?php echo $_POST['user'];?>">
+	     <input type=hidden name='user' value="<?php echo h($_POST['user']);?>">
                <td align=center>
                  <input type=submit name='confirma' value=Confirmar>
                </td>

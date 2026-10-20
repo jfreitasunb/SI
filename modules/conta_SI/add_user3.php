@@ -98,7 +98,7 @@
 		      $i+=1;
 		    }
 		?>
-		<input type=hidden name='coduser' value="<?php echo $_POST['coduser'] ?>">
+		<input type=hidden name='coduser' value="<?php echo h($_POST['coduser']) ?>">
 		<! td class=header align=center colspan=2>
        		<h1>O login fornecido j&aacute; existe</h1>
 		</tr>

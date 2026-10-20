@@ -97,7 +97,7 @@
 	$uid=db_query($query_uid, $query_uid__p);
 	$uid=db_fetch_array($uid,0);
 	$ssh="nao";  // valor padrao para acesso ao ssh
-	$query="insert into unix values (?,?,?,?,'1',?,?,'bash',?,?,?,?,?,?)"; $query__p = array($this->login, crypt($this->passwd), $uid[0], $gid, $this->gecos, '/home/'.$this->login, $this->coduser, $cota_impressao, $cota_disco, $cota_mail, $tabela_user, $ssh);
+	$query="insert into unix values (?,?,?,?,'1',?,?,'bash',?,?,?,?,?,?)"; $query__p = array($this->login, cripta_senha_unix($this->passwd), $uid[0], $gid, $this->gecos, '/home/'.$this->login, $this->coduser, $cota_impressao, $cota_disco, $cota_mail, $tabela_user, $ssh);
 	$result=db_query($query, $query__p);
       $query_mail="insert into mail values (?,?)"; $query_mail__p = array($this->login.'@mat.unb.br', $this->coduser);
 	$result_mail=db_query($query_mail, $query_mail__p);     

@@ -113,7 +113,7 @@ $tipo_documento=$_POST['tipo_documento'];
         {
 ?>
 		<table class=form align=center>
-	<input type='hidden' name='dado[]' value="<?php echo $_POST["tipo_documento"]?>">
+	<input type='hidden' name='dado[]' value="<?php echo h($_POST["tipo_documento"])?>">
    	<tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Via:</p></font></td>
            <td><input name='dado[]' type='text' size=20 ></td></tr>
 	<tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>C/C:</p></font></td>

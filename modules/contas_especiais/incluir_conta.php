@@ -156,7 +156,7 @@ if (isset($_POST['seleciona']))
                <tr><td colspan=5 class=header align=center>Criar uma Nova Conta</td></tr>
                <tr><td colspan=5><blink><?php echo $mensagem2;?></blink></td></tr>
                <tr><td><b>Criar</b></td><td> <b>Nome da conta</b></td><td><b>Descri&ccedil;&atilde;o</b></td><td><b>Senha</b></td><td><b>Confirmar senha</b></td></tr>
-               <tr><td><input type=hidden name='atualizar' value="criar"></td><td> <input type=text name='nome_conta' maxlength=10 size=12 value="<?php echo $_POST['nome_conta'];?>"> </td><td><input type=text name='descricao' maxlength=200 size=50 value="<?php echo $_POST['descricao'];?>"> </td><td><input type=password name='senha1' size=10></td><td><input type=password name='senha2' size=10></td></tr>
+               <tr><td><input type=hidden name='atualizar' value="criar"></td><td> <input type=text name='nome_conta' maxlength=10 size=12 value="<?php echo h($_POST['nome_conta']);?>"> </td><td><input type=text name='descricao' maxlength=200 size=50 value="<?php echo h($_POST['descricao']);?>"> </td><td><input type=password name='senha1' size=10></td><td><input type=password name='senha2' size=10></td></tr>
                   </table>
                </td>
                </tr>
@@ -172,7 +172,7 @@ if (isset($_POST['seleciona']))
 	   }
 	else 
 	   {
-	   list($atualiza_unix, $atualiza_unix__p) = array("update unix set passwd=? where login=?", array(crypt($_POST['senha1']), $_POST['nome_conta']));
+	   list($atualiza_unix, $atualiza_unix__p) = array("update unix set passwd=? where login=?", array(cripta_senha_unix($_POST['senha1']), $_POST['nome_conta']));
            $query_unix=db_query($atualiza_unix, $atualiza_unix__p);
            //echo $atualiza_unix;
 	   echo "\n";
@@ -260,7 +260,7 @@ if (isset($_POST['seleciona']))
                <tr><td colspan=5><blink><?php echo $mensagem3;?></blink></td></tr>
                <tr><td><b>Criar</b></td><td> <b>Nome da conta</b></td><td><b>Descri&ccedil;&atilde;o</b></td><td><b>Senha</b></td><td><b>Confi\
 rmar senha</b></td></tr>
-               <tr><td><input type=hidden name='criar' value="criar"></td><td> <input type=text name='nome_conta' maxlength=10 size=12 value="<?php echo $_POST['nome_conta'];?>"> </td><td><input type=text name='descricao' maxlength=200 size=50 value="<?php echo $_POST['descricao'];?>"> </td><td><input type=password name='senha1' size=10></td><td><input type=password name='senha2' size=10></td></tr>
+               <tr><td><input type=hidden name='criar' value="criar"></td><td> <input type=text name='nome_conta' maxlength=10 size=12 value="<?php echo h($_POST['nome_conta']);?>"> </td><td><input type=text name='descricao' maxlength=200 size=50 value="<?php echo h($_POST['descricao']);?>"> </td><td><input type=password name='senha1' size=10></td><td><input type=password name='senha2' size=10></td></tr>
                   </table>
                </td>
                </tr>
@@ -293,7 +293,7 @@ rmar senha</b></td></tr>
 
                 $homedir="/home/".$_POST['nome_conta'];
 //		echo "insert into unix values('".$_POST['nome_conta']."','".crypt($_POST['senha1'])."','".$uid."','10000','1','','".$homedir."','/bin/tcsh','0','0','500Mb','100Mb','contas_especiais','nao')"; 
-		list($query_unix, $query_unix__p) = array("insert into unix values(?,?,?,'10000','1','',?,'/bin/tcsh','0','0','500Mb','100Mb','contas_especiais','nao')", array($_POST['nome_conta'], crypt($_POST['senha1']), $uid, $homedir)); 
+		list($query_unix, $query_unix__p) = array("insert into unix values(?,?,?,'10000','1','',?,'/bin/tcsh','0','0','500Mb','100Mb','contas_especiais','nao')", array($_POST['nome_conta'], cripta_senha_unix($_POST['senha1']), $uid, $homedir)); 
 		$res_unix=db_query($query_unix, $query_unix__p);
 
 // $query="insert into unix values ('".$this->login."','".crypt($this->passwd)."','".$uid[0]."','".$gid."','1','".$this->gecos."','/home/".$this->login."','bash','0','".$cota_impressao."','".$cota_disco."','".$cota_mail."','".$tabela_user."','".$ssh."')";

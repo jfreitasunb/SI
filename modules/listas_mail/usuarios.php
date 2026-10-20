@@ -91,7 +91,7 @@ if (isset($_POST['seleciona']) and ($chave!="atualizar"))
                	  <tr><td colspan=3><blink><?php echo $mensagem1;?></blink></td></tr>
                	  <tr><td colspan=3><blink><?php echo $mensagem3;?></blink></td></tr>
                	  <tr><td><b>Criar</b></td><td> <b>Nome da conta</b></td><td><b>Descri&ccedil;&atilde;o</b></td></tr>
-               	  <tr><td><input type=hidden name='eliminar' value="criar"></td><td> <input type=text name='nome_conta' maxlength=10 size=12 value="<?php echo $_POST['nome_conta'];?>"> </td><td><input type=text name='descricao' maxlength=200 size=50 value="<?php echo $_POST['descricao'];?>"> </td></tr>
+               	  <tr><td><input type=hidden name='eliminar' value="criar"></td><td> <input type=text name='nome_conta' maxlength=10 size=12 value="<?php echo h($_POST['nome_conta']);?>"> </td><td><input type=text name='descricao' maxlength=200 size=50 value="<?php echo h($_POST['descricao']);?>"> </td></tr>
                   </table>
                	  </td>
                	  </tr>

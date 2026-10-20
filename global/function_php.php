@@ -242,23 +242,31 @@ function verif_session_ip()
 function verif_pass_login($login, $pass)
 {
     $pdo = db_connect(); // Pega a conexão ativa
-    
-    $hashed_pass = md5($pass); 
-    
-    $query = "SELECT 1 FROM admin WHERE login = :login AND passwd = :passwd LIMIT 1";
-    
+
+    $query = "SELECT passwd FROM admin WHERE login = :login LIMIT 1";
+
     try {
         $stmt = $pdo->prepare($query);
-        $stmt->execute([
-            ':login' => $login,
-            ':passwd' => $hashed_pass
-        ]);
-        
-        if ($stmt->fetchColumn() !== false) {
-            return true;
+        $stmt->execute([':login' => $login]);
+        $hash = $stmt->fetchColumn();
+
+        if ($hash === false) {
+            return false; // login inexistente
         }
-        return false;
-        
+
+        if (!verifica_senha_app($pass, $hash)) {
+            return false;
+        }
+
+        // Upgrade transparente de hash legado (MD5) para bcrypt no login bem-sucedido.
+        if (precisa_rehash_app($hash)) {
+            $novo = hash_senha_app($pass);
+            $upd = $pdo->prepare("UPDATE admin SET passwd = :passwd WHERE login = :login");
+            $upd->execute([':passwd' => $novo, ':login' => $login]);
+        }
+
+        return true;
+
     } catch (PDOException $e) {
         die(error());
     }
@@ -372,30 +380,191 @@ function verif_permission($idmodule)
 {
     $pdo = db_connect(); // Pega a conexão ativa
     
-    if (isset($idmodule) && isset($_SESSION['login'])) {
-        
-        $query = "SELECT permission FROM permission WHERE login = :login AND idmodule = :idmodule";
-        
+    // Paginas sem idmodule nao tem conceito de permissao: basta estar autenticado.
+    if (!isset($idmodule)) {
+        return isset($_SESSION['login']);
+    }
+
+    if (!isset($_SESSION['login'])) {
+        return false;
+    }
+
+    $query = "SELECT permission FROM permission WHERE login = :login AND idmodule = :idmodule";
+
+    try {
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([
+            ':login' => $_SESSION['login'],
+            ':idmodule' => $idmodule
+        ]);
+
+        $array = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Nega por padrao (fail-closed): sem linha de permissao ou permissao 0 => acesso negado.
+        if (!$array || $array["permission"] == 0) {
+            return false;
+        }
+
+        $_SESSION['permission'] = $array["permission"];
+        return true;
+
+    } catch (PDOException $e) {
+        die(error());
+    }
+}
+
+
+///////////////////////////////////////
+////////   CODUSER_SESSAO    //////////
+///////////////////////////////////////
+// Resolve o coduser do usuario autenticado a partir da identidade da sessao.
+// Deve ser usado para operacoes self-service (trocar a propria senha/cota),
+// em vez de confiar em um coduser vindo do cliente (evita IDOR).
+
+function coduser_sessao()
+{
+    if (!isset($_SESSION['login'])) {
+        return null;
+    }
+
+    $pdo = db_connect();
+
+    foreach (array('unix', 'admin') as $tabela) {
         try {
-            $stmt = $pdo->prepare($query);
-            $stmt->execute([
-                ':login' => $_SESSION['login'],
-                ':idmodule' => $idmodule
-            ]);
-            
-            $array = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            if ($array && $array["permission"] == 0) {
-                return false;
-            } else if ($array) {
-                $_SESSION['permission'] = $array["permission"];
+            $stmt = $pdo->prepare("SELECT coduser FROM " . $tabela . " WHERE login = :login");
+            $stmt->execute([':login' => $_SESSION['login']]);
+            $coduser = $stmt->fetchColumn();
+            if ($coduser !== false && $coduser !== null) {
+                return $coduser;
             }
-            
         } catch (PDOException $e) {
             die(error());
         }
     }
-    
-    return true;
+
+    return null;
+}
+
+
+///////////////////////////////////////
+//////////       CSRF        //////////
+///////////////////////////////////////
+// Protecao contra Cross-Site Request Forgery (synchronizer token pattern).
+// O token e emitido por sessao; csrf_injeta() adiciona o campo oculto em todo
+// <form method=post> automaticamente; csrf_valida() rejeita POST sem token valido.
+
+function csrf_token()
+{
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+function csrf_campo()
+{
+    return '<input type="hidden" name="csrf_token" value="'
+         . htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') . '">';
+}
+
+// Callback de output buffering: injeta o campo oculto logo apos cada <form ...method=post...>.
+function csrf_injeta($html)
+{
+    // Nao mexe em respostas que nao sejam HTML (ex.: PDF, imagens) para nao corromper o binario.
+    foreach (headers_list() as $cabecalho) {
+        if (stripos($cabecalho, 'Content-Type:') === 0
+            && stripos($cabecalho, 'text/html') === false) {
+            return $html;
+        }
+    }
+
+    return preg_replace_callback('/<form\b[^>]*>/i', function ($m) {
+        $tag = $m[0];
+        // So protege formularios POST (GET sao navegacao/leitura).
+        if (preg_match('/method\s*=\s*["\']?\s*post/i', $tag)) {
+            return $tag . csrf_campo();
+        }
+        return $tag;
+    }, $html);
+}
+
+// Valida o token em requisicoes POST. Deve ser chamada no header, antes de processar.
+function csrf_valida()
+{
+    if (!isset($_SERVER['REQUEST_METHOD']) || strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
+        return;
+    }
+
+    $esperado = isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '';
+
+    // Sem token na sessao ainda (ex.: POST de login antes de autenticar): nada a validar.
+    if ($esperado === '') {
+        return;
+    }
+
+    $enviado = isset($_POST['csrf_token']) ? $_POST['csrf_token'] : '';
+    if (!is_string($enviado) || !hash_equals($esperado, $enviado)) {
+        die(error("Requisicao invalida (CSRF). Recarregue a pagina e tente novamente."));
+    }
+}
+
+
+///////////////////////////////////////
+////////   HASH DE SENHAS    //////////
+///////////////////////////////////////
+// Senhas da aplicacao (tabela admin): bcrypt via password_hash(), com suporte
+// a hashes legados MD5 (sem salt) e upgrade transparente no proximo login.
+
+function hash_senha_app($senha)
+{
+    return password_hash($senha, PASSWORD_DEFAULT);
+}
+
+// Escape de saida HTML (previne XSS). Usar em toda saida de dados do usuario/banco.
+// Charset ISO-8859-1: os caracteres perigosos (< > " ' &) sao ASCII e sao sempre
+// escapados; bytes altos (acentos) passam intactos, evitando blanking de strings
+// em paginas latin-1 ou com entrada nao-UTF-8.
+function h($valor)
+{
+    return htmlspecialchars((string)$valor, ENT_QUOTES, 'ISO-8859-1');
+}
+
+// Verifica $senha contra $hash armazenado. Devolve true/false.
+// Se o hash for legado (MD5 de 32 hex), ainda aceita para permitir a transicao.
+function verifica_senha_app($senha, $hash)
+{
+    if (!is_string($hash) || $hash === '') {
+        return false;
+    }
+    // Hash legado: MD5 sem salt (32 caracteres hexadecimais).
+    if (preg_match('/^[0-9a-f]{32}$/i', $hash)) {
+        return hash_equals(strtolower($hash), md5($senha));
+    }
+    return password_verify($senha, $hash);
+}
+
+// Indica se o hash deve ser reescrito (legado ou parametros desatualizados).
+function precisa_rehash_app($hash)
+{
+    if (!is_string($hash) || $hash === '') {
+        return false;
+    }
+    if (preg_match('/^[0-9a-f]{32}$/i', $hash)) {
+        return true; // MD5 legado
+    }
+    return password_needs_rehash($hash, PASSWORD_DEFAULT);
+}
+
+// Senhas de contas UNIX/Samba: precisam continuar em formato crypt() compativel
+// com o /etc/shadow do sistema. Usa SHA-512 ($6$) com salt aleatorio, em vez do
+// DES default (que trunca em 8 caracteres e usa salt de 2 caracteres).
+function cripta_senha_unix($senha)
+{
+    $alfabeto = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    $salt = '';
+    for ($i = 0; $i < 16; $i++) {
+        $salt .= $alfabeto[random_int(0, 63)];
+    }
+    return crypt($senha, '$6$' . $salt . '$');
 }
 ?>

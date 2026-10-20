@@ -24,7 +24,7 @@
      function create_account()
      {
        //We create the account in the database
-       $query="insert into admin values(?,?,?)"; $query__p = array($this->login, md5($this->passwd), $this->coduser);
+       $query="insert into admin values(?,?,?)"; $query__p = array($this->login, hash_senha_app($this->passwd), $this->coduser);
        $result=db_query($query, $query__p);
        db_free_result($result);
        //Foreach module we give the default right 0 for the new user

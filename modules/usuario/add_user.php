@@ -127,9 +127,9 @@
            	<tr><td class=header align=center colspan=3>Vínculo</td></tr>
            	<tr>
 	   		<td>
-			<input type=button name='rights' value='Aluno' onclick="window.open('aluno.php?idmod=<?php echo $_GET['idmod'] ?>','pop1','width=600,height=600');">
-			<input type=button name='rights' value='Convidados' onclick="window.open('convidado.php?idmod=<?php echo $_GET['idmod'] ?>','pop1','width=600,height=600');">
-			<input type=button name='rights' value='Funcionário' onclick="window.open('funcionario.php?idmod=<?php echo $_GET['idmod'] ?>','pop1','width=600,height=600');">
+			<input type=button name='rights' value='Aluno' onclick="window.open('aluno.php?idmod=<?php echo h($_GET['idmod']) ?>','pop1','width=600,height=600');">
+			<input type=button name='rights' value='Convidados' onclick="window.open('convidado.php?idmod=<?php echo h($_GET['idmod']) ?>','pop1','width=600,height=600');">
+			<input type=button name='rights' value='Funcionário' onclick="window.open('funcionario.php?idmod=<?php echo h($_GET['idmod']) ?>','pop1','width=600,height=600');">
 		</td>
 	  	</tr>
 	  	</table>

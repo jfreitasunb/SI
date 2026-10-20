@@ -98,7 +98,7 @@
        </tr>
         <tr>
        <td align=center>
-       <input type=hidden name="coduser" value="<?php echo $_POST['coduser']; ?>">
+       <input type=hidden name="coduser" value="<?php echo h($_POST['coduser']); ?>">
        <input type=hidden name="senha" value="<?php echo $senha_nova; ?>">
        <input type=submit value="Imprimir dados da conta">
        </td>
