@@ -1,2 +1,5 @@
 # Credenciais do banco (nunca versionar)
 global/db_config.php
+
+# Variaveis de ambiente do Docker (nunca versionar)
+.env
