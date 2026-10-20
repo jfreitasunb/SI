@@ -13,7 +13,8 @@ $SITE = "http://192.168.122.36/";
 $CHARSET = "ASCII";
 
 $DB["user"]     = "si";
-$DB["password"] = "estudos";
+// Senha fora do codigo versionado: definida via variavel de ambiente SI_DB_PASSWD.
+$DB["password"] = (getenv('SI_DB_PASSWD') !== false) ? getenv('SI_DB_PASSWD') : "";
 $DB["host"]     = "192.168.122.36";
 $DB["dbname"]   = "si";
 $DB["dbport"]   = "5432";

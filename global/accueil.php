@@ -1,4 +1,5 @@
 <?php
+   require_once(dirname(__FILE__).'/sessao_cookie.php');
    session_start();
    include("function_php.php");
 

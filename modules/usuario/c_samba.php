@@ -19,9 +19,8 @@
      //be get the data in the data-base and will put them in the object.
      function get_samba($login)
      {
-       $query="select * from samba where login=".$login;
-       $result=pg_query($query);
-       $tab=pg_fetch_array($result, 0);
+       $result=db_query("select * from samba where login=?", array($login));
+       $tab=db_fetch_array($result, 0);
        $this->login=$tab['login'];
        $this->passwd=$tab['passwd'];
 //       $this->expire=$tab['expire'];
@@ -38,10 +37,8 @@
 //       $query="insert into samba values('".$this->login."','".$this->passwd."','".$this->date."','".$this->expire."',".$this->coduser.")";
        $nt_hash=ntPasswordHash($this->password);
        $lan_hash=lmPasswordHash($this->password);
-       $query="update unix set nt_hash=".$nt_hash."',lan_hash='".$lan_hash."' where login='".$this->login."'";
-  echo $query;    
-       $result=pg_query($query);
-       pg_free_result($result);
+       $result=db_query("update unix set nt_hash=?, lan_hash=? where login=?", array($nt_hash, $lan_hash, $this->login));
+       db_free_result($result);
      }
 
      //The Set methods allows to access to datas members

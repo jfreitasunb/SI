@@ -99,10 +99,8 @@ $lang="pt_BR";
        echo "o nt_has e: ".$nt_hash;
        $lan_hash=lmPasswordHash($password);
        echo "o lan_hash e: ".$lan_hash;
-       $query="insert into samba_test values('".$login."','".$lan_hash."','".$nt_hash."')";
-       echo $query;
-       $result=pg_query($query);
-       pg_free_result($result);
+       $result=db_query("insert into samba_test values(?,?,?)", array($login, $lan_hash, $nt_hash));
+       db_free_result($result);
      }
 
 // fim funcoes cript e salvar no banco
@@ -110,12 +108,12 @@ $lang="pt_BR";
 
 //require("muda_senha/libs.php");
 //require("muda_senha/forms.php");
-require("samba/pgsql.php");
+require_once(dirname(__FILE__)."/global/function_php.php");
 //require("muda_senha/header.php");
 
-$submit           = trim(addslashes($_POST['submit']));
-$usuario          = trim(addslashes($_POST['usuario']));
-$senhaatual       = trim(addslashes($_POST['senhaatual']));
+$submit           = isset($_POST['submit'])     ? trim($_POST['submit'])     : '';
+$usuario          = isset($_POST['usuario'])    ? trim($_POST['usuario'])    : '';
+$senhaatual       = isset($_POST['senhaatual']) ? trim($_POST['senhaatual']) : '';
 
 $msgL="Login invalido.";
 $msgS="Senha atual invalida.";
@@ -134,17 +132,17 @@ if(strlen($submit)>0)
         }
    else {
    
-     $res = pg_query("select login,passwd,tabela_user from unix where login='$usuario'");
-   
+     $res = db_query("select login,passwd,tabela_user from unix where login=?", array($usuario));
+
 //     $msg="Dados Invalidos!";
-   
-     if(pg_num_rows($res)==1 )
+
+     if(db_num_rows($res)==1 )
 	{
 	echo "estou aqui";
-           $senhaBD = pg_result($res,0,1);
-	   $tipo_usuario=pg_result($res,0,2);
- 
-		if(crypt($senhaatual,$senhaBD) == $senhaBD) //:permite acesso a todos
+           $senhaBD = db_result($res,0,1);
+	   $tipo_usuario=db_result($res,0,2);
+
+		if(hash_equals((string)$senhaBD, (string)crypt($senhaatual,$senhaBD))) //:permite acesso a todos
 		{
                 echo " Hora de solicitar documentos";
 		$res=update_account($usuario,$senhaatual);

@@ -1,5 +1,6 @@
 <?php
 $lang="pt_BR";
+require_once(dirname(__FILE__).'/global/sessao_cookie.php');
 session_start();
 
 

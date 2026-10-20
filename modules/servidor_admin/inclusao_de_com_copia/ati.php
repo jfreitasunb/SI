@@ -46,11 +46,9 @@ if ($acao == "Salvar Rascunho"){
 			$assunto=mb_convert_encoding( $dado[4], "UTF-8");
 			$anexo=mb_convert_encoding( $dado[5], "UTF-8");
 
-			$resultado1=pg_query("INSERT INTO admin_rascunho (id_documentador,id_tipo,id_departamento,vocativo,
-			
-mensagem,desfecho,id_assinatura,assunto,anexo,data,via,assinante,assinatura2,assinante2,com_copia) VALUES 
-(default,'$dado[0]','$dado[3]','$vocativo','$mensagem','$desfecho','$dado[9]','$assunto','$anexo','$data','$dado[1]','$dado[10]','','','$dado[2]')")
-			or die ("N? foi poss?el inserir os dados no banco");
+			$resultado1=db_query("INSERT INTO admin_rascunho (id_documentador,id_tipo,id_departamento,vocativo,mensagem,desfecho,id_assinatura,assunto,anexo,data,via,assinante,assinatura2,assinante2,com_copia) VALUES
+(default,?,?,?,?,?,?,?,?,?,?,?,'','',?)",
+			array($dado[0],$dado[3],$vocativo,$mensagem,$desfecho,$dado[9],$assunto,$anexo,$data,$dado[1],$dado[10],$dado[2]));
 			}
 		else if(($dado[0]=="3")|| ($dado[0]=="6"))     //of?io interno ou of?io externo
 			{
@@ -60,11 +58,11 @@ mensagem,desfecho,id_assinatura,assunto,anexo,data,via,assinante,assinatura2,ass
 			$vocativo=mb_convert_encoding( $dado[6], "UTF-8");
 			$mensagem=mb_convert_encoding( $dado[7], "UTF-8");
 
-                        $resultado1=pg_query("INSERT INTO admin_rascunho 
+                        $resultado1=db_query("INSERT INTO admin_rascunho
 (id_documentador,id_tipo,id_departamento,vocativo,mensagem,desfecho,id_assinatura,assunto,anexo,data,via,assinante,assinatura2,assinante2,com_copia)
-VALUES 
-(default,'$dado[0]','$dado[3]','$vocativo','$mensagem','$desfecho','$dado[9]','$assunto','$anexo','$data','$dado[1]','$dado[10]','','','$dado[2]')")
-                      or die ("N? foi poss?el inserir os dados no banco");
+VALUES
+(default,?,?,?,?,?,?,?,?,?,?,?,'','',?)",
+                      array($dado[0],$dado[3],$vocativo,$mensagem,$desfecho,$dado[9],$assunto,$anexo,$data,$dado[1],$dado[10],$dado[2]));
 //(id_documentador,id_tipo,desfecho,assunto,anexo,vocativo,mensagem,id_assinatura,data,via,assinante) 
 //VALUES (default,'$dado[0]','$desfecho','$assunto','$anexo','$vocativo','$mensagem','$dado[7]','$data','$dado[1]','$dado[8]')")
   			}
@@ -75,11 +73,11 @@ VALUES
 			$vocativo=mb_convert_encoding( $dado[6], "UTF-8");
 			$mensagem=mb_convert_encoding( $dado[7], "UTF-8");
 			$desfecho=mb_convert_encoding( $dado[8], "UTF-8");
-			$resultado1=pg_query("INSERT INTO admin_rascunho 
+			$resultado1=db_query("INSERT INTO admin_rascunho
 (id_documentador,id_tipo,id_departamento,vocativo,mensagem,desfecho,id_assinatura,assunto,anexo,data,via,assinante,assinatura2,assinante2,com_copia)
-VALUES 
-(default,'$dado[0]','$dado[3]','$vocativo','$mensagem','$desfecho','$dado[1]','$assunto','','$data','','$dado[2]','','','dado[4]')")
-                        or die ("N? foi poss?el inserir os dados no banco");
+VALUES
+(default,?,?,?,?,?,?,?,'',?,'',?,'','','dado[4]')",
+                        array($dado[0],$dado[3],$vocativo,$mensagem,$desfecho,$dado[1],$assunto,$data,$dado[2]));
 //(id_documentador,id_tipo,id_assinatura,anexo,assunto,vocativo,mensagem,desfecho,data,assinante) 
 //VALUES (default,'$dado[0]','$dado[1]','$anexo','$assunto','$vocativo','$mensagem','$desfecho','$data','$dado[2]')")
 
@@ -93,11 +91,11 @@ VALUES
 			$mensagem=mb_convert_encoding( $dado[3], "UTF-8");
 //			$desfecho=mb_convert_encoding( $dado[6], "UTF-8");
 
-			$resultado1=pg_query("INSERT INTO admin_rascunho 
+			$resultado1=db_query("INSERT INTO admin_rascunho
 (id_documentador,id_tipo,id_departamento,vocativo,mensagem,desfecho,id_assinatura,assunto,anexo,data,via,assinante,assinatura2,assinante2,com_copia)
-VALUES 
-(default,'$dado[0]','$dado[6]','','$mensagem','','$dado[4]','$assunto','','$data','','$dado[5]','','','$dado[2]')")
-                        or die ("N? foi poss?el inserir os dados no banco");
+VALUES
+(default,?,?,'',?,'',?,?,'',?,'',?,'','',?)",
+                        array($dado[0],$dado[6],$mensagem,$dado[4],$assunto,$data,$dado[5],$dado[2]));
 //(id_documentador,id_tipo,mensagem,id_assinatura,data,assinante) 
 //VALUES (default,'$dado[0]','$mensagem','$dado[2]','$data','$dado[3]')")
 
@@ -110,10 +108,10 @@ VALUES
 			$mensagem=mb_convert_encoding( $dado[2], "UTF-8");
 //			$desfecho=mb_convert_encoding( $dado[6], "UTF-8");
 
-			$resultado1=pg_query("INSERT INTO admin_rascunho 
+			$resultado1=db_query("INSERT INTO admin_rascunho
 (id_documentador,id_tipo,id_departamento,vocativo,mensagem,desfecho,id_assinatura,assunto,anexo,data,via,assinante,assinatura2,assinante2)
-VALUES (default,'$dado[0]','152','','$mensagem','','$dado[3]','$assunto','','$data','','$dado[4]','$dado[5]','$dado[6]')")
-                        or die ("N? foi poss?el inserir os dados no banco");
+VALUES (default,?,'152','',?,'',?,?,'',?,'',?,?,?)",
+                        array($dado[0],$mensagem,$dado[3],$assunto,$data,$dado[4],$dado[5],$dado[6]));
 //(id_documentador,id_tipo,mensagem,data) 
 //VALUES (default,'$dado[0]','$mensagem','$data')")
 
@@ -160,14 +158,13 @@ else if($acao=="Rascunho"){
 		$vocativo=mb_convert_encoding( $dado[6], "UTF-8");
 		$mensagem=mb_convert_encoding( $dado[7], "UTF-8");
 		$desfecho=mb_convert_encoding( $dado[8], "UTF-8");
-// 		$resultado1=pg_query("UPDATE admin_rascunho SET id_departamento='$dado[2]',assunto='$assunto',anexo='$anexo',
+// 		$resultado1=db_query("UPDATE admin_rascunho SET id_departamento='$dado[2]',assunto='$assunto',anexo='$anexo',
 //                        vocativo='$vocativo',mensagem='$mensagem',desfecho='$desfecho',id_assinatura='$dado[8]',via='$dado[1]',
 //                        data='$data', assinante=$dado[9] WHERE id_documentador='$id_documentador'")
 //                        or die ("N? foi poss?el inserir os dados no banco");
-		$resultado1=pg_query("UPDATE admin_rascunho SET 
-id_tipo='$dado[0]',id_departamento='$dado[3]',vocativo='$vocativo', 
-mensagem='$mensagem',desfecho='$desfecho',id_assinatura='$dado[9]',assunto='$assunto',anexo='$anexo',data='$data',via='$dado[1]',assinante='$dado[10]',com_copia='$dado[2]' 
-WHERE id_documentador='$id_documentador'") or die ("N? foi poss?el inserir os dados no banco");
+		$resultado1=db_query("UPDATE admin_rascunho SET
+id_tipo=?,id_departamento=?,vocativo=?,mensagem=?,desfecho=?,id_assinatura=?,assunto=?,anexo=?,data=?,via=?,assinante=?,com_copia=?
+WHERE id_documentador=?", array($dado[0],$dado[3],$vocativo,$mensagem,$desfecho,$dado[9],$assunto,$anexo,$data,$dado[1],$dado[10],$dado[2],$id_documentador));
 		}
 	else if(($dado[0]=="3")||($dado[0]=="6")) //of?io interno e of?io externo
 		{
@@ -177,14 +174,14 @@ WHERE id_documentador='$id_documentador'") or die ("N? foi poss?el inserir os da
 		$mensagem=mb_convert_encoding( $dado[7], "UTF-8");
 		$desfecho=mb_convert_encoding( $dado[8], "UTF-8");
 
-//                $resultado1=pg_query("UPDATE admin_rascunho SET desfecho='$desfecho',assunto='$assunto',anexo='$anexo',
+//                $resultado1=db_query("UPDATE admin_rascunho SET desfecho='$desfecho',assunto='$assunto',anexo='$anexo',
 //                        vocativo='$vocativo',mensagem='$mensagem',id_assinatura='$dado[7]',via='$dado[1]',
 //                        data='$data' WHERE id_documentador='$id_documentador'")
 //                        or die ("N? foi poss?el inserir os dados no banco");
 
-                        $resultado1=pg_query("UPDATE admin_rascunho SET 
-id_tipo='$dado[0]',id_departamento='$dado[3]',vocativo='$vocativo',mensagem='$mensagem',desfecho='$desfecho',id_assinatura='$dado[9]',assunto='$assunto',anexo='$anexo',data='$data',via='$dado[1]',assinante='$dado[10]',com_copia='$dado[2]'  
-WHERE id_documentador='$id_documentador'") or die ("N? foi poss?el inserir os dados no banco");
+                        $resultado1=db_query("UPDATE admin_rascunho SET
+id_tipo=?,id_departamento=?,vocativo=?,mensagem=?,desfecho=?,id_assinatura=?,assunto=?,anexo=?,data=?,via=?,assinante=?,com_copia=?
+WHERE id_documentador=?", array($dado[0],$dado[3],$vocativo,$mensagem,$desfecho,$dado[9],$assunto,$anexo,$data,$dado[1],$dado[10],$dado[2],$id_documentador));
 
 		}
 	else if($dado[0]=="2") //circular
@@ -195,15 +192,15 @@ WHERE id_documentador='$id_documentador'") or die ("N? foi poss?el inserir os da
 		$mensagem=mb_convert_encoding( $dado[7], "UTF-8");
 		$desfecho=mb_convert_encoding( $dado[8], "UTF-8");
 
-/*                $resultado1=pg_query("UPDATE admin_rascunho SET id_assinatura='$dado[1]',anexo='$anexo',assunto='$assunto',
+/*                $resultado1=db_query("UPDATE admin_rascunho SET id_assinatura='$dado[1]',anexo='$anexo',assunto='$assunto',
                         vocativo='$vocativo',mensagem='$mensagem',desfecho='$desfecho',
                         data='$data' WHERE id_documentador='$id_documentador'")
                         or die ("N? foi poss?el inserir os dados no banco");
 */
-			$resultado1=pg_query("UPDATE admin_rascunho SET 
-id_tipo='$dado[0]',id_departamento='$dado[3]',vocativo='$vocativo',mensagem='$mensagem',desfecho='$desfecho',id_assinatura='$dado[1]',assunto='$assunto',anexo='',data='$data',via='',assinante='$dado[2]', 
-com_copia='$dado[4]' WHERE id_documentador='$id_documentador'")
-                        or die ("N? foi poss?el inserir os dados no banco");
+			$resultado1=db_query("UPDATE admin_rascunho SET
+id_tipo=?,id_departamento=?,vocativo=?,mensagem=?,desfecho=?,id_assinatura=?,assunto=?,anexo='',data=?,via='',assinante=?,
+com_copia=? WHERE id_documentador=?",
+                        array($dado[0],$dado[3],$vocativo,$mensagem,$desfecho,$dado[1],$assunto,$data,$dado[2],$dado[4],$id_documentador));
 		}
 	else if($dado[0]=="4") //ato
 		{
@@ -213,14 +210,14 @@ com_copia='$dado[4]' WHERE id_documentador='$id_documentador'")
 		$mensagem=mb_convert_encoding( $dado[3], "UTF-8");
 //		$desfecho=mb_convert_encoding( $dado[6], "UTF-8");
 
-/*                $resultado1=pg_query("UPDATE admin_rascunho SET mensagem='$mensagem',id_assinatura='$dado[2]',
+/*                $resultado1=db_query("UPDATE admin_rascunho SET mensagem='$mensagem',id_assinatura='$dado[2]',
                         data='$data' WHERE id_documentador='$id_documentador'")
                         or die ("N? foi poss?el inserir os dados no banco");
 */
-	$resultado1=pg_query("UPDATE admin_rascunho SET 
-id_tipo='$dado[0]',id_departamento='152',vocativo='',mensagem='$mensagem',desfecho='',id_assinatura='$dado[4]',assunto='$assunto',anexo='',data='$data',via='',assinante='$dado[5]', 
-com_copia='$dado[2]' WHERE id_documentador='$id_documentador'")
-                        or die ("N? foi poss?el inserir os dados no banco");
+	$resultado1=db_query("UPDATE admin_rascunho SET
+id_tipo=?,id_departamento='152',vocativo='',mensagem=?,desfecho='',id_assinatura=?,assunto=?,anexo='',data=?,via='',assinante=?,
+com_copia=? WHERE id_documentador=?",
+                        array($dado[0],$mensagem,$dado[4],$assunto,$data,$dado[5],$dado[2],$id_documentador));
 		}
 	 else if($dado[0]=="5") //ata
 		{
@@ -230,15 +227,15 @@ com_copia='$dado[2]' WHERE id_documentador='$id_documentador'")
 		$mensagem=mb_convert_encoding( $dado[2], "UTF-8");
 //		$desfecho=mb_convert_encoding( $dado[6], "UTF-8");
 
-/*                $resultado1=pg_query("UPDATE admin_rascunho SET mensagem='$mensagem',
+/*                $resultado1=db_query("UPDATE admin_rascunho SET mensagem='$mensagem',
                         data='$data' WHERE id_documentador='$id_documentador'")
                         or die ("N? foi poss?el inserir os dados no banco");
 */
-			$resultado1=pg_query("UPDATE admin_rascunho SET 
-id_tipo='$dado[0]',id_departamento='152',vocativo='',mensagem='$mensagem',desfecho='',id_assinatura='$dado[3]',assunto='$assunto',anexo='',data='$data',via='',assinante='$dado[4]', 
-assinatura2='$dado[5]', assinante2='$dado[6]' 
-WHERE id_documentador='$id_documentador'")
-                        or die ("N? foi poss?el inserir os dados no banco");
+			$resultado1=db_query("UPDATE admin_rascunho SET
+id_tipo=?,id_departamento='152',vocativo='',mensagem=?,desfecho='',id_assinatura=?,assunto=?,anexo='',data=?,via='',assinante=?,
+assinatura2=?, assinante2=?
+WHERE id_documentador=?",
+                        array($dado[0],$mensagem,$dado[3],$assunto,$data,$dado[4],$dado[5],$dado[6],$id_documentador));
 
 		}
 // AQUI, SE FORMOS PARA O VISUALIZAR VAI DAR CERTO COM LATEX!
@@ -374,9 +371,8 @@ else if ($acao=="Visualizar"){
 //	exec('/bin/rm -f /var/www/si/modules/servidor_admin/Tex/XDLD*'); 	//require "acessorio.php";
 
 	$documento=$dado[0];
-	$res_SIGLA=pg_query("SELECT sigla FROM admin_tipo WHERE id_tipo= '$documento'")
-	or die("N? foi poss?el executar a opera?o. Contacte a Coordena?o de Inform?ica.");
-	$sigla= pg_fetch_row($res_SIGLA,0);
+	$res_SIGLA=db_query("SELECT sigla FROM admin_tipo WHERE id_tipo= ?", array($documento));
+	$sigla= db_fetch_row($res_SIGLA,0);
 	
 	$seds[LATEXSIGLA]=$sigla[0];
 	$seds[LATEXNUMERO]="XX";

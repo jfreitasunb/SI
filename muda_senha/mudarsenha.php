@@ -5,12 +5,15 @@ require("forms.php");
 require("pgsql.php");
 require("header.php");
 
-$submit 	  = trim(addslashes($_POST['submit']));
-$usuario 	  = trim(addslashes($_POST['usuario']));
-$senhaatual 	  = trim(addslashes($_POST['senhaatual']));
-$senhanova        = trim(addslashes($_POST['senhanova']));
-$senhaconfirmacao = trim(addslashes($_POST['senhaconfirmacao']));
+// Entrada: apenas trim(). O escape NAO e mais feito com addslashes (ineficaz e
+// perigoso no PostgreSQL); as consultas usam prepared statements via db_query().
+$submit           = isset($_POST['submit'])           ? trim($_POST['submit'])           : '';
+$usuario          = isset($_POST['usuario'])           ? trim($_POST['usuario'])           : '';
+$senhaatual       = isset($_POST['senhaatual'])        ? trim($_POST['senhaatual'])        : '';
+$senhanova        = isset($_POST['senhanova'])         ? trim($_POST['senhanova'])         : '';
+$senhaconfirmacao = isset($_POST['senhaconfirmacao'])  ? trim($_POST['senhaconfirmacao'])  : '';
 
+$msg = '';
 
 if(strlen($submit)>0){
   sleep(1);
@@ -26,33 +29,34 @@ if(strlen($submit)>0){
    }elseif(strcmp($senhanova,$senhaconfirmacao)!=0){
      $msg="Confirmacao da senha nao confere.";
    } else {
-   
+
      $matricula = substr($usuario,1);
-     $res = pg_query("select login,passwd,erro,erro_data from unix where login='$usuario'");
-   
+     $res = db_query("select login,passwd,erro,erro_data from unix where login=?", array($usuario), $con);
+
      $msg="Dados Invalidos!";
-   
-     if(pg_num_rows($res)==1 ){
-           $senhaBD = pg_result($res,0,1);
-	   $qtErros = pg_result($res,0,2);
-	   $timeErro = pg_result($res,0,3);
-   
+
+     if(db_num_rows($res)==1 ){
+           $senhaBD  = db_result($res,0,1);
+	   $qtErros  = db_result($res,0,2);
+	   $timeErro = db_result($res,0,3);
+
 	   if($qtErros>=3){
                 $msg="Conta bloqueada por excesso de tentativas frustradas. Entre em contato com o CPD.";
-           } elseif(crypt($senhaatual,$senhaBD) == $senhaBD) {
-   
-              // Hora de mudar a senha
-              $res = pg_query("update unix set passwd='".crypt($senhanova)."' where login='$usuario' ");
-   
+           } elseif(hash_equals((string)$senhaBD, (string)crypt($senhaatual,$senhaBD))) {
+
+              // Hora de mudar a senha (hash forte SHA-512, compativel com /etc/shadow)
+              $res = db_query("update unix set passwd=?, erro=0 where login=?",
+                              array(cripta_senha_unix($senhanova), $usuario), $con);
+
               $msg="Senha alterada com sucesso! Estara atualizada em no maximo 15 minutos.";
           }else {
 	      if($timeErro + 60*10 > time()){
-                 $res = pg_query("update unix set erro= erro+1,erro_data='".time()."'  where login='$usuario' ");
+                 $res = db_query("update unix set erro= erro+1,erro_data=? where login=?", array(time(), $usuario), $con);
                }else {
-                 $res = pg_query("update unix set erro=1,erro_data='".time()."'  where login='$usuario' ");
-               } 
-          } 
-     } 
+                 $res = db_query("update unix set erro=1,erro_data=? where login=?", array(time(), $usuario), $con);
+               }
+          }
+     }
    }
 }
 
@@ -63,30 +67,30 @@ if(strlen($submit)>0){
 </HEAD>
 <BODY onload="document.form1.usuario.focus();">
 
-<FORM name="form1" method="POST" action="<?php=$PHP_SELF;?>">
+<FORM name="form1" method="POST" action="">
 
-<h2> Alteracao de Senha de Alunos de Gradua?o </h2>
+<h2> Alteracao de Senha de Alunos de Gradua&ccedil;&atilde;o </h2>
 
 <h3>
-<font color="red"><?php=$msg;?></font>
+<font color="red"><?php echo h($msg); ?></font>
 </h3>
 
 <table border="0">
 <tr>
   <td> Usuario: </td>
-  <td> <INPUT type="TEXT" name="usuario" value="<?php=$usuario;?>"> </td>
+  <td> <INPUT type="TEXT" name="usuario" value="<?php echo h($usuario); ?>"> </td>
 </tr>
 <tr>
   <td> Senha Atual: </td>
-  <td> <INPUT type="password" name="senhaatual" value="<?php=$senhaatual;?>"> </td>
+  <td> <INPUT type="password" name="senhaatual" value=""> </td>
 </tr>
 <tr>
   <td> Senha Nova: </td>
-  <td> <INPUT type="password" name="senhanova" value="<?php=$senhanova;?>"> </td>
+  <td> <INPUT type="password" name="senhanova" value=""> </td>
 </tr>
 <tr>
-  <td> Confirma?o da Senha Nova: </td>
-  <td> <INPUT type="password" name="senhaconfirmacao" value="<?php=$senhaconfirmacao;?>"> </td>
+  <td> Confirma&ccedil;&atilde;o da Senha Nova: </td>
+  <td> <INPUT type="password" name="senhaconfirmacao" value=""> </td>
 </tr>
 <tr>
   <td> </td>
@@ -99,4 +103,3 @@ if(strlen($submit)>0){
 
 </BODY>
 </HTML>
-

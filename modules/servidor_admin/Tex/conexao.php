@@ -1,6 +1,8 @@
 <?php
 
-$conn_string = "host=localhost dbname=MatAdmin user=laura";
+// Senha fora do codigo versionado: definida via variavel de ambiente TEX_DB_PASSWD.
+$tex_pwd = (getenv('TEX_DB_PASSWD') !== false) ? getenv('TEX_DB_PASSWD') : "";
+$conn_string = "host=localhost dbname=MatAdmin user=laura" . ($tex_pwd !== "" ? " password=".$tex_pwd : "");
 
 $conn = pg_connect($conn_string);
 

@@ -46,11 +46,11 @@ if ( $_REQUEST['formulario'] ) {
   	    <td>
               <select size="1" name="professor_orientador">
 	<?php                                   		// gera a lista de usuarios registrados
-		$res = pg_query("SELECT coduser FROM fonctionnaire where status='prof'"); 
+		$res = db_query("SELECT coduser FROM fonctionnaire where status='prof'"); 
 //seleciona coduser onde status é prof em fonctionnaire e depois, selecione em users nome onde coduser=coduser
-		while($registro = pg_fetch_row($res)) //enquanto ouver registro escreva
+		while($registro = db_fetch_row($res)) //enquanto ouver registro escreva
 		{
-			$res2 = pg_query("SELECT nome FROM users where coduser=$registro"); 
+			$res2 = db_query("SELECT nome FROM users where coduser=?", array($registro[0])); 
 			$cod = $registro[0];  		// primeira coluna da tabela usuario
 //			$titulo = $registro[1];         // segunda coluna da tabela usuario
 			$titulo = $res2;         // segunda coluna da tabela usuario

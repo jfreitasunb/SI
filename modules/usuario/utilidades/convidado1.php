@@ -14,6 +14,6 @@ print $convidado.",   ".$date1.",   ".$date2 ."\n";
 //include("convidado.php");
 echo '<pre>';
 var_dump( "insert into visitor values ('$coduser','$date1','$date2','$convidado')" );
-$res = pg_query("insert into visitor values ('$coduser','$date1','$date2','$convidado')");
+$res = db_query("insert into visitor values (?,?,?,?)", array($coduser, $date1, $date2, $convidado));
 
 ?>

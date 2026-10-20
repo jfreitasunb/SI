@@ -269,7 +269,7 @@ set_time_limit(60);
         $lista_arquivo=manipula_arquivo_atualiza_lista($semestre,$ano,$nome[1]);
 //        echo " cria array de profs<br>";
         $array_profs=monta_array_de_profs();
-        $query_limpa=pg_query("delete from oferta_carga_professor where semestre='".$semestre."' and ano='".$ano."'") or die ("problema de acesso ao banco");
+        $query_limpa=db_query("delete from oferta_carga_professor where semestre=? and ano=?", array($semestre, $ano)) or die ("problema de acesso ao banco");
 //        echo "<BR>".$query_limpa."<BR>";
         $melhora_lista=melhora_lista_carga($array_profs,$lista_arquivo,$semestre,$ano);
 //        echo $melhora_lista;

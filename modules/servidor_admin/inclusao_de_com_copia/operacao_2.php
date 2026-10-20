@@ -44,31 +44,30 @@ if ($_POST['acao2'] == "Confirmar"){
 
 		/*
 		//contador para defini?o do n?ero do documento.
-		$resultado=pg_query("SELECT id_documentador FROM documentador WHERE id_tipo='$dado[0]'")
+		$resultado=db_query("SELECT id_documentador FROM documentador WHERE id_tipo='$dado[0]'")
 		or die ("N\xe3o foi poss\xedvel realizar a consulta ao banco de dados");
-		$contador=pg_num_rows($resultado) + 1;
+		$contador=db_num_rows($resultado) + 1;
 		*/
 
 	        // modulo a ser usado quando todos os documentos antigos ja tiverem sido inseridos
 		//contagem para defini?o do n?ero do documento. Uso da funcao MAX, que retorna o valor m?imo do campo sugerido.
 //		$ano=date("Y");
-		$query_documentador="SELECT MAX(numerodocumento) FROM admin_documentador WHERE id_tipo='".$dado[0]."' and data like '%".date("Y")."'";
-                $resultado=pg_query($query_documentador) or die ("N\xe3o foi poss\xedvel realizar a consulta ao banco de dados");
-                $matriz=pg_fetch_row($resultado);
+                $resultado=db_query("SELECT MAX(numerodocumento) FROM admin_documentador WHERE id_tipo=? and data like ?", array($dado[0], '%'.date("Y")));
+                $matriz=db_fetch_row($resultado);
 		$contador=$matriz[0]+1;
 		
 /*              para implementar: permite reiniciar a marcacao de documentos ano apos ano: 
 		$ano=date("Y");
-                $resultado=pg_query("SELECT MAX(numerodocumento) FROM admin_documentador WHERE id_tipo='$dado[0]' and data like '%$ano'")
+                $resultado=db_query("SELECT MAX(numerodocumento) FROM admin_documentador WHERE id_tipo='$dado[0]' and data like '%$ano'")
                 or die ("N\xe3o foi poss\xedvel realizar a consulta ao banco de dados");
-                $matriz=pg_fetch_row($resultado);
+                $matriz=db_fetch_row($resultado);
                 $contador=$matriz[0]+1;
 
 
 		//modulo provisorio para acrescimo na tabela admin_tipo sobre novos documentos
-		$resultado=pg_query("SELECT novo FROM admin_tipo WHERE id_tipo='$dado[0]'")
+		$resultado=db_query("SELECT novo FROM admin_tipo WHERE id_tipo='$dado[0]'")
                 or die ("N\xe3o foi poss\xedvel realizar a consulta ao banco de dados");
-                $matriz=pg_fetch_row($resultado);
+                $matriz=db_fetch_row($resultado);
                 $contador=$matriz[0]+1;
 */
 		//acr?cimo do documento na tabela "documentador".
@@ -81,11 +80,11 @@ if ($_POST['acao2'] == "Confirmar"){
 			$vocativo=mb_convert_encoding( $dado[6], "UTF-8");
 			$via=mb_convert_encoding( $dado[1], "UTF-8");
 			$com_copia=mb_convert_encoding( $dado[2], "UTF-8");
-			$resultado_banco=pg_query("INSERT INTO admin_documentador 
+			$resultado_banco=db_query("INSERT INTO admin_documentador
 (id_documentador,id_tipo,numerodocumento,id_departamento,mensagem,desfecho,id_assinatura,assunto,anexo,data,vocativo,via,assinante,assinatura2,assinante2,com_copia)
-VALUES 
-(default,'$dado[0]','$contador','$dado[3]','$mensagem','$desfecho','$dado[9]','$assunto','$anexo','$data','$vocativo','$via','$dado[10]','','','$com_copia')")
-			or die("N\xe3o foi poss\xedvel inserir os dados.");
+VALUES
+(default,?,?,?,?,?,?,?,?,?,?,?,?,'','',?)",
+			array($dado[0],$contador,$dado[3],$mensagem,$desfecho,$dado[9],$assunto,$anexo,$data,$vocativo,$via,$dado[10],$com_copia));
 			}
 		else if(($dado[0]=="3")||($dado[0]=="6"))//of?io interno ou of?io externo
 			{
@@ -96,12 +95,12 @@ VALUES
 			$vocativo=mb_convert_encoding( $dado[6], "UTF-8");
 			$via=mb_convert_encoding( $dado[1], "UTF-8");
 			$com_copia=mb_convert_encoding( $dado[2], "UTF-8");
-			$resultado_banco=pg_query("INSERT INTO admin_documentador 
-(id_documentador,id_tipo,numerodocumento,id_departamento,mensagem,desfecho,id_assinatura,assunto,anexo,data,vocativo,via, 
+			$resultado_banco=db_query("INSERT INTO admin_documentador
+(id_documentador,id_tipo,numerodocumento,id_departamento,mensagem,desfecho,id_assinatura,assunto,anexo,data,vocativo,via,
 assinante,assinatura2,assinante2,com_copia)
-VALUES 
-(default,'$dado[0]','$contador','$dado[3]','$mensagem','$desfecho','$dado[9]','$assunto','$anexo','$data','$vocativo','$via','$dado[10]','','','$com_copia')")
-                	or die("N\xe3o foi poss\xedvel inserir os dados.");
+VALUES
+(default,?,?,?,?,?,?,?,?,?,?,?,?,'','',?)",
+                	array($dado[0],$contador,$dado[3],$mensagem,$desfecho,$dado[9],$assunto,$anexo,$data,$vocativo,$via,$dado[10],$com_copia));
 			}
 		else if($dado[0]=="2")//circular
 			{
@@ -112,11 +111,11 @@ VALUES
 			$vocativo=mb_convert_encoding( $dado[6], "UTF-8");
 //			$via=mb_convert_encoding( $dado[1], "UTF-8");
 			$com_copia=mb_convert_encoding( $dado[4], "UTF-8");
-			$resultado_banco=pg_query("INSERT INTO admin_documentador 
-(id_documentador,id_tipo,numerodocumento,id_departamento,mensagem,desfecho,id_assinatura,assunto,anexo,data,vocativo,via, 
+			$resultado_banco=db_query("INSERT INTO admin_documentador
+(id_documentador,id_tipo,numerodocumento,id_departamento,mensagem,desfecho,id_assinatura,assunto,anexo,data,vocativo,via,
 assinante,assinatura2,assinante2)
-VALUES (default,'$dado[0]','$contador','$dado[3]','$mensagem','$desfecho','$dado[1]','$assunto','','$data','$vocativo','','$dado[2]','','')")
-                	or die("N\xe3o foi poss\xedvel inserir os dados.");
+VALUES (default,?,?,?,?,?,?,?,'',?,?,'',?,'','')",
+                	array($dado[0],$contador,$dado[3],$mensagem,$desfecho,$dado[1],$assunto,$data,$vocativo,$dado[2]));
 			}
 		else if($dado[0]=="4")//ato
 			{
@@ -127,43 +126,39 @@ VALUES (default,'$dado[0]','$contador','$dado[3]','$mensagem','$desfecho','$dado
 //			$vocativo=mb_convert_encoding( $dado[5], "UTF-8");
 //			$via=mb_convert_encoding( $dado[1], "UTF-8");
 			$com_copia=mb_convert_encoding( $dado[2], "UTF-8");
-			$resultado_banco=pg_query("INSERT INTO admin_documentador 
-(id_documentador,id_tipo,numerodocumento,id_departamento,mensagem,desfecho,id_assinatura,assunto,anexo,data,vocativo,via, 
+			$resultado_banco=db_query("INSERT INTO admin_documentador
+(id_documentador,id_tipo,numerodocumento,id_departamento,mensagem,desfecho,id_assinatura,assunto,anexo,data,vocativo,via,
 assinante,assinatura2,assinante2,com_copia)
- VALUES 
-(default,'$dado[0]','$contador','152','$mensagem','','$dado[4]','$assunto','','$data','','','$dado[6]','','','$com_copia')")
-                	or die("N\xe3o foi poss\xedvel inserir os dados.");
+ VALUES
+(default,?,?,'152',?,'',?,?,'',?,'','',?,'','',?)",
+                	array($dado[0],$contador,$mensagem,$dado[4],$assunto,$data,$dado[6],$com_copia));
 			}
 		else if($dado[0]=="5")//ata
 			{
 			$assunto=mb_convert_encoding( $dado[1], "UTF-8");
 			$mensagem=mb_convert_encoding( $dado[2], "UTF-8");
-			$resultado_banco=pg_query("INSERT INTO admin_documentador 
-(id_documentador,id_tipo,numerodocumento,id_departamento,mensagem,desfecho,id_assinatura,assunto,anexo,data,vocativo,via, 
+			$resultado_banco=db_query("INSERT INTO admin_documentador
+(id_documentador,id_tipo,numerodocumento,id_departamento,mensagem,desfecho,id_assinatura,assunto,anexo,data,vocativo,via,
 assinante,assinatura2,assinante2,com_copia)
-VALUES 
-(default,'$dado[0]','$contador','152','$mensagem','','$dado[3]','$assunto','','$data','','','$dado[4]','$dado[5]','$dado[6]','')")
-                	or die("N\xe3o foi poss\xedvel inserir os dados.");
+VALUES
+(default,?,?,'152',?,'',?,?,'',?,'','',?,?,?,'')",
+                	array($dado[0],$contador,$mensagem,$dado[3],$assunto,$data,$dado[4],$dado[5],$dado[6]));
 			}
 
 
 
 		//atualizacao do numero do documento na tabela admin_tipo
-                $result=pg_query("UPDATE admin_tipo SET novo='$contador' WHERE id_tipo='$dado[0]'")
-                or die ("N\xe3o foi poss\xedvel atualizar o campo 'novo' no banco de dados");
+                $result=db_query("UPDATE admin_tipo SET novo=? WHERE id_tipo=?", array($contador, $dado[0]));
 
 
 		//armazanamento do "id_documentador" que acabou de ser inserido na vari?el "id_documentador".
-		$resultado2=pg_query("SELECT id_documentador FROM admin_documentador WHERE numerodocumento = '$contador'
-		and id_tipo = '$dado[0]'")
-		or die("N? foi poss?el executar a opera?o. Contacte a Coordena?o de Inform?ica.");
-		$coluna = pg_fetch_row($resultado2,0);
+		$resultado2=db_query("SELECT id_documentador FROM admin_documentador WHERE numerodocumento = ? and id_tipo = ?", array($contador, $dado[0]));
+		$coluna = db_fetch_row($resultado2,0);
 		$id_documentador = $coluna[0];
 
 		//dele?o do documento na tabela "rascunho".
 		$r_documento=$_POST['r_documento'];
-		$resultado=pg_query("DELETE FROM admin_rascunho WHERE id_documentador='$r_documento'")
-		or die ("N\xe3o foi poss\xedvel realizar a consulta ao banco de dados");
+		$resultado=db_query("DELETE FROM admin_rascunho WHERE id_documentador=?", array($r_documento));
 		echo"
         	<h1>Servidor Administrativo</h1>
 		<p> O documento foi inserido com sucesso. Para que ele possa ser impresso, clique no bot? abaixo . </p><br>
@@ -199,9 +194,8 @@ else if(($_POST['acao2']=="Visualizar")||($_GET['acao2']=="Visualizar")){
 //	print " id_documentador no Visualizar do operacao_2".$id_documentador;
 
 	//busca pelo "documento" na tabela "documentador".
-	$resultado=pg_query("SELECT * FROM admin_documentador WHERE id_documentador = '$id_documentador'")
-	or die("N? foi poss?el executar a opera?o. Contacte a Coordena?o de Inform?ica.");
-	$coluna= pg_fetch_row($resultado,0);
+	$resultado=db_query("SELECT * FROM admin_documentador WHERE id_documentador = ?", array($id_documentador));
+	$coluna= db_fetch_row($resultado,0);
 
 	//dados para uso do arquivo 'acessorio.php'
 
@@ -234,9 +228,9 @@ else if(($_POST['acao2']=="Visualizar")||($_GET['acao2']=="Visualizar")){
 
 
 //	$documento=$coluna[1];
-//        $res_SIGLA=pg_query("SELECT sigla FROM admin_tipo WHERE id_tipo= '$documento'")
+//        $res_SIGLA=db_query("SELECT sigla FROM admin_tipo WHERE id_tipo= '$documento'")
 //        or die("N?o foi poss?vel executar a opera??o. Contacte a Coordena??o de Inform?tica.");
-//        $sigla= pg_fetch_row($res_SIGLA,0);
+//        $sigla= db_fetch_row($res_SIGLA,0);
 
         $seds[LATEXSIGLA]=$palavra_documento[0]; //$sigla[0];
 
