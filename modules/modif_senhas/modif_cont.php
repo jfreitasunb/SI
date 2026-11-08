@@ -112,7 +112,7 @@ $param="'".$tab['coduser']."','".$tab2['login']."','".$tab2['cota_impressao']."'
     </tr> 
 	</table></td></tr>
 
-   <?php/*  <tr><td align=center>
+   <?php php/*  <tr><td align=center>
          <table class=form><tr><td class=header align=center colspan=3>Tipo de Conta</td></tr>
           <tr><td>Unix :</td><td><input type=checkbox name=unix enabled ></td></tr> 
           </td></tr></table></td></tr> */?>

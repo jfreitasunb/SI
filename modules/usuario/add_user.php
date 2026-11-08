@@ -11,7 +11,7 @@
   </header>
   <body>
       <table class=big>
-  <?php/*    <form method="POST" name="formu" action="add_user2.php" onsubmit="return controle_choix()" onsubmit="return valid_form()"> 27/11/2007 */?>
+  <?php php/*    <form method="POST" name="formu" action="add_user2.php" onsubmit="return controle_choix()" onsubmit="return valid_form()"> 27/11/2007 */?>
   <form method="POST" name="formu" action="add_user2.php" onsubmit="return valid_form()">
       <tr>
         <td class=header align=center>
@@ -83,7 +83,7 @@
             <td><input type=text name='mail2' maxlength=30 onfocus="if (document.formu.mail1.value.length==0){document.formu.mail1.focus();}"  onblur="this.value=verif_mail(this.value)" ></td>
           </tr>
            <tr>
-      <?php/*      <td>E mail3 :</td>
+      <?php php/*      <td>E mail3 :</td>
             <td><input type=text name='mail3' maxlength=15 onfocus="if (document.formu.mail2.value.length==0){document.formu.mail2.focus();}"  onblur="this.value=verif_mail(this.value)" ></td>
             <td>E mail4 :</td>
             <td><input type=text name='mail4' maxlength=15 onfocus="if (document.formu.mail3.value.length==0){document.formu.mail3.focus();}" onblur="this.value=verif_mail(this.value)" ></td>  Retirado em 27/11/2007 (Cristiano) */  ?>
@@ -145,7 +145,7 @@
             <td>Unix :</td>
             <td><input type=checkbox name=unix enable value="true"></td>
           </tr>
-         <?php/*
+         <?php php/*
 	 <tr>
             <td>Samba :</td>
             <td><input type=checkbox name=samba></td>

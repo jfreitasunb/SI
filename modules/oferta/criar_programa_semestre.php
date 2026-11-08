@@ -1,4 +1,4 @@
-<?
+<?php 
 include("head_oferta.php");
 /* CRIAR/ALTERAR OFERTA DO SEMESTRE/ANO:
 1- entrar com semestre e ano;
@@ -105,7 +105,7 @@ return $turnos_magistral;
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   </header>
 
-<?
+<?php 
 
 if (!isset($_POST['registra1']) and !isset($_POST['registra2']))
 {
@@ -130,7 +130,7 @@ if (!isset($_POST['registra1']) and !isset($_POST['registra2']))
 </BODY>
 </HTML>
 
-<?
+<?php 
 }
 
 if (isset($_POST['registra1']) and !isset($_POST['registra2']))
@@ -148,7 +148,7 @@ if (!ctype_digit((string)$semestre) || !ctype_digit((string)$ano)) {
       <form method="POST" name="formu" action="criar_programa_semestre.php">
          <tr>
         <td class=header align=center>
-        <h1> Lista de Ofertas do <? echo h($semestre);?>&ordm;/ <? echo h($ano);?></h1>
+        <h1> Lista de Ofertas do <?php  echo h($semestre);?>&ordm;/ <?php  echo h($ano);?></h1>
         </td>
       </tr>
          <tr><td class=data align=center>
@@ -156,7 +156,7 @@ if (!ctype_digit((string)$semestre) || !ctype_digit((string)$ano)) {
         <tr><td><b>Disciplina</b></td><td><b>C&oacute;digo</b></td><td><b>Turma</b></td><td><b>Vagas</b></td><td><b>Turno</b></td><td><b>Hor&aacute;rios</b></td><td><b>Salas</b></td><td><b>Reservas</b></td><td><b>Status</b></td></tr>
         <tr></tr>
 
-<?
+<?php 
 //disciplina | codigo | turma | vagas |  turno  |  horarios   | salas | reserva |  status | professor
 
 // tabela oferta_semestres: | codigo | turma | vagas |  turno  |  horarios   | salas | reserva |  status | semestre 
@@ -196,18 +196,18 @@ $tabela_a="oferta_lista_de_ofertas_nova";
                 {
                 if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";
 ?>
-                <tr bgcolor="<? echo $cor_de_fundo;?>">
-                <td><? echo $registro[0];?></td>
-                <td><? echo $registro[1];?></td>
-                <td><? echo $registro[2];?></td>
-                <td><? echo $registro[3];?></td>
-                <td><? echo $registro[4];?></td>
-                <td><? echo $registro[5];?></td>
-                <td><? echo $registro[6];?></td>
-                <td><? echo $registro[7];?></td>
-                <td><? echo $registro[8];?></td>
+                <tr bgcolor="<?php  echo $cor_de_fundo;?>">
+                <td><?php  echo $registro[0];?></td>
+                <td><?php  echo $registro[1];?></td>
+                <td><?php  echo $registro[2];?></td>
+                <td><?php  echo $registro[3];?></td>
+                <td><?php  echo $registro[4];?></td>
+                <td><?php  echo $registro[5];?></td>
+                <td><?php  echo $registro[6];?></td>
+                <td><?php  echo $registro[7];?></td>
+                <td><?php  echo $registro[8];?></td>
                 </tr>
-<?
+<?php 
                 }
 
         // optativas
@@ -220,26 +220,26 @@ $tabela_a="oferta_lista_de_ofertas_nova";
 		{
 	        if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";
 		?>		
-		<tr bgcolor="<? echo $cor_de_fundo;?>">
+		<tr bgcolor="<?php  echo $cor_de_fundo;?>">
         	<td colspan=2><select name='optativas[]'>
-			<?
+			<?php 
 			$query_disciplinas_mat[$contador]=db_query("select codigo,nome,creditos from disciplinas_mat where status='grad' order by nome", array());
 			while ($registro2[$contador]=db_fetch_row($query_disciplinas_mat[$contador])) 
 				{
 				if ($registro2[$contador][0]==$registro[1]) $selected="selected"; else $selected="";?>
-				<option value="<? echo $registro2[$contador][0];?>" <? echo $selected;?>><? echo $registro2[$contador][0]."/".$registro2[$contador][1];?></option>
-				<?}
+				<option value="<?php  echo $registro2[$contador][0];?>" <?php  echo $selected;?>><?php  echo $registro2[$contador][0]."/".$registro2[$contador][1];?></option>
+				<?php }
 			?>
 		</td>
-        	<td><input type=text name='turma[]' value="<? echo $registro[2];?>" maxlength=1 size=1></td>
-        	<td><input type=text name='vagas[]' value="<? echo $registro[3];?>" maxlength=2 size=1></td>
-        	<td><input type=text name='turno[]' value="<? echo $registro[4];?>" maxlength=7 size=6></td>
-        	<td><input type=text name='horarios[]' value="<? echo $registro[5];?>" maxlength=11 size=10></td>
-        	<td><input type=text name='salas[]' value="<? echo $registro[6];?>"></td>
-        	<td><input type=text name='reserva[]' value="<? echo $registro[7];?>"></td>
-        	<td><input type=text name='status[]' value="<? echo $registro[8];?>" maxlength=8 size=7></td>
+        	<td><input type=text name='turma[]' value="<?php  echo $registro[2];?>" maxlength=1 size=1></td>
+        	<td><input type=text name='vagas[]' value="<?php  echo $registro[3];?>" maxlength=2 size=1></td>
+        	<td><input type=text name='turno[]' value="<?php  echo $registro[4];?>" maxlength=7 size=6></td>
+        	<td><input type=text name='horarios[]' value="<?php  echo $registro[5];?>" maxlength=11 size=10></td>
+        	<td><input type=text name='salas[]' value="<?php  echo $registro[6];?>"></td>
+        	<td><input type=text name='reserva[]' value="<?php  echo $registro[7];?>"></td>
+        	<td><input type=text name='status[]' value="<?php  echo $registro[8];?>" maxlength=8 size=7></td>
 	        </tr>
-<?			
+<?php 			
 		$contador=$contador+1;
 		}
 ?>
@@ -249,14 +249,14 @@ $tabela_a="oferta_lista_de_ofertas_nova";
 	<td align=center>
 	<input type=submit name='registra2' value="Confirmar op&ccedil;&otilde;es">
 	<input type=hidden name='registra1' value="ok">
-	<input type=hidden name='tabela' value="<? echo $tabela_a;?>">
+	<input type=hidden name='tabela' value="<?php  echo $tabela_a;?>">
 	</td>
 	</tr>
 	</form>
 	</table>
 	</BODY>
 	</HTML>
-<?
+<?php 
 }
 
 

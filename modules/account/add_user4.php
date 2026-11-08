@@ -122,7 +122,7 @@
 	<!form method=POST name="utilisateur2" action='add_user4.php' onsubmit="return verif_pass();">
 	<form method=POST name="utilisateur2" action='add_user4.php'>
 	<tr>
-<?php/*	<input type=hidden name='uid' value="<?php echo h($_POST['uid']) ?>">
+<?php php/*	<input type=hidden name='uid' value="<?php echo h($_POST['uid']) ?>">
 	<input type=hidden name='gid' value="<?php echo h($_POST['gid']) ?>">
 	<input type=hidden name='class' value="<?php echo h($_POST['class']) ?>">
 	<input type=hidden name='change' value="<?php echo h($_POST['change']) ?>">

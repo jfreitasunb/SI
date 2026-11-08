@@ -73,7 +73,7 @@ $res_oferta=db_query($update_oferta, $update_oferta__p) or die("problema 02 em a
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   </header>
 
-<?
+<?php 
 
 if (!isset($_POST['registra']) and !isset($_POST['registra2']))
 {
@@ -92,12 +92,12 @@ $query_acusa_lista=db_query("select * from oferta_acusa_lista where encaminhada=
 <tr><td>Escolha a lista:
         </select>
         <select name='lista'>
-        <?
+        <?php 
         while ($registro=db_fetch_row($query_acusa_lista))
         {
         ?>
-        <option name='lista' value="<?echo $registro[0]."_".$registro[1];?>"> <? echo $registro[0];?> &ordm;/ <? echo $registro[1];?></option>
-        <?
+        <option name='lista' value="<?php echo $registro[0]."_".$registro[1];?>"> <?php  echo $registro[0];?> &ordm;/ <?php  echo $registro[1];?></option>
+        <?php 
         }
         ?>
         </tr>
@@ -109,7 +109,7 @@ $query_acusa_lista=db_query("select * from oferta_acusa_lista where encaminhada=
         </table>
         </form>
         </BODY>
-<?
+<?php 
 }
 
 if (isset($_POST['registra']) and !isset($_POST['registra2']))
@@ -142,7 +142,7 @@ while($magistral_0=db_fetch_row($query_magistral))
       <form method="POST" name="formu" action="atualiza_lista_provisoria.php">
          <tr>
         <td class=header align=center>
-        <h1> Corre&ccedil;&atilde;o da Lista de Ofertas do <? echo h($semestre);?>&ordm;/ <? echo h($ano);?></h1>
+        <h1> Corre&ccedil;&atilde;o da Lista de Ofertas do <?php  echo h($semestre);?>&ordm;/ <?php  echo h($ano);?></h1>
         </td>
       </tr>
          <tr><td class=data align=center>
@@ -150,7 +150,7 @@ while($magistral_0=db_fetch_row($query_magistral))
         <tr><td><b>Disciplina</b></td><td><b>C&oacute;digo</b></td><td><b>Turma</b></td><td><b>Vagas</b></td><td><b>Turno</b></td><td><b>Hor&aacute;rios</b></td><td><b>Salas</b></td><td><b>Reservas</b></td><td><b>Status</b></td><td><b>Professor</b></td><td><b>Carga</b></td><td><b>Substituir</b></td></tr>
         <tr></tr>
 
-<?
+<?php 
 
 //disciplina | codigo | turma | vagas |  turno  |  horarios   | salas | reserva |  status | professo | elimina | semestre | ano | magistral
 
@@ -190,22 +190,22 @@ while($magistral_0=db_fetch_row($query_magistral))
 
 
 ?>
-				<tr bgcolor="<? echo $cor_de_fundo;?>">
-                                <td><? echo $disciplina;?></td>
-                                <td><? echo $oferta[$i]['codigo'];?></td>
-                                <td><? echo $oferta[$i]['turma'];?></td>
-                                <td><? echo $oferta[$i]['vagas'];?></td>
-                                <td><? echo $oferta[$i]['turno'];?></td>
-                                <td><? echo $oferta[$i]['horarios'];?></td>
-                                <td><? echo $oferta[$i]['salas'];?></td>
-                                <td><? echo $oferta[$i]['reserva'];?></td>
-                                <td><? echo $oferta[$i]['status'];?></td>
-                                <td><? echo $oferta[$i]['nome_prof'];?></td>
-                                <td><? echo $creditos;?>
-                                <td><input type=radio name='disc_turma' value="<? echo $oferta[$i]['codigo']."_".$oferta[$i]['turma']."_".$oferta[$i]['magistral'];?>"></td>
+				<tr bgcolor="<?php  echo $cor_de_fundo;?>">
+                                <td><?php  echo $disciplina;?></td>
+                                <td><?php  echo $oferta[$i]['codigo'];?></td>
+                                <td><?php  echo $oferta[$i]['turma'];?></td>
+                                <td><?php  echo $oferta[$i]['vagas'];?></td>
+                                <td><?php  echo $oferta[$i]['turno'];?></td>
+                                <td><?php  echo $oferta[$i]['horarios'];?></td>
+                                <td><?php  echo $oferta[$i]['salas'];?></td>
+                                <td><?php  echo $oferta[$i]['reserva'];?></td>
+                                <td><?php  echo $oferta[$i]['status'];?></td>
+                                <td><?php  echo $oferta[$i]['nome_prof'];?></td>
+                                <td><?php  echo $creditos;?>
+                                <td><input type=radio name='disc_turma' value="<?php  echo $oferta[$i]['codigo']."_".$oferta[$i]['turma']."_".$oferta[$i]['magistral'];?>"></td>
                                 </tr>
 
-                <?
+                <?php 
 // fim da atualizacao de 21/04/2014
 			   }
 		}
@@ -218,13 +218,13 @@ while($magistral_0=db_fetch_row($query_magistral))
 			</select> 
 		        Novo Professor: <select name='substituto'> 
 					<option value='0' selected>Nenhum</option>
-		<?
+		<?php 
 					$query_profs=db_query("select coduser,name||' '||firstname as nome from users where coduser in (select coduser from profs where situacao='ativo') order by nome", array()) or die("probema de acesso ao Banco de dados");
 					while($registro2=db_fetch_row($query_profs))
 						{
 						?>
-						<option value="<? echo $registro2[0];?>"><? echo $registro2[1];?></option> 
-						<?
+						<option value="<?php  echo $registro2[0];?>"><?php  echo $registro2[1];?></option> 
+						<?php 
 						}
 						?>
 					</select>
@@ -235,7 +235,7 @@ while($magistral_0=db_fetch_row($query_magistral))
 		-->
 		</td>
 		</tr>
-<?			
+<?php 			
 		
 ?>
 	</table>
@@ -247,15 +247,15 @@ while($magistral_0=db_fetch_row($query_magistral))
 	<input type=submit name='registra2' value="Confirmar corre&ccedil;&atilde;o">
 	<input type=reset name='limpa' value="Limpar dados">
 	
-	<input type=hidden name='semestre' value="<? echo $semestre;?>">
-	<input type=hidden name='ano' value="<? echo h($ano);?>">
+	<input type=hidden name='semestre' value="<?php  echo $semestre;?>">
+	<input type=hidden name='ano' value="<?php  echo h($ano);?>">
 	</td>
 	</tr>
 	</form>
 	</table>
 	</BODY>
 	</HTML>
-<?
+<?php 
 }
 
 if (!isset($_POST['registra']) and isset($_POST['registra2']))
@@ -318,7 +318,7 @@ if (isset($disc_turma) and ($disc_turma!=0))
          <tr>
         <td class=header align=center>
         <input type=submit name='registra' value="Fazer outras altera&ccedil;&otilde;es">
-	<input type=hidden name='lista' value="<?echo h($semestre."_".$ano);?>">
+	<input type=hidden name='lista' value="<?php echo h($semestre."_".$ano);?>">
         </td>
         </tr>
         </table>
@@ -326,7 +326,7 @@ if (isset($disc_turma) and ($disc_turma!=0))
 	</body>
 	</html>
 
-<?
+<?php 
 	}
 	}
 

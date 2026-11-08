@@ -15,7 +15,7 @@ if (!ctype_digit((string)$semestre) || !ctype_digit((string)$ano)) {
     <link type="text/css" rel="stylesheet" href="../../../global/grafic.css">
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   </header>
-<?
+<?php 
 
 if ($semestre==1) {$condicao="o.ano<?";$condicao__p=array($ano);$semestre_anterior=2;$ano_anterior=$ano-1;} else {$condicao="(o.ano<? or (o.semestre='1' and o.ano=?))";$condicao__p=array($ano,$ano); $semestre_anterior=1;$ano_anterior=$ano;}
 
@@ -106,7 +106,7 @@ foreach ($noturno_3_semestres as $key => $row)
       <!form method="POST" name="formu" action="armazena_rodizio_noturno.php">
          <tr>
         <td class=header align=center>
-        <h1> Atua&ccedil;&otilde;es no Noturno do MAT  at&eacute; o <? echo h($semestre_anterior."/".$ano_anterior);?></h1>
+        <h1> Atua&ccedil;&otilde;es no Noturno do MAT  at&eacute; o <?php  echo h($semestre_anterior."/".$ano_anterior);?></h1>
         </td>
       </tr>
 	<tr><td><font color="#00AA00">Obs.: A cor verde significa que o professor est&aacute; na zona de conforto de 3 semestres ap&oacute;s atua&ccedil;&atilde;o no noturno</font></td></tr> 
@@ -116,7 +116,7 @@ foreach ($noturno_3_semestres as $key => $row)
 	<td><b>Atua&ccedil;&otilde;es</b></td><td><b>Nome</b></td>
 	</tr>
 	<tr></tr>
-<?
+<?php 
 	$cordefundo="#FFFFFF";
 //	for ($i=0;$i<$num_atuacoes;$i++)
 	foreach ($soma_1 as $key => $valor)
@@ -136,7 +136,7 @@ foreach ($noturno_3_semestres as $key => $row)
 </body>
 </html>
 
-<?
+<?php 
 db_close($idconn);
 
 ?>

@@ -55,7 +55,7 @@ while($registro_0=db_fetch_row($query_disciplinas))
 	<tr>
 	<form method="POST" name="formu" action="atualiza_lista_emural_3.php">
         <td class=header align=center>
-        <h1> Lista de Ofertas do <? echo $semestre;?>&ordm;/ <? echo $ano;?></h1>
+        <h1> Lista de Ofertas do <?php  echo $semestre;?>&ordm;/ <?php  echo $ano;?></h1>
         </td>
       </tr>
       <tr><td>

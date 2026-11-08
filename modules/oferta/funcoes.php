@@ -460,7 +460,7 @@ $num_dados=db_num_rows($query_dados);
 			$impresso.="<td>".$registro2[1]."</td>";
 			}
 		?>
-		<tr VALIGN=CENTER BGCOLOR="<?php echo $cor_de_fundo;?>"> <? echo $impresso;?>
+		<tr VALIGN=CENTER BGCOLOR="<?php echo $cor_de_fundo;?>"> <?php  echo $impresso;?>
 		<?php
 		}
 	?>

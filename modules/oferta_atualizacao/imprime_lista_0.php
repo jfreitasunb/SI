@@ -10,7 +10,7 @@ $ordena=$_POST['ordena'];
     <link type="text/css" rel="stylesheet" href="../../global/grafic.css">
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   </header>
-<?
+<?php 
 // Escolhe semestre e ano:
 
 
@@ -26,12 +26,12 @@ $query_acusa_lista=db_query("select * from oferta_acusa_lista order by ano desc,
       </tr>
       <tr><td>Escolha o semestre:
         <select name='lista'>
-        <?
+        <?php 
         while ($registro=db_fetch_row($query_acusa_lista))
         {
         ?>
-        <option value="<?echo $registro[0]."_".$registro[1];?>"> <? echo $registro[0];?> &ordm;/ <? echo $registro[1];?></option>
-	<?
+        <option value="<?php echo $registro[0]."_".$registro[1];?>"> <?php  echo $registro[0];?> &ordm;/ <?php  echo $registro[1];?></option>
+	<?php 
         }
         ?>
 	</select>
@@ -44,7 +44,7 @@ $query_acusa_lista=db_query("select * from oferta_acusa_lista order by ano desc,
         </form>
         </BODY>
 </html>
-<?
+<?php 
 db_close($idconn);
 ?>
 

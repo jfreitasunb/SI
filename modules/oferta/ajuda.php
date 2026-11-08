@@ -1,4 +1,4 @@
-<?
+<?php 
 include("head_oferta.php");
 /* CRIAR/ALTERAR OFERTA DO SEMESTRE/ANO:
 Ajuda para a elaboração da lista de ofertas
@@ -33,7 +33,7 @@ Ajuda para a elaboração da lista de ofertas
 </BODY>
 </HTML>
 
-<?
+<?php 
 db_close($idconn);
 ?>
 

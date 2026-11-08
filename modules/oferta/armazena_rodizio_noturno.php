@@ -8,7 +8,7 @@ include("head_oferta.php");
     <link type="text/css" rel="stylesheet" href="../../global/grafic.css">
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   </header>
-<?
+<?php 
 // Escolhe semestre e ano:
 
 if (!isset($_POST['registra']))
@@ -37,7 +37,7 @@ $query_dados=db_query("select coduser,name||' '||firstname as nome from users wh
 		<td><b>1-11</b></td><td><b>2-11</b></td>
 	</tr>
 	<tr></tr>
-	<?
+	<?php 
 	$cor_de_fundo="#FFFFFF";
 	$prof=0;
 	while ($registro=db_fetch_row($query_dados))
@@ -48,18 +48,18 @@ $query_dados=db_query("select coduser,name||' '||firstname as nome from users wh
 		    if ($registro[0]!=$prof) {if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";}
 		   }
 		?>
-		<tr VALIGN=CENTER BGCOLOR="<? echo $cor_de_fundo;?>">
-		<td><? echo $registro[1];?></td>
-		<td><input type=text name='acumulado[<? echo $registro[0];?>]' maxlength="2" size=1></td>
-		<td><input type=text name='1_05[<? echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_05[<? echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_06[<? echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_06[<? echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_07[<? echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_07[<? echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_08[<? echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_08[<? echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_09[<? echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_09[<? echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_10[<? echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_10[<? echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_11[<? echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_11[<? echo $registro[0];?>]' maxlength="1" size=1></td>
+		<tr VALIGN=CENTER BGCOLOR="<?php  echo $cor_de_fundo;?>">
+		<td><?php  echo $registro[1];?></td>
+		<td><input type=text name='acumulado[<?php  echo $registro[0];?>]' maxlength="2" size=1></td>
+		<td><input type=text name='1_05[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_05[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_06[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_06[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_07[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_07[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_08[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_08[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_09[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_09[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_10[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_10[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_11[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_11[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
 		</tr>
-	<?
+	<?php 
 		}
 	?>
 	</table>
@@ -69,7 +69,7 @@ $query_dados=db_query("select coduser,name||' '||firstname as nome from users wh
 	</table>
 	</body>
 	</html>
-	<?
+	<?php 
 }
 
 if (isset($_POST['registra']))

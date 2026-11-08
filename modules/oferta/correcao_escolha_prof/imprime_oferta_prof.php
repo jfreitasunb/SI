@@ -1,4 +1,4 @@
-<?
+<?php 
 function imprime_escolha_prof($coduser,$semestre,$ano)
 {
 	$lang="pt_BR";
@@ -64,22 +64,22 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
 		  <table class=big>
 		    <tr>
 		        <td class=header align=center colspan=2>
-			<h1>Ficha de Prefer&ecirc;ncias para a lista de ofertas do <? echo $semestre;?>&ordm;/<? echo $ano;?><br>
-				Atualiza&ccedil;&otilde;es registradas em <? echo date(d)."/".date(m)."/".date(Y);?> &agrave;s <? echo date("H:i:s");?></h1>
+			<h1>Ficha de Prefer&ecirc;ncias para a lista de ofertas do <?php  echo $semestre;?>&ordm;/<?php  echo $ano;?><br>
+				Atualiza&ccedil;&otilde;es registradas em <?php  echo date(d)."/".date(m)."/".date(Y);?> &agrave;s <?php  echo date("H:i:s");?></h1>
         	</td>
 	      </tr>
 	      <tr>
-	      <td><b>Professor:</b> <? echo $nome_prof['nome'];?></td>
+	      <td><b>Professor:</b> <?php  echo $nome_prof['nome'];?></td>
         	</tr>
         	<tr>
-		<td><b>Quantos cr&eacute;ditos pretende lecionar na gradua&ccedil;&atilde;o?</b> <? echo $registro_creditos[1];?></td>
+		<td><b>Quantos cr&eacute;ditos pretende lecionar na gradua&ccedil;&atilde;o?</b> <?php  echo $registro_creditos[1];?></td>
 	        </tr>
         	<tr>
-		<td><b>Prefer&ecirc;ncia por 2 (duas) disciplinas de 6 cr&eacute;ditos iguais? </b><? echo $registro_creditos[2];?></td>
+		<td><b>Prefer&ecirc;ncia por 2 (duas) disciplinas de 6 cr&eacute;ditos iguais? </b><?php  echo $registro_creditos[2];?></td>
 	        </tr>
         	<tr>
 		<td><b>Quais disciplinas pretende lecionar na p&oacute;s-gradua&ccedil;&atilde;o (exceto Est&aacute;gios em Pesquisa)?</b><BR>
-		<?
+		<?php 
                	for ($cont_pos=0;$cont_pos<2;$cont_pos++)
                 	{
         		if ($num_creditos_pos==0) echo "Nenhuma";
@@ -95,7 +95,7 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
 		</tr>
 	        <tr>
                 <td><b>Cr&eacute;ditos em Est&aacute;gio de Pesquisa:</b><br>
-		<?
+		<?php 
                 for ($cont_pesq=0;$cont_pesq<5;$cont_pesq++)
                         {
                 	if ($registro_creditos_est_pesq_pos[$cont_pesq]['creditos']!=0) 
@@ -114,7 +114,7 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
                 </td>
                 </tr>
 		<tr><td><b> Escolha a disciplina/turno:</b><br>
-		<?
+		<?php 
 //$registro_disciplinas: coduser | prioridade | disciplina | dias | horarios | semestre | ano  |  turno  | creditos | atendido
                  for ($i=1;$i<7;$i++)
                                 {
@@ -137,9 +137,9 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
 		?>
 		</td></tr>
 	<tr><td><b>Atua&ccedil;&atilde;o em disciplinas no esquema magistral:</b></td></tr>
-        <tr><td><b>C&aacute;lculo 1:</b>  Teoria(<? echo $ck_c1_teoria;?>); Exerc&iacute;cios(<? echo $ck_c1_exos;?>)</td></tr>
-        <tr><td><b>Matem&aacute;tica 1:</b>  Teoria(<? echo $ck_m1_teoria;?>); Exerc&iacute;cios(<? echo $ck_m1_exos;?>)</td></tr>
-        <tr><td><b>Introdu&ccedil;&atilde;o &agrave; Matem&aacutetica Superior:</b>  Teoria(<? echo $ck_ims_teoria;?>); Exerc&iacute;cios(<? echo $ck_ims_exos;?>)</td></tr>
+        <tr><td><b>C&aacute;lculo 1:</b>  Teoria(<?php  echo $ck_c1_teoria;?>); Exerc&iacute;cios(<?php  echo $ck_c1_exos;?>)</td></tr>
+        <tr><td><b>Matem&aacute;tica 1:</b>  Teoria(<?php  echo $ck_m1_teoria;?>); Exerc&iacute;cios(<?php  echo $ck_m1_exos;?>)</td></tr>
+        <tr><td><b>Introdu&ccedil;&atilde;o &agrave; Matem&aacutetica Superior:</b>  Teoria(<?php  echo $ck_ims_teoria;?>); Exerc&iacute;cios(<?php  echo $ck_ims_exos;?>)</td></tr>
         <tr><td><br><br></td></tr>
 
         </td>
@@ -147,7 +147,7 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
         </table>
         </BODY>
         </HTML>
-<?
+<?php 
 }
 ?>
 
