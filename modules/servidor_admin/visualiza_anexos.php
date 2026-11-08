@@ -182,7 +182,7 @@ while ($tipo=db_fetch_row($query_tipos))
         }
 
 // Pasta onde o arquivo vai ser salvo
-$_UP['pasta'] = 'http://www.mat.unb.br/si/modules/servidor_admin/anexos/';
+require_once("anexos_config.php");
  
 // tabela admin_anexos: id_documento, numero_anexo, nome_arquivo
 
@@ -195,7 +195,7 @@ echo "<tr><td colspan=2><b>Lista de anexos ao documento :".$sigla." ".$documento
 
 while ($registro=db_fetch_row($query_anexos))
 	{
-	echo "<br /><a href=\"" . h($_UP['pasta'] . rawurlencode($registro[0])) . "\"> ".h($registro[0]). " Clique aqui para acessar o arquivo</a>";
+	echo "<br /><a href=\"" . h(anexo_link($id_documento, $registro[1])) . "\"> ".h($registro[0]). " Clique aqui para acessar o arquivo</a>";
 	}
 ?>
 

@@ -175,13 +175,14 @@ if (!isset($id_documento) || !ctype_digit((string)$id_documento)) {
 
 
 // Pasta onde o arquivo vai ser salvo
-$_UP['pasta'] = '/paginas/si/modules/servidor_admin/anexos/';
+require_once("anexos_config.php");
+$_UP['pasta'] = anexos_dir();
  
 // Tamanho máximo do arquivo (em Bytes)
 $_UP['tamanho'] = 1024 * 1024 * 2; // 2Mb
  
 // Array com as extensões permitidas
-$_UP['extensoes'] = array('jpg', 'png', 'gif','pdf');
+$_UP['extensoes'] = array_keys(anexos_tipos());
 	 
 // Renomeia o arquivo? (Se true, o arquivo será salvo como .jpg e um nome único)
 $_UP['renomeia'] = true;
@@ -259,7 +260,7 @@ for ($i=0;$i<5;$i++)
 					{
 		// Upload efetuado com sucesso, exibe uma mensagem e um link para o arquivo; insere ponteiro na tabela
 					echo "Upload efetuado com sucesso!";
-					echo '<br /><a href="http://www.mat.unb.br/si/modules/servidor_admin/anexos/'.$nome_final . '">Clique aqui para acessar o arquivo</a>';
+					echo '<br /><a href="' . h(anexo_link($id_documento, $numero_anexo)) . '">Clique aqui para acessar o arquivo</a>';
 					$query_insere="insert into admin_anexos values(?,?,?)"; $query_insere__p = array($id_documento, $numero_anexo, $nome_final);
 //					echo $query_insere;
 					$res_insere=db_query($query_insere, $query_insere__p) or die ("problemas com a conexao ao banco de dados");
