@@ -51,5 +51,10 @@ function db_config()
         }
     }
 
+    // Indica se o host foi definido explicitamente (db_config.php ou SI_DB_HOST),
+    // e nao apenas o default. Usado pelos scripts que, por padrao, conectam em 127.0.0.1.
+    $cfg['host_explicito'] = (isset($local) && is_array($local) && isset($local['host']))
+        || (getenv('SI_DB_HOST') !== false && getenv('SI_DB_HOST') !== '');
+
     return $cfg;
 }

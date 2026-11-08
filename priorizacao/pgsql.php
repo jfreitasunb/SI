@@ -7,8 +7,11 @@ require_once(dirname(__FILE__)."/../global/function_php.php");
 
 $basededados="si";
 $usuario_b="priori";
-$host="127.0.0.1";
-$porta="5432";
+$cfg = db_config();
+// Por padrao o banco e local (127.0.0.1); um host definido explicitamente em
+// global/db_config.php ou SI_DB_HOST tem precedencia (ex.: ambiente Docker).
+$host = !empty($cfg['host_explicito']) ? $cfg['host'] : "127.0.0.1";
+$porta = !empty($cfg['host_explicito']) ? $cfg['port'] : "5432";
 
 // A SENHA nao fica mais no codigo versionado: vem de PRIORI_DB_PASSWD, com fallback
 // para a senha padrao do banco (SI_DB_PASSWD / global/db_config.php). Se ausente, falha.
