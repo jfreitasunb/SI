@@ -1,8 +1,7 @@
 # Baseline de seguranca do SI — achados conhecidos/aceitos.
 # Gerado por tools/scan_seguranca.php --atualiza-baseline.
 # Cada linha: caminho:linha:regra. O scanner so reporta o que NAO estiver aqui.
-atualiza_samba.php:145:crypt-fraco
-global/function_php.php:637:hash-fraco
+global/function_php.php:639:hash-fraco
 ler_atas.php:41:crypt-fraco
 ler_resolucoes.php:43:crypt-fraco
 modules/account/add_user3.php:89:crypt-fraco
@@ -40,19 +39,9 @@ modules/servidor_admin/ati.php:192:sql-interpolada
 modules/servidor_admin/ati.php:207:sql-interpolada
 modules/servidor_admin/ati.php:221:sql-interpolada
 modules/servidor_admin/buscador_lista.php:59:sql-interpolada
-modules/servidor_admin/inclusao_de_com_copia/ati.php:195:sql-interpolada
-modules/servidor_admin/inclusao_de_com_copia/ati.php:213:sql-interpolada
-modules/servidor_admin/inclusao_de_com_copia/ati.php:230:sql-interpolada
-modules/servidor_admin/inclusao_de_com_copia/operacao_2.php:47:sql-interpolada
-modules/servidor_admin/inclusao_de_com_copia/operacao_2.php:61:sql-interpolada
-modules/servidor_admin/inclusao_de_com_copia/operacao_2.php:68:sql-interpolada
 modules/usuario/modif_user_novo.php:136:sql-interpolada
 modules/usuario/modif_user_novo.php:168:sql-interpolada
 modules/usuario/modif_user_novo.php:74:sql-interpolada
-modules/usuario/utilidades/aluno.php:60:pg-legado
-modules/usuario/utilidades/aluno.php:65:pg-legado
-modules/usuario/utilidades/aluno.php:65:sql-interpolada
-modules/usuario/utilidades/aluno_original.php:33:pg-legado
 muda_senha/mudarsenha.php:43:crypt-fraco
 mudarsenha.php:47:crypt-fraco
 prioriza_licencas.php:55:crypt-fraco
