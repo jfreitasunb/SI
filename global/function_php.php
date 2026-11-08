@@ -352,9 +352,11 @@ function record_session_ip()
 
 function secure($login, $pass, $idmodule)
 {
+    // Flag propria do SI ('si_autenticado'): ler_resolucoes.php usa 'autenticado'
+    // na mesma sessao e nao pode conceder acesso ao sistema.
     // Sessao ja autenticada: NAO re-verifica a senha (ela nunca e guardada em
     // sessao). Valida o vinculo de IP/sessao e desliza a janela de validade.
-    if (!empty($_SESSION['autenticado']) && isset($_SESSION['login'])) {
+    if (!empty($_SESSION['si_autenticado']) && isset($_SESSION['login'])) {
         if (!verif_session_ip()) {
             clear_session_ip();
             session_destroy();
@@ -378,7 +380,7 @@ function secure($login, $pass, $idmodule)
             // Previne session fixation: novo id apos autenticar.
             session_regenerate_id(true);
             $_SESSION['login'] = $login;
-            $_SESSION['autenticado'] = true;
+            $_SESSION['si_autenticado'] = true;
             record_session_ip();
             clear_session_ip();
 
@@ -389,7 +391,7 @@ function secure($login, $pass, $idmodule)
 
     // Falha de autenticacao.
     clear_session_ip();
-    if (!empty($_SESSION['autenticado'])) {
+    if (!empty($_SESSION['si_autenticado'])) {
         session_destroy();
     }
     return false;
