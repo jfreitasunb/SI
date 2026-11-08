@@ -6,3 +6,8 @@ global/db_config.php
 
 # Dumps do banco (dados reais; nunca versionar)
 *_dump.sql
+
+# Arquivos temporarios de editor
+*.swp
+*.swo
+*~
