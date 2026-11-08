@@ -165,16 +165,19 @@ class DbResult implements ArrayAccess, Countable, Iterator
     public function rowCount() { return count($this->rows) ? count($this->rows) : $this->affected; }
 
     // ArrayAccess / Countable / Iterator (acesso por índice e foreach)
-    public function offsetExists($o) { return isset($this->rows[$o]); }
+    public function offsetExists($o): bool { return isset($this->rows[$o]); }
+    #[\ReturnTypeWillChange]
     public function offsetGet($o) { return isset($this->rows[$o]) ? $this->rows[$o] : null; }
-    public function offsetSet($o, $v) { if ($o === null) $this->rows[] = $v; else $this->rows[$o] = $v; }
-    public function offsetUnset($o) { unset($this->rows[$o]); }
-    public function count() { return count($this->rows); }
+    public function offsetSet($o, $v): void { if ($o === null) $this->rows[] = $v; else $this->rows[$o] = $v; }
+    public function offsetUnset($o): void { unset($this->rows[$o]); }
+    public function count(): int { return count($this->rows); }
+    #[\ReturnTypeWillChange]
     public function current() { return $this->rows[$this->pos]; }
+    #[\ReturnTypeWillChange]
     public function key() { return $this->pos; }
-    public function next() { $this->pos++; }
-    public function rewind() { $this->pos = 0; }
-    public function valid() { return isset($this->rows[$this->pos]); }
+    public function next(): void { $this->pos++; }
+    public function rewind(): void { $this->pos = 0; }
+    public function valid(): bool { return isset($this->rows[$this->pos]); }
 }
 
 // Executa uma consulta parametrizada (Prepared Statement) e devolve um DbResult.
