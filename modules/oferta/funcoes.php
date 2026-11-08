@@ -2,17 +2,17 @@
 
 function organiza_pedidos_por_creditos($semestre,$ano)
 {
-$limpa_oferta_organiza_pedidos=pg_query("delete from oferta_organiza_pedidos") or die ("problema com o acesso ao Banco de Daodos");
+$limpa_oferta_organiza_pedidos=db_query("delete from oferta_organiza_pedidos", array()) or die ("problema com o acesso ao Banco de Daodos");
 
-$query_creditos_pos=pg_query("select coduser,SUM(creditos) as creditos from oferta_escolha_creditos_pos group by coduser where semestre='".$semestre."' and  ano='".$ano."' order by coduser");
-$creditos_pos=pg_fetch_all($query_creditos_pos);
+$query_creditos_pos=db_query("select coduser,SUM(creditos) as creditos from oferta_escolha_creditos_pos group by coduser where semestre=? and  ano=? order by coduser", array($semestre, $ano));
+$creditos_pos=db_fetch_all($query_creditos_pos);
 
-$query_creditos_est_pesq_pos=pg_query("select coduser,SUM(creditos) as creditos from oferta_escolha_creditos_est_pesq_pos group by coduser where semestre='".$semestre."' and ano='".$ano."' order by coduser");
-$creditos_est_pesq_pos=pg_fetch_all($query_creditos_est_pesq_pos);
+$query_creditos_est_pesq_pos=db_query("select coduser,SUM(creditos) as creditos from oferta_escolha_creditos_est_pesq_pos group by coduser where semestre=? and ano=? order by coduser", array($semestre, $ano));
+$creditos_est_pesq_pos=db_fetch_all($query_creditos_est_pesq_pos);
 
-$query_creditos_grad=pg_query("select distinct on (coduser) coduser,creditos, disciplinas_iguais_6 from oferta_escolha_creditos where semestre='".$semestre."' and ano='".$ano."' order by coduser");
-$creditos_grad=pg_fetch_all($query_creditos_grad);
-$num_pedidos=pg_num_rows($query_creditos_grad);
+$query_creditos_grad=db_query("select distinct on (coduser) coduser,creditos, disciplinas_iguais_6 from oferta_escolha_creditos where semestre=? and ano=? order by coduser", array($semestre, $ano));
+$creditos_grad=db_fetch_all($query_creditos_grad);
+$num_pedidos=db_num_rows($query_creditos_grad);
 
 
 // montar tabela de pedidos organizados por prioridade de créditos:
@@ -41,9 +41,9 @@ for ($i=0;$i<$num_pedidos; $i++)
 		if (($creditosgrad<6) and ($creditosgrad>=4) and ($disciplinas_iguais_6=="nao")) $prioridade=9;	// corresponde a i
 		if ((($creditospos!=0) and ($creditos<9)) or (($creditospos==0) and ($creditosgrad<12) and ($disciplinas_iguais_6=="sim"))) $prioridade=10;															     // corresponde a j i.e. o resto
 		}
-	$insere_prioridade="insert into oferta_organiza_pedidos values('".$creditos_grad[$i]['coduser']."','".$prioridade."')";
+	list($insere_prioridade, $insere_prioridade__p) = array("insert into oferta_organiza_pedidos values(?,?)", array($creditos_grad[$i]['coduser'], $prioridade));
 //	echo $insere_prioridade." \n";
-	$res=pg_query($insere_prioridade) or die ("problema com o acesso ao Banco de Daodos");
+	$res=db_query($insere_prioridade, $insere_prioridade__p) or die ("problema com o acesso ao Banco de Daodos");
 	}
 
 }
@@ -55,16 +55,16 @@ for ($i=0;$i<$num_pedidos; $i++)
 
 function monta_tabela_oferta_frequencia_pedidos($semestre,$ano)
 {
-$limpa_oferta_frequencia_pedidos=pg_query("delete from oferta_frequencia_pedidos where semestre='".$semestre."' and ano='".$ano."'") or die ("problema com o acesso ao Banco de Dados");
+$limpa_oferta_frequencia_pedidos=db_query("delete from oferta_frequencia_pedidos where semestre=? and ano=?", array($semestre, $ano)) or die ("problema com o acesso ao Banco de Dados");
 $tabela="oferta_lista_de_ofertas_nova";
-$query_disciplinas=pg_query("select distinct on (codigo) codigo from ".$tabela." order by codigo") or die ("Problema no acesso ao Banco de Dados"); 
+$query_disciplinas=db_query("select distinct on (codigo) codigo from ".$tabela." order by codigo", array()) or die ("Problema no acesso ao Banco de Dados"); 
 
 // pega codigos dio magistral. adicionado em 07/05/14
-$pega_magistral=pg_query("select distinct on (codigo_1) codigo_1 from oferta_grupos_magistral_teoria");
-$array_magistral=pg_fetch_all($pega_magistral);
+$pega_magistral=db_query("select distinct on (codigo_1) codigo_1 from oferta_grupos_magistral_teoria", array());
+$array_magistral=db_fetch_all($pega_magistral);
 //
 
-while($registro=pg_fetch_row($query_disciplinas))
+while($registro=db_fetch_row($query_disciplinas))
 	{
 	$disciplina=$registro[0];
 	for ($i=1;$i<7;$i++)
@@ -72,29 +72,29 @@ while($registro=pg_fetch_row($query_disciplinas))
 // seleciona turnos magistral: adicionado em 07/05/14
 		if(in_array($disciplina,$array_magistral))  
 			{
-			$query_turnos_grad_magistral=pg_query("select distinct on (turno) turno from oferta_lista_de_ofertas_nova where codigo='".$disciplina."' and elimina='nao' and semestre='".$semestre."' and ano='".$ano."'");
-			while($turno_mag=pg_fetch_row($query_turnos_grad_magistral))
+			$query_turnos_grad_magistral=db_query("select distinct on (turno) turno from oferta_lista_de_ofertas_nova where codigo=? and elimina='nao' and semestre=? and ano=?", array($disciplina, $semestre, $ano));
+			while($turno_mag=db_fetch_row($query_turnos_grad_magistral))
 				{
-				$query_disciplinas_grad=pg_query("select coduser from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='".$turno_mag[0]."' order by coduser");
-		                $num_mag=pg_num_rows($query_disciplinas_grad);
+				$query_disciplinas_grad=db_query("select coduser from oferta_escolha_disciplina where semestre=? and ano=? and prioridade=? and disciplina=? and turno=? order by coduser", array($semestre, $ano, $i, $disciplina, $turno_mag[0]));
+		                $num_mag=db_num_rows($query_disciplinas_grad);
                 		$insere_frequencia_mag="insert into oferta_frequencia_pedidos values('".$disciplina."','".$turno_mag[0]."','".$i."','".$num_mag."','".$semestre."','".$ano."')";
 				}
 			}
 // fim magistral
 
-		$query_disciplinas_grad=pg_query("select coduser from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Diurno' order by coduser");	
-		$num_diurno=pg_num_rows($query_disciplinas_grad);
-		$insere_frequencia_diurno="insert into oferta_frequencia_pedidos values('".$disciplina."','Diurno','".$i."','".$num_diurno."','".$semestre."','".$ano."')";
+		$query_disciplinas_grad=db_query("select coduser from oferta_escolha_disciplina where semestre=? and ano=? and prioridade=? and disciplina=? and turno='Diurno' order by coduser", array($semestre, $ano, $i, $disciplina));	
+		$num_diurno=db_num_rows($query_disciplinas_grad);
+		list($insere_frequencia_diurno, $insere_frequencia_diurno__p) = array("insert into oferta_frequencia_pedidos values(?,'Diurno',?,?,?,?)", array($disciplina, $i, $num_diurno, $semestre, $ano));
 //		echo $insere_frequencia_diurno." \n";
-		$res_diurno=pg_query($insere_frequencia_diurno) or die ("Problema no acesso ao Banco de Dados");
+		$res_diurno=db_query($insere_frequencia_diurno, $insere_frequencia_diurno__p) or die ("Problema no acesso ao Banco de Dados");
 
 // TESTAR: $query_disciplinas_grad=pg_query("select count(coduser) from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Diurno' order by coduser");
 
-		$query_disciplinas_grad=pg_query("select coduser from oferta_escolha_disciplina where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$i."' and disciplina='".$disciplina."' and turno='Noturno' order by coduser");	
-		$num_noturno=pg_num_rows($query_disciplinas_grad);
-		$insere_frequencia_noturno="insert into oferta_frequencia_pedidos values('".$disciplina."','Noturno','".$i."','".$num_noturno."','".$semestre."','".$ano."')";
+		$query_disciplinas_grad=db_query("select coduser from oferta_escolha_disciplina where semestre=? and ano=? and prioridade=? and disciplina=? and turno='Noturno' order by coduser", array($semestre, $ano, $i, $disciplina));	
+		$num_noturno=db_num_rows($query_disciplinas_grad);
+		list($insere_frequencia_noturno, $insere_frequencia_noturno__p) = array("insert into oferta_frequencia_pedidos values(?,'Noturno',?,?,?,?)", array($disciplina, $i, $num_noturno, $semestre, $ano));
 //		echo $insere_frequencia_noturno." \n";
-		$res_noturno=pg_query($insere_frequencia_noturno) or die ("Problema no acesso ao Banco de Dados");
+		$res_noturno=db_query($insere_frequencia_noturno, $insere_frequencia_noturno__p) or die ("Problema no acesso ao Banco de Dados");
 
 		}
 	}
@@ -116,16 +116,16 @@ function aloca_professores($semestre,$ano)
 // recupera grade:
 	//$tabela="oferta_semestre_".$semestre;
 	$tabela="oferta_lista_de_ofertas_nova";
-	$query_grade=pg_query("select codigo,turno,turma,horarios from ".$tabela." order by codigo") or die ("Problema no acesso ao Banco de Dados"); 
-	$num_grad=pg_num_rows($query_grade);
-	$grade=pg_fetch_all($query_grade);
+	$query_grade=db_query("select codigo,turno,turma,horarios from ".$tabela." order by codigo", array()) or die ("Problema no acesso ao Banco de Dados"); 
+	$num_grad=db_num_rows($query_grade);
+	$grade=db_fetch_all($query_grade);
 
 // pega os codigos do magistral. adicionado em 07/05/14.
-	$query_codigos_magistral=pg_query("select distinct on (codigo_1) codigo_1 from oferta_grupos_magistral_teoria") or die ("Problema query_codigos_magistral");
-	$codigos_magistral=array();//pg_fetch_all($query_codigos_magistral);
-	for($i=0;$i<pg_num_rows($query_codigos_magistral);$i++)
+	$query_codigos_magistral=db_query("select distinct on (codigo_1) codigo_1 from oferta_grupos_magistral_teoria", array()) or die ("Problema query_codigos_magistral");
+	$codigos_magistral=array();//db_fetch_all($query_codigos_magistral);
+	for($i=0;$i<db_num_rows($query_codigos_magistral);$i++)
 		{
-		$codigos_magistral[$i]=pg_fetch_result($query_codigos_magistral,$i,'codigo_1');
+		$codigos_magistral[$i]=db_result($query_codigos_magistral,$i,'codigo_1');
 		}
 
 
@@ -136,11 +136,11 @@ function aloca_professores($semestre,$ano)
 		{
 /*
 		// recupera as disciplinas por ordem de solicitação:
-		$query_pega_disciplina=pg_query("select * from oferta_frequencia_pedidos where semestre='".$semestre."' and ano='".$ano."' and prioridade='".$prioridade."' order by frequencia desc,turno"); 
-		$pega_disciplina=pg_fetch_all($query_pega_disciplina);
+		$query_pega_disciplina=db_query("select * from oferta_frequencia_pedidos where semestre=? and ano=? and prioridade=? order by frequencia desc,turno", array($semestre, $ano, $prioridade)); 
+		$pega_disciplina=db_fetch_all($query_pega_disciplina);
 */
-		$query_professor_prioridade=pg_query("select coduser from oferta_organiza_pedidos where prioridade='".$i."'");
-		$professor_prioridade=pg_fetch_all($query_professor_prioridade);
+		$query_professor_prioridade=db_query("select coduser from oferta_organiza_pedidos where prioridade=?", array($i));
+		$professor_prioridade=db_fetch_all($query_professor_prioridade);
 //echo "select coduser from oferta_organiza_pedidos where prioridade='".$i."'";
 		while((count($professor_prioridade)>0) and !empty($professor_prioridade))
 				{
@@ -159,24 +159,24 @@ function aloca_professores($semestre,$ano)
 				for ($prioridade=1; $prioridade<7;$prioridade++)		
 					{
 					//$atendido="nao";
-					$query_pega_escolha_prof=pg_query("select disciplina,turno from oferta_escolha_disciplina where coduser='".$prof."' and prioridade='".$prioridade."' and semestre='".$semestre."' and ano='".$ano."' limit 1");
-					$pega_escolha_prof=pg_fetch_row($query_pega_escolha_prof);
+					$query_pega_escolha_prof=db_query("select disciplina,turno from oferta_escolha_disciplina where coduser=? and prioridade=? and semestre=? and ano=? limit 1", array($prof, $prioridade, $semestre, $ano));
+					$pega_escolha_prof=db_fetch_row($query_pega_escolha_prof);
 
 					//$query_pega_turma=pg_query("select turma,horarios from ".$tabela." where codigo='".$pega_escolha_prof[0]."' and turno='".$pega_escolha_prof[1]."' and turma not in (select turma from oferta_lista_de_ofertas where semestre='".$semestre."' and ano='".$ano."' and disciplina='".$pega_escolha_prof[0]."' and turno='".$pega_escolha_prof[1]."' and professor<>'0') limit 1");
 					if(!in_array($pega_escolha_prof[0],$codigos_magistral)) // incluido em 07/05/14
 						{
-						$query_pega_turma=pg_query("select turma,horarios from ".$tabela." where codigo='".$pega_escolha_prof[0]."' and turno='".$pega_escolha_prof[1]."' and professor='0' and semestre='".$semestre."' and ano='".$ano."' limit 1");
-						$pega_turma=pg_fetch_row($query_pega_turma);
+						$query_pega_turma=db_query("select turma,horarios from ".$tabela." where codigo=? and turno=? and professor='0' and semestre=? and ano=? limit 1", array($pega_escolha_prof[0], $pega_escolha_prof[1], $semestre, $ano));
+						$pega_turma=db_fetch_row($query_pega_turma);
 						
 						// analise se ha turma para o professor na prioridade solicitada; se nao houver, pasa para a aprioridade seguinte.
 						if(!empty($pega_turma))
 							{
 							if(checa_horarios_choque($prof,$pega_turma[1],$semestre,$ano)!="choque")
                                                                 {
-								$query_insere_lista_de_ofertas="update ".$tabela." set professor='".$prof."' where codigo='".$pega_escolha_prof[0]."' and turma='".$pega_turma[0]."' and semestre='".$semestre."' and ano='".$ano."'";
+								list($query_insere_lista_de_ofertas, $query_insere_lista_de_ofertas__p) = array("update ".$tabela." set professor=? where codigo=? and turma=? and semestre=? and ano=?", array($prof, $pega_escolha_prof[0], $pega_turma[0], $semestre, $ano));
 								//echo $query_insere_lista_de_ofertas."\n";
-								$res=pg_query($query_insere_lista_de_ofertas) or die ("Problema no acesso ao banco de dados");
-								$query_prof_atendido=pg_query("update oferta_escolha_disciplina set atendido='sim' where coduser='".$prof."' and disciplina='".$pega_escolha_prof[0]."' and semestre='".$semestre."' and ano='".$ano."'");
+								$res=db_query($query_insere_lista_de_ofertas, $query_insere_lista_de_ofertas__p) or die ("Problema no acesso ao banco de dados");
+								$query_prof_atendido=db_query("update oferta_escolha_disciplina set atendido='sim' where coduser=? and disciplina=? and semestre=? and ano=?", array($prof, $pega_escolha_prof[0], $semestre, $ano));
 								$prioridade=7;
 								//echo "atendido=sim \n";
 								}
@@ -185,28 +185,28 @@ function aloca_professores($semestre,$ano)
 					else  // se é disciplina magistral/teoria checa todas as turmas do grupo. 07/05/14
 						{
 						// pega todas as turmas dos grupos/turno correspondente
-						$query_grupos_turno=pg_query("select grupo,turmas from oferta_grupos_magistral_teoria where (turmas,codigo_1) in (select turma,codigo from oferta_lista_de_ofertas_nova where turno='".$pega_escolha_prof[1]."' and codigo='".$pega_escolha_prof[0]."') order by grupo,turmas");
+						$query_grupos_turno=db_query("select grupo,turmas from oferta_grupos_magistral_teoria where (turmas,codigo_1) in (select turma,codigo from oferta_lista_de_ofertas_nova where turno=? and codigo=?) order by grupo,turmas", array($pega_escolha_prof[1], $pega_escolha_prof[0]));
 						$grupo=array();
 						$ocupado=array();
-						while($reg_tur_cod=pg_fetch_row($query_grupos_turno))
+						while($reg_tur_cod=db_fetch_row($query_grupos_turno))
 							{
-							$grupo[$reg_tur_cod[0]].="'".$reg_tur_cod[1]."',";
+							$grupo[$reg_tur_cod[0]][]=$reg_tur_cod[1]; // turmas puras (sem aspas), usadas como parametros
 							}
 						foreach($grupo as $key => $value)
 							{
 //echo "select turma,horarios from ".$tabela." where codigo='".$pega_escolha_prof[0]."' and turno='".$pega_escolha_prof[1]."' and professor='0' and semestre='".$semestre."' and ano='".$ano."' and turma in (".trim($value,",").")";
-							$query_pega_turma=pg_query("select turma,horarios from ".$tabela." where codigo='".$pega_escolha_prof[0]."' and turno='".$pega_escolha_prof[1]."' and professor='0' and semestre='".$semestre."' and ano='".$ano."' and turma in (".trim($value,",").")");
-							if(pg_num_rows($query_pega_turma)==count(explode(",",trim($value,",")))) $ocupado[$key]=0; else $ocupado[$key]=1;
+							$query_pega_turma=db_query("select turma,horarios from ".$tabela." where codigo=? and turno=? and professor='0' and semestre=? and ano=? and turma in (".implode(",", array_fill(0, count($value), "?")).")", array_merge(array($pega_escolha_prof[0], $pega_escolha_prof[1], $semestre, $ano), $value));
+							if(db_num_rows($query_pega_turma)==count($value)) $ocupado[$key]=0; else $ocupado[$key]=1;
 							}
 						foreach($ocupado as $key => $value)
 							{
 							if($value==0) 
 								{
-								$turm=explode(",",trim($grupo[$key],",")); 
+								$turm=$grupo[$key]; 
 								if(checa_horarios_choque($prof,horarios_magistral($key),$semestre,$ano)!="choque")
                                                                         {
 									aloca_professor_no_grupo_teoria_da_turma_dada($pega_escolha_prof[0],$prof,$turm[0],$semestre,$ano);
-									$query_prof_atendido=pg_query("update oferta_escolha_disciplina set atendido='sim' where coduser='".$prof."' and disciplina='".$pega_escolha_prof[0]."' and semestre='".$semestre."' and ano='".$ano."'");
+									$query_prof_atendido=db_query("update oferta_escolha_disciplina set atendido='sim' where coduser=? and disciplina=? and semestre=? and ano=?", array($prof, $pega_escolha_prof[0], $semestre, $ano));
 		                                                        $prioridade=7;
 									break;
 									}
@@ -225,8 +225,8 @@ function aloca_professores($semestre,$ano)
 // SOMENTE ALOCA CREDITO A QUEM PEDIU 8; 10 OU 12 OU MAIS.
 for ($i=2;$i<8;$i++)
                 {
-                $query_professor_prioridade=pg_query("select coduser from oferta_organiza_pedidos where prioridade='".$i."'");
-                $professor_prioridade=pg_fetch_all($query_professor_prioridade);
+                $query_professor_prioridade=db_query("select coduser from oferta_organiza_pedidos where prioridade=?", array($i));
+                $professor_prioridade=db_fetch_all($query_professor_prioridade);
 //echo "select coduser from oferta_organiza_pedidos where prioridade='".$i."'";
                 while((count($professor_prioridade)>0) and !empty($professor_prioridade))
                           {
@@ -240,30 +240,30 @@ for ($i=2;$i<8;$i++)
                            {
                                 for ($prioridade=1; $prioridade<7;$prioridade++)
                                         {
-					$query_iguais=pg_query("select creditos from oferta_escolha_creditos where coduser='".$prof."' and semestre='".$semestre."' and ano='".$ano."' and disciplinas_iguais_6='sim'");
-					$creditos_iguais=pg_fetch_row($query_iguais);
+					$query_iguais=db_query("select creditos from oferta_escolha_creditos where coduser=? and semestre=? and ano=? and disciplinas_iguais_6='sim'", array($prof, $semestre, $ano));
+					$creditos_iguais=db_fetch_row($query_iguais);
 
                                         //$atendido="nao";
-                                        $query_pega_escolha_prof=pg_query("select disciplina,turno,creditos from oferta_escolha_disciplina where coduser='".$prof."' and prioridade='".$prioridade."' and semestre='".$semestre."' and ano='".$ano."' and atendido='nao'  limit 1");
-                                        $pega_escolha_prof=pg_fetch_row($query_pega_escolha_prof);
+                                        $query_pega_escolha_prof=db_query("select disciplina,turno,creditos from oferta_escolha_disciplina where coduser=? and prioridade=? and semestre=? and ano=? and atendido='nao'  limit 1", array($prof, $prioridade, $semestre, $ano));
+                                        $pega_escolha_prof=db_fetch_row($query_pega_escolha_prof);
 
 					 if (!empty($pega_escolha_prof))
                                              {
 ////////////////////////------------- substitui a parte comentada a partir de 07/05/14
 					if(!in_array($pega_escolha_prof[0],$codigos_magistral)) // incluido em 07/05/14
                                                 {
-                                                $query_pega_turma=pg_query("select turma,horarios from ".$tabela." where codigo='".$pega_escolha_prof[0]."' and turno='".$pega_escolha_prof[1]."' and professor='0' and semestre='".$semestre."' and ano='".$ano."' limit 1");
-                                                $pega_turma=pg_fetch_row($query_pega_turma);
+                                                $query_pega_turma=db_query("select turma,horarios from ".$tabela." where codigo=? and turno=? and professor='0' and semestre=? and ano=? limit 1", array($pega_escolha_prof[0], $pega_escolha_prof[1], $semestre, $ano));
+                                                $pega_turma=db_fetch_row($query_pega_turma);
 
                                                 // analise se ha turma para o professor na prioridade solicitada; se nao houver, pasa para a aprioridade seguinte.
                                                 if(!empty($pega_turma))
                                                         {
 							 if(checa_horarios_choque($prof,$pega_turma[1],$semestre,$ano)!="choque")
                                                                 {
-	                                                        $query_insere_lista_de_ofertas="update ".$tabela." set professor='".$prof."' where codigo='".$pega_escolha_prof[0]."' and turma='".$pega_turma[0]."' and semestre='".$semestre."' and ano='".$ano."'";
+	                                                        list($query_insere_lista_de_ofertas, $query_insere_lista_de_ofertas__p) = array("update ".$tabela." set professor=? where codigo=? and turma=? and semestre=? and ano=?", array($prof, $pega_escolha_prof[0], $pega_turma[0], $semestre, $ano));
         	                                                //echo $query_insere_lista_de_ofertas."\n";
-                	                                        $res=pg_query($query_insere_lista_de_ofertas) or die ("Problema no acesso ao banco de dados");
-                        	                                $query_prof_atendido=pg_query("update oferta_escolha_disciplina set atendido='sim' where coduser='".$prof."' and disciplina='".$pega_escolha_prof[0]."' and semestre='".$semestre."' and ano='".$ano."'");
+                	                                        $res=db_query($query_insere_lista_de_ofertas, $query_insere_lista_de_ofertas__p) or die ("Problema no acesso ao banco de dados");
+                        	                                $query_prof_atendido=db_query("update oferta_escolha_disciplina set atendido='sim' where coduser=? and disciplina=? and semestre=? and ano=?", array($prof, $pega_escolha_prof[0], $semestre, $ano));
                                 	                        $prioridade=7;
                                         	                //echo "atendido=sim \n";
 								}
@@ -272,28 +272,28 @@ for ($i=2;$i<8;$i++)
                                         else  // se é disciplina magistral/teoria checa todas as turmas do grupo. 07/05/14
                                                 {
                                                 // pega todas as turmas dos grupos/turno correspondente
-                                                $query_grupos_turno=pg_query("select grupo,turmas from oferta_grupos_magistral_teoria where (turmas,codigo_1) in (select turma,codigo from oferta_lista_de_ofertas_nova where turno='".$pega_escolha_prof[1]."' and codigo='".$pega_escolha_prof[0]."') order by grupo,turmas");
+                                                $query_grupos_turno=db_query("select grupo,turmas from oferta_grupos_magistral_teoria where (turmas,codigo_1) in (select turma,codigo from oferta_lista_de_ofertas_nova where turno=? and codigo=?) order by grupo,turmas", array($pega_escolha_prof[1], $pega_escolha_prof[0]));
                                                 $grupo=array();
                                                 $ocupado=array();
-                                                while($reg_tur_cod=pg_fetch_row($query_grupos_turno))
+                                                while($reg_tur_cod=db_fetch_row($query_grupos_turno))
                                                         {
-                                                        $grupo[$reg_tur_cod[0]].="'".$reg_tur_cod[1]."',";
+                                                        $grupo[$reg_tur_cod[0]][]=$reg_tur_cod[1]; // turmas puras (sem aspas), usadas como parametros
                                                         }
                                                 foreach($grupo as $key => $value)
                                                         {
-                                                        $query_pega_turma=pg_query("select turma,horarios from ".$tabela." where codigo='".$pega_escolha_prof[0]."' and turno='".$pega_escolha_prof[1]."' and professor='0' and semestre='".$semestre."' and ano='".$ano."' and turma in (".trim($value,",").")");
-                                                        if(pg_num_rows($query_pega_turma)==count(explode(",",trim($value,",")))) $ocupado[$key]=0; else $ocupado[$key]=1;
+                                                        $query_pega_turma=db_query("select turma,horarios from ".$tabela." where codigo=? and turno=? and professor='0' and semestre=? and ano=? and turma in (".implode(",", array_fill(0, count($value), "?")).")", array_merge(array($pega_escolha_prof[0], $pega_escolha_prof[1], $semestre, $ano), $value));
+                                                        if(db_num_rows($query_pega_turma)==count($value)) $ocupado[$key]=0; else $ocupado[$key]=1;
                                                         }
                                                 foreach($ocupado as $key => $value)
                                                         {
                                                         if($value==0) 
 								{
 // AQUI ENTRA A CHECAGEM DE CHOQUE DE HORARIOS COM AS TURMAS DO MAGISTRAL;
-								$turm=explode(",",trim($grupo[$key],","));
+								$turm=$grupo[$key];
 								if(checa_horarios_choque($prof,horarios_magistral($key),$semestre,$ano)!="choque") 
 									{
 									aloca_professor_no_grupo_teoria_da_turma_dada($pega_escolha_prof[0],$prof,$turm[0],$semestre,$ano);
-									$query_prof_atendido=pg_query("update oferta_escolha_disciplina set atendido='sim' where coduser='".$prof."' and disciplina='".$pega_escolha_prof[0]."' and semestre='".$semestre."' and ano='".$ano."'");
+									$query_prof_atendido=db_query("update oferta_escolha_disciplina set atendido='sim' where coduser=? and disciplina=? and semestre=? and ano=?", array($prof, $pega_escolha_prof[0], $semestre, $ano));
                 	                                        	$prioridade=7;
                         		                                //echo "atendido=sim \n";
 									break;
@@ -306,8 +306,8 @@ for ($i=2;$i<8;$i++)
 /*//%% comentado em 07/05/14
 					if (!empty($pega_escolha_prof))
 						{
-	                                        $query_pega_turma=pg_query("select turma,horarios from ".$tabela." where codigo='".$pega_escolha_prof[0]."' and turno='".$pega_escolha_prof[1]."' and professor='0' and semestre='".$semestre."' and ano='".$ano."' limit 1");
-        	                                $pega_turma=pg_fetch_row($query_pega_turma);
+	                                        $query_pega_turma=db_query("select turma,horarios from ".$tabela." where codigo=? and turno=? and professor='0' and semestre=? and ano=? limit 1", array($pega_escolha_prof[0], $pega_escolha_prof[1], $semestre, $ano));
+        	                                $pega_turma=db_fetch_row($query_pega_turma);
 
 
 // analise se ha tyurma para o professor na prioridade solicitada; se nao houver, pasa para a aprioridade seguinte.
@@ -316,10 +316,10 @@ for ($i=2;$i<8;$i++)
 							if(checa_horarios_choque($prof,$pega_turma[1],$semestre,$ano)!="choque") 
 								{
 
-								 $query_insere_lista_de_ofertas="update ".$tabela." set professor='".$prof."' where codigo='".$pega_escolha_prof[0]."' and turma='".$pega_turma[0]."' and semestre='".$semestre."' and ano='".$ano."'";
+								 list($query_insere_lista_de_ofertas, $query_insere_lista_de_ofertas__p) = array("update ".$tabela." set professor=? where codigo=? and turma=? and semestre=? and ano=?", array($prof, $pega_escolha_prof[0], $pega_turma[0], $semestre, $ano));
                                                 //echo $query_insere_lista_de_ofertas."\n";
-        	                                	        $res=pg_query($query_insere_lista_de_ofertas) or die ("Problema no acesso ao banco de dados");
-                	                                	$query_prof_atendido=pg_query("update oferta_escolha_disciplina set atendido='sim' where coduser='".$prof."' and disciplina='".$pega_escolha_prof[0]."' and semestre='".$semestre."' and ano='".$ano."'");
+        	                                	        $res=db_query($query_insere_lista_de_ofertas, $query_insere_lista_de_ofertas__p) or die ("Problema no acesso ao banco de dados");
+                	                                	$query_prof_atendido=db_query("update oferta_escolha_disciplina set atendido='sim' where coduser=? and disciplina=? and semestre=? and ano=?", array($prof, $pega_escolha_prof[0], $semestre, $ano));
 
                         	                        	$prioridade=7;
                                                 //echo "atendido=sim \n";
@@ -350,21 +350,18 @@ if(count($tab_horarios)==1) $lista_horarios="('".$tab_horarios[0]."')";
 if(count($tab_horarios)==2) $lista_horarios="('".$tab_horarios[0]."','".$tab_horarios[1]."')";
 if(count($tab_horarios)==3) $lista_horarios="('".$tab_horarios[0]."','".$tab_horarios[1]."','".$tab_horarios[2]."')";
 */
-for($i=0;$i<count($tab_horarios);$i++)
-	{
-	$lista_horarios.="'".$tab_horarios[$i]."',";
-	}
-$lista_horarios="(".rtrim($lista_horarios,",").")";
+// Lista IN com um placeholder por horario (os valores vao como parametros).
+$lista_horarios="(".implode(",", array_fill(0, count($tab_horarios), "?")).")";
 
 //echo $lista_horarios."--/--";
 //echo "select codigo FROM ".$tabela." WHERE professor='".$professor."' and semestre='".$semestre."' and ano='".$ano."' and (SUBSTR(horarios,1,3) in ".$lista_horarios." or SUBSTR(horarios,5,3) in ".$lista_horarios." or SUBSTR(horarios,9,3) in ".$lista_horarios."--/--";
 
-$query_choque=pg_query("select codigo FROM ".$tabela." WHERE professor='".$professor."' and semestre='".$semestre."' and ano='".$ano."' and (SUBSTR(horarios,1,3) in ".$lista_horarios." or SUBSTR(horarios,5,3) in ".$lista_horarios." or SUBSTR(horarios,9,3) in ".$lista_horarios.")");
+$query_choque=db_query("select codigo FROM ".$tabela." WHERE professor=? and semestre=? and ano=? and (SUBSTR(horarios,1,3) in ".$lista_horarios." or SUBSTR(horarios,5,3) in ".$lista_horarios." or SUBSTR(horarios,9,3) in ".$lista_horarios.")", array_merge(array($professor, $semestre, $ano), $tab_horarios, $tab_horarios, $tab_horarios));
 
-$num_choque=pg_num_rows($query_choque);
+$num_choque=db_num_rows($query_choque);
 
 if ($num_choque!=0) $resultado="choque"; else $resultado="ok";
-//echo print_r(pg_fetch_all($query_choque));
+//echo print_r(db_fetch_all($query_choque));
 //echo "--/--".$resultado."--/--";
 return $resultado;
 }
@@ -376,8 +373,8 @@ function imprime_esboco_lista_ofertas($semestre,$ano)
 
 // disciplina |  turma | turno | professor  |  semestre|  ano | horarios |
 
-$query_dados=pg_query("select u.coduser,name||' '||firstname as nome, m.codigo as disciplina, lo.turma as turma, lo.turno as turno, lo.horarios as horarios, lo.magistral as magistral from oferta_lista_de_ofertas_nova lo, users u, disciplinas_mat m where u.coduser=lo.professor and m.codigo=lo.codigo and lo.semestre='".$semestre."' and lo.ano='".$ano."' union (select u.coduser,name||' '||firstname as nome, m.codigo as disciplina, lo.turma as turma, lo.turno as turno, lo.horarios as horarios, lo.magistral as magistral from oferta_lista_de_ofertas_nova lo, users u, disciplinas_mat m,oferta_grupos_magistral_teoria gm where u.coduser=lo.professor and lo.codigo=gm.codigo_1 and m.codigo=gm.codigo and lo.semestre='".$semestre."' and lo.ano='".$ano."') order by nome, disciplina");
-$num_dados=pg_num_rows($query_dados);
+$query_dados=db_query("select u.coduser,name||' '||firstname as nome, m.codigo as disciplina, lo.turma as turma, lo.turno as turno, lo.horarios as horarios, lo.magistral as magistral from oferta_lista_de_ofertas_nova lo, users u, disciplinas_mat m where u.coduser=lo.professor and m.codigo=lo.codigo and lo.semestre=? and lo.ano=? union (select u.coduser,name||' '||firstname as nome, m.codigo as disciplina, lo.turma as turma, lo.turno as turno, lo.horarios as horarios, lo.magistral as magistral from oferta_lista_de_ofertas_nova lo, users u, disciplinas_mat m,oferta_grupos_magistral_teoria gm where u.coduser=lo.professor and lo.codigo=gm.codigo_1 and m.codigo=gm.codigo and lo.semestre=? and lo.ano=?) order by nome, disciplina", array($semestre, $ano, $semestre, $ano));
+$num_dados=db_num_rows($query_dados);
 
 ?>
   <body>
@@ -394,7 +391,7 @@ $num_dados=pg_num_rows($query_dados);
 	<?php
 	$cor_de_fundo="#FFFFFF";
 	$prof=0;
-	while ($registro=pg_fetch_row($query_dados))
+	while ($registro=db_fetch_row($query_dados))
 		{
 		if ($prof==0) $prof=$registro[0]; 
 		else 
@@ -426,8 +423,8 @@ function imprime_lista_atendimento($semestre,$ano)
 
 // disciplina |  turma | turno | professor  |  semestre|  ano | horarios |
 
-$query_dados=pg_query("select distinct on (nome) u.coduser,name||' '||firstname as nome from users u, oferta_escolha_disciplina ed where u.coduser=ed.coduser and ed.semestre='1' and ed.ano='2012' order by nome");
-$num_dados=pg_num_rows($query_dados);
+$query_dados=db_query("select distinct on (nome) u.coduser,name||' '||firstname as nome from users u, oferta_escolha_disciplina ed where u.coduser=ed.coduser and ed.semestre='1' and ed.ano='2012' order by nome", array());
+$num_dados=db_num_rows($query_dados);
 
 ?>
 <html>
@@ -449,16 +446,16 @@ $num_dados=pg_num_rows($query_dados);
 	<?php
 	$cor_de_fundo="#FFFFFF";
 	$prof=0;
-	while ($registro=pg_fetch_row($query_dados))
+	while ($registro=db_fetch_row($query_dados))
 		{
 		if ($prof==0) $prof=$registro[0]; 
 		else 
 		   {
 		    if ($registro[0]!=$prof) {if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";}
 		   }
-		$query_prioridades=pg_query("select prioridade,atendido from oferta_escolha_disciplina where coduser='".$registro[0]."' and semestre='".$semetre."' and ano='".$ano."' order by prioridade");
+		$query_prioridades=db_query("select prioridade,atendido from oferta_escolha_disciplina where coduser=? and semestre=? and ano=? order by prioridade", array($registro[0], $semetre, $ano));
 		$impresso="<td>".$registro[1]."</td>";
-		while ($registro2=pg_fetch_row($query_prioridades))
+		while ($registro2=db_fetch_row($query_prioridades))
 			{
 			$impresso.="<td>".$registro2[1]."</td>";
 			}
@@ -489,12 +486,12 @@ function atualiza_rodizio_noturno($semestre, $ano){
 		$ano_anterior=$ano;
 	}
 
-	$query_profs=pg_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios from oferta_lista_sigra os, users u,fonctionnaire f where os.coduser 
+	$query_profs=db_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios from oferta_lista_sigra os, users u,fonctionnaire f where os.coduser 
 	like '%'||f.coduser||'%' and f.coduser=u.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and 
-	os.semestre='".$semestre_anterior."' and os.ano='".$ano_anterior."' and turma NOT LIKE 'SP%'") 
+	os.semestre=? and os.ano=? and turma NOT LIKE 'SP%'", array($semestre_anterior, $ano_anterior)) 
 	or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
 
-	$registros = pg_fetch_all($query_profs);
+	$registros = db_fetch_all($query_profs);
 
 	foreach ($registros as $registro ){
 		if ($registro['turno'] == 'Noturno'){
@@ -514,14 +511,14 @@ function atualiza_rodizio_noturno($semestre, $ano){
 							break;
 					}
 				}
-				$seleciona_professor_exercicio = pg_query("select * from oferta_lista_de_ofertas where ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'");
+				$seleciona_professor_exercicio = db_query("select * from oferta_lista_de_ofertas where ano=? and semestre = ? and turma = ? and disciplina = ?", array($ano_anterior, $semestre_anterior, $registro['turma'], $registro['codigo']));
 				
-			    $professor_exercicio = pg_fetch_row($seleciona_professor_exercicio);
+			    $professor_exercicio = db_fetch_row($seleciona_professor_exercicio);
 			    
-			    $seleciona_professor_teoria = pg_query("select * from oferta_lista_sigra where ano='".$ano_anterior."' and semestre = '".$semestre_anterior."' and turma = '".$registro['turma']."' and
-			       codigo = '".$registro['codigo']."'");
+			    $seleciona_professor_teoria = db_query("select * from oferta_lista_sigra where ano=? and semestre = ? and turma = ? and
+			       codigo = ?", array($ano_anterior, $semestre_anterior, $registro['turma'], $registro['codigo']));
 				
-			    $professor_teoria = pg_fetch_row($seleciona_professor_teoria);
+			    $professor_teoria = db_fetch_row($seleciona_professor_teoria);
 			    
 				$professor_teoria_coduser = str_replace("-", "",str_replace($professor_exercicio[3],"",$professor_teoria[9]));
 				
@@ -530,35 +527,35 @@ function atualiza_rodizio_noturno($semestre, $ano){
 					$professor_teoria_coduser = $professor_exercicio[3];
 				}
 
-				$query_checa_prof_exercicio = pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$professor_exercicio[3]."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma='".$registro['turma']."' and disciplina='".$registro['codigo']."'");
+				$query_checa_prof_exercicio = db_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser=? and semestre=? and ano=? and turma=? and disciplina=?", array($professor_exercicio[3], $semestre_anterior, $ano_anterior, $registro['turma'], $registro['codigo']));
 					
-			    $num_checa_prof_exercio = pg_num_rows($query_checa_prof_exercicio);
+			    $num_checa_prof_exercio = db_num_rows($query_checa_prof_exercicio);
 
 			    if ($num_checa_prof_exercio == 0) {
-			        pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_exercicio[3]."',
-			                '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_exercicio."', '".$registro['codigo']."',
-			                '".$registro['turma']."')") or die ("Erro 04 insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_exercicio[3]."',
+			        db_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, ?,
+			                ?,?,?, ?,
+			                ?)", array($professor_exercicio[3], $semestre_anterior, $ano_anterior, $credito_noturno_exercicio, $registro['codigo'], $registro['turma'])) or die ("Erro 04 insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_exercicio[3]."',
 			                '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_exercicio."', '".$registro['codigo']."',
 			                '".$registro['turma']."')");
 			    }else{
-					pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno_exercicio."'
-			                where coduser='".$professor_exercicio[3]."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'
-			                and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'") or die ("problema 04 de conexao com o banco");
+					db_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno=?
+			                where coduser=? and semestre=? and ano=?
+			                and turma = ? and disciplina = ?", array($credito_noturno_exercicio, $professor_exercicio[3], $semestre_anterior, $ano_anterior, $registro['turma'], $registro['codigo'])) or die ("problema 04 de conexao com o banco");
 			    }
 
-			    $query_recupera_grupo_magistral = pg_query("select * from oferta_grupos_magistral_teoria where codigo = '".$registro['codigo']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and grupo in (select grupo from oferta_grupos_magistral_teoria where codigo = '".$registro['codigo']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turmas = '".$registro['turma']."')");
+			    $query_recupera_grupo_magistral = db_query("select * from oferta_grupos_magistral_teoria where codigo = ? and semestre=? and ano=? and grupo in (select grupo from oferta_grupos_magistral_teoria where codigo = ? and semestre=? and ano=? and turmas = ?)", array($registro['codigo'], $semestre_anterior, $ano_anterior, $registro['codigo'], $semestre_anterior, $ano_anterior, $registro['turma']));
 
-				$magistral = pg_fetch_all($query_recupera_grupo_magistral);
+				$magistral = db_fetch_all($query_recupera_grupo_magistral);
 
 				if (sizeof($magistral) == 1){
-					$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser=' ".$professor_teoria_coduser."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma LIKE '%".$registro['turma']."%' and disciplina='".$registro['codigo']."'");
+					$query_checa=db_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser=? and semestre=? and ano=? and turma LIKE ? and disciplina=?", array(' '.$professor_teoria_coduser, $semestre_anterior, $ano_anterior, '%'.$registro['turma'].'%', $registro['codigo']));
 
-					$num_checa=pg_num_rows($query_checa);
+					$num_checa=db_num_rows($query_checa);
 
 					if ($num_checa == 0) {
-						pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_teoria_coduser."', '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_teoria."', '".$registro['codigo']."', '".$registro['turma']."')") or die ("problema 03 de conexao com o banco");
+						db_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, ?, ?,?,?, ?, ?)", array($professor_teoria_coduser, $semestre_anterior, $ano_anterior, $credito_noturno_teoria, $registro['codigo'], $registro['turma'])) or die ("problema 03 de conexao com o banco");
 					}else{
-						pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno_teoria."' where coduser='".$professor_teoria_coduser."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma =  '".$registro['turma']."' and disciplina = '".$registro['codigo']."'") or die ("problema 05 de conexao com o banco");
+						db_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno=? where coduser=? and semestre=? and ano=? and turma =  ? and disciplina = ?", array($credito_noturno_teoria, $professor_teoria_coduser, $semestre_anterior, $ano_anterior, $registro['turma'], $registro['codigo'])) or die ("problema 05 de conexao com o banco");
 					}
 				}else{
 					$turmas = "";
@@ -569,31 +566,31 @@ function atualiza_rodizio_noturno($semestre, $ano){
 						
 					$turmas = substr($turmas, 1);
 
-					$query_checa_prof_teoria = pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$professor_teoria_coduser."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma LIKE '%".$turmas."%' and disciplina='".$registro['codigo']."'");
+					$query_checa_prof_teoria = db_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser=? and semestre=? and ano=? and turma LIKE ? and disciplina=?", array($professor_teoria_coduser, $semestre_anterior, $ano_anterior, '%'.$turmas.'%', $registro['codigo']));
 
-					$num_checa_prof_teoria = pg_num_rows($query_checa_prof_teoria);
+					$num_checa_prof_teoria = db_num_rows($query_checa_prof_teoria);
 
 					if ($num_checa_prof_teoria == 0) {
-						pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_teoria_coduser."', '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno_teoria."', '".$registro['codigo']."', '".$turmas."')") or die ("Erro 03: erro na query -> insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_teoria_coduser."','".$semestre_anterior."','".$ano_anterior."', '".$credito_noturno_teoria."', '".$registro['codigo']."', '".$turmas."')");
+						db_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, ?, ?,?,?, ?, ?)", array($professor_teoria_coduser, $semestre_anterior, $ano_anterior, $credito_noturno_teoria, $registro['codigo'], $turmas)) or die ("Erro 03: erro na query -> insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$professor_teoria_coduser."','".$semestre_anterior."','".$ano_anterior."', '".$credito_noturno_teoria."', '".$registro['codigo']."', '".$turmas."')");
 					}else{
-						pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno_teoria."' where coduser='".$professor_teoria_coduser."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma = '".$turmas."' and disciplina = '".$registro['codigo']."'") or die ("problema 02 de conexao com o banco");
+						db_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno=? where coduser=? and semestre=? and ano=? and turma = ? and disciplina = ?", array($credito_noturno_teoria, $professor_teoria_coduser, $semestre_anterior, $ano_anterior, $turmas, $registro['codigo'])) or die ("problema 02 de conexao com o banco");
 					}
 				}
 			}else{
 				if ($registro['codigo'] != '200137') {
-					$query_credito=pg_query("select creditos from disciplinas_mat where codigo='".$registro['codigo']."' and status='grad'");
+					$query_credito=db_query("select creditos from disciplinas_mat where codigo=? and status='grad'", array($registro['codigo']));
 
-					$credito_noturno = pg_fetch_row($query_credito)[0];
+					$credito_noturno = db_fetch_row($query_credito)[0];
 
-					$query_checa_credito_existente = pg_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser='".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma LIKE '%".$registro['turma']."%' and disciplina='".$registro['codigo']."'");
+					$query_checa_credito_existente = db_query("select * from oferta_horarios_rodizio_noturno_creditos where coduser=? and semestre=? and ano=? and turma LIKE ? and disciplina=?", array($registro['coduser'], $semestre_anterior, $ano_anterior, '%'.$registro['turma'].'%', $registro['codigo']));
 
-					$num_checa_credito_existente = pg_num_rows($query_checa_credito_existente);
+					$num_checa_credito_existente = db_num_rows($query_checa_credito_existente);
 
 					if ($num_checa_prof_teoria == 0) {
 
-						pg_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$registro['coduser']."', '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."', '".$registro['codigo']."', '".$registro['turma']."')") or die ("Erro 10 insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$registro['coduser']."', '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."', '".$registro['codigo']."', '".$registro['turma']."')");
+						db_query("insert into oferta_horarios_rodizio_noturno_creditos values(default, ?, ?,?,?, ?, ?)", array($registro['coduser'], $semestre_anterior, $ano_anterior, $credito_noturno, $registro['codigo'], $registro['turma'])) or die ("Erro 10 insert into oferta_horarios_rodizio_noturno_creditos values(default, '".$registro['coduser']."', '".$semestre_anterior."','".$ano_anterior."','".$credito_noturno."', '".$registro['codigo']."', '".$registro['turma']."')");
 					}else{
-						pg_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno='".$credito_noturno."' where coduser='".$registro['coduser']."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."' and turma = '".$registro['turma']."' and disciplina = '".$registro['codigo']."'") or die ("problema 02 de conexao com o banco");
+						db_query("update oferta_horarios_rodizio_noturno_creditos set credito_noturno=? where coduser=? and semestre=? and ano=? and turma = ? and disciplina = ?", array($credito_noturno, $registro['coduser'], $semestre_anterior, $ano_anterior, $registro['turma'], $registro['codigo'])) or die ("problema 02 de conexao com o banco");
 					}
 				}
 			}
@@ -617,31 +614,31 @@ if ($semestre==1) {$semestre_anterior=2;$ano_anterior=$ano-1;} else {$semestre_a
 
 // acrescentado em 17/04/2015 para poder usar apenas a lista de ofertas do SIgra:
 if ($ano_anterior<2012)
-$query_profs=pg_query("select c.coduser,c.codigo,c.turma_disc,turno,horarios from oferta_carga_professor c,oferta_lista_sigra s where nivel='GR' and c.semestre='".$semestre_anterior."' and c.ano='".$ano_anterior."' and c.semestre=s.semestre and c.ano=s.ano and c.codigo=s.codigo and c.turma_disc=s.turma order by coduser,codigo,turma_disc") or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
+$query_profs=db_query("select c.coduser,c.codigo,c.turma_disc,turno,horarios from oferta_carga_professor c,oferta_lista_sigra s where nivel='GR' and c.semestre=? and c.ano=? and c.semestre=s.semestre and c.ano=s.ano and c.codigo=s.codigo and c.turma_disc=s.turma order by coduser,codigo,turma_disc", array($semestre_anterior, $ano_anterior)) or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
 else
-$query_profs=pg_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios from oferta_lista_sigra os, users u,fonctionnaire f where os.coduser like '%'||f.coduser||'%' and f.coduser=u.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and  os.semestre='".$semestre_anterior."' and os.ano='".$ano_anterior."' order by f.coduser,os.codigo,os.turma") or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
+$query_profs=db_query("select f.coduser,os.codigo,os.turma,os.turno,os.horarios from oferta_lista_sigra os, users u,fonctionnaire f where os.coduser like '%'||f.coduser||'%' and f.coduser=u.coduser and u.is_actif and f.statut='professor' and f.contract_type='dedicacao exclusiva' and  os.semestre=? and os.ano=? order by f.coduser,os.codigo,os.turma", array($semestre_anterior, $ano_anterior)) or die("problemas de conexao em funcoes.php atualiza_rodizio_noturno");
 
 //$atuacao_noturno=array();
 $prof=0;
-while ($registro=pg_fetch_row($query_profs))
+while ($registro=db_fetch_row($query_profs))
 	{
 	if($registro[0]!=$prof) 
 		{
 		if($prof!=0) 
 			{
-			$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
-			$num_checa=pg_num_rows($query_checa);
+			$query_checa=db_query("select * from oferta_horarios_rodizio_noturno where coduser=? and semestre=? and ano=?", array($prof, $semestre_anterior, $ano_anterior));
+			$num_checa=db_num_rows($query_checa);
 			if ($num_checa==0) 
-				$query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno values('".$prof."','".$semestre_anterior."','".$ano_anterior."','".$atuacao_not."')") or die ("problema de conexao com o banco");
+				$query_atualiza=db_query("insert into oferta_horarios_rodizio_noturno values(?,?,?,?)", array($prof, $semestre_anterior, $ano_anterior, $atuacao_not)) or die ("problema de conexao com o banco");
 			else 
-				$query_atualiza=pg_query("update oferta_horarios_rodizio_noturno set disc_noturno='".$atuacao_not."' where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'") or die ("problema de conexao com o banco");
+				$query_atualiza=db_query("update oferta_horarios_rodizio_noturno set disc_noturno=? where coduser=? and semestre=? and ano=?", array($atuacao_not, $prof, $semestre_anterior, $ano_anterior)) or die ("problema de conexao com o banco");
 			}
 		$prof=$registro[0];
 		$atuacao_not=0;
 		$array_de_horarios=array(219 => 0,221 => 0,319 => 0,321 => 0,419 => 0,421 => 0,519 => 0,521 => 0,619 => 0,621 => 0);
 		}
 //	$query_noturno=pg_query("select turno,horarios from oferta_lista_de_ofertas where professor='".$registro[0]."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
-//	while ($registro_2=pg_fetch_row($query_noturno))
+//	while ($registro_2=db_fetch_row($query_noturno))
 //		{
 	if (($registro[3]=="Noturno") or ($registro[3]=="Ambos")) 
 		{
@@ -664,12 +661,12 @@ while ($registro=pg_fetch_row($query_profs))
 //	for ($i=0;$i<count($profs);$i++)
 	}
 // inclui a impressao dos dados da ultima linha de $registro:
-	$query_checa=pg_query("select * from oferta_horarios_rodizio_noturno where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'");
-                        $num_checa=pg_num_rows($query_checa);
+	$query_checa=db_query("select * from oferta_horarios_rodizio_noturno where coduser=? and semestre=? and ano=?", array($prof, $semestre_anterior, $ano_anterior));
+                        $num_checa=db_num_rows($query_checa);
                         if ($num_checa==0)
-                                $query_atualiza=pg_query("insert into oferta_horarios_rodizio_noturno values('".$prof."','".$semestre_anterior."','".$ano_anterior."','".$atuacao_not."')") or die ("problema de conexao com o banco");
+                                $query_atualiza=db_query("insert into oferta_horarios_rodizio_noturno values(?,?,?,?)", array($prof, $semestre_anterior, $ano_anterior, $atuacao_not)) or die ("problema de conexao com o banco");
                         else
-                                $query_atualiza=pg_query("update oferta_horarios_rodizio_noturno set disc_noturno='".$atuacao_not."' where coduser='".$prof."' and semestre='".$semestre_anterior."' and ano='".$ano_anterior."'") or die ("problema de conexao com o banco");
+                                $query_atualiza=db_query("update oferta_horarios_rodizio_noturno set disc_noturno=? where coduser=? and semestre=? and ano=?", array($atuacao_not, $prof, $semestre_anterior, $ano_anterior)) or die ("problema de conexao com o banco");
 
 }
 
@@ -680,15 +677,15 @@ function corrige_codigo_turmas_magistral($semestre,$ano) // em 20/04/2014
 {
 // roda no fim da rotina que roda a lista;
 // no final da elaboração da lista, a tabela é corrigida par poder ser impressa e apresentada ao colegiado:
-$seleciona_magistral=pg_query("select codigo from  oferta_disciplinas_magistral") or die("problema 02 em muda_horarios_turmas_magistral");  
+$seleciona_magistral=db_query("select codigo from  oferta_disciplinas_magistral", array()) or die("problema 02 em muda_horarios_turmas_magistral");  
 
 // para cada linha de $seleciona_magistral, muda o código da disciplina teoria:
-while($turma=pg_fetch_row($seleciona_magistral))
+while($turma=db_fetch_row($seleciona_magistral))
 {
 
-$muda_codigo="update oferta_lista_de_ofertas_nova set codigo='".$turma[0]."' where codigo='".$turma[0]."001'";
+list($muda_codigo, $muda_codigo__p) = array("update oferta_lista_de_ofertas_nova set codigo=? where codigo=?", array($turma[0], $turma[0].'001'));
 
-$query_muda_codigo=pg_query($muda_codigo) or die("problema 05 em muda_horarios_turmas_magistral");
+$query_muda_codigo=db_query($muda_codigo, $muda_codigo__p) or die("problema 05 em muda_horarios_turmas_magistral");
 
 } //fim do do while
 } // fim da funcao corrige_codigo_turmas_magistral
@@ -702,15 +699,15 @@ $query_muda_codigo=pg_query($muda_codigo) or die("problema 05 em muda_horarios_t
 function aloca_professor_no_grupo_teoria_da_turma_dada($codigo,$professor,$turma,$semestre,$ano)
 {
 //$codigo_0=($codigo-1)/1000;
-$pega_turmas_horarios_grupo="select turmas,horario from oferta_grupos_magistral_teoria where grupo in (select grupo from oferta_grupos_magistral_teoria where codigo_1='".$codigo."' and turmas=".$turma.")";
+list($pega_turmas_horarios_grupo, $pega_turmas_horarios_grupo__p) = array("select turmas,horario from oferta_grupos_magistral_teoria where grupo in (select grupo from oferta_grupos_magistral_teoria where codigo_1=? and turmas=?)", array($codigo, $turma));
 //echo $pega_turmas_horarios_grupo."---//---";
-$query_pega_turmas_horarios_grupo=pg_query($pega_turmas_horarios_grupo) or die ("problema 01 em aloca_professor_no_grupo_teoria_da_turma_dada");
+$query_pega_turmas_horarios_grupo=db_query($pega_turmas_horarios_grupo, $pega_turmas_horarios_grupo__p) or die ("problema 01 em aloca_professor_no_grupo_teoria_da_turma_dada");
 
-while($horarios=pg_fetch_row($query_pega_turmas_horarios_grupo))
+while($horarios=db_fetch_row($query_pega_turmas_horarios_grupo))
 {
-$update_oferta="update oferta_lista_de_ofertas_nova set professor='".$professor."' where codigo='".$codigo."'  and  turma='".$horarios[0]."' and semestre='".$semestre."' and ano='".$ano."'";
+list($update_oferta, $update_oferta__p) = array("update oferta_lista_de_ofertas_nova set professor=? where codigo=?  and  turma=? and semestre=? and ano=?", array($professor, $codigo, $horarios[0], $semestre, $ano));
 //echo $update_oferta."--/--";
-$res_oferta=pg_query($update_oferta) or die("problema 02 em aloca_professor_no_grupo_teoria_da_turma_dada");
+$res_oferta=db_query($update_oferta, $update_oferta__p) or die("problema 02 em aloca_professor_no_grupo_teoria_da_turma_dada");
 }
 
 }// fim function aloca_professor_no_grupo_teoria_da_turma_dada 
@@ -719,11 +716,11 @@ $res_oferta=pg_query($update_oferta) or die("problema 02 em aloca_professor_no_g
 
 function horarios_magistral($grupo)
 {
-$pega_horarios=pg_query("select distinct on (horario) horario from oferta_grupos_magistral_teoria where grupo='".$grupo."' order by horario") or die("problema em funcoes.php horarios_magistral");
+$pega_horarios=db_query("select distinct on (horario) horario from oferta_grupos_magistral_teoria where grupo=? order by horario", array($grupo)) or die("problema em funcoes.php horarios_magistral");
 
 $horarios="";
 
-while($res=pg_fetch_row($pega_horarios))
+while($res=db_fetch_row($pega_horarios))
 	{
 	$horarios.=$res[0]."-";
 	}

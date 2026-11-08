@@ -2,38 +2,38 @@
 function imprime_escolha_prof($coduser,$semestre,$ano)
 {
 	$lang="pt_BR";
-	$select_profs=pg_query("select name||' '||firstname as nome from users where coduser='".$coduser."'");
-	$nome_prof=pg_fetch_array($select_profs,0);
+	$select_profs=db_query("select name||' '||firstname as nome from users where coduser=?", array($coduser));
+	$nome_prof=db_fetch_array($select_profs,0);
 		//oferta_escolha_disciplina: coduser | prioridade | disciplina | dias | horarios | semestre | ano  |  turno  | creditos | atendido
-		$query_escolha_disciplinas=pg_query("select * from oferta_escolha_disciplina where coduser='".$coduser."' and semestre='".$semestre."' and ano='".$ano."' order by prioridade");
-		$registro_disciplinas=pg_fetch_all($query_escolha_disciplinas);
-		$num_disc=pg_num_rows($query_escolha_disciplinas); 
+		$query_escolha_disciplinas=db_query("select * from oferta_escolha_disciplina where coduser=? and semestre=? and ano=? order by prioridade", array($coduser, $semestre, $ano));
+		$registro_disciplinas=db_fetch_all($query_escolha_disciplinas);
+		$num_disc=db_num_rows($query_escolha_disciplinas); 
 		//oferta_escolha_creditos:  coduser | creditos | disciplinas_iguais_6 | semestre | ano 
-		$query_escolha_creditos=pg_query("select * from oferta_escolha_creditos where coduser='".$coduser."' and semestre='".$semestre."' and ano='".$ano."'");
-		$registro_creditos=pg_fetch_row($query_escolha_creditos);
+		$query_escolha_creditos=db_query("select * from oferta_escolha_creditos where coduser=? and semestre=? and ano=?", array($coduser, $semestre, $ano));
+		$registro_creditos=db_fetch_row($query_escolha_creditos);
 
 		//oferta_escolha_creditos_pos: coduser | creditos | disciplina | semestre | ano
-		$query_escolha_creditos_pos=pg_query("select * from oferta_escolha_creditos_pos where coduser='".$coduser."' and semestre='".$semestre."' and ano='".$ano."'");
-		$registro_creditos_pos=pg_fetch_all($query_escolha_creditos_pos);
-		$num_creditos_pos=pg_num_rows($query_escolha_creditos_pos);
+		$query_escolha_creditos_pos=db_query("select * from oferta_escolha_creditos_pos where coduser=? and semestre=? and ano=?", array($coduser, $semestre, $ano));
+		$registro_creditos_pos=db_fetch_all($query_escolha_creditos_pos);
+		$num_creditos_pos=db_num_rows($query_escolha_creditos_pos);
 
 
 		//oferta_escolha_creditos_est_pesq_pos: coduser | creditos | orientando | semestre | ano
-		$query_escolha_creditos_est_pesq_pos=pg_query("select * from oferta_escolha_creditos_est_pesq_pos where coduser='".$coduser."' and semestre='".$semestre."' and ano='".$ano."'");
-		$registro_creditos_est_pesq_pos=pg_fetch_all($query_escolha_creditos_est_pesq_pos);
-		$num_creditos_est_pesq_pos=pg_num_rows($query_escolha_creditos_est_pesq_pos);
+		$query_escolha_creditos_est_pesq_pos=db_query("select * from oferta_escolha_creditos_est_pesq_pos where coduser=? and semestre=? and ano=?", array($coduser, $semestre, $ano));
+		$registro_creditos_est_pesq_pos=db_fetch_all($query_escolha_creditos_est_pesq_pos);
+		$num_creditos_est_pesq_pos=db_num_rows($query_escolha_creditos_est_pesq_pos);
 		$tabela="oferta_lista_de_ofertas_nova";
 
 
 		// pega dados de oferta_magistral_opcoes_profs
-                $query_magistral_opcoes_profs=pg_query("select * from oferta_magistral_opcoes_profs where coduser='".$coduser."' and semestre='".$semestre."' and ano='".$ano."'");
+                $query_magistral_opcoes_profs=db_query("select * from oferta_magistral_opcoes_profs where coduser=? and semestre=? and ano=?", array($coduser, $semestre, $ano));
                 $ck_c1_teoria="";
                 $ck_c1_exos="";
                 $ck_m1_teoria="";
                 $ck_m1_exos="";
                 $ck_ims_teoria="";
                 $ck_ims_exos="";
-                while($registro_magistral=pg_fetch_row($query_magistral_opcoes_profs))
+                while($registro_magistral=db_fetch_row($query_magistral_opcoes_profs))
                         {
                         if(($registro_magistral[1]==113034) or ($registro_magistral[1]==113034001))
                                 { 
@@ -83,8 +83,8 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
                	for ($cont_pos=0;$cont_pos<2;$cont_pos++)
                 	{
         		if ($num_creditos_pos==0) echo "Nenhuma";
-        	        $select_disciplinas_pg[$cont_pos]=pg_query("select codigo, nome, creditos from disciplinas_mat where status='pgrad' order by nome"); 
-                	while ($registro[$cont_pos]=pg_fetch_row($select_disciplinas_pg[$cont_pos]))
+        	        $select_disciplinas_pg[$cont_pos]=db_query("select codigo, nome, creditos from disciplinas_mat where status='pgrad' order by nome", array()); 
+                	while ($registro[$cont_pos]=db_fetch_row($select_disciplinas_pg[$cont_pos]))
                         	{
                                 if ($registro[$cont_pos][0]==$registro_creditos_pos[$cont_pos]['disciplina']) echo $registro[$cont_pos][0]."-".$registro[$cont_pos][1]." (".$registro[$cont_pos][2].")<BR>";
         	                }
@@ -102,8 +102,8 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
 				{
 	                        if ($registro_creditos_est_pesq_pos[$cont_pesq]['creditos']==1) echo "1 cr&eacute;dito   ";
         	                if ($registro_creditos_est_pesq_pos[$cont_pesq]['creditos']==2) echo "2 cr&eacute;ditos  ";
-	        	        $select_orientando[$cont_pesq]=pg_query("select coduser,name,firstname from users where coduser in (select coduser from student where status='ativo') order by name");
-        	        	while ($registro1[$cont_pesq]=pg_fetch_row($select_orientando[$cont_pesq]))
+	        	        $select_orientando[$cont_pesq]=db_query("select coduser,name,firstname from users where coduser in (select coduser from student where status='ativo') order by name", array());
+        	        	while ($registro1[$cont_pesq]=db_fetch_row($select_orientando[$cont_pesq]))
                 	        	{
 	                	        if ($registro_creditos_est_pesq_pos[$cont_pesq]['orientando']==$registro1[$cont_pesq][0]) echo " Orientando: ".$registro1[$cont_pesq][1]." ".$registro1[$cont_pesq][2]."<BR>";
 					}
@@ -119,16 +119,16 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
                  for ($i=1;$i<7;$i++)
                                 {
                                 echo "<b>Prioridade ".$i.":</b>";
-				$select_disciplinas[$i]=pg_query("select distinct on (m.nome,lo.turno) lo.codigo,m.nome as nome,m.creditos,upper(lo.turno) as turno,lo.status, lo.magistral from ".$tabela." lo, disciplinas_mat m where m.codigo=lo.codigo union (select distinct on (m.nome,lo.turno) lo.codigo,m.nome as nome,m.creditos,upper(lo.turno) as turno,lo.status, lo.magistral from ".$tabela." lo,  disciplinas_mat m, oferta_grupos_magistral_teoria og where og.codigo_1=lo.codigo and og.codigo=m.codigo) order by nome,turno");
-				$num_disc=pg_num_rows($select_disciplinas[$i]);
+				$select_disciplinas[$i]=db_query("select distinct on (m.nome,lo.turno) lo.codigo,m.nome as nome,m.creditos,upper(lo.turno) as turno,lo.status, lo.magistral from ".$tabela." lo, disciplinas_mat m where m.codigo=lo.codigo union (select distinct on (m.nome,lo.turno) lo.codigo,m.nome as nome,m.creditos,upper(lo.turno) as turno,lo.status, lo.magistral from ".$tabela." lo,  disciplinas_mat m, oferta_grupos_magistral_teoria og where og.codigo_1=lo.codigo and og.codigo=m.codigo) order by nome,turno", array());
+				$num_disc=db_num_rows($select_disciplinas[$i]);
 				if ($num_disc==0) echo "escolher uma disciplina <br>";
 					else 
 					{
-				while($registro2[$i]=pg_fetch_row($select_disciplinas[$i]))
+				while($registro2[$i]=db_fetch_row($select_disciplinas[$i]))
                                         {
 // calcular os creditos: coduser | prioridade | disciplina | dias | horarios | semestre | ano  | turno  | creditos | atendido
-					$query_magistral=pg_query("select creditos from oferta_escolha_disciplina where disciplina='".$registro2[$i][0]."' and coduser='".$coduser."' and semestre='".$semestre."' and ano='".$ano."' and upper(turno)='".$registro2[$i][3]."'");
-					if(($registro2[$i][5]=="teoria") or ($registro2[$i][5]=="exercicios")) $creditos_disc=pg_fetch_result($query_magistral,0,0); else $creditos_disc=$registro2[$i][2];
+					$query_magistral=db_query("select creditos from oferta_escolha_disciplina where disciplina=? and coduser=? and semestre=? and ano=? and upper(turno)=?", array($registro2[$i][0], $coduser, $semestre, $ano, $registro2[$i][3]));
+					if(($registro2[$i][5]=="teoria") or ($registro2[$i][5]=="exercicios")) $creditos_disc=db_result($query_magistral,0,0); else $creditos_disc=$registro2[$i][2];
                                         if (($registro2[$i][0]==$registro_disciplinas[$i-1]['disciplina']) and ($registro2[$i][3]==strtoupper($registro_disciplinas[$i-1]['turno']))) echo $registro2[$i][3].":  ".$registro2[$i][0]."-".$registro2[$i][1]." (".$creditos_disc.")<br>";
 // turno, codigo, nome, (creditos)
 					}

@@ -18,11 +18,11 @@ function muda_horarios_turmas_magistral($semestre,$ano)
 // Mudar os horários das disciplinas magistrais na tabela oferta_lista_de_ofertas_nova para que sejam apenas as turmas de exercícios + 
 // inserir turmas com código da disciplina.001 e turma correspondente como sendo turma do magistral. 
 
-$seleciona_turmas_oferta=pg_query("select codigo,turma,horarios,turno,magistral from oferta_lista_de_ofertas_nova where ano='".$ano."' and semestre='".$semestre."' and codigo in (select codigo from oferta_disciplinas_magistral where ano='".$ano."' and semestre='".$semestre."')") or die("problema 01 em muda_horarios_turmas_magistral");
+$seleciona_turmas_oferta=db_query("select codigo,turma,horarios,turno,magistral from oferta_lista_de_ofertas_nova where ano=? and semestre=? and codigo in (select codigo from oferta_disciplinas_magistral where ano=? and semestre=?)", array($ano, $semestre, $ano, $semestre)) or die("problema 01 em muda_horarios_turmas_magistral");
 
-$seleciona_magistral=pg_query("select * from  oferta_disciplinas_magistral where ano='".$ano."' and semestre='".$semestre."'") or die("problema 02 em muda_horarios_turmas_magistral");  
+$seleciona_magistral=db_query("select * from  oferta_disciplinas_magistral where ano=? and semestre=?", array($ano, $semestre)) or die("problema 02 em muda_horarios_turmas_magistral");  
 $array_magistral=array();
-while($res_magistral=pg_fetch_row($seleciona_magistral))
+while($res_magistral=db_fetch_row($seleciona_magistral))
 	{
 	$array_magistral[$res_magistral[0]]['teoria']=$res_magistral[1];
 	$array_magistral[$res_magistral[0]]['exercicios']=$res_magistral[2];
@@ -33,17 +33,17 @@ while($res_magistral=pg_fetch_row($seleciona_magistral))
 $array_turno_magistral=cria_turno_magistral($semestre,$ano); // define um array de turnos para codigo/grupo do magistral.
 
 
-while($turma=pg_fetch_row($seleciona_turmas_oferta))
+while($turma=db_fetch_row($seleciona_turmas_oferta))
 {
-$pega_horario_magistral=pg_query("select horario from oferta_grupos_magistral_teoria where codigo='".$turma[0]."' and turmas='".$turma[1]."' and ano='".$ano."' and semestre='".$semestre."'");
+$pega_horario_magistral=db_query("select horario from oferta_grupos_magistral_teoria where codigo=? and turmas=? and ano=? and semestre=?", array($turma[0], $turma[1], $ano, $semestre));
 $array_horario_teoria=array();
-$num=pg_num_rows($pega_horario_magistral);
-$res_horario=pg_fetch_all($pega_horario_magistral);
+$num=db_num_rows($pega_horario_magistral);
+$res_horario=db_fetch_all($pega_horario_magistral);
 //print_r($res_horario);
 for($i=0;$i<$num;$i++)
-//while($res_horario=pg_fetch_row($pega_horario_magistral))
+//while($res_horario=db_fetch_row($pega_horario_magistral))
 	{
-//	$horario_teoria=pg_fetch_result($pega_horario_magistral,0,0);
+//	$horario_teoria=db_result($pega_horario_magistral,0,0);
 	$array_horario_teoria[$i]=$res_horario[$i]['horario'];
 	}
 $horario_teoria=$array_horario_teoria[0];
@@ -52,18 +52,18 @@ echo $horario_teoria."--/--";
 $horario_exercicios=str_replace($horario_teoria."-", "", $turma[2]);
 
 // determina o turno do grupo da aula teorica:
-$query_grupo=pg_query("select grupo from oferta_grupos_magistral_teoria where codigo='".$turma[0]."' and turmas='".$turma[1]."' and ano='".$ano."' and semestre='".$semestre."'");
-$grupo=pg_fetch_result($query_grupo,0,0);
+$query_grupo=db_query("select grupo from oferta_grupos_magistral_teoria where codigo=? and turmas=? and ano=? and semestre=?", array($turma[0], $turma[1], $ano, $semestre));
+$grupo=db_result($query_grupo,0,0);
 
 // muda os horarios:
-$muda_horarios="update oferta_lista_de_ofertas_nova set magistral='exercicios', horarios='".$horario_exercicios."' where turma='".$turma[1]."' and codigo='".$turma[0]."'";
-$insere_horarios="insert into oferta_lista_de_ofertas_nova (codigo,turma,horarios,turno,professor,semestre,ano,status,elimina,magistral) values ('".$turma[0]."001','".$turma[1]."','".$horario_teoria."','".$array_turno_magistral[$turma[0]][$grupo]."','0','".$semestre."','".$ano."','fixa','nao','teoria')";
+list($muda_horarios, $muda_horarios__p) = array("update oferta_lista_de_ofertas_nova set magistral='exercicios', horarios=? where turma=? and codigo=?", array($horario_exercicios, $turma[1], $turma[0]));
+list($insere_horarios, $insere_horarios__p) = array("insert into oferta_lista_de_ofertas_nova (codigo,turma,horarios,turno,professor,semestre,ano,status,elimina,magistral) values (?,?,?,?,'0',?,?,'fixa','nao','teoria')", array($turma[0].'001', $turma[1], $horario_teoria, $array_turno_magistral[$turma[0]][$grupo], $semestre, $ano));
 
 echo $muda_horarios."<br>";
-echo $insere_horarios."<br>";
+//echo $insere_horarios."<br>"; // depuracao: imprimia o SQL na pagina
 
-$query_muda_horarios=pg_query($muda_horarios) or die("problema 03 em muda_horarios_turmas_magistral");
-$query_insere_horarios=pg_query($insere_horarios) or die("problema 04 em muda_horarios_turmas_magistral");
+$query_muda_horarios=db_query($muda_horarios, $muda_horarios__p) or die("problema 03 em muda_horarios_turmas_magistral");
+$query_insere_horarios=db_query($insere_horarios, $insere_horarios__p) or die("problema 04 em muda_horarios_turmas_magistral");
 
 } //fim do do while
 } // fim da funcao muda_horarios_turmas_magistral
@@ -79,13 +79,13 @@ $turnos_magistral=array();
 $diurno=array('208','210','214','216','308','310','314','316','408','410','414','416','508','510','514','516','608','610','614','616');
 $noturno=array('219','221','319','321','419','421','519','521','619','621','708','710');
 
-$pega_magistral=pg_query("select codigo from oferta_disciplinas_magistral where semestre='".$semestre."' and ano='".$ano."'");
+$pega_magistral=db_query("select codigo from oferta_disciplinas_magistral where semestre=? and ano=?", array($semestre, $ano));
 
-while($codigo=pg_fetch_row($pega_magistral))
+while($codigo=db_fetch_row($pega_magistral))
 	{
 //	$codigo0=$codigo[0];
-	$pega_horarios_codigo=pg_query("select distinct on(grupo,horario) grupo,horario from oferta_grupos_magistral_teoria where codigo='".$codigo[0]."' and ano='".$ano."' and semestre='".$semestre."' order by grupo,horario");
-	while($res=pg_fetch_row($pega_horarios_codigo))
+	$pega_horarios_codigo=db_query("select distinct on(grupo,horario) grupo,horario from oferta_grupos_magistral_teoria where codigo=? and ano=? and semestre=? order by grupo,horario", array($codigo[0], $ano, $semestre));
+	while($res=db_fetch_row($pega_horarios_codigo))
 		{
 		if(in_array($res[1],$diurno)) $turnos_magistral[$codigo[0]][$res[0]]="D".$turnos_magistral[$codigo[0]][$res[0]];
 		if(in_array($res[1],$noturno)) $turnos_magistral[$codigo[0]][$res[0]].="N";
@@ -137,6 +137,9 @@ if (isset($_POST['registra1']) and !isset($_POST['registra2']))
 {
 $semestre=$_POST['semestre'];
 $ano=$_POST['ano'];
+if (!ctype_digit((string)$semestre) || !ctype_digit((string)$ano)) {
+	die(error("Semestre/ano invalido."));
+}
 
 ?>
 
@@ -145,7 +148,7 @@ $ano=$_POST['ano'];
       <form method="POST" name="formu" action="criar_programa_semestre.php">
          <tr>
         <td class=header align=center>
-        <h1> Lista de Ofertas do <? echo $semestre;?>&ordm;/ <? echo $ano;?></h1>
+        <h1> Lista de Ofertas do <? echo h($semestre);?>&ordm;/ <? echo h($ano);?></h1>
         </td>
       </tr>
          <tr><td class=data align=center>
@@ -160,22 +163,21 @@ $ano=$_POST['ano'];
 
 $tabela_a="oferta_lista_de_ofertas_nova";
 
-	$query_checa_oferta_acusa_lista=pg_query("select * from oferta_acusa_lista where semestre='".$semestre."' and ano='".$ano."'"); 
-	$num_oferta_acusa_lista=pg_num_rows($query_checa_oferta_acusa_lista);
+	$query_checa_oferta_acusa_lista=db_query("select * from oferta_acusa_lista where semestre=? and ano=?", array($semestre, $ano)); 
+	$num_oferta_acusa_lista=db_num_rows($query_checa_oferta_acusa_lista);
 
 	if ($num_oferta_acusa_lista==0)
 		{
 		//limpa tabela de rascunho da lista:
-		$query_limpa_provisoria=pg_query("delete from ".$tabela_a) or die ("Problema de acesso ao banco");
+		$query_limpa_provisoria=db_query("delete from ".$tabela_a, array()) or die ("Problema de acesso ao banco");
 		//Insere na tabela de rascunho as disciplinas fixas
-		$query_insere_tabela_provisoria="insert into ".$tabela_a." (codigo,turma,vagas,turno,horarios,salas,reserva,status,professor,elimina,semestre,ano) select codigo,turma,vagas,turno,horarios,salas,reserva,status,'0','nao','".$semestre."','".$ano."' from oferta_semestres where semestre='".$semestre."' or semestre='12'";
+		list($query_insere_tabela_provisoria, $query_insere_tabela_provisoria__p) = array("insert into ".$tabela_a." (codigo,turma,vagas,turno,horarios,salas,reserva,status,professor,elimina,semestre,ano) select codigo,turma,vagas,turno,horarios,salas,reserva,status,'0','nao',?,? from oferta_semestres where semestre=? or semestre='12'", array($semestre, $ano, $semestre));
 		echo $query_insere_tabela_provisoria;
-		$insere_tabela_provisoria=pg_query($query_insere_tabela_provisoria)  or die ("Problema de acesso ao banco");
+		$insere_tabela_provisoria=db_query($query_insere_tabela_provisoria, $query_insere_tabela_provisoria__p)  or die ("Problema de acesso ao banco");
 		//
 		if($insere_tabela_provisoria)
 			{
-			$insere_acusa_lista=pg_query("insert into oferta_acusa_lista values('".$semestre."','".$ano."','nova')");
-			echo "insert into oferta_acusa_lista values('".$semestre."','".$ano."','nova')";
+			$insere_acusa_lista=db_query("insert into oferta_acusa_lista values(?,?,'nova')", array($semestre, $ano));
 			}
 		/*
 		alteração criada em 20/04/2014 com o objetivo de incluir no programa do semestre as turmas de teoria do magistral das várias disciplinas
@@ -186,11 +188,11 @@ $tabela_a="oferta_lista_de_ofertas_nova";
 		}
 	
 
-		$query_oferta="select m.nome as disciplina, lo.* from ".$tabela_a." lo, disciplinas_mat m where lo.codigo=m.codigo and lo.status='fixa' and elimina='nao' union (select  m.nome as disciplina, lo.* from ".$tabela_a." lo, disciplinas_mat m, oferta_grupos_magistral_teoria og where lo.codigo=og.codigo_1 and og.codigo=m.codigo and lo.turma=og.turmas and lo.status='fixa' and elimina='nao' and lo.semestre=og.semestre and lo.ano=og.ano) order by disciplina,turma";
-	$oferta=pg_query($query_oferta);
+		list($query_oferta, $query_oferta__p) = array("select m.nome as disciplina, lo.* from ".$tabela_a." lo, disciplinas_mat m where lo.codigo=m.codigo and lo.status='fixa' and elimina='nao' union (select  m.nome as disciplina, lo.* from ".$tabela_a." lo, disciplinas_mat m, oferta_grupos_magistral_teoria og where lo.codigo=og.codigo_1 and og.codigo=m.codigo and lo.turma=og.turmas and lo.status='fixa' and elimina='nao' and lo.semestre=og.semestre and lo.ano=og.ano) order by disciplina,turma", array());
+	$oferta=db_query($query_oferta, $query_oferta__p);
 //disciplina | codigo | turma | vagas |  turno  |  horarios   | salas | reserva |  status | professor
         $cor_de_fundo="#FFFFFF";
-        while ($registro=pg_fetch_row($oferta))
+        while ($registro=db_fetch_row($oferta))
                 {
                 if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";
 ?>
@@ -209,20 +211,20 @@ $tabela_a="oferta_lista_de_ofertas_nova";
                 }
 
         // optativas
-        $query_oferta="select m.nome as disciplina, lo.* from ".$tabela_a." lo, disciplinas_mat m where lo.codigo=m.codigo  and lo.status='optativa' order by disciplina";
-        $oferta=pg_query($query_oferta);
+        list($query_oferta, $query_oferta__p) = array("select m.nome as disciplina, lo.* from ".$tabela_a." lo, disciplinas_mat m where lo.codigo=m.codigo  and lo.status='optativa' order by disciplina", array());
+        $oferta=db_query($query_oferta, $query_oferta__p);
 //disciplina | codigo | turma | vagas |  turno  |  horarios   | salas | reserva |  status | professor
   	$cor_de_fundo="#FFFFFF";
 	$contador=0;
-	while ($registro=pg_fetch_row($oferta))
+	while ($registro=db_fetch_row($oferta))
 		{
 	        if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";
 		?>		
 		<tr bgcolor="<? echo $cor_de_fundo;?>">
         	<td colspan=2><select name='optativas[]'>
 			<?
-			$query_disciplinas_mat[$contador]=pg_query("select codigo,nome,creditos from disciplinas_mat where status='grad' order by nome");
-			while ($registro2[$contador]=pg_fetch_row($query_disciplinas_mat[$contador])) 
+			$query_disciplinas_mat[$contador]=db_query("select codigo,nome,creditos from disciplinas_mat where status='grad' order by nome", array());
+			while ($registro2[$contador]=db_fetch_row($query_disciplinas_mat[$contador])) 
 				{
 				if ($registro2[$contador][0]==$registro[1]) $selected="selected"; else $selected="";?>
 				<option value="<? echo $registro2[$contador][0];?>" <? echo $selected;?>><? echo $registro2[$contador][0]."/".$registro2[$contador][1];?></option>
@@ -269,20 +271,26 @@ $salas=$_POST['salas'];
 $reserva=$_POST['reserva'];
 $status=$_POST['status'];
 
-$tabela=$_POST['tabela'];
+// Nome de tabela nao pode ser parametro de SQL: so aceita a tabela que o
+// proprio formulario envia (campo oculto 'tabela' = $tabela_a).
+$tabelas_permitidas = array('oferta_lista_de_ofertas_nova');
+$tabela = isset($_POST['tabela']) ? (string)$_POST['tabela'] : '';
+if (!in_array($tabela, $tabelas_permitidas, true)) {
+	die(error("Tabela invalida."));
+}
 
 for ($i=0;$i<count($optativas);$i++)
 	{
-	$query_update="update ".$tabela." set turma='".$turma[$i]."', vagas='".$vagas[$i]."', turno='".$turno[$i]."',horarios='".$horarios[$i]."',salas='".$salas[$i]."',reserva='".$reserva[$i]."', status='".$status[$i]."' where codigo='".$optativas[$i]."'";
+	list($query_update, $query_update__p) = array("update ".$tabela." set turma=?, vagas=?, turno=?,horarios=?,salas=?,reserva=?, status=? where codigo=?", array($turma[$i], $vagas[$i], $turno[$i], $horarios[$i], $salas[$i], $reserva[$i], $status[$i], $optativas[$i]));
 //	echo $query_update;
-	$res=pg_query($query_update) or die("problemas com a conexao ao banco de dados");
+	$res=db_query($query_update, $query_update__p) or die("problemas com a conexao ao banco de dados");
 	echo "Dados atualizados";
 	}
 
 
 }
 
-pg_close($idconn);
+db_close($idconn);
 ?>
 
 

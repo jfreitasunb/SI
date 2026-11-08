@@ -13,7 +13,7 @@ include("head_oferta.php");
 
 if (!isset($_POST['registra']))
 {
-$query_dados=pg_query("select coduser,name||' '||firstname as nome from users where tipo_users='professor' order by nome");
+$query_dados=db_query("select coduser,name||' '||firstname as nome from users where tipo_users='professor' order by nome", array());
 
 ?>
   <body>
@@ -40,7 +40,7 @@ $query_dados=pg_query("select coduser,name||' '||firstname as nome from users wh
 	<?
 	$cor_de_fundo="#FFFFFF";
 	$prof=0;
-	while ($registro=pg_fetch_row($query_dados))
+	while ($registro=db_fetch_row($query_dados))
 		{
 		if ($prof==0) $prof=$registro[0]; 
 		else 
@@ -75,7 +75,7 @@ $query_dados=pg_query("select coduser,name||' '||firstname as nome from users wh
 if (isset($_POST['registra']))
 {
 
-$query_dados=pg_query("select coduser from users where tipo_users='professor'");
+$query_dados=db_query("select coduser from users where tipo_users='professor'", array());
 
 $acumulado=$_POST['acumulado'];
 $um_05=$_POST['1_05'];
@@ -99,85 +99,85 @@ $dois_10=$_POST['2_10'];
 $um_11=$_POST['1_11'];
 $dois_11=$_POST['2_11'];
 
-	while ($registro=pg_fetch_row($query_dados))
+	while ($registro=db_fetch_row($query_dados))
 		{
 		if ($acumulado[$registro[0]]=="") $acumula=0; else $acumula=$acumulado[$registro[0]];
-		$query_insere_acumulado="insert into oferta_horario_noturno_acumulado_94_04 values('".$registro[0]."','".$acumula."')";
-		$res_acumulado=pg_query($query_insere_acumulado);
+		list($query_insere_acumulado, $query_insere_acumulado__p) = array("insert into oferta_horario_noturno_acumulado_94_04 values(?,?)", array($registro[0], $acumula));
+		$res_acumulado=db_query($query_insere_acumulado, $query_insere_acumulado__p);
 //		echo $query_insere_acumulado."\n";
 
 		if ($um_05[$registro[0]]=="") $turno=0; else $turno=$um_05[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','1','2005','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'1','2005',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($dois_05[$registro[0]]=="") $turno=0; else $turno=$dois_05[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','2','2005','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'2','2005',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($um_06[$registro[0]]=="") $turno=0; else $turno=$um_06[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','1','2006','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'1','2006',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($dois_06[$registro[0]]=="") $turno=0; else $turno=$dois_06[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','2','2006','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'2','2006',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($um_07[$registro[0]]=="") $turno=0; else $turno=$um_07[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','1','2007','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'1','2007',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($dois_07[$registro[0]]=="") $turno=0; else $turno=$dois_07[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','2','2007','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'2','2007',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($um_08[$registro[0]]=="") $turno=0; else $turno=$um_08[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','1','2008','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'1','2008',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($dois_08[$registro[0]]=="") $turno=0; else $turno=$dois_08[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','2','2008','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'2','2008',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($um_09[$registro[0]]=="") $turno=0; else $turno=$um_09[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','1','2009','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'1','2009',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($dois_09[$registro[0]]=="") $turno=0; else $turno=$dois_09[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','2','2009','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'2','2009',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($um_10[$registro[0]]=="") $turno=0; else $turno=$um_10[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','1','2010','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'1','2010',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($dois_10[$registro[0]]=="") $turno=0; else $turno=$dois_10[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','2','2010','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'2','2010',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($um_11[$registro[0]]=="") $turno=0; else $turno=$um_11[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','1','2011','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'1','2011',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 
 		if ($dois_11[$registro[0]]=="") $turno=0; else $turno=$dois_11[$registro[0]];
-		$query_insere="insert into oferta_horarios_rodizio_noturno values('".$registro[0]."','2','2011','".$turno."')";
-		$res_insere=pg_query($query_insere);
+		list($query_insere, $query_insere__p) = array("insert into oferta_horarios_rodizio_noturno values(?,'2','2011',?)", array($registro[0], $turno));
+		$res_insere=db_query($query_insere, $query_insere__p);
 //		echo $query_insere."\n";
 		}
 }
 
-pg_close($idconn);
+db_close($idconn);
 ?>
 

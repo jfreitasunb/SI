@@ -34,7 +34,7 @@ Ajuda para a elaboração da lista de ofertas
 </HTML>
 
 <?
-pg_close($idconn);
+db_close($idconn);
 ?>
 
 
