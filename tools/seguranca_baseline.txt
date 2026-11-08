@@ -2,9 +2,9 @@
 # Gerado por tools/scan_seguranca.php --atualiza-baseline.
 # Cada linha: caminho:linha:regra. O scanner so reporta o que NAO estiver aqui.
 atualiza_samba.php:145:crypt-fraco
-global/function_php.php:662:hash-fraco
-ler_atas.php:40:crypt-fraco
-ler_resolucoes.php:42:crypt-fraco
+global/function_php.php:637:hash-fraco
+ler_atas.php:41:crypt-fraco
+ler_resolucoes.php:43:crypt-fraco
 modules/account/add_user3.php:89:crypt-fraco
 modules/account/c_cont.php:64:senha-hardcoded
 modules/account/c_cont.php:68:crypt-fraco
@@ -13,6 +13,7 @@ modules/account/imprime_dados_conta.php:88:sql-interpolada
 modules/aliases/head_aliases.php:19:pg-legado
 modules/contas_especiais/incluir_conta.php:179:xss-echo
 modules/contas_especiais/incluir_conta.php:302:xss-echo
+modules/lista_oferta/utils/moduleUT.php:60:crypt-fraco
 modules/listas_mail/usuarios.php:122:xss-echo
 modules/listas_mail/usuarios.php:341:xss-echo
 modules/modif_senhas/add_user3.php:79:crypt-fraco
@@ -39,6 +40,5 @@ modules/usuario/utilidades/aluno.php:65:pg-legado
 modules/usuario/utilidades/aluno.php:65:sql-interpolada
 modules/usuario/utilidades/aluno_original.php:33:pg-legado
 muda_senha/mudarsenha.php:43:crypt-fraco
-mudarsenha.php:45:crypt-fraco
-mudarsenha.php:48:crypt-fraco
-prioriza_licencas.php:47:crypt-fraco
+mudarsenha.php:47:crypt-fraco
+prioriza_licencas.php:55:crypt-fraco

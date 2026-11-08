@@ -27,6 +27,16 @@ reauditar tudo.
   SameSite=Lax), incluido antes de cada `session_start()`.
 - **Upload**: whitelist de extensao + validacao de conteudo (`finfo`) +
   `.htaccess` desabilitando execucao nas pastas de upload.
+- **Anexos de documentos**: `modules/servidor_admin/anexos/` nao e servida pela
+  web; o download passa por `baixa_anexo.php` (exige login no modulo 79).
+- **Forca bruta**: `global/limite_login.php` — falhas de login ficam na tabela
+  `login_falha` (5 por login ou 30 por IP em 15 min bloqueiam). Vale para todos
+  os formularios que conferem senha. **Requer a migracao
+  `sql/2026-11-08_login_falha.sql`**; sem ela o limite fica inativo (so loga erro).
+- **CSRF em AJAX**: `csrf_injeta()` configura o jQuery para enviar o token no
+  cabecalho `X-CSRF-Token`; `csrf_valida()` aceita campo ou cabecalho.
+- **Docker/nginx**: o nginx ignora `.htaccess`; `docker/nginx/conf.d/default.conf`
+  reproduz as mesmas regras. Ao criar um `.htaccess` novo, replique-o la.
 
 ## Scanner de regressao (nao reauditar tudo)
 
