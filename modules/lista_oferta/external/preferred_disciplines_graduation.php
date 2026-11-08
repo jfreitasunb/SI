@@ -9,6 +9,11 @@ $semester = $semesterMC->last();
 
 require_once $ROOT_PATH_MAIN.'global/sessao_cookie.php';
 session_start();
+// CSRF: valida POSTs e injeta o token nos formularios (paginas sem header.php).
+require_once $ROOT_PATH_MAIN.'global/function_php.php';
+csrf_valida();
+csrf_token();
+ob_start('csrf_injeta');
 
 if ($_POST && isset($_POST['logout'])) {
 	session_unset();

@@ -10,6 +10,10 @@ require("estudos/pgsql.php");
 if (!function_exists('db_connect')) {
    require_once(dirname(__FILE__).'/global/function_php.php'); // login_bloqueado() etc.
 }
+// CSRF: valida o POST de login e injeta o token nos formularios.
+csrf_valida();
+csrf_token();
+ob_start('csrf_injeta');
 //require("estudos/formulario1.php");
 //require("muda_senha/header.php");
 

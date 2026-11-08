@@ -20,7 +20,13 @@ class ModuleUT {
 
 		// A senha nunca fica em sessao: secure('', '') valida a sessao autenticada
 		// (flag + vinculo de IP) e a permissao no modulo.
-		if ($DEVELOPMENT || secure('', '', $moduleID)) {
+		if ($DEVELOPMENT) {
+			return TRUE;
+		}
+		if (secure('', '', $moduleID)) {
+			// Endpoints AJAX que alteram dados: exige o token CSRF da sessao
+			// (enviado pelo jQuery no cabecalho X-CSRF-Token, ver csrf_injeta()).
+			csrf_valida();
 			return TRUE;
 		}
 		return FALSE;

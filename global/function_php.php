@@ -502,7 +502,7 @@ function csrf_injeta($html)
         }
     }
 
-    return preg_replace_callback('/<form\b[^>]*>/i', function ($m) {
+    $html = preg_replace_callback('/<form\b[^>]*>/i', function ($m) {
         $tag = $m[0];
         // So protege formularios POST (GET sao navegacao/leitura).
         if (preg_match('/method\s*=\s*["\']?\s*post/i', $tag)) {
@@ -510,12 +510,25 @@ function csrf_injeta($html)
         }
         return $tag;
     }, $html);
+
+    // Requisicoes AJAX (jQuery): envia o token no cabecalho X-CSRF-Token.
+    // Injetado no fim do <body>, depois de todos os <script> da pagina.
+    $script = '<script>if(window.jQuery){jQuery.ajaxSetup({headers:{"X-CSRF-Token":'
+            . json_encode(csrf_token(), JSON_HEX_TAG) . '}});}</script>';
+    $pos = strripos($html, '</body>');
+    if ($pos !== false) {
+        $html = substr($html, 0, $pos) . $script . substr($html, $pos);
+    }
+    return $html;
 }
 
-// Valida o token em requisicoes POST. Deve ser chamada no header, antes de processar.
+// Valida o token em requisicoes que alteram estado (POST/PUT/PATCH/DELETE).
+// Aceita o token no campo csrf_token do formulario ou no cabecalho X-CSRF-Token (AJAX).
+// Deve ser chamada antes de processar a requisicao.
 function csrf_valida()
 {
-    if (!isset($_SERVER['REQUEST_METHOD']) || strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
+    $metodo = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
+    if (in_array($metodo, array('GET', 'HEAD', 'OPTIONS'), true)) {
         return;
     }
 
@@ -526,7 +539,13 @@ function csrf_valida()
         return;
     }
 
-    $enviado = isset($_POST['csrf_token']) ? $_POST['csrf_token'] : '';
+    if (isset($_POST['csrf_token'])) {
+        $enviado = $_POST['csrf_token'];
+    } elseif (isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+        $enviado = $_SERVER['HTTP_X_CSRF_TOKEN'];
+    } else {
+        $enviado = '';
+    }
     if (!is_string($enviado) || !hash_equals($esperado, $enviado)) {
         die(error("Requisicao invalida (CSRF). Recarregue a pagina e tente novamente."));
     }
