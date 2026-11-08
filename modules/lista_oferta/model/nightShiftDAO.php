@@ -21,11 +21,13 @@ class NightShiftDAO extends DAO {
 		$this->table2 = "oferta_horarios_rodizio_noturno_creditos";
 	}
 
-	public function filter($filter, $year, $semester = null, $order = null, $offset = null, $limit = null) {
+	public function filter($filter, $year = null, $semester = null, // $year opcional: compativel com DAO (PHP 8)
+	                        $order = null, $offset = null, $limit = null) {
 		$where = $this->whereFromFilter($filter);
 		$where .= strlen($where) > 0 ? " AND " : " WHERE ";
+		$year = (int)$year;
 		$where .= $this->attributeMap["year"]." < $year";
-		$where .= $semester !== null ? " OR (".$this->attributeMap["year"]." = $year AND ".$this->attributeMap["semester"]." < $semester)" : "";
+		$where .= $semester !== null ? " OR (".$this->attributeMap["year"]." = $year AND ".$this->attributeMap["semester"]." < ".(int)$semester.")" : "";
 
 		$order = $this->orderBy($order);
 
@@ -48,10 +50,6 @@ class NightShiftDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			p($res);
-			throw new Exception("Error: $sql");
-		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 

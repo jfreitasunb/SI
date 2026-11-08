@@ -59,10 +59,6 @@ class OfferListTemporaryDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Error: $sql");
-		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
@@ -90,10 +86,6 @@ class OfferListTemporaryDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			p($res);
-			throw new Exception("Error: $sql");
-		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
@@ -133,10 +125,6 @@ class OfferListTemporaryDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Erro: $sql");
-		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
@@ -154,10 +142,6 @@ class OfferListTemporaryDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Error: $sql");
-		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 

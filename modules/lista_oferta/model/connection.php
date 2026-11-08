@@ -1,60 +1,40 @@
 <?php
 
+/**
+ * Conexao PDO unica (por requisicao) usada pelos DAOs do lista_oferta.
+ * As credenciais vem de $DB (conf/default.php), que por sua vez usa db_config()
+ * — a mesma configuracao do resto do sistema.
+ */
 class Connection {
-	private static $instance;
+	/** @var PDO|null */
+	private static $instance = null;
 
 	private function __construct() {
-
 	}
 
 	/**
-	 * @return MDB2_Driver_pgsql
-	 * @throws Exception
-     */
+	 * @return PDO
+	 * @throws PDOException
+	 */
 	public static function getInstance() {
-		if (!isset(self::$instance)) {
-        	GLOBAL $DB;
-        	$db = $DB;
+		if (self::$instance === null) {
+			global $DB;
 
-	        $dsn = array(
-				'phptype'  => 'pgsql',
-				'username' => $db["user"],
-				'password' => $db["password"],
-				'hostspec' => $db["host"],
-				'database' => $db["dbname"],
-				'port'     => $db["dbport"],
-			);
+			$dsn = "pgsql:host=" . $DB["host"] . ";port=" . $DB["dbport"] . ";dbname=" . $DB["dbname"];
+			try {
+				// Usuario e senha como argumentos (nao no DSN), para nunca aparecerem em mensagens de erro.
+				$pdo = new PDO($dsn, $DB["user"], $DB["password"]);
+			} catch (PDOException $e) {
+				error_log("lista_oferta Connection: " . $e->getMessage());
+				throw new PDOException("Erro de acesso ao banco", (int)$e->getCode());
+			}
+			// Erros de SQL viram excecao (os DAOs nao precisam checar errorInfo()).
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			// Valores como string, como o MDB2/pg_* que o codigo original usava.
+			$pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, true);
 
-			$options = array(
-	            'debug'       => 2,
-	            'portability' => DB_PORTABILITY_ALL,
-				//'disable_smart_seqname' => false
-            );
-
-            try{
-                $pdo = new PDO("pgsql:host=".$dsn['hostspec'].";port=".$dsn['port'].";dbname=".$dsn['database'].";user=".$dsn['username'].";password=".$dsn['password']);
-            }catch (\PDOException $e){
-                throw new \PDOException($e->getMessage(), (int)$e->getCode());
-            }
-            //$mdb2 = new MDB2();
-
-			//self::$instance = $mdb2->connect($dsn, $options);
-
-			//if ($mdb2->isError(self::$instance)) {
-			//	print_r(self::$instance);
-				//die($this->_db->getMessage());
-			//	throw new Exception("Erro de acesso ao banco");
-			//}
-
-			//if(isset($CHARSET))
-			//	self::$instance->setCharset($CHARSET);
-
-			//self::$instance->loadModule('Extended', null, false);
-			//self::$instance->setFetchMode(MDB2_FETCHMODE_ASSOC);
+			self::$instance = $pdo;
 		}
-        //return self::$instance;
-        return $pdo;
+		return self::$instance;
 	}
 }
-
-?>

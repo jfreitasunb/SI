@@ -62,10 +62,6 @@ class MagisterialDisciplineDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Select error: $sql");
-		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 

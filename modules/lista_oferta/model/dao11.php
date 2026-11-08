@@ -12,11 +12,6 @@ abstract class DAO1x1 extends DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			//print_r($res);
-			$this->_db->rollback();
-			throw new Exception("Error: $sql");
-		}
 
 		if ($this->_db->inTransaction()) {
 			$this->_db->commit();

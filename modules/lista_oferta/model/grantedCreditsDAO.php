@@ -133,10 +133,6 @@ class GrantedCreditsDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Error: $sql");
-		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
@@ -180,10 +176,6 @@ class GrantedCreditsDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Error: $sql");
-		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
@@ -206,10 +198,6 @@ class GrantedCreditsDAO extends DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Error: $sql");
-		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 

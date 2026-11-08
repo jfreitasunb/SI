@@ -101,10 +101,6 @@ class CourseDAO extends DAO1x1 {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Error: $sql");
-		}
 
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 

@@ -42,6 +42,28 @@ abstract class DAO {
 	}
 
 
+	/**
+	 * Valor escapado e entre aspas pelo driver (PDO::quote), para SQL montado dinamicamente.
+	 * @param mixed $value
+	 * @return string
+	 */
+	protected function quoteValue($value) {
+		return $this->_db->quote((string)$value);
+	}
+
+	/**
+	 * Valida um nome de coluna (ex.: "coduser" ou "U.coduser"). Os nomes vem dos
+	 * attributeMap do codigo; qualquer outra coisa e rejeitada.
+	 * @param string $field
+	 * @return string
+	 */
+	protected function identifier($field) {
+		if (!preg_match('/^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)?$/', (string)$field)) {
+			throw new InvalidArgumentException("Nome de campo invalido.");
+		}
+		return $field;
+	}
+
     /**
      * @param array[string] $filter
      * @param array[string] $attributes or null
@@ -53,9 +75,7 @@ abstract class DAO {
 		}
 
 		$where = "";
-		//Para versão do PHP no servidor
-		//if(is_array($filter) && sizeof($filter)) {
-		
+
 		if(is_array($filter) && sizeof($filter)) {
 			foreach($filter as $key => $value)
 			{
@@ -64,11 +84,11 @@ abstract class DAO {
 				} else {
 					$field = $key;
 				}
-				$field = pg_escape_string($field);
+				$field = $this->identifier($field);
 				if($value === null) {
 					$sqlValue = "IS NULL";
 				} else {
-					$sqlValue = "= '".pg_escape_string($value)."'";
+					$sqlValue = "= ".$this->quoteValue($value);
 				}
 				$where .= " $field $sqlValue AND";
 			}
@@ -102,7 +122,11 @@ abstract class DAO {
 				} else {
 					$field = $key;
 				}
-				$orderBy .= " ".pg_escape_string($field)." ".pg_escape_string($value).",";
+				$direcao = strtoupper(trim((string)$value));
+				if ($direcao !== self::ORDER_ASCENDANT && $direcao !== self::ORDER_DESCENDANT) {
+					$direcao = self::ORDER_ASCENDANT;
+				}
+				$orderBy .= " ".$this->identifier($field)." ".$direcao.",";
 			}
 		}
 
@@ -128,10 +152,11 @@ abstract class DAO {
 
 		foreach($fields as $key => $value)
 		{
+			$field = $this->identifier($attributes[$key]);
 			if($value === null) {
-				$return .= " ".$attributes[$key]." = null,";
+				$return .= " ".$field." = null,";
 			} else {
-				$return .= " ".$attributes[$key]." = '".pg_escape_string($value)."',";
+				$return .= " ".$field." = ".$this->quoteValue($value).",";
 			}
 		}
 
@@ -153,7 +178,7 @@ abstract class DAO {
 
 		foreach($attributes as $key => $value)
 		{
-			$select .= " ".pg_escape_string($value)." AS $key,";
+			$select .= " ".$this->identifier($value)." AS ".$this->identifier($key).",";
 		}
 
 		return substr($select, 0, strlen($select) - 1);
@@ -174,7 +199,7 @@ abstract class DAO {
 
 		foreach($fields as $key => $value)
 		{
-			$return .= $attributes[pg_escape_string($key)].", ";
+			$return .= $this->identifier($attributes[$key]).", ";
 		}
 
 		$return = substr($return, 0, strlen($return) - 2).")";
@@ -192,8 +217,8 @@ abstract class DAO {
 
 		foreach($fields as $value)
 		{
-			if(strlen($value) != 0)
-				$return .= "'".pg_escape_string($value)."',";
+			if(strlen((string)$value) != 0)
+				$return .= $this->quoteValue($value).",";
 			else
 				$return .= "null,";
 		}
@@ -204,7 +229,7 @@ abstract class DAO {
 	}
 
 	protected function disconnect() {
-		$this->_db->disconnect();
+		// PDO: a conexao e unica por requisicao (Connection::getInstance) e fecha ao final.
 	}
 
 
@@ -221,11 +246,8 @@ abstract class DAO {
 
 		$order = $this->orderBy($order);
 
-		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
-
-		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+		$limit = (strlen((string)$limit) > 0) ? "LIMIT ".(int)$limit : "";
+		$offset = (strlen((string)$offset) > 0) ? "OFFSET ".(int)$offset : "";
 
 		$sql = "SELECT ".$this->attributesSelect()." FROM $this->table $where $order $limit $offset";
 
@@ -256,11 +278,6 @@ abstract class DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			$this->_db->rollback();
-			throw new Exception("PK error: ".$this->table."_".$this->attributeMap["id"]."_seq");
-		}
 		$list = $res->fetchAll(PDO::FETCH_OBJ);
 
 		$id = $list[0]->nextval;
@@ -286,11 +303,6 @@ abstract class DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			$this->_db->rollback();
-			throw new Exception("Insertion error: $sql");
-		}
 
 		if ($this->_db->inTransaction()) {
 			$this->_db->commit();
@@ -324,10 +336,6 @@ abstract class DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Error: $sql");
-		}
 
 		return $this->filter($filter);
 	}
@@ -346,10 +354,6 @@ abstract class DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Error: $sql");
-		}
 	}
 
 
@@ -363,10 +367,6 @@ abstract class DAO {
 
         $res->execute();
 
-		if($this->_db->errorInfo($res)) {
-			print_r($res);
-			throw new Exception("Sql error: $sql");
-		}
 
 		return $res;
 	}
