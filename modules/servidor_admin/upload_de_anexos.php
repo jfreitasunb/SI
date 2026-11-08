@@ -166,6 +166,12 @@ while ($tipo=db_fetch_row($query_tipos))
         if ($documento[$tipo[0]]!="nulo") $id_documento=$documento[$tipo[0]];
         }
 
+// O id do documento compoe o nome do arquivo gravado: so aceita inteiro
+// (impede path traversal, ex.: documento[x]=../../algum/lugar).
+if (!isset($id_documento) || !ctype_digit((string)$id_documento)) {
+	die(error("Documento invalido."));
+}
+
 
 
 // Pasta onde o arquivo vai ser salvo

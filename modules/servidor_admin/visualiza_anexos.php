@@ -195,7 +195,7 @@ echo "<tr><td colspan=2><b>Lista de anexos ao documento :".$sigla." ".$documento
 
 while ($registro=db_fetch_row($query_anexos))
 	{
-	echo "<br /><a href=\"" . $_UP['pasta'] . $registro[0] . "\"> ".$registro[0]. " Clique aqui para acessar o arquivo</a>";
+	echo "<br /><a href=\"" . h($_UP['pasta'] . rawurlencode($registro[0])) . "\"> ".h($registro[0]). " Clique aqui para acessar o arquivo</a>";
 	}
 ?>
 
