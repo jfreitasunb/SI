@@ -25,7 +25,7 @@ class LOMainVC extends VC {
 	public function fillActivityList($professorList) {
 		$class = 0;
 		foreach ($professorList as $professor) {
-			if (count($professor->activity) == 0) {
+			if (empty($professor->activity)) { // PHP 8: count(null) e erro
 				$activity = new stdClass();
 				$activity->credits = "-";
 
@@ -57,7 +57,7 @@ class LOMainVC extends VC {
 		$this->fillObjectBody($this->semester, "empty_semester_");
 	}
 
-	protected function fillBody() {
+	protected function fillBody($form = true) { // assinatura compativel com VC (PHP 8)
 		parent::fillBody(false);
 
 		$tpl = new HTML_Template_Sigma($this->root_path.'template/activityList');

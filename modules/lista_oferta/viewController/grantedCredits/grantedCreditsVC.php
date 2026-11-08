@@ -45,7 +45,7 @@ class GrantedCreditsVC extends VC {
 		$this->fillListBody($teacherList, "teacher_", "add_teacher");
 	}
 
-	protected function fillBody() {
+	protected function fillBody($form = true) { // assinatura compativel com VC (PHP 8)
 		parent::fillBody(false);
 
 		$tpl = new HTML_Template_Sigma($this->root_path.'template/grantedCredits');

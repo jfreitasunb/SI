@@ -57,6 +57,11 @@ foreach ($offerList as $offer) {
 	$obj->schedule = $offer->schedule;
 	$obj->credits = $offer->discipline_credits;
 
+	// PHP 8: professor fora da lista de ativos (ou turma sem professor) e ignorado,
+	// em vez de criar um registro "fantasma" sem nome como no PHP 7.
+	if (!isset($professorList[$offer->professor])) {
+		continue;
+	}
 	$professorList[$offer->professor]->credits_total += $offer->discipline_credits;
 	$professorList[$offer->professor]->activity[] = $obj;
 	unset($obj);
@@ -88,7 +93,10 @@ if (count($grantedCreditsList)) {
 		$obj->credits = round($grantedCredit->credits, 2);
 
 		if ($grantedCredit->group_id == 10) {
-			$professorList[$grantedCredit->teacher]->credits_total += $obj->credits;
+			if (!isset($professorList[$grantedCredit->teacher])) {
+			continue;
+		}
+		$professorList[$grantedCredit->teacher]->credits_total += $obj->credits;
 			$professorList[$grantedCredit->teacher]->activity[] = $obj;
 		}
 		

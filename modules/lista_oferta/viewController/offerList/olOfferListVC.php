@@ -88,7 +88,7 @@ class OfferListVC extends VC {
 		$this->credits = $credits;
 	}
 
-	protected function fillBody() {
+	protected function fillBody($form = true) { // assinatura compativel com VC (PHP 8)
 		parent::fillBody(false);
 
 		$tplDistribute = new HTML_Template_Sigma($this->root_path.'template/offerList');

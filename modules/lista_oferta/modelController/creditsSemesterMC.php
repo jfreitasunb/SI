@@ -46,7 +46,7 @@ class CreditsSemesterMC extends MC {
 	}
 
 
-	public function insertUpdate($arrayIdsProfessorsCredits, $semester, $listCreditsSemesterProfessors = NULL) {
+	public function insertUpdate($arrayIdsProfessorsCredits, $semester = NULL, $listCreditsSemesterProfessors = NULL) { // $semester opcional: compativel com MC (PHP 8)
 		if ($listCreditsSemesterProfessors !== NULL && count($listCreditsSemesterProfessors)) {
 			$filter['year'] = $semester->year;
 			$filter['semester'] = $semester->semester;

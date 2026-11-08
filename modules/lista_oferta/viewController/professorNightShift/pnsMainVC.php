@@ -37,7 +37,7 @@ class PNSMainVC extends VC {
 		$this->logged = $logged;
 	}
 
-	protected function fillBody() {
+	protected function fillBody($form = true) { // assinatura compativel com VC (PHP 8)
 		parent::fillBody(false);
 
 		if ($this->logged) {

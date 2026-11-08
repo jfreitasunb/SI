@@ -36,7 +36,7 @@ class MAEditVC extends VC {
 		}
 	}
 
-	protected function fillBody() {
+	protected function fillBody($form = true) { // assinatura compativel com VC (PHP 8)
 		$form = new stdClass();
 		$form->id = "activity_form";
 		$form->action = LinkUT::activitiesList();

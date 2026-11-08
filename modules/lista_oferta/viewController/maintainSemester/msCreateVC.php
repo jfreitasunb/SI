@@ -24,7 +24,7 @@ class MSCreateVC extends VC {
 		$this->fillListBody($listSemesters, "semester_", "add_semester");
 	}
 
-	protected function fillBody() {
+	protected function fillBody($form = true) { // assinatura compativel com VC (PHP 8)
 		$form = new stdClass();
 		$form->id = "create_semester_form";
 

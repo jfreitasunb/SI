@@ -51,7 +51,7 @@ class MaintainClassesVC extends VC {
 		$this->fillList($this->tplBody2, $listPeriods, "period_", "add_period");
 	}
 
-	protected function fillBody() {
+	protected function fillBody($form = true) { // assinatura compativel com VC (PHP 8)
 		parent::fillBody(NULL);
 
 		$this->addBodyToMainTemplate($this->tplBody2->get());

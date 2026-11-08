@@ -51,7 +51,7 @@ class MCEditVC extends VC {
 		}
 	}
 
-	protected function fillBody() {
+	protected function fillBody($form = true) { // assinatura compativel com VC (PHP 8)
 		$form = new stdClass();
 		$form->id = "course_form";
 		$form->action = LinkUT::courseList();
