@@ -54,5 +54,9 @@ RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
 
+# Biblioteca de templates PEAR usada pelo modulo lista_oferta (viewController/vc.php)
+RUN pear install HTML_Template_Sigma-1.4.0 \
+    && pear clear-cache
+
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
