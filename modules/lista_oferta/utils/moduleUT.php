@@ -12,10 +12,15 @@ class ModuleUT {
 
 		require_once $ROOT_PATH_MAIN.'global/function_php.php';
 
-		session_start();
+		require_once $ROOT_PATH_MAIN.'global/sessao_cookie.php';
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
 		db_connect();
 
-		if ($DEVELOPMENT || secure($_SESSION['login'], $_SESSION['passwd'], $moduleID)) {
+		// A senha nunca fica em sessao: secure('', '') valida a sessao autenticada
+		// (flag + vinculo de IP) e a permissao no modulo.
+		if ($DEVELOPMENT || secure('', '', $moduleID)) {
 			return TRUE;
 		}
 		return FALSE;

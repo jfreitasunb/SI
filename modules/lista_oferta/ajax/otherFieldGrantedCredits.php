@@ -1,5 +1,12 @@
 <?php
 require_once dirname(__FILE__).'/../conf/default.php';
+require_once $ROOT_PATH.'utils/moduleUT.php';
+
+// Exige usuario autenticado em um dos modulos que usam a tela de creditos concedidos.
+if (!(ModuleUT::haveUserLogged($ID_MODULE) || ModuleUT::haveUserLogged($ID_MODULE_SECRETARY_GRADUATION) || ModuleUT::haveUserLogged($ID_MODULE_SECRETARY_POST))) {
+	echo json_encode(array('success' => false, 'message' => 'Acesso negado.'));
+	exit;
+}
 
 require_once $ROOT_PATH.'modelController/grantedCreditsMC.php';
 
