@@ -56,7 +56,7 @@ abstract class DAO {
 		//Para versão do PHP no servidor
 		//if(is_array($filter) && sizeof($filter)) {
 		
-		if(sizeof($filter)) {
+		if(is_array($filter) && sizeof($filter)) {
 			foreach($filter as $key => $value)
 			{
 				if (array_key_exists($key, $attributes)) {
