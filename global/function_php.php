@@ -87,6 +87,7 @@ function db_connect()
         $pdo->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, true);
         return $pdo;
     } catch (PDOException $e) {
+        error_log("db_connect: " . $e->getMessage());
         die("The server ".$host." seems to be have many problem. Please try again in a few time.");
     }
 }
