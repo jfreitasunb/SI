@@ -133,7 +133,7 @@
 */ ?>
 	<input type=hidden name='coduser' value="<?php echo h($_POST['coduser']) ?>">
 	<input type=hidden name='login' value="<?php echo h($_POST['login']) ?>">
-	<input type=hidden name='tipo_contrato' value="<?php echo $tipo_contrato[0] ?>">
+	<input type=hidden name='tipo_contrato' value="<?php echo h($tipo_contrato[0]) ?>">
 	<! td class=header align=center colspan=2>
 	<h1>O login fornecido j&aacute; existe</h1><br>Informa&ccedil;&otilde;es sobre a conta
 	<!/td>

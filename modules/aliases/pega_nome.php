@@ -39,7 +39,7 @@
 //		       $sobrenome=mb_convert_encoding($tab['firstname'],"ISO-8859-1","UTF-8");
  		       $nome=$tab['name'];
 		       $sobrenome=$tab['firstname'];
-		       $param="'".$tab['login']."','".$nome." ".$sobrenome."'"; //.$nb_perm."'"; //tab['firstname']."','".$tab['matricul']."'";
+		       $param=js_str($tab['login']).','.js_str($nome.' '.$sobrenome); //.$nb_perm."'"; //tab['firstname']."','".$tab['matricul']."'";
 	              $param=str_replace(CHR(10)," ",$param);
 	             $param=str_replace(CHR(13)," ",$param);
 	?>
@@ -48,9 +48,9 @@
 	               </script>
 	<?php
 	
-	               echo "<option value='".$tab['coduser']."-".$nome."-".$sobrenome."'";
+	               echo "<option value='".h($tab['coduser'])."-".h($nome)."-".h($sobrenome)."'";
 	               if ($_GET['US']==$tab['coduser']) echo " selected  ";
-	               echo ">".$nome." ".$sobrenome."</option>";
+	               echo ">".h($nome)." ".h($sobrenome)."</option>";
 	        	}
 	?>
 	            </select>

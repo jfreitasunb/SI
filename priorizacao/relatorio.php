@@ -117,61 +117,61 @@ $fim_ultima=$registro[34];
       </tr>
      <tr>    
         <td align=center><b> Informa&ccedil;&otilde;es sobre o per&iacute;odo: de <?php   echo $semestre_inicio."/".$ano_inicio;?> a <?php   echo $semestre_fim."/".$ano_fim;?> </b> </td></tr>
-        <td align=center><b> &Uacute;ltimas licen&ccedil;as: <?php echo $licencas;?></b> </td></tr>
+        <td align=center><b> &Uacute;ltimas licen&ccedil;as: <?php echo h($licencas);?></b> </td></tr>
         <tr><td align=center>
 	<table border>
 	<tr><td colspan="2" align=center><b>Atividades de ensino/orienta&ccedil;&atilde;o</b></td></tr>
-	<tr><td>Carga did&aacute;tica (disciplinas regulares gradua&ccedil;&atilde;o/p&oacute;s-gradua&ccedil;&atilde;o exceto est&aacute;gios de pesquisa)</td><td><?php  echo $creditos;?></td></tr>
-	<tr><td>Coordena&ccedil;&atilde;o de disciplina de servi&ccedil;o </td><td align=center> <?php  echo $coord_massa;?></td></tr>
-	<tr><td>Orienta&ccedil;&atilde;o de monografia de especializa&ccedil;&atilde;o (do MAT/UnB)</td><td align=center> <?php   echo $monografia_esp_mat;?></td></tr>
-	<tr><td>Ministrante/orienta&ccedil;&atilde;o em projeto de PROFMAT/Especializa&ccedil;&atilde;o</td><td align=center><?php   echo $esp_profmat;?></td></tr>
+	<tr><td>Carga did&aacute;tica (disciplinas regulares gradua&ccedil;&atilde;o/p&oacute;s-gradua&ccedil;&atilde;o exceto est&aacute;gios de pesquisa)</td><td><?php  echo h($creditos);?></td></tr>
+	<tr><td>Coordena&ccedil;&atilde;o de disciplina de servi&ccedil;o </td><td align=center> <?php  echo h($coord_massa);?></td></tr>
+	<tr><td>Orienta&ccedil;&atilde;o de monografia de especializa&ccedil;&atilde;o (do MAT/UnB)</td><td align=center> <?php   echo h($monografia_esp_mat);?></td></tr>
+	<tr><td>Ministrante/orienta&ccedil;&atilde;o em projeto de PROFMAT/Especializa&ccedil;&atilde;o</td><td align=center><?php   echo h($esp_profmat);?></td></tr>
 	</table>
 	</td></tr>
 	<tr><td align=center>
 	<table border>
 	<tr><td colspan="2" align=center><b>Atividades de pesquisa</b></td></tr>
-	<tr><td>Publica&ccedil;&atilde;o de livro </td><td align=center> <?php   echo $pub_livro;?></td></tr>
-	<tr><td>Publica&ccedil;&atilde;o de artigo de pesquisa em revista arbitrada </td><td align=center> <?php   echo $pub_art_arb;?></td></tr>
-	<tr><td>Publica&ccedil;&atilde;o de cap&iacute;tulo de livro </td><td align=center> <?php   echo $pub_cap_livro;?></td></tr>
-	<tr><td>Publica&ccedil;&atilde;o em anais de congressos/artigo de divulga&ccedil;&atilde;o </td><td align=center> <?php   echo $pub_res_an_div;?></td></tr>
-	<tr><td>Apresenta&ccedil;&atilde;o de trabalho oral em evento </td><td align=center> <?php   echo $apr_oral_evento;?></td></tr>
-	<tr><td>Apresenta&ccedil;&atilde;o de poster em evento </td><td align=center><?php   echo $apr_poster_evento;?></td></tr>
-	<tr><td>Coordena&ccedil;&atilde;o de projeto (n&atilde;o individual) com financiamento </td><td align=center><?php   echo $coord_proj_fin;?></td></tr>
+	<tr><td>Publica&ccedil;&atilde;o de livro </td><td align=center> <?php   echo h($pub_livro);?></td></tr>
+	<tr><td>Publica&ccedil;&atilde;o de artigo de pesquisa em revista arbitrada </td><td align=center> <?php   echo h($pub_art_arb);?></td></tr>
+	<tr><td>Publica&ccedil;&atilde;o de cap&iacute;tulo de livro </td><td align=center> <?php   echo h($pub_cap_livro);?></td></tr>
+	<tr><td>Publica&ccedil;&atilde;o em anais de congressos/artigo de divulga&ccedil;&atilde;o </td><td align=center> <?php   echo h($pub_res_an_div);?></td></tr>
+	<tr><td>Apresenta&ccedil;&atilde;o de trabalho oral em evento </td><td align=center> <?php   echo h($apr_oral_evento);?></td></tr>
+	<tr><td>Apresenta&ccedil;&atilde;o de poster em evento </td><td align=center><?php   echo h($apr_poster_evento);?></td></tr>
+	<tr><td>Coordena&ccedil;&atilde;o de projeto (n&atilde;o individual) com financiamento </td><td align=center><?php   echo h($coord_proj_fin);?></td></tr>
 	</table>
 	</td></tr>
 	<tr><td align=center>
 	<table border>
 	<tr><td colspan="2" align=center><b>Atividades de p&oacute;s-gradua&ccedil;&atilde;o</b></td></tr>
-	<tr><td>Orienta&ccedil;&atilde;o de mestrado</td><td><?php  echo $creditos_pesq_mestrado;?></td></tr>
-	<tr><td>Orienta&ccedil;&atilde;o de doutorado</td><td><?php  echo $creditos_pesq_doutorado;?></td></tr>
-	<tr><td>Banca de mestrado/doutorado </td><td align=center><?php   echo $banca_mes_dou;?></td></tr>
-	<tr><td>Exame de qualifica&ccedil;&atilde;o ao doutorado </td><td align=center> <?php  echo $exame_qualif_dou;?></td></tr>
-	<tr><td>Exame de qualifica&ccedil;&atilde;o ao mestrado (do MAT/UnB) </td><td align=center> <?php echo $exame_qualif_mest;?></td></tr>
-	<tr><td>Exame de L&iacute;nguas (do MAT/UnB) </td><td align=center> <?php echo $exame_linguas;?></td></tr>
+	<tr><td>Orienta&ccedil;&atilde;o de mestrado</td><td><?php  echo h($creditos_pesq_mestrado);?></td></tr>
+	<tr><td>Orienta&ccedil;&atilde;o de doutorado</td><td><?php  echo h($creditos_pesq_doutorado);?></td></tr>
+	<tr><td>Banca de mestrado/doutorado </td><td align=center><?php   echo h($banca_mes_dou);?></td></tr>
+	<tr><td>Exame de qualifica&ccedil;&atilde;o ao doutorado </td><td align=center> <?php  echo h($exame_qualif_dou);?></td></tr>
+	<tr><td>Exame de qualifica&ccedil;&atilde;o ao mestrado (do MAT/UnB) </td><td align=center> <?php echo h($exame_qualif_mest);?></td></tr>
+	<tr><td>Exame de L&iacute;nguas (do MAT/UnB) </td><td align=center> <?php echo h($exame_linguas);?></td></tr>
 	</table>
 	</td></tr>
 	<tr><td align=center>
 	<table border>
 	<tr><td colspan="2" align="center"><b>Atividades de extens&atilde;o</b></td></tr>
-	<tr><td>Orienta&ccedil;&atilde;o de alunos de PIBIC, PIBID, PEAC ou PET </td><td align=center> <?php   echo $orient_pibs_pet;?></td></tr>
-	<tr><td>Tutoria do PET </td><td align=center> <?php   echo $tutor_pet;?></td></tr>
-	<tr><td>Coordena&ccedil;&atilde;o PIBID, PEAC </td><td align=center> <?php   echo $coord_pibid;?></td></tr>
-	<tr><td>Coordena&ccedil;&atilde;o de projeto de extens&atilde;o (que n&atilde;o seja PEAC)</td><td align=center> <?php   echo $coord_ext_profmat;?></td></tr>
-	<tr><td>Organiza&ccedil;&atilde;o de evento local/regional </td><td align=center><?php   echo $org_local_reg;?></td></tr>
-	<tr><td>Organiza&ccedil;&atilde;o de evento nacional/internacional </td><td align=center><?php   echo $org_nac_inter;?></td></tr>
-	<tr><td>Coordena&ccedil;&atilde;o da Escola de Ver&atilde;o </td><td align=center> <?php   echo $coord_verao;?></td></tr>
-	<tr><td>Coordena&ccedil;&atilde;o da Semana de Matem&aacute;tica </td><td align=center> <?php   echo $coord_sem_mat;?></td></tr>
+	<tr><td>Orienta&ccedil;&atilde;o de alunos de PIBIC, PIBID, PEAC ou PET </td><td align=center> <?php   echo h($orient_pibs_pet);?></td></tr>
+	<tr><td>Tutoria do PET </td><td align=center> <?php   echo h($tutor_pet);?></td></tr>
+	<tr><td>Coordena&ccedil;&atilde;o PIBID, PEAC </td><td align=center> <?php   echo h($coord_pibid);?></td></tr>
+	<tr><td>Coordena&ccedil;&atilde;o de projeto de extens&atilde;o (que n&atilde;o seja PEAC)</td><td align=center> <?php   echo h($coord_ext_profmat);?></td></tr>
+	<tr><td>Organiza&ccedil;&atilde;o de evento local/regional </td><td align=center><?php   echo h($org_local_reg);?></td></tr>
+	<tr><td>Organiza&ccedil;&atilde;o de evento nacional/internacional </td><td align=center><?php   echo h($org_nac_inter);?></td></tr>
+	<tr><td>Coordena&ccedil;&atilde;o da Escola de Ver&atilde;o </td><td align=center> <?php   echo h($coord_verao);?></td></tr>
+	<tr><td>Coordena&ccedil;&atilde;o da Semana de Matem&aacute;tica </td><td align=center> <?php   echo h($coord_sem_mat);?></td></tr>
 	</table>
 	</td></tr>
 	<tr><td align=center>
 	<table border>
 	<tr><td colspan="2" align="center"><b>Atividades administrativas</b></td></tr>
-	<tr><td>Cargo de dire&ccedil;&atilde;o </td><td> <?php   echo $cargo_dir;?></td></tr>
-	<tr><td>Cargo de coordena&ccedil;&atilde;o </td><td> <?php   echo $coord;?></td></tr>
-	<tr><td>Participa&ccedil;&atilde;o em Comiss&otilde;es do MAT </td><td> <?php   echo $comis_mat;?></td></tr>
-	<tr><td>Representa&ccedil;&atilde;o em conselhos e c&acirc;maras</td><td> <?php   echo $repr_cons;?>
+	<tr><td>Cargo de dire&ccedil;&atilde;o </td><td> <?php   echo h($cargo_dir);?></td></tr>
+	<tr><td>Cargo de coordena&ccedil;&atilde;o </td><td> <?php   echo h($coord);?></td></tr>
+	<tr><td>Participa&ccedil;&atilde;o em Comiss&otilde;es do MAT </td><td> <?php   echo h($comis_mat);?></td></tr>
+	<tr><td>Representa&ccedil;&atilde;o em conselhos e c&acirc;maras</td><td> <?php   echo h($repr_cons);?>
 </td></tr>
-	<tr><td>Banca de concurso </td><td align=center> <?php   echo $banca_conc;?></td></tr>
+	<tr><td>Banca de concurso </td><td align=center> <?php   echo h($banca_conc);?></td></tr>
 	</table>
 	</td></tr>
 	<tr><td align=center><input type=submit name='relatorio' value="Confirmar"></td></tr>

@@ -74,7 +74,7 @@ if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, fa√
 		{
 			$coduser = $registro[0];  		// primeira coluna da tabela usuario
 			$titulo = $registro[1]." ".$registro[2];         // segunda coluna da tabela usuario
-			echo "<option value=\"$coduser\">$titulo</option>\n"; //Escreva o codigo e o nome do usuario
+			echo "<option value=\"" . h($coduser) . "\">" . h($titulo) . "</option>\n"; //Escreva o codigo e o nome do usuario
 		}
 	?>
 	</select>
@@ -109,7 +109,7 @@ if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, fa√
                 {
                         $codloc = $registro_sala[0];                // primeira coluna da tabela usuario
 			$descricao=$registro_sala[1];
-                        echo "<option value=\"$codloc\">$descricao</option>\n"; //Escreva o codigo e o nome do usuario
+                        echo "<option value=\"" . h($codloc) . "\">" . h($descricao) . "</option>\n"; //Escreva o codigo e o nome do usuario
                 }
         ?>
         </select></td>
@@ -325,7 +325,7 @@ else	//////////////////Cadastra o equipamento //////////////////////////////////
 			{
 			$data_fonctionnaire_0=db_fetch_array($res_data_fonctionnaire,0);
 			$data_fonctionnaire=$data_fonctionnaire_0[0];
-print " data de encerramento: ".$data_fonctionnaire;
+print " data de encerramento: ".h($data_fonctionnaire);
 			$new_data=$data_fonctionnaire;
 			}
 	}
@@ -357,8 +357,8 @@ print " data de encerramento: ".$data_fonctionnaire;
 	else 
 	{
 	$host_cadastrado=db_fetch_array($res_mac);
-	echo "A maquina nao pode ser cadastrada porque a ".$host_cadastrado['host']." j√° esta cadastrada com o 
-mesmo mac! ou a margem de IP extrapolou:".$ip."!";
+	echo "A maquina nao pode ser cadastrada porque a ".h($host_cadastrado['host'])." j√° esta cadastrada com o 
+mesmo mac! ou a margem de IP extrapolou:".h($ip)."!";
 	}
 	}
 

@@ -24,7 +24,7 @@ if (isset($_POST['seleciona']) and ($chave!="atualizar"))
            $nome_lista=$valor_da_conta[1];
 	   $lista_mails=explode(",",$valor_da_conta[2]);
 	   }
-	else  echo "Lista ".$valor_da_conta[1]."@mat.unb.br desativada.";
+	else  echo "Lista ".h($valor_da_conta[1])."@mat.unb.br desativada.";
 	}
 
 // CASO SEJA CRIAÇÃO DE LISTA
@@ -119,7 +119,7 @@ if (isset($_POST['seleciona']) and ($chave!="atualizar"))
 		$nome_lista=$_POST['nome_conta'];
 		$lista="";
 		echo "\n";
-		echo "Conta ".$_POST['nome_conta']."@mat.unb.br criada com sucesso.";
+		echo "Conta ".h($_POST['nome_conta'])."@mat.unb.br criada com sucesso.";
 		}
 	}
 }
@@ -208,7 +208,7 @@ $total=$num_prof_do_quadro+$num_prof_substitutos+$num_administrativos+$num_aluno
 <table class=big>
       <tr>
         <td class=header align=center>
-          <h1>Cria&ccedil;&atilde;o/Atualiza&ccedil;&atilde;o de listas de mail: Integrantes da lista <?php echo $nome_lista;?></h1>
+          <h1>Cria&ccedil;&atilde;o/Atualiza&ccedil;&atilde;o de listas de mail: Integrantes da lista <?php echo h($nome_lista);?></h1>
         </td>
       </tr>
       <tr>
@@ -225,9 +225,9 @@ $total=$num_prof_do_quadro+$num_prof_substitutos+$num_administrativos+$num_aluno
 		 if ($cor_anterior=="#00BFFF") $nova_cor="#FFFFFF"; else $nova_cor="#00BFFF";
 	?>
 		<tr bgcolor="<?php echo $cor ?>"> 
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_prof_do_quadro[$k]['login'];?>" <?php if (!empty($lista) and in_array($res_prof_do_quadro[$k]['login'],$lista) and ($k <$num_prof_do_quadro)) echo "checked";?>><?php echo $res_prof_do_quadro[$k]['nome']."  ".$res_prof_do_quadro[$k]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_prof_do_quadro[$k+$linhas_prof_do_quadro]['login'];?>" <?php if (!empty($lista) and in_array($res_prof_do_quadro[$k+$linhas_prof_do_quadro]['login'],$lista) and ($k+$linhas_prof_do_quadro<$num_prof_do_quadro)) echo "checked";?>><?php echo $res_prof_do_quadro[$k+$linhas_prof_do_quadro]['nome']."  ".$res_prof_do_quadro[$k+$linhas_prof_do_quadro]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_prof_do_quadro[$k+2*$linhas_prof_do_quadro]['login'];?>" <?php if (!empty($lista) and in_array($res_prof_do_quadro[$k+2*$linhas_prof_do_quadro]['login'],$lista) and ($k+2*$linhas_prof_do_quadro <$num_prof_do_quadro)) echo "checked";?>><?php echo $res_prof_do_quadro[$k+2*$linhas_prof_do_quadro]['nome']."  ".$res_prof_do_quadro[$k+2*$linhas_prof_do_quadro]['sobrenome'];?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_prof_do_quadro[$k]['login']);?>" <?php if (!empty($lista) and in_array($res_prof_do_quadro[$k]['login'],$lista) and ($k <$num_prof_do_quadro)) echo "checked";?>><?php echo h($res_prof_do_quadro[$k]['nome'])."  ".h($res_prof_do_quadro[$k]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_prof_do_quadro[$k+$linhas_prof_do_quadro]['login']);?>" <?php if (!empty($lista) and in_array($res_prof_do_quadro[$k+$linhas_prof_do_quadro]['login'],$lista) and ($k+$linhas_prof_do_quadro<$num_prof_do_quadro)) echo "checked";?>><?php echo h($res_prof_do_quadro[$k+$linhas_prof_do_quadro]['nome'])."  ".h($res_prof_do_quadro[$k+$linhas_prof_do_quadro]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_prof_do_quadro[$k+2*$linhas_prof_do_quadro]['login']);?>" <?php if (!empty($lista) and in_array($res_prof_do_quadro[$k+2*$linhas_prof_do_quadro]['login'],$lista) and ($k+2*$linhas_prof_do_quadro <$num_prof_do_quadro)) echo "checked";?>><?php echo h($res_prof_do_quadro[$k+2*$linhas_prof_do_quadro]['nome'])."  ".h($res_prof_do_quadro[$k+2*$linhas_prof_do_quadro]['sobrenome']);?></td>
         	</tr>
 	<?php
 		}
@@ -241,9 +241,9 @@ $total=$num_prof_do_quadro+$num_prof_substitutos+$num_administrativos+$num_aluno
 		 if ($cor_anterior=="#00BFFF") $nova_cor="#FFFFFF"; else $nova_cor="#00BFFF";
 	?>
 		<tr bgcolor="<?php echo $cor ?>"> 
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_prof_substitutos[$k]['login'];?>" <?php if (!empty($lista) and in_array($res_prof_substitutos[$k]['login'],$lista) and ($k<$num_prof_substitutos)) echo "checked";?>><?php echo $res_prof_substitutos[$k]['nome']."  ".$res_prof_substitutos[$k]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_prof_substitutos[$k+$linhas_prof_substitutos]['login'];?>" <?php if (!empty($lista) and in_array($res_prof_substitutos[$k+$linhas_prof_substitutos]['login'],$lista) and ($k+$linhas_prof_substitutos<$num_prof_substitutos)) echo "checked";?>><?php echo $res_prof_substitutos[$k+$linhas_prof_substitutos]['nome']."  ".$res_prof_substitutos[$k+$linhas_prof_substitutos]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_prof_substitutos[$k+2*$linhas_prof_substitutos]['login'];?>" <?php if (!empty($lista) and in_array($res_prof_substitutos[$k+2*$linhas_prof_substitutos]['login'],$lista) and ($k+2*$linhas_prof_substitutos<$num_prof_substitutos)) echo "checked";?>><?php echo $res_prof_substitutos[$k+2*$linhas_prof_substitutos]['nome']."  ".$res_prof_substitutos[$k+2*$linhas_prof_substitutos]['sobrenome'];?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_prof_substitutos[$k]['login']);?>" <?php if (!empty($lista) and in_array($res_prof_substitutos[$k]['login'],$lista) and ($k<$num_prof_substitutos)) echo "checked";?>><?php echo h($res_prof_substitutos[$k]['nome'])."  ".h($res_prof_substitutos[$k]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_prof_substitutos[$k+$linhas_prof_substitutos]['login']);?>" <?php if (!empty($lista) and in_array($res_prof_substitutos[$k+$linhas_prof_substitutos]['login'],$lista) and ($k+$linhas_prof_substitutos<$num_prof_substitutos)) echo "checked";?>><?php echo h($res_prof_substitutos[$k+$linhas_prof_substitutos]['nome'])."  ".h($res_prof_substitutos[$k+$linhas_prof_substitutos]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_prof_substitutos[$k+2*$linhas_prof_substitutos]['login']);?>" <?php if (!empty($lista) and in_array($res_prof_substitutos[$k+2*$linhas_prof_substitutos]['login'],$lista) and ($k+2*$linhas_prof_substitutos<$num_prof_substitutos)) echo "checked";?>><?php echo h($res_prof_substitutos[$k+2*$linhas_prof_substitutos]['nome'])."  ".h($res_prof_substitutos[$k+2*$linhas_prof_substitutos]['sobrenome']);?></td>
         	</tr>
 	<?php
 		}
@@ -258,9 +258,9 @@ $total=$num_prof_do_quadro+$num_prof_substitutos+$num_administrativos+$num_aluno
 		 if ($cor_anterior=="#00BFFF") $nova_cor="#FFFFFF"; else $nova_cor="#00BFFF";
 	?>
 		<tr bgcolor="<?php echo $cor ?>"> 
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_administrativos[$k]['login'];?>" <?php if (!empty($lista) and in_array($res_administrativos[$k]['login'],$lista) and ($k<$num_administrativos)) echo "checked";?>><?php echo $res_administrativos[$k]['nome']."  ".$res_administrativos[$k]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_administrativos[$k+$linhas_administrativos]['login'];?>" <?php if (!empty($lista) and in_array($res_administrativos[$k+$linhas_administrativos]['login'],$lista) and ($k+$linhas_administrativos<$num_administrativos)) echo "checked";?>><?php echo $res_administrativos[$k+$linhas_administrativos]['nome']."  ".$res_administrativos[$k+$linhas_administrativos]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_administrativos[$k+2*$linhas_administrativos]['login'];?>" <?php if (!empty($lista) and in_array($res_administrativos[$k+2*$linhas_administrativos]['login'],$lista) and ($k+2*$linhas_administrativos<$num_administrativos)) echo "checked";?>><?php echo $res_administrativos[$k+2*$linhas_administrativos]['nome']."  ".$res_administrativos[$k+2*$linhas_administrativos]['sobrenome'];?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_administrativos[$k]['login']);?>" <?php if (!empty($lista) and in_array($res_administrativos[$k]['login'],$lista) and ($k<$num_administrativos)) echo "checked";?>><?php echo h($res_administrativos[$k]['nome'])."  ".h($res_administrativos[$k]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_administrativos[$k+$linhas_administrativos]['login']);?>" <?php if (!empty($lista) and in_array($res_administrativos[$k+$linhas_administrativos]['login'],$lista) and ($k+$linhas_administrativos<$num_administrativos)) echo "checked";?>><?php echo h($res_administrativos[$k+$linhas_administrativos]['nome'])."  ".h($res_administrativos[$k+$linhas_administrativos]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_administrativos[$k+2*$linhas_administrativos]['login']);?>" <?php if (!empty($lista) and in_array($res_administrativos[$k+2*$linhas_administrativos]['login'],$lista) and ($k+2*$linhas_administrativos<$num_administrativos)) echo "checked";?>><?php echo h($res_administrativos[$k+2*$linhas_administrativos]['nome'])."  ".h($res_administrativos[$k+2*$linhas_administrativos]['sobrenome']);?></td>
         	</tr>
 	<?php
 		}
@@ -275,9 +275,9 @@ $total=$num_prof_do_quadro+$num_prof_substitutos+$num_administrativos+$num_aluno
 		 if ($cor_anterior=="#00BFFF") $nova_cor="#FFFFFF"; else $nova_cor="#00BFFF";
 	?>
 		<tr bgcolor="<?php echo $cor ?>"> 
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_alunos_doutorado[$k]['login'];?>" <?php if (!empty($lista) and in_array($res_alunos_doutorado[$k]['login'],$lista) and ($k<$num_alunos_doutorado)) echo "checked";?>><?php echo $res_alunos_doutorado[$k]['nome']."  ".$res_alunos_doutorado[$k]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_alunos_doutorado[$k+$linhas_alunos_doutorado]['login'];?>" <?php if (!empty($lista) and in_array($res_alunos_doutorado[$k+$linhas_alunos_doutorado]['login'],$lista) and ($k+$linhas_alunos_doutorado<$num_alunos_doutorado)) echo "checked";?>><?php echo $res_alunos_doutorado[$k+$linhas_alunos_doutorado]['nome']."  ".$res_alunos_doutorado[$k+$linhas_alunos_doutorado]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_alunos_doutorado[$k+2*$linhas_alunos_doutorado]['login'];?>" <?php if (!empty($lista) and in_array($res_alunos_doutorado[$k+2*$linhas_alunos_doutorado]['login'],$lista)  and ($k+2*$linhas_alunos_doutorado<$num_alunos_doutorado)) echo "checked";?>><?php echo $res_alunos_doutorado[$k+2*$linhas_alunos_doutorado]['nome']."  ".$res_alunos_doutorado[$k+2*$linhas_alunos_doutorado]['sobrenome'];?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_alunos_doutorado[$k]['login']);?>" <?php if (!empty($lista) and in_array($res_alunos_doutorado[$k]['login'],$lista) and ($k<$num_alunos_doutorado)) echo "checked";?>><?php echo h($res_alunos_doutorado[$k]['nome'])."  ".h($res_alunos_doutorado[$k]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_alunos_doutorado[$k+$linhas_alunos_doutorado]['login']);?>" <?php if (!empty($lista) and in_array($res_alunos_doutorado[$k+$linhas_alunos_doutorado]['login'],$lista) and ($k+$linhas_alunos_doutorado<$num_alunos_doutorado)) echo "checked";?>><?php echo h($res_alunos_doutorado[$k+$linhas_alunos_doutorado]['nome'])."  ".h($res_alunos_doutorado[$k+$linhas_alunos_doutorado]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_alunos_doutorado[$k+2*$linhas_alunos_doutorado]['login']);?>" <?php if (!empty($lista) and in_array($res_alunos_doutorado[$k+2*$linhas_alunos_doutorado]['login'],$lista)  and ($k+2*$linhas_alunos_doutorado<$num_alunos_doutorado)) echo "checked";?>><?php echo h($res_alunos_doutorado[$k+2*$linhas_alunos_doutorado]['nome'])."  ".h($res_alunos_doutorado[$k+2*$linhas_alunos_doutorado]['sobrenome']);?></td>
         	</tr>
 	<?php
 		}
@@ -291,9 +291,9 @@ $total=$num_prof_do_quadro+$num_prof_substitutos+$num_administrativos+$num_aluno
 		 if ($cor_anterior=="#00BFFF") $nova_cor="#FFFFFF"; else $nova_cor="#00BFFF";
 	?>
 		<tr bgcolor="<?php echo $cor ?>"> 
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_alunos_mestrado[$k]['login'];?>" <?php if (!empty($lista) and in_array($res_alunos_mestrado[$k]['login'],$lista) and ($k<$num_alunos_mestrado)) echo "checked";?>><?php echo $res_alunos_mestrado[$k]['nome']."  ".$res_alunos_mestrado[$k]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_alunos_mestrado[$k+$linhas_alunos_mestrado]['login'];?>" <?php if (!empty($lista) and in_array($res_alunos_mestrado[$k+$linhas_alunos_mestrado]['login'],$lista) and ($k+$linhas_alunos_mestrado<$num_alunos_mestrado)) echo "checked";?>><?php echo $res_alunos_mestrado[$k+$linhas_alunos_mestrado]['nome']."  ".$res_alunos_mestrado[$k+$linhas_alunos_mestrado]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_alunos_mestrado[$k+2*$linhas_alunos_mestrado]['login'];?>" <?php if (!empty($lista) and in_array($res_alunos_mestrado[$k+2*$linhas_alunos_mestrado]['login'],$lista) and ($k+2*$linhas_alunos_mestrado<$num_alunos_mestrado)) echo "checked";?>><?php echo $res_alunos_mestrado[$k+2*$linhas_alunos_mestrado]['nome']."  ".$res_alunos_mestrado[$k+2*$linhas_alunos_mestrado]['sobrenome'];?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_alunos_mestrado[$k]['login']);?>" <?php if (!empty($lista) and in_array($res_alunos_mestrado[$k]['login'],$lista) and ($k<$num_alunos_mestrado)) echo "checked";?>><?php echo h($res_alunos_mestrado[$k]['nome'])."  ".h($res_alunos_mestrado[$k]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_alunos_mestrado[$k+$linhas_alunos_mestrado]['login']);?>" <?php if (!empty($lista) and in_array($res_alunos_mestrado[$k+$linhas_alunos_mestrado]['login'],$lista) and ($k+$linhas_alunos_mestrado<$num_alunos_mestrado)) echo "checked";?>><?php echo h($res_alunos_mestrado[$k+$linhas_alunos_mestrado]['nome'])."  ".h($res_alunos_mestrado[$k+$linhas_alunos_mestrado]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_alunos_mestrado[$k+2*$linhas_alunos_mestrado]['login']);?>" <?php if (!empty($lista) and in_array($res_alunos_mestrado[$k+2*$linhas_alunos_mestrado]['login'],$lista) and ($k+2*$linhas_alunos_mestrado<$num_alunos_mestrado)) echo "checked";?>><?php echo h($res_alunos_mestrado[$k+2*$linhas_alunos_mestrado]['nome'])."  ".h($res_alunos_mestrado[$k+2*$linhas_alunos_mestrado]['sobrenome']);?></td>
         	</tr>
 	<?php
 		}
@@ -307,17 +307,17 @@ $total=$num_prof_do_quadro+$num_prof_substitutos+$num_administrativos+$num_aluno
 		 if ($cor_anterior=="#00BFFF") $nova_cor="#FFFFFF"; else $nova_cor="#00BFFF";
 	?>
 		<tr bgcolor="<?php echo $cor ?>"> 
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_alunos_graduacao[$k]['login'];?>" <?php if (!empty($lista) and in_array($res_alunos_graduacao[$k]['login'],$lista) and ($k<$num_alunos_graduacao)) echo "checked";?>><?php echo $res_alunos_graduacao[$k]['nome']."  ".$res_alunos_graduacao[$k]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_alunos_graduacao[$k+$linhas_alunos_graduacao]['login'];?>" <?php if (!empty($lista) and in_array($res_alunos_graduacao[$k+$linhas_alunos_graduacao]['login'],$lista) and ($k+$linhas_alunos_graduacao<$num_alunos_graduacao)) echo "checked";?>><?php echo $res_alunos_graduacao[$k+$linhas_alunos_graduacao]['nome']."  ".$res_alunos_graduacao[$k+$linhas_alunos_graduacao]['sobrenome'];?></td>
-		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo $res_alunos_graduacao[$k+2*$linhas_alunos_graduacao]['login'];?>" <?php if (!empty($lista) and in_array($res_alunos_graduacao[$k+2*$linhas_alunos_graduacao]['login'],$lista) and ($k+2*$linhas_alunos_graduacao<$num_alunos_graduacao)) echo "checked";?>><?php echo $res_alunos_graduacao[$k+2*$linhas_alunos_graduacao]['nome']."  ".$res_alunos_graduacao[$k+2*$linhas_alunos_graduacao]['sobrenome'];?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_alunos_graduacao[$k]['login']);?>" <?php if (!empty($lista) and in_array($res_alunos_graduacao[$k]['login'],$lista) and ($k<$num_alunos_graduacao)) echo "checked";?>><?php echo h($res_alunos_graduacao[$k]['nome'])."  ".h($res_alunos_graduacao[$k]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_alunos_graduacao[$k+$linhas_alunos_graduacao]['login']);?>" <?php if (!empty($lista) and in_array($res_alunos_graduacao[$k+$linhas_alunos_graduacao]['login'],$lista) and ($k+$linhas_alunos_graduacao<$num_alunos_graduacao)) echo "checked";?>><?php echo h($res_alunos_graduacao[$k+$linhas_alunos_graduacao]['nome'])."  ".h($res_alunos_graduacao[$k+$linhas_alunos_graduacao]['sobrenome']);?></td>
+		<td VALIGN="top"><INPUT TYPE=CHECKBOX NAME="usuario[]" value="<?php echo h($res_alunos_graduacao[$k+2*$linhas_alunos_graduacao]['login']);?>" <?php if (!empty($lista) and in_array($res_alunos_graduacao[$k+2*$linhas_alunos_graduacao]['login'],$lista) and ($k+2*$linhas_alunos_graduacao<$num_alunos_graduacao)) echo "checked";?>><?php echo h($res_alunos_graduacao[$k+2*$linhas_alunos_graduacao]['nome'])."  ".h($res_alunos_graduacao[$k+2*$linhas_alunos_graduacao]['sobrenome']);?></td>
         	</tr>
 	<?php
 		}
 	?>
 	</table><br>
 	<input type=submit name='enviar' value="Confirme"> <input type=reset name='limpa' value="Limpar"></td></tr>
-	<input type="hidden" name="total" value="<?php echo $total;?>">	<input type="hidden" name="id_lista" value="<?php echo $id_lista;?>">
-	<input type="hidden" name="nome_lista" value="<?php echo $nome_lista;?>">
+	<input type="hidden" name="total" value="<?php echo h($total);?>">	<input type="hidden" name="id_lista" value="<?php echo h($id_lista);?>">
+	<input type="hidden" name="nome_lista" value="<?php echo h($nome_lista);?>">
 	</form>
 	</body>
 	</html>
@@ -338,7 +338,7 @@ if (isset($_POST['enviar']))
          }
   $grava_usuarios_lista="update listas_de_mails set e_mails=? where id_lista=?"; $grava_usuarios_lista__p = array($usuarios_lista, $_POST['id_lista']);
   $query_grava_usuarios_lista=db_query($grava_usuarios_lista, $grava_usuarios_lista__p);
-  echo "Lista ".$_POST['nome_lista']."@mat.unb.br atualizada com sucesso.";
+  echo "Lista ".h($_POST['nome_lista'])."@mat.unb.br atualizada com sucesso.";
 }
 
 

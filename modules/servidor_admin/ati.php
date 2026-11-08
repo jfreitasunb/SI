@@ -122,10 +122,10 @@ if ($acao == "Salvar Rascunho"){
 			foreach($dado as $valor)
 				{
 				echo"
-    				<input type='hidden' name='dado[]' value='$valor'>";
+    				<input type='hidden' name='dado[]' value='" . h($valor) . "'>";
 				}
 
-    			echo "<input type='hidden' name='com_copia' value='$com_copia'>";
+    			echo "<input type='hidden' name='com_copia' value='" . h($com_copia) . "'>";
 			echo"
     				<input type='hidden' name='segunda' value='ok'>
 				<input type='submit' name='acao' value='Visualizar'>
@@ -234,10 +234,10 @@ else if($acao=="Rascunho"){
                         <div align='center'>";
 				foreach($dado as $valor){
                                 echo"
-                                <input type='hidden' name='dado[]' value='$valor'>";
+                                <input type='hidden' name='dado[]' value='" . h($valor) . "'>";
                                 }
 
-    			echo"	<input type='hidden' name='com_copia' value='$com_copia'>";
+    			echo"	<input type='hidden' name='com_copia' value='" . h($com_copia) . "'>";
                         echo"
                                 <input type='hidden' name='segunda' value='ok'>
                                 <input type='submit' name='acao' value='Visualizar'>
@@ -265,14 +265,14 @@ else if($acao=="Definitivo"){
 				require "acessorio.php";
 				echo"
                         	<p><a>Tipo de Documento: </a>$palavra_documento[1]</p>
-				<p><a>Via: </a>$dado[1]</p>
-				<p><a>C/C: </a>$com_copia</p>
+				<p><a>Via: </a>" . h($dado[1]) . "</p>
+				<p><a>C/C: </a>" . h($com_copia) . "</p>
                         	<p><a>Destino: </a>$palavra_destino[0]</p>
-                        	<p><a>Assunto: </a>$dado[3]</p>
-                        	<p><a>Anexo(s): </a>$dado[4]</p>
-                        	<p><a>Vocativo: </a>$dado[5]</p>
-                        	<p><a>Mensagem: </a>$dado[6]</p>
-                        	<p><a>Desfecho: </a>$dado[7]</p>
+                        	<p><a>Assunto: </a>" . h($dado[3]) . "</p>
+                        	<p><a>Anexo(s): </a>" . h($dado[4]) . "</p>
+                        	<p><a>Vocativo: </a>" . h($dado[5]) . "</p>
+                        	<p><a>Mensagem: </a>" . h($dado[6]) . "</p>
+                        	<p><a>Desfecho: </a>" . h($dado[7]) . "</p>
                         	<p><a>Assinante: </a>$palavra_assinatura[0]  $palavra_assinatura[1]</p>;
 			  	<p><a>Assinatura: </a>$palavra_assinatura[2]</p>";
 				}
@@ -285,14 +285,14 @@ else if($acao=="Definitivo"){
   				require "acessorio.php";
 				echo"
 				<p><a>Tipo de Documento: </a>$palavra_documento[1]</p>
-                                <p><a>Via: </a>$dado[1]</p>
-				<p><a>C/C: </a>$com_copia</p>
-                                <p><a>Destino: </a>$dado[2]</p>
-                                <p><a>Assunto: </a>$dado[3]</p>
-                                <p><a>Anexo(s): </a>$dado[4]</p>
-                                <p><a>Vocativo: </a>$dado[5]</p>
-                                <p><a>Mensagem: </a>$dado[6]</p>
-                        	<p><a>Desfecho: </a>$dado[7]</p>
+                                <p><a>Via: </a>" . h($dado[1]) . "</p>
+				<p><a>C/C: </a>" . h($com_copia) . "</p>
+                                <p><a>Destino: </a>" . h($dado[2]) . "</p>
+                                <p><a>Assunto: </a>" . h($dado[3]) . "</p>
+                                <p><a>Anexo(s): </a>" . h($dado[4]) . "</p>
+                                <p><a>Vocativo: </a>" . h($dado[5]) . "</p>
+                                <p><a>Mensagem: </a>" . h($dado[6]) . "</p>
+                        	<p><a>Desfecho: </a>" . h($dado[7]) . "</p>
                         	<p><a>Assinante: </a>$palavra_assinatura[0]   $palavra_assinatura[1]</p>;
 			  	<p><a>Assinatura: </a>$palavra_assinatura[2]</p>";
 				}
@@ -307,10 +307,10 @@ else if($acao=="Definitivo"){
                                 <p><a>Remetente: </a>$palavra_assinatura[0]   $palavra_assinatura[1]</p>
 			  	<p><a>Assinatura: </a>$palavra_assinatura[2]</p>;
                                 <p><a>Destinat?io: </a>$palavra_destino[0]</p>
-                                <p><a>Assunto: </a>$dado[4]</p>
-                                <p><a>Vocativo: </a>$dado[5]</p>
-				<p><a>Mensagem: </a>$dado[6]</p>
-                                <p><a>Desfecho: </a>$dado[7]</p>";
+                                <p><a>Assunto: </a>" . h($dado[4]) . "</p>
+                                <p><a>Vocativo: </a>" . h($dado[5]) . "</p>
+				<p><a>Mensagem: </a>" . h($dado[6]) . "</p>
+                                <p><a>Desfecho: </a>" . h($dado[7]) . "</p>";
 				}
 			else if($dado[0]=="4")  //ato
 				{
@@ -319,7 +319,7 @@ else if($acao=="Definitivo"){
 				require "acessorio.php";
                                 echo"
                                 <p><a>Tipo de Documento: </a>$palavra_documento[1]</p>
-                                <p><a>Mensagem: </a>$dado[2]</p>
+                                <p><a>Mensagem: </a>" . h($dado[2]) . "</p>
                         	<p><a>Assinante: </a>$palavra_assinatura[0]    $palavra_assinatura[1]</p>;
 			  	<p><a>Assinatura: </a>$palavra_assinatura[2]</p>";
 				}
@@ -332,7 +332,7 @@ else if($acao=="Definitivo"){
 				require "acessorio.php";
                                 echo"
                                 <p><a>Tipo de Documento: </a>$palavra_documento[1]</p>
-                                <p><a>Descri?o da ata: </a>$dado[1]</p>";
+                                <p><a>Descri?o da ata: </a>" . h($dado[1]) . "</p>";
 				}
 
 		echo"
@@ -341,12 +341,12 @@ else if($acao=="Definitivo"){
                         <div align='center'>";
 				foreach($dado as $valor){
                                 echo"
-                                <input name='dado[]' type='hidden' value='$valor'>";
+                                <input name='dado[]' type='hidden' value='" . h($valor) . "'>";
                                 }
 
-    		echo"	<input type='hidden' name='com_copia' value='$com_copia'>";
+    		echo"	<input type='hidden' name='com_copia' value='" . h($com_copia) . "'>";
 		echo"
-                         <input name='r_documento' type='hidden' value='$id_documentador'>
+                         <input name='r_documento' type='hidden' value='" . h($id_documentador) . "'>
                          <input type='button' value='Retornar' onclick='history.go(-1)'>
                          <input name='acao2' type='submit' value='Confirmar'>
                         </div></form>";
@@ -497,7 +497,7 @@ else if ($acao=="Visualizar"){
 	$pdf = gera_pdf_latex("./modelo_tex/".$arquivo, $seds);
 	if ($pdf === false) die("N\xe3o foi poss\xedvel gerar o documento.");
 	Header("Content-type: application/pdf");
-	echo $pdf;
+	echo h($pdf);
 }
 ?>
 <?php

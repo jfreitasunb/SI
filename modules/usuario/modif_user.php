@@ -51,7 +51,7 @@
        $nbre1=db_num_rows($res1);
        $nbre2=db_num_rows($res2);
        $nbre3=db_num_rows($res3);
-               $param="'".$tab['coduser']."','".$tab['name']."','".$tab['firstname']."','".$tab['matricul']."','".$tab['cpf']."','".$tab['identity']."','".$tab['phone_work']."','".$tab['phone_home']."','".$tab['adresse']."','".$tab['cp']."','".$tab['city']."',".$nbre1.",".$nbre2.",".$nbre3;
+               $param=js_str($tab['coduser']).','.js_str($tab['name']).','.js_str($tab['firstname']).','.js_str($tab['matricul']).','.js_str($tab['cpf']).','.js_str($tab['identity']).','.js_str($tab['phone_work']).','.js_str($tab['phone_home']).','.js_str($tab['adresse']).','.js_str($tab['cp']).','.js_str($tab['city']).','.(int)$nbre1.','.(int)$nbre2.','.(int)$nbre3;
                $param=str_replace(CHR(10)," ",$param);
                $param=str_replace(CHR(13)," ",$param);
 ?>
@@ -59,9 +59,9 @@
                  utilisateurs[<?php echo $i ?>] = new users(<?php echo $param ?>);
                </script>
 <?php
-               echo "<option value='".$tab['coduser']."'";
+               echo "<option value='".h($tab['coduser'])."'";
                if ($_GET['US']==$tab['coduser']) echo " selected  ";
-               echo ">".$tab['matricul']."--".$tab['name']." ".$tab['firstname']."</option>";
+               echo ">".h($tab['matricul'])."--".h($tab['name'])." ".h($tab['firstname'])."</option>";
             }
 ?>
             </select>

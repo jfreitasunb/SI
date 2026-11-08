@@ -177,7 +177,7 @@
 					$res_nivel = db_query("SELECT * from users_nivel_funcional order by descricao", array());
 					while($reg_nivel = db_fetch_row($res_nivel)) 
 						{
-						echo "<option value='".$reg_nivel[0]."'>".$reg_nivel[1]."</option>";
+						echo "<option value='".h($reg_nivel[0])."'>".h($reg_nivel[1])."</option>";
 						}
 				?></select></td>
 <td> Credenciamento/Orient.:</td><td> in&iacute;cio em <input name="cred_dia" maxlength=2 size=1 onkeypress="return verif_touche(event);">/<input  name="cred_mes" maxlength=2 size=1 onkeypress="return verif_touche(event);">/<input name="cred_ano" maxlength=4 size=2 onkeypress="return verif_touche(event);"> 
@@ -202,7 +202,7 @@ N&iacute;vel: <select name="credencia_nivel">
 						//$novo_registro = db_fetch_array($res2);
 //						//$titulo=$novo_registro[0];
 						//echo "<option value='".$cod."'>".$novo_registro['name']." ".$novo_registro['firstname']."</	option>";
-						echo "<option value='".$registro[0]."'>".$registro[1]." ".$registro[2]."(".$registro[3].")</	option>";
+						echo "<option value='".h($registro[0])."'>".h($registro[1])." ".h($registro[2])."(".h($registro[3]).")</	option>";
 						}
 				?></select></td></tr>
 <tr> <td>Bolsista :</td><td><select name="bolsista">

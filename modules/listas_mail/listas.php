@@ -44,7 +44,7 @@ r>
                         {
 //			$descricao=mb_convert_encoding($registro[2],"UTF-8");
                         $valor_da_conta=$registro[0]."-".$registro[1]."-".$registro[3]."-".$registro[4];
-		        echo "<tr><td><input type=radio name='eliminar' value=".$valor_da_conta."></td><td>".$registro[1]."</td><td>".$registro[2]."</td><td>".$registro[4]."</td></tr>";
+		        echo "<tr><td><input type=radio name='eliminar' value=".h($valor_da_conta)."></td><td>".h($registro[1])."</td><td>".h($registro[2])."</td><td>".h($registro[4])."</td></tr>";
                         }
                  ?>
          </table>

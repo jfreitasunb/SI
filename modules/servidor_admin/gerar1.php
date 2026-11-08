@@ -54,7 +54,7 @@ if(!isset($_POST["model"]))
 				{
 				$cod=$re[0];
 				$nome=$re[1];
-				echo "<option value='".$cod."'>".$nome."</option>\n";
+				echo "<option value='".h($cod)."'>".h($nome)."</option>\n";
 				}
 ?>
 		</select></td></tr></table><br>
@@ -79,7 +79,7 @@ if(!isset($_POST["model"]))
                 {
                         $cod=$registro[0];
                         $nome=$registro[1];
-                        echo "<option value='".$cod."' >".$nome."</option>\n ";
+                        echo "<option value='".h($cod)."' >".h($nome)."</option>\n ";
 			$i=$i+1;
                 }
 ?>

@@ -125,31 +125,31 @@ function verif_touche(e)
         <tr><td align=center>
 	<table border>
 	<tr><td colspan="2" align=center><b>Atividades de ensino/orienta&ccedil;&atilde;o</b></td></tr>
-	<tr><td>Carga did&aacute;tica (disciplinas regulares gradua&ccedil;&atilde;o/p&oacute;s-gradua&ccedil;&atilde;o exceto est&aacute;gios de pesquisa)</td><td><input type=text name='creditos' value="<?php  echo $historico['creditos'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Coordena&ccedil;&atilde;o de disciplina de servi&ccedil;o </td><td align=center> <input type=text name='coord_massa' value="<?php  echo $historico['coord_massa'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Orienta&ccedil;&atilde;o de monografia de especializa&ccedil;&atilde;o (do MAT/UnB)</td><td align=center> <input type=text name='monografia_esp_mat' value="<?php   echo $historico['monografia_esp_mat'];?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Ministrante/orienta&ccedil;&atilde;o em projeto de PROFMAT/Especializa&ccedil;&atilde;o</td><td align=center><input type=text name='esp_profmat' value="<?php   echo $historico['esp_profmat'];?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Carga did&aacute;tica (disciplinas regulares gradua&ccedil;&atilde;o/p&oacute;s-gradua&ccedil;&atilde;o exceto est&aacute;gios de pesquisa)</td><td><input type=text name='creditos' value="<?php  echo h($historico['creditos']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Coordena&ccedil;&atilde;o de disciplina de servi&ccedil;o </td><td align=center> <input type=text name='coord_massa' value="<?php  echo h($historico['coord_massa']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Orienta&ccedil;&atilde;o de monografia de especializa&ccedil;&atilde;o (do MAT/UnB)</td><td align=center> <input type=text name='monografia_esp_mat' value="<?php   echo h($historico['monografia_esp_mat']);?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Ministrante/orienta&ccedil;&atilde;o em projeto de PROFMAT/Especializa&ccedil;&atilde;o</td><td align=center><input type=text name='esp_profmat' value="<?php   echo h($historico['esp_profmat']);?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
 	</table>
 	</td></tr>
 	<tr><td align=center>
 	<table border>
 	<tr><td colspan="2" align=center><b>Atividades de pesquisa</b></td></tr>
-	<tr><td>Publica&ccedil;&atilde;o de livro </td><td align=center> <input type=text name='pub_livro' value="<?php   echo $historico['pub_livro'];?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Publica&ccedil;&atilde;o de artigo de pesquisa em revista arbitrada </td><td align=center> <input type=text name='pub_art_arb' value="<?php   echo $historico['pub_art_arb'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Publica&ccedil;&atilde;o de cap&iacute;tulo de livro </td><td align=center> <input type=text name='pub_cap_livro' value="<?php   echo $historico['pub_cap_livro'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Publica&ccedil;&atilde;o em anais de congressos/artigo de divulga&ccedil;&atilde;o </td><td align=center> <input type=text name='pub_res_an_div' value="<?php   echo $historico['pub_res_an_div'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Apresenta&ccedil;&atilde;o de trabalho oral em evento </td><td align=center> <input type=text name='apr_oral_evento' value="<?php   echo $historico['apr_oral_evento'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Apresenta&ccedil;&atilde;o de poster em evento </td><td align=center> <input type=text name='apr_poster_evento' value="<?php   echo $historico['apr_poster_evento'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Coordena&ccedil;&atilde;o de projeto (n&atilde;o individual) com financiamento </td><td align=center> <input type=text name='coord_proj_fin' value="<?php   echo $historico['coord_proj_fin'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Publica&ccedil;&atilde;o de livro </td><td align=center> <input type=text name='pub_livro' value="<?php   echo h($historico['pub_livro']);?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Publica&ccedil;&atilde;o de artigo de pesquisa em revista arbitrada </td><td align=center> <input type=text name='pub_art_arb' value="<?php   echo h($historico['pub_art_arb']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Publica&ccedil;&atilde;o de cap&iacute;tulo de livro </td><td align=center> <input type=text name='pub_cap_livro' value="<?php   echo h($historico['pub_cap_livro']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Publica&ccedil;&atilde;o em anais de congressos/artigo de divulga&ccedil;&atilde;o </td><td align=center> <input type=text name='pub_res_an_div' value="<?php   echo h($historico['pub_res_an_div']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Apresenta&ccedil;&atilde;o de trabalho oral em evento </td><td align=center> <input type=text name='apr_oral_evento' value="<?php   echo h($historico['apr_oral_evento']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Apresenta&ccedil;&atilde;o de poster em evento </td><td align=center> <input type=text name='apr_poster_evento' value="<?php   echo h($historico['apr_poster_evento']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Coordena&ccedil;&atilde;o de projeto (n&atilde;o individual) com financiamento </td><td align=center> <input type=text name='coord_proj_fin' value="<?php   echo h($historico['coord_proj_fin']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
 	</table>
 	</td></tr>
 	<tr><td align=center>
 	<table border>
 	<tr><td colspan="2" align=center><b>Atividades de p&oacute;s-gradua&ccedil;&atilde;o</b></td></tr>
-	<tr><td>Orienta&ccedil;&atilde;o de mestrado</td><td><input type=text name='creditos_pesq_mestrado' value="<?php  echo $historico['creditos_pesq_mestrado'];?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Orienta&ccedil;&atilde;o de doutorado</td><td><input type=text name='creditos_pesq_doutorado' value="<?php  echo $historico['creditos_pesq_doutorado'];?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Banca de mestrado/doutorado </td><td align=center> <input type=text name='banca_mes_dou' value="<?php   echo $historico['banca_mes_dou'];?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Exame de qualifica&ccedil;&atilde;o ao doutorado </td><td align=center> <input type=text name='exame_qualif_dou' value="<?php  echo $historico['exame_qualif_dou'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Orienta&ccedil;&atilde;o de mestrado</td><td><input type=text name='creditos_pesq_mestrado' value="<?php  echo h($historico['creditos_pesq_mestrado']);?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Orienta&ccedil;&atilde;o de doutorado</td><td><input type=text name='creditos_pesq_doutorado' value="<?php  echo h($historico['creditos_pesq_doutorado']);?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Banca de mestrado/doutorado </td><td align=center> <input type=text name='banca_mes_dou' value="<?php   echo h($historico['banca_mes_dou']);?>" maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Exame de qualifica&ccedil;&atilde;o ao doutorado </td><td align=center> <input type=text name='exame_qualif_dou' value="<?php  echo h($historico['exame_qualif_dou']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
 	<tr><td>Exame de qualifica&ccedil;&atilde;o ao mestrado (do MAT/UnB) </td><td align=center> <select name='exame_qualif_mest'>
 									<option value=1 <?php if ($historico['exame_qualif_mest']==1) echo "selected";?>> sim </option>
 									<option value=0 <?php if ($historico['exame_qualif_mest']==0) echo "selected";?>> n&atilde;o </option>
@@ -163,7 +163,7 @@ function verif_touche(e)
 	<tr><td align=center>
 	<table border>
 	<tr><td colspan="2" align="center"><b>Atividades de extens&atilde;o</b></td></tr>
-	<tr><td>Orienta&ccedil;&atilde;o de alunos de PIBIC, PIBID, PEAC ou PET </td><td align=center> <input type=text name='orient_pibs_pet' value="<?php   echo $historico['orient_pibs_pet'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Orienta&ccedil;&atilde;o de alunos de PIBIC, PIBID, PEAC ou PET </td><td align=center> <input type=text name='orient_pibs_pet' value="<?php   echo h($historico['orient_pibs_pet']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
 	<tr><td>Tutoria do PET </td><td align=center> <select name='tutor_pet'>
 									<option value='1' <?php if ($historico['tutor_pet']==1) echo "selected";?>>sim</option>
 									<option value='0' <?php if ($historico['tutor_pet']==0) echo "selected";?>>n&atilde;o</option>
@@ -172,9 +172,9 @@ function verif_touche(e)
 									<option value='1' <?php if ($historico['coord_pibid']==1) echo "selected";?>>sim</option>
 									<option value='0' <?php if ($historico['coord_pibid']==0) echo "selected";?>>n&atilde;o</option>
 									</select></td></tr>
-	<tr><td>Coordena&ccedil;&atilde;o de projeto de extens&atilde;o (que n&atilde;o seja PEAC)</td><td align=center> <input type=text name='coord_ext_profmat' value="<?php   echo $historico['coord_ext_profmat'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Organiza&ccedil;&atilde;o de evento local/regional </td><td align=center> <input type=text name='org_local_reg' value="<?php   echo $historico['org_local_reg'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
-	<tr><td>Organiza&ccedil;&atilde;o de evento nacional/internacional </td><td align=center> <input type=text name='org_nac_inter' value="<?php   echo $historico['org_nac_inter'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Coordena&ccedil;&atilde;o de projeto de extens&atilde;o (que n&atilde;o seja PEAC)</td><td align=center> <input type=text name='coord_ext_profmat' value="<?php   echo h($historico['coord_ext_profmat']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Organiza&ccedil;&atilde;o de evento local/regional </td><td align=center> <input type=text name='org_local_reg' value="<?php   echo h($historico['org_local_reg']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Organiza&ccedil;&atilde;o de evento nacional/internacional </td><td align=center> <input type=text name='org_nac_inter' value="<?php   echo h($historico['org_nac_inter']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
 	<tr><td>Coordena&ccedil;&atilde;o da Escola de Ver&atilde;o </td><td align=center> <select name='coord_verao'>
 									<option value='1' <?php if ($historico['coord_verao']==1) echo "selected";?>>sim</option>
 									<option value='0' <?php if ($historico['coord_verao']==0) echo "selected";?>>n&atilde;o</option>
@@ -221,11 +221,11 @@ function verif_touche(e)
 										while($registro=$query_conselhos->fetch(PDO::FETCH_NUM))
 											{
 											if ($registro[1]==$historico['repr_cons']) $selected="selected"; else $selected="";
-											echo "<option value=\"".$registro[1]."\" ".$selected.">".$registro[0]."</option>";
+											echo "<option value=\"".h($registro[1])."\" ".$selected.">".h($registro[0])."</option>";
 											}
 											?>
 										</select></td></tr>
-	<tr><td>Banca de concurso </td><td align=center> <input type=text name='banca_conc' value="<?php   echo $historico['banca_conc'];?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
+	<tr><td>Banca de concurso </td><td align=center> <input type=text name='banca_conc' value="<?php   echo h($historico['banca_conc']);?>"  maxlength=3 size=2 onkeypress="return verif_touche(event);"></td></tr>
 	</table>
 	</td></tr>
 	<tr><td align=center><input type=submit name='salva_dados' value="Confirmar"></td></tr>

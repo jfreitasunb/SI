@@ -41,9 +41,9 @@
                  utilisateurs[<?php echo $i ?>] = new users(<?php echo $param ?>);
                </script>
 <?php
-               echo "<option value='".$tab['coduser']."'";
+               echo "<option value='".h($tab['coduser'])."'";
                if ($_GET['US']==$tab['coduser']) echo " selected  ";
-               echo ">".$tab['matricul']."--".$tab['name']." ".$tab['firstname']."</option>";
+               echo ">".h($tab['matricul'])."--".h($tab['name'])." ".h($tab['firstname'])."</option>";
             }
 ?>
             </select>

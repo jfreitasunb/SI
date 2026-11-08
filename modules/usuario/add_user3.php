@@ -165,7 +165,7 @@
 	      }
     	grava_alias($_POST['coduser'],$alias);
 	echo "A conta foi criada com sucesso. Voce pode acessa-la<br> e usar o sistema.<br>Para voltar ao inicio <a href='../../global/accueil.php'>clique aqui</a>. <br>";
-        echo "<td class=header align=center>A conta foi criada: </td> Seu novo email &eacute; ".$_POST['login']."@mat.unb.br e/ou ".$alias."@mat.unb.br";
+        echo "<td class=header align=center>A conta foi criada: </td> Seu novo email &eacute; ".h($_POST['login'])."@mat.unb.br e/ou ".h($alias)."@mat.unb.br";
         echo "<td></td>Sua senha é: ".$pass1;
 	?>
 	<table class=form>

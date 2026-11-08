@@ -106,7 +106,7 @@ function procura_prof($array_prof,$prof)
 {
 $acentos=array(Á,À,Ã,É,È,Ê,Í,Ó,Ò,Õ,Ô,Ö,Ú,Ù,Ç);
 $letras=array(A,A,A,E,E,E,I,O,O,O,O,O,U,U,C);
-echo "<br> em procura_prof:".$prof."<br>";
+echo "<br> em procura_prof:".h($prof)."<br>"; // $prof vem do arquivo enviado (lista SAA)
 $prof_sem_acentos=str_replace($acentos,$letras,$prof);
 echo "<br>sem acentos em procura_prof: ".$prof_sem_acentos."<br>";
 $devolve="nulo";
@@ -623,7 +623,7 @@ if(isset($profs_si[$resto_linha]))
 		}
 	}
 */
-echo "<BR> Professor: ".$devolve[0]."-".$devolve[1]."-".$devolve[2]."<br>";
+echo "<BR> Professor: ".h($devolve[0])."-".h($devolve[1])."-".h($devolve[2])."<br>";
 return $devolve;
 }
 

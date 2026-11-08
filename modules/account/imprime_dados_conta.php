@@ -130,7 +130,7 @@ if ($dados_pessoais['tabela_user']=="fonctionnaire")
 	$pdf = gera_pdf_latex("./modelo_tex/".$arquivo, $seds);
 	if ($pdf === false) die("N\xe3o foi poss\xedvel gerar o documento.");
 	Header("Content-type: application/pdf");
-	echo $pdf;
+	echo h($pdf);
 //}
 
 ?>

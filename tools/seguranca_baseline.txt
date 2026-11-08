@@ -1,7 +1,7 @@
 # Baseline de seguranca do SI — achados conhecidos/aceitos.
 # Gerado por tools/scan_seguranca.php --atualiza-baseline.
 # Cada linha: caminho:linha:regra. O scanner so reporta o que NAO estiver aqui.
-global/function_php.php:639:hash-fraco
+global/function_php.php:650:hash-fraco
 ler_atas.php:41:crypt-fraco
 ler_resolucoes.php:43:crypt-fraco
 modules/account/add_user3.php:89:crypt-fraco
@@ -10,11 +10,7 @@ modules/account/c_cont.php:68:crypt-fraco
 modules/account/c_cont.php:76:crypt-fraco
 modules/account/imprime_dados_conta.php:88:sql-interpolada
 modules/aliases/head_aliases.php:19:pg-legado
-modules/contas_especiais/incluir_conta.php:179:xss-echo
-modules/contas_especiais/incluir_conta.php:302:xss-echo
 modules/lista_oferta/utils/moduleUT.php:60:crypt-fraco
-modules/listas_mail/usuarios.php:122:xss-echo
-modules/listas_mail/usuarios.php:341:xss-echo
 modules/modif_senhas/add_user3.php:79:crypt-fraco
 modules/modif_senhas/c_cont.php:63:senha-hardcoded
 modules/modif_senhas/c_cont.php:67:crypt-fraco

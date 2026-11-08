@@ -93,7 +93,7 @@
 		    foreach($_POST['droits'] as $arr)
 		    {
 		?>
-		   <input type=hidden name='droits[]' value="<?php echo $arr ?>">
+		   <input type=hidden name='droits[]' value="<?php echo h($arr) ?>">
 		<?php
 		      $i+=1;
 		    }

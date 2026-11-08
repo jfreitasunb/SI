@@ -21,7 +21,7 @@ function relatorio($query_pesquisa,$host)
 	<tr><td>
 	<table border class=form align=center>
 	<tr>
-	<td colspan=9 class=header align=center>Resultado da pesquisa: foram encontrados  <?php echo $linhas ?> dados </td>
+	<td colspan=9 class=header align=center>Resultado da pesquisa: foram encontrados  <?php echo h($linhas) ?> dados </td>
 	</tr>
 	<td colspan=9 class=header align=center>
 	<tr>
@@ -46,15 +46,15 @@ function relatorio($query_pesquisa,$host)
 $cor_anterior=$nova_cor;}
 	?>
 		<tr bgcolor="<?php echo $cor ?>"> 
-		<td><?php echo $nome?></td>
-		<td><?php echo $dados['maqcod']?></td>
-		<td><?php echo $dados['ipnet']?></td>
-		<td><?php echo $dados['codloc']?></td>
-		<td><?php echo $dados['host']?></td>
-		<td><?php echo $dados['mac']?></td>
-		<td><?php echo $dados['tipo_maquina']?></td>
+		<td><?php echo h($nome)?></td>
+		<td><?php echo h($dados['maqcod'])?></td>
+		<td><?php echo h($dados['ipnet'])?></td>
+		<td><?php echo h($dados['codloc'])?></td>
+		<td><?php echo h($dados['host'])?></td>
+		<td><?php echo h($dados['mac'])?></td>
+		<td><?php echo h($dados['tipo_maquina'])?></td>
 		<td><?php echo $dados_status?></td>
-		<td><?php echo $data_encerramento?></td>
+		<td><?php echo h($data_encerramento)?></td>
 		</tr>
 	<?php		
 		}
@@ -119,7 +119,7 @@ if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, fa√
 					{
 					$coduser = $registro[0];  		         	// primeira coluna da tabela usuario
 					$titulo = $registro[1]." ".$registro[2];         	// segunda coluna da tabela usuario
-					echo "<option value=\"$coduser\">$titulo</option>\n"; 	//Escreva o codigo e o nome do usuario
+					echo "<option value=\"" . h($coduser) . "\">" . h($titulo) . "</option>\n"; 	//Escreva o codigo e o nome do usuario
 					}
 				?>
 				</select>
@@ -155,7 +155,7 @@ if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, fa√
 			                {
                         		$codloc = $registro_sala[0];                		// primeira coluna da tabela usuario
 					$descricao=$registro_sala[1];
-                        		echo "<option value=\"$codloc\">$descricao</option>\n"; //Escreva o codigo e o nome do usuario
+                        		echo "<option value=\"" . h($codloc) . "\">" . h($descricao) . "</option>\n"; //Escreva o codigo e o nome do usuario
                 			}
 			        ?>
 		          </select></td>

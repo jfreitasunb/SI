@@ -481,7 +481,7 @@ echo $query_credencia;
 <?php
     }
 ?>
-    <input type=hidden name='coduser' value="<?php echo $coduser ?>"> 
+    <input type=hidden name='coduser' value="<?php echo h($coduser) ?>"> 
     <input type=hidden name='status_usuario' value="<?php echo h($_POST['status_usuario']) ?>" >
     <input type=hidden name='tipo_contrato' value="<?php echo h($_POST['tipo_contrato']) ?>" >
   </form>

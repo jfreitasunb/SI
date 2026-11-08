@@ -213,7 +213,7 @@ var_dump($cred_array);
 	$endereco=$tab['adresse'];
 
 
-               $param="'".$tab['coduser']."','".$nome."','".$sobrenome."','".$tab['matricul']."','".$tab['cpf']."','".$tab['identity']."','".$tab['phone_work']."','".$tab['phone_home']."','".$endereco."','".$tab['cp']."','".$cidade."','".$mail_user[0]."','".$mail_user[1]."','".$mail_user[2]."','".$mail_user[3]."','".$status_usuario."','".$tipo_contrato."','".$data_de_entrada."','".$dia2."','".$mes2."','".$ano2."','".$especialidade."','".$funcional."','".$prof_orientador."','".$prof_orientador2."','".$bolsista."','".$situacao."','".$fim_credencia_dia."','".$fim_credencia_mes."','".$fim_credencia_ano."','".$orientacao."'";
+               $param=js_str($tab['coduser']).','.js_str($nome).','.js_str($sobrenome).','.js_str($tab['matricul']).','.js_str($tab['cpf']).','.js_str($tab['identity']).','.js_str($tab['phone_work']).','.js_str($tab['phone_home']).','.js_str($endereco).','.js_str($tab['cp']).','.js_str($cidade).','.js_str($mail_user[0]).','.js_str($mail_user[1]).','.js_str($mail_user[2]).','.js_str($mail_user[3]).','.js_str($status_usuario).','.js_str($tipo_contrato).','.js_str($data_de_entrada).','.js_str($dia2).','.js_str($mes2).','.js_str($ano2).','.js_str($especialidade).','.js_str($funcional).','.js_str($prof_orientador).','.js_str($prof_orientador2).','.js_str($bolsista).','.js_str($situacao).','.js_str($fim_credencia_dia).','.js_str($fim_credencia_mes).','.js_str($fim_credencia_ano).','.js_str($orientacao);
 
  //.$nbre1.",".$nbre2.",".$nbre3;
 
@@ -225,10 +225,10 @@ var_dump($cred_array);
                  utilisateurs[<?php echo $i ?>] = new users(<?php echo $param ?>);
                </script>
 <?php
-               echo "<option value='".$tab['coduser']."'";
+               echo "<option value='".h($tab['coduser'])."'";
                if ($_GET['US']==$tab['coduser']) echo " selected  ";
 //               echo ">".$tab['matricul']."--".$tab['name']." ".$tab['firstname']."</option>";
-               echo ">".$nome." ".$sobrenome."--".$tab['matricul']."</option>";
+               echo ">".h($nome)." ".h($sobrenome)."--".h($tab['matricul'])."</option>";
 		}
 
     	?>
@@ -393,7 +393,7 @@ var_dump($cred_array);
 							$res_nivel = db_query("SELECT * FROM users_nivel_funcional order by descricao");
 							while($reg_nivel = db_fetch_row($res_nivel)) 
 								{
-								echo "<option value='".$reg_nivel[0]."'>".$reg_nivel[1]."</option>";
+								echo "<option value='".h($reg_nivel[0])."'>".h($reg_nivel[1])."</option>";
 								}
 							?></select></td>
 
@@ -429,7 +429,7 @@ $res = db_query("SELECT pf.coduser, us.name, us.firstname FROM profs pf,users us
 //						$titulo=mb_convert_encoding($registro[1],"ISO-8859-1","UTF-8")." ".mb_convert_encoding($sobrenome2,"ISO-8859-1","UTF-8");
 						$titulo=$registro[1]." ".$sobrenome2;
 						//echo "<option value=\"$cod\">$titulo</option>\n"; //Escreva o codigo e o nome do usuario
-						echo "<option value='".$cod."'>".$titulo."</option>";
+						echo "<option value='".h($cod)."'>".h($titulo)."</option>";
 						}
 
 				?></select>

@@ -42,7 +42,7 @@ function relatorio($query_pesquisa,$dados_pessoais,$dados_profissionais,$dados_a
 	<tr><td>
 	<table border class=form align=center>
 	<tr>
-	<td colspan=<?php echo $colunas ?> class=header align=center>Resultado da pesquisa: foram encontrados  <?php echo $linhas ?> dados </td>
+	<td colspan=<?php echo $colunas ?> class=header align=center>Resultado da pesquisa: foram encontrados  <?php echo h($linhas) ?> dados </td>
 	</tr>
 	<tr>
 	<?php echo $cabecalho ?>
@@ -67,12 +67,12 @@ $cor_anterior=$nova_cor;}
 		
 //coduser |  name  | firstname | matricul | cpf | identity | phone_work | phone_home |  adresse | cp | city | is_actif | tipo_users
 		$nome=mb_convert_encoding($dados['name'],"ISO-8859-1","UTF-8")." ".mb_convert_encoding($dados['firstname'],"ISO-8859-1","UTF-8");
-		echo "<td align=\"left\" valign=\"top\"> <b>Nome:</b> $nome <br> \n"; 
+		echo "<td align=\"left\" valign=\"top\"> <b>Nome:</b> " . h($nome) . " <br> \n"; 
 		if (!empty($dados_pessoais))
 		{
 		if (in_array("endereco_res", $dados_pessoais))
 			{$endereco=mb_convert_encoding($dados['adresse'],"ISO-8859-1","UTF-8").",".$dados['cp'].",".mb_convert_encoding($dados['city'],"ISO-8859-1","UTF-8");
-			echo "<b>Endere&ccedil;o:</b> $endereco <br> \n"; 
+			echo "<b>Endere&ccedil;o:</b> " . h($endereco) . " <br> \n"; 
 			}
 		if (in_array("e_mails", $dados_pessoais))
 			{
@@ -86,12 +86,12 @@ $cor_anterior=$nova_cor;}
 				if (!empty($emails)) $emails=$emails.",".$dado_mail['mail'];
 				else $emails=$dado_mail['mail'];
 				}
-			echo "<b>E-mails:</b> $emails <br>\n"; 
+			echo "<b>E-mails:</b> " . h($emails) . " <br>\n"; 
 			}
-		if (in_array("telefones", $dados_pessoais)) {$phone=$dados['phone_home']; echo "<b> Fone: $phone </b> <br>\n";}
+		if (in_array("telefones", $dados_pessoais)) {$phone=$dados['phone_home']; echo "<b> Fone: " . h($phone) . " </b> <br>\n";}
 		if (in_array("identificacao", $dados_pessoais)) 
 			{$identificacao="cpf:".$dados['cpf'].", ID:".$dados['identity']; 
-			echo "<b> Identifica&ccedil;&atilde;o:</b> $identificacao <br>\n";
+			echo "<b> Identifica&ccedil;&atilde;o:</b> " . h($identificacao) . " <br>\n";
 			}
 		}
 		echo "</td> \n"; 
@@ -100,19 +100,19 @@ $cor_anterior=$nova_cor;}
 		{echo "<td align=\"left\" valign=\"top\">";
 		if (in_array("matricula", $dados_profissionais)) 
 			{$matricula=$dados['matricula']; 
-			echo "<b>Matr&iacute;cula: </b> $matricula <br>\n"; 
+			echo "<b>Matr&iacute;cula: </b> " . h($matricula) . " <br>\n"; 
 			}
 		if (in_array("contrato", $dados_profissionais))
 			{$contrato="sem vinculo";
 			if (!empty($dados['contract_type'])) $contrato=$dados['contract_type'];
 			if ($dados['tipo_users']=="student") $contrato="aluno";
-			echo "<b>Contrato:</b> $contrato <br> \n"; 
+			echo "<b>Contrato:</b> " . h($contrato) . " <br> \n"; 
 			}
 		if (in_array("nivel", $dados_profissionais))
 			{$nivel="";
 			if (!empty($dados['niveau_fonctionnel'])) $nivel=$dados['niveau_fonctionnel'];
 			if (!empty($dados['formation'])) $nivel=$dados['formation'];
-			echo "<b>N&iacute;vel:</b> $nivel <br> \n"; 
+			echo "<b>N&iacute;vel:</b> " . h($nivel) . " <br> \n"; 
 			}
 		if (in_array("data_admissao", $dados_profissionais))
 			{
@@ -120,7 +120,7 @@ $cor_anterior=$nova_cor;}
 			if (!empty($dados['coming_date'])) $data_admissao=explode("-",$dados['coming_date']);
 			if (!empty($dados['date_begin'])) $data_admissao=explode("-",$dados['date_begin']);
 			$data_adm=$data_admissao[2]."/".$data_admissao[1]."/".$data_admissao[0];
-			echo "<b>Data de admiss&atilde;o:</b> $data_adm <br> \n"; 
+			echo "<b>Data de admiss&atilde;o:</b> " . h($data_adm) . " <br> \n"; 
 			}
 		if (in_array("data_desliga", $dados_profissionais))
 			{
@@ -128,13 +128,13 @@ $cor_anterior=$nova_cor;}
 			if (!empty($dados['depart_date1'])) $data_desliga=explode("-",$dados['depart_date1']);
 			if (!empty($dados['date_end'])) $data_desliga=explode("-",$dados['date_end']);
 			$data_desl=$data_desliga[2]."/".$data_desliga[1]."/".$data_desliga[0];
-			echo "<b>Data de desligamento:</b> $data_desl <br>\n"; 
+			echo "<b>Data de desligamento:</b> " . h($data_desl) . " <br>\n"; 
 			}
 		if (in_array("situacao", $dados_profissionais))
 			{$situacao="";
 			if (!empty($dados['situacao'])) $situacao=$dados['situacao'];
 			if (!empty($dados['status'])) $situacao=$dados['status'];
-			echo "<b>Situa&ccedil;&atilde;o:</b> $situacao <br>\n"; 
+			echo "<b>Situa&ccedil;&atilde;o:</b> " . h($situacao) . " <br>\n"; 
 			}
 		echo "</td> \n"; 
 		}
@@ -148,13 +148,13 @@ $cor_anterior=$nova_cor;}
 			if (!empty($dados['area_atuacao'])) $especialidade=$dados['area_atuacao'];
 			if (!empty($dados['speciality'])) $especialidade=$dados['speciality'];
 			if (!empty($dados['area_visitor'])) $especialidade=$dados['area_visitor'];
-			echo "<b>Especialidade:</b> $especialidade <br>\n"; 
+			echo "<b>Especialidade:</b> " . h($especialidade) . " <br>\n"; 
 			}
 		if (in_array("tipo_bolsa", $dados_academicos))
 			{$bolsista="sem bolsa";
 			if (!empty($dados['bolsa_prof'])) $bolsista=$dados[' bolsa_prof'];
 			if (!empty($dados['bolsa_aluno'])) $bolsista=$dados['bolsa_aluno'];
-			echo "<b>Bolsista:</b> $bolsista <br>\n"; 
+			echo "<b>Bolsista:</b> " . h($bolsista) . " <br>\n"; 
 			}
 		if (in_array("orientador", $dados_academicos))
 			{$orientador="";
@@ -179,7 +179,7 @@ $orientador=mb_convert_encoding($orientador_pg['name'],"ISO-8859-1","UTF-8")."
 ".mb_convert_encoding($orientador_pg['firstname'],"ISO-8859-1","UTF-8");
 				}
 			
-			echo "<b>Orientador:</b> $orientador <br>\n"; 
+			echo "<b>Orientador:</b> " . h($orientador) . " <br>\n"; 
 			}
 		if (in_array("orientandos", $dados_academicos) or !empty($orientacao))
 			{
@@ -212,10 +212,10 @@ std.formation,orientando.name";
 					$matricula=$dados_do_orientando['matricul'];
 					$formacao=$dados_do_orientando['formation'];
 					$status_do_orientando=$dados_do_orientando['status'];
-					echo "<b>Orientando:</b> $orientando <br>\n";
-					echo "<b>matr&iacute;cula:</b> $matricula <br>\n";
-					echo "<b>curso:</b> $formacao <br>\n";
-					echo "<b>situa&ccedil;&atilde;o:</b> $status_do_orientando <br>\n"; 
+					echo "<b>Orientando:</b> " . h($orientando) . " <br>\n";
+					echo "<b>matr&iacute;cula:</b> " . h($matricula) . " <br>\n";
+					echo "<b>curso:</b> " . h($formacao) . " <br>\n";
+					echo "<b>situa&ccedil;&atilde;o:</b> " . h($status_do_orientando) . " <br>\n"; 
 					echo "<br>\n";
 					}
 				}
@@ -284,7 +284,7 @@ if(!isset($_POST['enviar'])) // Se campos do formulario estiverem em branco, fa√
 					{
 					$coduser = $registro[0];  		         	// primeira coluna da tabela usuario
 					$titulo = $registro[1]." ".$registro[2];         	// segunda coluna da tabela usuario
-					echo "<option value=\"$coduser\">$titulo</option>\n"; 	//Escreva o codigo e o nome do usuario
+					echo "<option value=\"" . h($coduser) . "\">" . h($titulo) . "</option>\n"; 	//Escreva o codigo e o nome do usuario
 					}
 				?>
 				</select>

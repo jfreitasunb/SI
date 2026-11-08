@@ -67,7 +67,7 @@
             {
                $tab=db_fetch_array($result, $i);
 
-               $param="'".$tab['coduser']."'"; //,'".$tab['name']."','".$tab['firstname']."','".$tab['matricul']."'";
+               $param=js_str($tab['coduser']); //,'".$tab['name']."','".$tab['firstname']."','".$tab['matricul']."'";
               $param=str_replace(CHR(10)," ",$param);
              $param=str_replace(CHR(13)," ",$param);
 ?>
@@ -76,9 +76,9 @@
                </script>
 <?php
 
-               echo "<option value='".$tab['coduser']."'";
+               echo "<option value='".h($tab['coduser'])."'";
                if ($_GET['US']==$tab['coduser']) echo " selected  ";
-               echo ">".$tab['matricul']."--".$tab['name']." ".$tab['firstname']."</option>";
+               echo ">".h($tab['matricul'])."--".h($tab['name'])." ".h($tab['firstname'])."</option>";
             }
 ?>
             </select>
@@ -123,7 +123,7 @@
 ?>
   <tr>
     <td>
-      <b><?php echo $tab2['name'] ?></b>
+      <b><?php echo h($tab2['name']) ?></b>
     </td>
     <td align=right>
       <select name=droits[]>

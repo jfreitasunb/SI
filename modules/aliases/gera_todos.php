@@ -60,7 +60,7 @@ for ($i=0;$i<count($sobrenome_0);$i++)
            }
         }
     }
-echo $alias;
+echo h($alias);
    if (checa_alias($alias)!="ok") $alias=$alias."_0";
    while (checa_alias($alias)!="ok") 
               {
@@ -126,7 +126,7 @@ for ($k=0;$k<$numero;$k++)
     $nome=$resultados[$k]['name'];
     $sobrenome=$resultados[$k]['firstname'];
     $alias=gera_alias($nome,$sobrenome);
-    echo "<tr><td>".$nome." ".$sobrenome."</td><td>".$coduser."</td><td>".$alias."</td></tr>";
+    echo "<tr><td>".h($nome)." ".h($sobrenome)."</td><td>".h($coduser)."</td><td>".h($alias)."</td></tr>";
     grava_alias($coduser,$alias);
     }
 ?>

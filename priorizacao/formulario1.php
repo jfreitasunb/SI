@@ -71,7 +71,7 @@ $ano=date("Y");
 														<?php 
 														for ($i=$ano;$i>$ano-8;$i=$i-1)
 															{
-															echo "<option value=\"".$i."\">".$i."</option>";
+															echo "<option value=\"".h($i)."\">".h($i)."</option>";
 															}
 														?>
 														</select></td></tr>
@@ -85,7 +85,7 @@ $ano=date("Y");
 														<?php 
 														for ($i=$ano;$i>$ano-8;$i=$i-1)
 															{
-															echo "<option value=\"".$i."\">".$i."</option>";
+															echo "<option value=\"".h($i)."\">".h($i)."</option>";
 															}
 														?>
 														</select> a 
@@ -99,7 +99,7 @@ $ano=date("Y");
 														<?php 
 														for ($i=$ano;$i>$ano-8;$i=$i-1)
 															{
-															echo "<option value=\"".$i."\">".$i."</option>";
+															echo "<option value=\"".h($i)."\">".h($i)."</option>";
 															}
 														?>
 														</select></td></tr>

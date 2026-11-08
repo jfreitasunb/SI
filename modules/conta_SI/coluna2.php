@@ -55,7 +55,7 @@
             }     
 	?>
         </table>
-	<input type=hidden name='login' value="<?php echo $usuario ?>">
+	<input type=hidden name='login' value="<?php echo h($usuario) ?>">
        </td>
      </tr>
      <tr>

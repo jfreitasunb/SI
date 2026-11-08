@@ -168,12 +168,12 @@ $num_dados=db_num_rows($query_dados);
       <table class=big>
          <tr>
         <td class=header align=center>
-        <h1> Lista de Ofertas do <?php  echo $semestre;?>&ordm;/ <?php  echo $ano;?></h1>
+        <h1> Lista de Ofertas do <?php  echo h($semestre);?>&ordm;/ <?php  echo h($ano);?></h1>
         </td>
       </tr>
       <tr><td>
 	<table border> 
-	<tr><td><b><a href='imprime_lista.php?lista=<?php  echo $semestre."_".$ano;?>&ordena=professor'>Professor</a></b></td><td><b><a href='imprime_lista.php?lista=<?php  echo $semestre."_".$ano;?>&ordena=disciplina'>Disciplina</a></b></td><td><b>Turma</b></td><td><b>Turno</b></td><td><b>Hor&aacute;rios</b></td><td><b>Cr&eacute;ditos</b></td></tr>
+	<tr><td><b><a href='imprime_lista.php?lista=<?php  echo h($semestre)."_".h($ano);?>&ordena=professor'>Professor</a></b></td><td><b><a href='imprime_lista.php?lista=<?php  echo h($semestre)."_".h($ano);?>&ordena=disciplina'>Disciplina</a></b></td><td><b>Turma</b></td><td><b>Turno</b></td><td><b>Hor&aacute;rios</b></td><td><b>Cr&eacute;ditos</b></td></tr>
 	<tr></tr>
 	<?php 
 	$cor_de_fundo="#FFFFFF";
@@ -191,12 +191,12 @@ $num_dados=db_num_rows($query_dados);
 //		if ($linhas_ordenadas[$i]['nome']!=$prof) {$prof=$linhas_ordenadas[$i]['nome']; if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";}
 		?>
 		<tr VALIGN=CENTER BGCOLOR="<?php  echo $cor_de_fundo;?>">
-		<td><?php  echo $registro[0];?></td>
-		<td><?php  echo $registro[1]."-".$registro[5];?></td>
-		<td><?php  echo $registro[2];?></td>
-		<td><?php  echo $registro[3];?></td>
-		<td><?php  echo $registro[4];?></td>
-		<td><?php  echo $registro[6];?></td>
+		<td><?php  echo h($registro[0]);?></td>
+		<td><?php  echo h($registro[1])."-".h($registro[5]);?></td>
+		<td><?php  echo h($registro[2]);?></td>
+		<td><?php  echo h($registro[3]);?></td>
+		<td><?php  echo h($registro[4]);?></td>
+		<td><?php  echo h($registro[6]);?></td>
 		</tr>
 		<?php 
 		}

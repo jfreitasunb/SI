@@ -63,7 +63,7 @@
   if (!empty($loginsi))
   {
      echo "<td colspan=4>Uma conta Samba ou Unix ja existe para este usu&aacute;rio.<br>
-           O mesmo login sera conservado:<b>$loginsi</b>.</td>";
+           O mesmo login sera conservado:<b>" . h($loginsi) . "</b>.</td>";
   }
   else
   {
@@ -95,7 +95,7 @@
 ?>
         <tr>
           <td>
-            <b><?php echo $tab['name'] ?></b>
+            <b><?php echo h($tab['name']) ?></b>
           </td>
           <td align=right>
             <select name="droits[]">

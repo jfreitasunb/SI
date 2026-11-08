@@ -201,7 +201,7 @@
 ?>
   <tr>
     <td>
-      <b><?php echo $tab2['name'] ?></b>
+      <b><?php echo h($tab2['name']) ?></b>
     </td>
     <td align=right>
       <select name=droits[]>

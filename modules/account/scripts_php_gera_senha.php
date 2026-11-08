@@ -84,7 +84,7 @@ else	////////////////// Pesquisa do equipamento ////////////////////////////////
 {
 $senha=generatePassword($_POST['caracteres'], $_POST['forca']);
 
-echo "A senha &eacute;: ".$senha;
+echo "A senha &eacute;: ".h($senha);
 
 }
 

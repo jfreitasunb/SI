@@ -55,7 +55,7 @@ while($registro_0=db_fetch_row($query_disciplinas))
 	<tr>
 	<form method="POST" name="formu" action="atualiza_lista_emural_3.php">
         <td class=header align=center>
-        <h1> Lista de Ofertas do <?php  echo $semestre;?>&ordm;/ <?php  echo $ano;?></h1>
+        <h1> Lista de Ofertas do <?php  echo h($semestre);?>&ordm;/ <?php  echo h($ano);?></h1>
         </td>
       </tr>
       <tr><td>
@@ -78,22 +78,22 @@ while($registro_0=db_fetch_row($query_disciplinas))
 		{
 		?>
 		<tr VALIGN=CENTER BGCOLOR="<?php echo $cor_de_fundo;?>">
-		<td><?php echo $registro[0]."-".$Disciplinas[$registro[0]];?></td>
-		<td><?php echo $registro[1];?></td>
-		<td><?php echo $nome[$coduser[$i]];?></td> 
+		<td><?php echo h($registro[0])."-".h($Disciplinas[$registro[0]]);?></td>
+		<td><?php echo h($registro[1]);?></td>
+		<td><?php echo h($nome[$coduser[$i]]);?></td> 
 		<?php
 		if($LO_prof[$registro[0]][$registro[1]]==$coduser[$i]){$ex="exerc.";$checked="checked";}else{$checked="";$ex="teoria";};
 		?>
 			<td><?php echo $ex;?></td>
-			<td><input type=radio name='e_mural[<?php echo $registro[0];?>][<?php echo $registro[1];?>]' <?php echo $checked;?> value="<?php echo $coduser[$i];?>"></td>
+			<td><input type=radio name='e_mural[<?php echo h($registro[0]);?>][<?php echo h($registro[1]);?>]' <?php echo $checked;?> value="<?php echo h($coduser[$i]);?>"></td>
 		</tr>
 		<?php
 		}
 		}
 	?>
 	</table> 
-	<input type=hidden name='semestre' value="<?php echo $semestre;?>">
-	<input type=hidden name='ano' value="<?php echo $ano;?>">
+	<input type=hidden name='semestre' value="<?php echo h($semestre);?>">
+	<input type=hidden name='ano' value="<?php echo h($ano);?>">
 	<input type=submit name='confirma' value="Confirmar altera&ccedil;&otilde;es">
 	</td>
 	</form>

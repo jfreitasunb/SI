@@ -166,7 +166,7 @@ if ($_POST['acao2'] == "Confirmar"){
 
 		<form method='post' action='operacao_2.php'>
 		<div align='center'>
-    			<input name='id_documentador' type='hidden' value='$id_documentador'>
+    			<input name='id_documentador' type='hidden' value='" . h($id_documentador) . "'>
     			<input type='submit' name='acao2' value='Visualizar'>
 	 	</div></form>";
 		}
@@ -177,7 +177,7 @@ if ($_POST['acao2'] == "Confirmar"){
 
 		<form method='post' action='operacao_2.php'>
 		<div align='center'>
-    			<input name='id_documentador' type='hidden' value='$id_documentador'>
+    			<input name='id_documentador' type='hidden' value='" . h($id_documentador) . "'>
     			<input type='submit' name='acao2' value='Visualizar'>
 	 	</div></form>";
 		}
@@ -326,7 +326,7 @@ else if(($_POST['acao2']=="Visualizar")||($_GET['acao2']=="Visualizar")){
 	$pdf = gera_pdf_latex("./modelo_tex/".$arquivo, $seds);
 	if ($pdf === false) die("N\xe3o foi poss\xedvel gerar o documento.");
 	Header("Content-type: application/pdf");
-	echo $pdf;
+	echo h($pdf);
 }
 
 ?>

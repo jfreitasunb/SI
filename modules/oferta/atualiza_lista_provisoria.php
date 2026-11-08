@@ -96,7 +96,7 @@ $query_acusa_lista=db_query("select * from oferta_acusa_lista where encaminhada=
         while ($registro=db_fetch_row($query_acusa_lista))
         {
         ?>
-        <option name='lista' value="<?php echo $registro[0]."_".$registro[1];?>"> <?php  echo $registro[0];?> &ordm;/ <?php  echo $registro[1];?></option>
+        <option name='lista' value="<?php echo h($registro[0])."_".h($registro[1]);?>"> <?php  echo h($registro[0]);?> &ordm;/ <?php  echo h($registro[1]);?></option>
         <?php 
         }
         ?>
@@ -191,18 +191,18 @@ while($magistral_0=db_fetch_row($query_magistral))
 
 ?>
 				<tr bgcolor="<?php  echo $cor_de_fundo;?>">
-                                <td><?php  echo $disciplina;?></td>
-                                <td><?php  echo $oferta[$i]['codigo'];?></td>
-                                <td><?php  echo $oferta[$i]['turma'];?></td>
-                                <td><?php  echo $oferta[$i]['vagas'];?></td>
-                                <td><?php  echo $oferta[$i]['turno'];?></td>
-                                <td><?php  echo $oferta[$i]['horarios'];?></td>
-                                <td><?php  echo $oferta[$i]['salas'];?></td>
-                                <td><?php  echo $oferta[$i]['reserva'];?></td>
-                                <td><?php  echo $oferta[$i]['status'];?></td>
-                                <td><?php  echo $oferta[$i]['nome_prof'];?></td>
-                                <td><?php  echo $creditos;?>
-                                <td><input type=radio name='disc_turma' value="<?php  echo $oferta[$i]['codigo']."_".$oferta[$i]['turma']."_".$oferta[$i]['magistral'];?>"></td>
+                                <td><?php  echo h($disciplina);?></td>
+                                <td><?php  echo h($oferta[$i]['codigo']);?></td>
+                                <td><?php  echo h($oferta[$i]['turma']);?></td>
+                                <td><?php  echo h($oferta[$i]['vagas']);?></td>
+                                <td><?php  echo h($oferta[$i]['turno']);?></td>
+                                <td><?php  echo h($oferta[$i]['horarios']);?></td>
+                                <td><?php  echo h($oferta[$i]['salas']);?></td>
+                                <td><?php  echo h($oferta[$i]['reserva']);?></td>
+                                <td><?php  echo h($oferta[$i]['status']);?></td>
+                                <td><?php  echo h($oferta[$i]['nome_prof']);?></td>
+                                <td><?php  echo h($creditos);?>
+                                <td><input type=radio name='disc_turma' value="<?php  echo h($oferta[$i]['codigo'])."_".h($oferta[$i]['turma'])."_".h($oferta[$i]['magistral']);?>"></td>
                                 </tr>
 
                 <?php 
@@ -223,7 +223,7 @@ while($magistral_0=db_fetch_row($query_magistral))
 					while($registro2=db_fetch_row($query_profs))
 						{
 						?>
-						<option value="<?php  echo $registro2[0];?>"><?php  echo $registro2[1];?></option> 
+						<option value="<?php  echo h($registro2[0]);?>"><?php  echo h($registro2[1]);?></option> 
 						<?php 
 						}
 						?>
@@ -247,7 +247,7 @@ while($magistral_0=db_fetch_row($query_magistral))
 	<input type=submit name='registra2' value="Confirmar corre&ccedil;&atilde;o">
 	<input type=reset name='limpa' value="Limpar dados">
 	
-	<input type=hidden name='semestre' value="<?php  echo $semestre;?>">
+	<input type=hidden name='semestre' value="<?php  echo h($semestre);?>">
 	<input type=hidden name='ano' value="<?php  echo h($ano);?>">
 	</td>
 	</tr>

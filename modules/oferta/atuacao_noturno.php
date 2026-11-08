@@ -31,7 +31,7 @@ $query_acusa_lista=db_query("select * from oferta_acusa_lista order by ano desc,
         while ($registro=db_fetch_row($query_acusa_lista))
         {
         ?>
-        <option value="<?php echo $registro[0]."_".$registro[1];?>"> <?php echo $registro[0];?> &ordm;/ <?php echo $registro[1];?></option>
+        <option value="<?php echo h($registro[0])."_".h($registro[1]);?>"> <?php echo h($registro[0]);?> &ordm;/ <?php echo h($registro[1]);?></option>
         <?php
         }
         ?>
@@ -168,7 +168,7 @@ $indice=$indice+1;
       <!form method="POST" name="formu" action="armazena_rodizio_noturno.php">
          <tr>
         <td class=header align=center>
-        <h1> Atua&ccedil;&otilde;es no Noturno do MAT  at&eacute; o <?php echo $semestre_anterior."/".$ano_anterior;?></h1>
+        <h1> Atua&ccedil;&otilde;es no Noturno do MAT  at&eacute; o <?php echo $semestre_anterior."/".h($ano_anterior);?></h1>
         </td>
       </tr>
       <tr><td>
@@ -186,7 +186,7 @@ $indice=$indice+1;
 
 	if (in_array($total[$key]['coduser'],$coduser)) $cordaletra="#00AA00"; else $cordaletra="#000000";
 	if(in_array($total[$key]['coduser'],$profs_na_ativa)){
-	echo "<tr bgcolor=".$cordefundo."><td><font color=".$cordaletra.">".$total[$key]['total']."</font></td><td><font color=".$cordaletra.">".h($total[$key]['nome'])."</font></td></tr>";
+	echo "<tr bgcolor=".$cordefundo."><td><font color=".$cordaletra.">".h($total[$key]['total'])."</font></td><td><font color=".$cordaletra.">".h($total[$key]['nome'])."</font></td></tr>";
 	}
 	}
 

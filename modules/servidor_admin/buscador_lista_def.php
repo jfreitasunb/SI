@@ -143,47 +143,47 @@ else
 
 			//impress? na tela
 			if($id_tipo=="1")//memorando
-				echo "<a href='$arquivo_php?id_documentador=$id_documentador0&acao2=$visual'> <p> - $item :<b>
-				$_coluna0</b><br>
-				- Destino: <b> $row1[0]</b><br>- Assunto : <b> $assunto0</b><br>- Mensagem : <b> $mensagem0</b><br>
-				- Assinatura : <b> $row21[0] $row21[1]</b><b> $row2[0]
+				echo "<a href='$arquivo_php?id_documentador=" . h($id_documentador0) . "&acao2=$visual'> <p> - $item :<b>
+				" . h($_coluna0) . "</b><br>
+				- Destino: <b> " . h($row1[0]) . "</b><br>- Assunto : <b> " . h($assunto0) . "</b><br>- Mensagem : <b> " . h($mensagem0) . "</b><br>
+				- Assinatura : <b> " . h($row21[0]) . " " . h($row21[1]) . "</b><b> " . h($row2[0]) . "
 				</b></a></p></font><br><br>";
 			else if($id_tipo=="2")//circular
-				 echo "<a href='$arquivo_php?id_documentador=$id_documentador0&acao2=$visual'> <p> - $item :<b>
-				$_coluna0</b><br>
-                                - Assunto : <b> $assunto0</b><br>- Mensagem : <b> $mensagem0</b><br>
-                                - Rementente : <b> $row21[0] $row21[1]</b><b> $row2[0]
+				 echo "<a href='$arquivo_php?id_documentador=" . h($id_documentador0) . "&acao2=$visual'> <p> - $item :<b>
+				" . h($_coluna0) . "</b><br>
+                                - Assunto : <b> " . h($assunto0) . "</b><br>- Mensagem : <b> " . h($mensagem0) . "</b><br>
+                                - Rementente : <b> " . h($row21[0]) . " " . h($row21[1]) . "</b><b> " . h($row2[0]) . "
                                 </b></a></p></font><br><br>";
 			else if(($id_tipo=="3")||($id_tipo=="6"))//of?io interno ou externo
-				 echo "<a href='$arquivo_php?id_documentador=$id_documentador0&acao2=$visual'> <p> - $item :<b>
-				$_coluna0</b><br>
-                                - Assunto : <b> $assunto0</b><br>- Mensagem : <b> $mensagem0</b><br>
-                                - Assinatura : <b> $row21[0] $row21[1]</b><b> $row2[0]
+				 echo "<a href='$arquivo_php?id_documentador=" . h($id_documentador0) . "&acao2=$visual'> <p> - $item :<b>
+				" . h($_coluna0) . "</b><br>
+                                - Assunto : <b> " . h($assunto0) . "</b><br>- Mensagem : <b> " . h($mensagem0) . "</b><br>
+                                - Assinatura : <b> " . h($row21[0]) . " " . h($row21[1]) . "</b><b> " . h($row2[0]) . "
                                 </b></a></p></font><br><br>";
 			else if($id_tipo=="4")//ato
-				 echo "<a href='$arquivo_php?id_documentador=$id_documentador0&acao2=$visual'> <p> - $item :<b>
-				$_coluna0</b><br>
-                                - Mensagem : <b> $mensagem0</b><br>
-                                - Assinatura : <b> $row21[0] $row21[1]</b><b> $row2[0]
+				 echo "<a href='$arquivo_php?id_documentador=" . h($id_documentador0) . "&acao2=$visual'> <p> - $item :<b>
+				" . h($_coluna0) . "</b><br>
+                                - Mensagem : <b> " . h($mensagem0) . "</b><br>
+                                - Assinatura : <b> " . h($row21[0]) . " " . h($row21[1]) . "</b><b> " . h($row2[0]) . "
                                 </b></a></p></font><br><br>";
 			else if($id_tipo=="5")//ata
-				 echo "<a href='$arquivo_php?id_documentador=$id_documentador0&acao2=$visual'> <p> - $item :<b>
-				$_coluna0</b><br>
+				 echo "<a href='$arquivo_php?id_documentador=" . h($id_documentador0) . "&acao2=$visual'> <p> - $item :<b>
+				" . h($_coluna0) . "</b><br>
                                 </b></a></p></font><br><br>";
 			}
 
 	if($pagina == 1)
 		{
 		echo "<br><td nowrap align=left>
-                <a href='buscador_lista_def.php?id_tipo=".$id_tipo."&busca=".$busca."&pagina=".$pagina."&numerodocumento=".$numerodocumento."&id_departamento=".$id_departamento."&assunto=".$assunto."&ano=".$ano."&mes=".$mes."'><br><span class=b>
+                <a href='buscador_lista_def.php?id_tipo=".h($id_tipo)."&busca=".h($busca)."&pagina=".h($pagina)."&numerodocumento=".h($numerodocumento)."&id_departamento=".h($id_departamento)."&assunto=".h($assunto)."&ano=".h($ano)."&mes=".h($mes)."'><br><span class=b>
                 <b>Pr\xf3xima</b></span></a>";
                 }
         else
                 {
-                echo "<td nowrap align=right><a href='buscador_lista_def.php?id_tipo=".$id_tipo."&busca=".$busca."&pagina=".$paginamenosum."'>
+                echo "<td nowrap align=right><a href='buscador_lista_def.php?id_tipo=".h($id_tipo)."&busca=".h($busca)."&pagina=".h($paginamenosum)."'>
                 <br><span class=b><b>Anterior</b></span></a><br>
                 <td nowrap align=left>
-                <a href='buscador_lista_def.php?id_tipo=".$id_tipo."&busca=".$busca."&pagina=".$pagina."&numerodocumento=".$numerodocumento."&id_departamento=".$id_departamento."&assunto=".$assunto."&ano=".$ano."&mes=".$mes."'><br><span class=b>
+                <a href='buscador_lista_def.php?id_tipo=".h($id_tipo)."&busca=".h($busca)."&pagina=".h($pagina)."&numerodocumento=".h($numerodocumento)."&id_departamento=".h($id_departamento)."&assunto=".h($assunto)."&ano=".h($ano)."&mes=".h($mes)."'><br><span class=b>
                 <b>Pr\xf3xima</b></span></a>";
                 }
 

@@ -22,7 +22,7 @@
 	       <table class=form>
 	       <tr>
 		    <td class=header align=center>
-		        O usu&aacute;rio <?php echo $nome['name'] ?>  <?php echo $nome['firstname'] ?> n&atilde;o tem mais permiss&atilde;o de acesso ao SI.
+		        O usu&aacute;rio <?php echo h($nome['name']) ?>  <?php echo h($nome['firstname']) ?> n&atilde;o tem mais permiss&atilde;o de acesso ao SI.
 		   </td>
 	      </tr> 
 	   </tr>  

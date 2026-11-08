@@ -13,7 +13,14 @@ reauditar tudo.
   (`secure()` + `verif_permission()` fail-closed) + vinculo de IP de sessao.
 - **CSRF**: token por sessao injetado em formularios POST e validado no gate.
 - **XSS**: saida escapada com `h()` (`htmlspecialchars`). Veja o scanner para
-  `echo` de superglobais sem escape.
+  `echo` de superglobais sem escape. Regras:
+  - dado do banco ou da requisicao impresso em HTML/atributo: `h($valor)`;
+  - dado dentro de JavaScript (`<script>`, `onclick=`...): `js_str($valor)`
+    (gera `'...'` escapado; `h()` NAO protege contexto JS);
+  - variavel que guarda HTML montado pelo codigo: escape cada valor na montagem
+    (`$x = "<td>".h($v)."</td>"`) e imprima `$x` sem `h()`;
+  - excecao: `users_tipo_contrato.descricao` e `users_bolsas.descricao` ja guardam
+    entidades HTML (`Dedica&ccedil;&atilde;o`) e sao impressas sem `h()`.
 - **Hashing de senha**: `hash_senha_app()` (bcrypt) para a tabela `admin`;
   `cripta_senha_unix()` (SHA-512 `$6$`) para a tabela `unix`. Nunca `md5()` nem
   `crypt()` default.

@@ -231,10 +231,10 @@ sort($ip_39);
                 do
                    {
                     $ip_provavel=$ip_38[$i-11];  //explode(".",$ip_38[$i-11]);
-echo "ip_38:".$ip_38[$i-11];
+echo "ip_38:".h($ip_38[$i-11]);
                     $i=$i+1;
                     $j=$i-1;
-echo "ip provavel:".$ip_provavel;  //$ip_provavel[3];
+echo "ip provavel:".h($ip_provavel);  //$ip_provavel[3];
                    }
 //                while($ip_provavel[3]==$j); // "finalde" é o final do número IP
 		while($ip_provavel==$j);

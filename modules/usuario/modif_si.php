@@ -28,7 +28,7 @@
     $result4=db_query($query4, $query4__p);
     $count4=db_num_rows($result4);
     $tab4=db_fetch_array($result4);
-    echo "<input type='hidden' name='login' value='".$tab4['login']."'>"; 
+    echo "<input type='hidden' name='login' value='".h($tab4['login'])."'>"; 
 ?>
     <input type=hidden name=prec value=si>
     <tr> 
@@ -62,7 +62,7 @@
         ?>
         <tr>
           <td>
-            <b><?php echo $tab['name'] ?></b>
+            <b><?php echo h($tab['name']) ?></b>
           </td>
           <td align=right>
             <select name="droits[]">

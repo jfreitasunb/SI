@@ -54,7 +54,7 @@ for ($i=0;$i<count($sobrenome_0);$i++)
            }
         }
     }
-echo $alias;
+echo h($alias);
 return $alias;
 }
 

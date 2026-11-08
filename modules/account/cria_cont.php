@@ -53,7 +53,7 @@
 		$result1=db_query($query, $query__p);
 
                $tab=db_fetch_array($result1,0);
-               $param="'".$tab0['coduser']."','".$tab['tipo_users']."','','',''"; // o nome de tipo_users no formulário é login. os campos 											// cota_impressao,cota_disco,cota_mail voltam vazios.
+               $param=js_str($tab0['coduser']).','.js_str($tab['tipo_users']).','.js_str('').','.js_str('').','.js_str(''); // o nome de tipo_users no formulário é login. os campos 											// cota_impressao,cota_disco,cota_mail voltam vazios.
                $param=str_replace(CHR(10)," ",$param);
                $param=str_replace(CHR(13)," ",$param);
 ?>
@@ -61,9 +61,9 @@
                  utilisateurs[<?php echo $i ?>] = new conta(<?php echo $param ?>);
                </script>
 <?php
-               echo "<option value='".$tab0['coduser']."'";
+               echo "<option value='".h($tab0['coduser'])."'";
                if ($_GET['US']==$tab0['coduser']) echo " selected  ";
-               echo ">".$tab['matricul']."--".$tab['name']." ".$tab['firstname']."</option>";
+               echo ">".h($tab['matricul'])."--".h($tab['name'])." ".h($tab['firstname'])."</option>";
             }
 ?>
             </select>
@@ -108,7 +108,7 @@
     </tr>
   </form>
   <script language="javascript">
-    var nb_enreg = <?php echo $nb_enreg-1 ?>;
+    var nb_enreg = <?php echo h($nb_enreg)-1 ?>;
     enregistrement(utilisateurs,i,nb_enreg);
   </script>
      <table>

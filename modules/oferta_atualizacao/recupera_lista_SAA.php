@@ -111,7 +111,7 @@ $query_acusa_lista=db_query("select * from oferta_acusa_lista where encaminhada<
         while ($registro=db_fetch_row($query_acusa_lista))
         {
         ?>
-        <option name='lista' value="<?php echo $registro[0]."_".$registro[1];?>"> <?php echo $registro[0];?> &ordm;/ <?php echo $registro[1];?></option>
+        <option name='lista' value="<?php echo h($registro[0])."_".h($registro[1]);?>"> <?php echo h($registro[0]);?> &ordm;/ <?php echo h($registro[1]);?></option>
         <?php
         }
         ?>
@@ -223,7 +223,7 @@ for ($i=0;$i<1;$i++) //CORRIGIDO EM 18/12/2014
 					{
 		// Upload efetuado com sucesso, exibe uma mensagem e um link para o arquivo; insere ponteiro na tabela
 					echo "<br>Upload efetuado com sucesso!<br>";
-					echo '<br /><a href="http://www.mat.unb.br/si/modules/oferta/listas_SAA/'.$nome_final . '">Clique aqui para acessar o arquivo</a><br>';
+					echo '<br /><a href="http://www.mat.unb.br/si/modules/oferta/listas_SAA/'.h($nome_final) . '">Clique aqui para acessar o arquivo</a><br>';
 					if (testa_arquivo_sigaa($semestre,$ano,$nome_final,$tipo[$i]))
 						{
 						echo "<BR> Testando arquivos <BR>";

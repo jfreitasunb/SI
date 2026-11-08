@@ -69,13 +69,13 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
         	</td>
 	      </tr>
 	      <tr>
-	      <td><b>Professor:</b> <?php  echo $nome_prof['nome'];?></td>
+	      <td><b>Professor:</b> <?php  echo h($nome_prof['nome']);?></td>
         	</tr>
         	<tr>
-		<td><b>Quantos cr&eacute;ditos pretende lecionar na gradua&ccedil;&atilde;o?</b> <?php  echo $registro_creditos[1];?></td>
+		<td><b>Quantos cr&eacute;ditos pretende lecionar na gradua&ccedil;&atilde;o?</b> <?php  echo h($registro_creditos[1]);?></td>
 	        </tr>
         	<tr>
-		<td><b>Prefer&ecirc;ncia por 2 (duas) disciplinas de 6 cr&eacute;ditos iguais? </b><?php  echo $registro_creditos[2];?></td>
+		<td><b>Prefer&ecirc;ncia por 2 (duas) disciplinas de 6 cr&eacute;ditos iguais? </b><?php  echo h($registro_creditos[2]);?></td>
 	        </tr>
         	<tr>
 		<td><b>Quais disciplinas pretende lecionar na p&oacute;s-gradua&ccedil;&atilde;o (exceto Est&aacute;gios em Pesquisa)?</b><BR>
@@ -86,7 +86,7 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
         	        $select_disciplinas_pg[$cont_pos]=db_query("select codigo, nome, creditos from disciplinas_mat where status='pgrad' order by nome", array()); 
                 	while ($registro[$cont_pos]=db_fetch_row($select_disciplinas_pg[$cont_pos]))
                         	{
-                                if ($registro[$cont_pos][0]==$registro_creditos_pos[$cont_pos]['disciplina']) echo $registro[$cont_pos][0]."-".$registro[$cont_pos][1]." (".$registro[$cont_pos][2].")<BR>";
+                                if ($registro[$cont_pos][0]==$registro_creditos_pos[$cont_pos]['disciplina']) echo h($registro[$cont_pos][0])."-".h($registro[$cont_pos][1])." (".h($registro[$cont_pos][2]).")<BR>";
         	                }
 			}
 		?>
@@ -105,7 +105,7 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
 	        	        $select_orientando[$cont_pesq]=db_query("select coduser,name,firstname from users where coduser in (select coduser from student where status='ativo') order by name", array());
         	        	while ($registro1[$cont_pesq]=db_fetch_row($select_orientando[$cont_pesq]))
                 	        	{
-	                	        if ($registro_creditos_est_pesq_pos[$cont_pesq]['orientando']==$registro1[$cont_pesq][0]) echo " Orientando: ".$registro1[$cont_pesq][1]." ".$registro1[$cont_pesq][2]."<BR>";
+	                	        if ($registro_creditos_est_pesq_pos[$cont_pesq]['orientando']==$registro1[$cont_pesq][0]) echo " Orientando: ".h($registro1[$cont_pesq][1])." ".h($registro1[$cont_pesq][2])."<BR>";
 					}
 				}
 			}
@@ -129,7 +129,7 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
 // calcular os creditos: coduser | prioridade | disciplina | dias | horarios | semestre | ano  | turno  | creditos | atendido
 					$query_magistral=db_query("select creditos from oferta_escolha_disciplina where disciplina=? and coduser=? and semestre=? and ano=? and upper(turno)=?", array($registro2[$i][0], $coduser, $semestre, $ano, $registro2[$i][3]));
 					if(($registro2[$i][5]=="teoria") or ($registro2[$i][5]=="exercicios")) $creditos_disc=db_result($query_magistral,0,0); else $creditos_disc=$registro2[$i][2];
-                                        if (($registro2[$i][0]==$registro_disciplinas[$i-1]['disciplina']) and ($registro2[$i][3]==strtoupper($registro_disciplinas[$i-1]['turno']))) echo $registro2[$i][3].":  ".$registro2[$i][0]."-".$registro2[$i][1]." (".$creditos_disc.")<br>";
+                                        if (($registro2[$i][0]==$registro_disciplinas[$i-1]['disciplina']) and ($registro2[$i][3]==strtoupper($registro_disciplinas[$i-1]['turno']))) echo h($registro2[$i][3]).":  ".h($registro2[$i][0])."-".h($registro2[$i][1])." (".h($creditos_disc).")<br>";
 // turno, codigo, nome, (creditos)
 					}
 					}

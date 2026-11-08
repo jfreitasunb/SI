@@ -574,6 +574,17 @@ function h($valor)
     return htmlspecialchars((string)$valor, ENT_QUOTES, 'ISO-8859-1');
 }
 
+// String JavaScript entre aspas simples, segura dentro de <script> e de atributos
+// on*. Escapa aspas, barra invertida, <, >, & e quebras de linha; bytes altos
+// (acentos em ISO-8859-1/UTF-8) passam intactos (json_encode falharia em latin-1).
+function js_str($valor)
+{
+    return "'" . strtr((string)$valor, array(
+        '\\' => '\\\\', "'" => '\\x27', '"' => '\\x22', '<' => '\\x3C', '>' => '\\x3E',
+        '&' => '\\x26', "\n" => '\\n', "\r" => '\\r',
+    )) . "'";
+}
+
 // Sanitizam valores vindos do banco antes de escreve-los em arquivos de
 // configuracao de rede (dhcpd.conf, hosts, lts.conf). Impedem injecao de novas
 // diretivas/linhas (config injection) removendo quebras de linha e caracteres

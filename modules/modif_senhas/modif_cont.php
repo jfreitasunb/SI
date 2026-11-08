@@ -50,7 +50,7 @@
        $result2=db_query($test2, $test2__p);
        $tab2=db_fetch_array($result2,0);
                
-$param="'".$tab['coduser']."','".$tab2['login']."','".$tab2['cota_impressao']."','".$tab2['cota_disco']."','".$tab2['cota_mail']."','".$tab2['ssh']."'";
+$param=js_str($tab['coduser']).','.js_str($tab2['login']).','.js_str($tab2['cota_impressao']).','.js_str($tab2['cota_disco']).','.js_str($tab2['cota_mail']).','.js_str($tab2['ssh']);
                $param=str_replace(CHR(10)," ",$param);
                $param=str_replace(CHR(13)," ",$param);
 ?>
@@ -58,9 +58,9 @@ $param="'".$tab['coduser']."','".$tab2['login']."','".$tab2['cota_impressao']."'
                  utilisateurs[<?php echo $i ?>] = new conta(<?php echo $param ?>);
                </script>
 <?php
-               echo "<option value='".$tab['coduser']."'";
+               echo "<option value='".h($tab['coduser'])."'";
                if ($_GET['US']==$tab['coduser']) echo " selected  ";
-               echo ">".$tab['matricul']."--".$tab['name']." ".$tab['firstname']."</option>";
+               echo ">".h($tab['matricul'])."--".h($tab['name'])." ".h($tab['firstname'])."</option>";
             }
 ?>
             </select>

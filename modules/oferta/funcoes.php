@@ -400,12 +400,12 @@ $num_dados=db_num_rows($query_dados);
 		   }
 		?>
 		<tr VALIGN=CENTER BGCOLOR="<?php echo $cor_de_fundo;?>">
-		<td><?php echo $registro[1];?></td>
-		<td><?php echo $registro[2];?></td>
-		<td><?php echo $registro[3];?></td>
-		<td><?php echo $registro[4];?></td>
-		<td><?php echo $registro[5];?></td>
-		<td><?php echo $registro[6];?></td>
+		<td><?php echo h($registro[1]);?></td>
+		<td><?php echo h($registro[2]);?></td>
+		<td><?php echo h($registro[3]);?></td>
+		<td><?php echo h($registro[4]);?></td>
+		<td><?php echo h($registro[5]);?></td>
+		<td><?php echo h($registro[6]);?></td>
 		</tr>
 		<?php
 		}
@@ -454,10 +454,10 @@ $num_dados=db_num_rows($query_dados);
 		    if ($registro[0]!=$prof) {if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";}
 		   }
 		$query_prioridades=db_query("select prioridade,atendido from oferta_escolha_disciplina where coduser=? and semestre=? and ano=? order by prioridade", array($registro[0], $semetre, $ano));
-		$impresso="<td>".$registro[1]."</td>";
+		$impresso="<td>".h($registro[1])."</td>"; // escapa na montagem: $impresso e HTML
 		while ($registro2=db_fetch_row($query_prioridades))
 			{
-			$impresso.="<td>".$registro2[1]."</td>";
+			$impresso.="<td>".h($registro2[1])."</td>";
 			}
 		?>
 		<tr VALIGN=CENTER BGCOLOR="<?php echo $cor_de_fundo;?>"> <?php  echo $impresso;?>

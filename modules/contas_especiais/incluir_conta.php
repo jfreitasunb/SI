@@ -44,7 +44,7 @@ r>
 //			$descricao=mb_convert_encoding($registro[2],"UTF-8");
 			$descricao=$registro[2];
                         $valor_da_conta=$registro[0]."-".$registro[1]."-".$registro[4];
-		        echo "<tr><td><input type=radio name='eliminar' value=".$valor_da_conta."></td><td>".$registro[1]."</td><td>".$descricao."</td><td>".$registro[4]."</td></tr>";
+		        echo "<tr><td><input type=radio name='eliminar' value=".h($valor_da_conta)."></td><td>".h($registro[1])."</td><td>".h($descricao)."</td><td>".h($registro[4])."</td></tr>";
                         }
                  ?>
          </table>
@@ -110,7 +110,7 @@ if (isset($_POST['seleciona']))
 	  <tr><td colspan=5><blink><?php echo $mensagem2;?></blink></td></tr>
 	  <tr><td colspan=5><blink><?php echo $mensagem3;?></blink></td></tr>
 	  <tr><td><b>Criar</b></td><td> <b>Nome da conta</b></td><td><b>Descri&ccedil;&atilde;o</b></td><td><b>Senha</b></td><td><b>Confirmar senha</b></td></tr>
-          <tr><td><input type=hidden name='atualizar' value="criar"></td><td> <input type=text name='nome_conta' maxlength=10 size=12 value="<?php echo $valor_da_conta[1];?>"> </td><td><input type=text name='descricao' maxlength=200 size=50 value="<?php echo $res_descricao[0];?>"> </td><td><input type=password name='senha1' size=10></td><td><input type=password name='senha2' size=10></td></tr>
+          <tr><td><input type=hidden name='atualizar' value="criar"></td><td> <input type=text name='nome_conta' maxlength=10 size=12 value="<?php echo h($valor_da_conta[1]);?>"> </td><td><input type=text name='descricao' maxlength=200 size=50 value="<?php echo h($res_descricao[0]);?>"> </td><td><input type=password name='senha1' size=10></td><td><input type=password name='senha2' size=10></td></tr>
 	  </table>
 	  </td>
 	  </tr>
@@ -125,7 +125,7 @@ if (isset($_POST['seleciona']))
           <?php
            }
 
-	echo " Conta ".$valor_da_conta[1]."@mat.unb.br ".$status."\n";
+	echo " Conta ".h($valor_da_conta[1])."@mat.unb.br ".$status."\n";
 	}
 
 // CASO FOR CONTA A ATUALIZAR
@@ -176,7 +176,7 @@ if (isset($_POST['seleciona']))
            $query_unix=db_query($atualiza_unix, $atualiza_unix__p);
            //echo $atualiza_unix;
 	   echo "\n";
-           echo "Conta ".$_POST['nome_conta']."@mat.unb.br atualizada com sucesso.";	   
+           echo "Conta ".h($_POST['nome_conta'])."@mat.unb.br atualizada com sucesso.";	   
 	   }
 
         }
@@ -245,7 +245,7 @@ if (isset($_POST['seleciona']))
 //                        $descricao=mb_convert_encoding($registro[2],"UTF-8");
                         $descricao=$registro[2];
                         $valor_da_conta=$registro[0]."-".$registro[1]."-".$registro[4];
-                    echo "<tr><td><input type=radio name='eliminar' value=".$valor_da_conta."></td><td>".$registro[1]."</td><td>".$descricao."</td><td>".$registro[4]."</td></tr>";
+                    echo "<tr><td><input type=radio name='eliminar' value=".h($valor_da_conta)."></td><td>".h($registro[1])."</td><td>".h($descricao)."</td><td>".h($registro[4])."</td></tr>";
                         }
                  ?>
          </table>
@@ -299,7 +299,7 @@ rmar senha</b></td></tr>
 // $query="insert into unix values ('".$this->login."','".crypt($this->passwd)."','".$uid[0]."','".$gid."','1','".$this->gecos."','/home/".$this->login."','bash','0','".$cota_impressao."','".$cota_disco."','".$cota_mail."','".$tabela_user."','".$ssh."')";
 
                 echo "\n";
-		echo "Conta ".$_POST['nome_conta']."@mat.unb.br criada com sucesso.";
+		echo "Conta ".h($_POST['nome_conta'])."@mat.unb.br criada com sucesso.";
 		}
 	}
 }

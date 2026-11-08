@@ -30,7 +30,7 @@ $query_acusa_lista=db_query("select * from oferta_acusa_lista order by ano desc,
         while ($registro=db_fetch_row($query_acusa_lista))
         {
         ?>
-        <option value="<?php echo $registro[0]."_".$registro[1];?>"> <?php  echo $registro[0];?> &ordm;/ <?php  echo $registro[1];?></option>
+        <option value="<?php echo h($registro[0])."_".h($registro[1]);?>"> <?php  echo h($registro[0]);?> &ordm;/ <?php  echo h($registro[1]);?></option>
 	<?php 
         }
         ?>

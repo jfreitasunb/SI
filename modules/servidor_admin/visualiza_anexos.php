@@ -145,14 +145,14 @@ if ($docs_numero!=1)
 		{
 		$query_documentos="select ad.id_documentador as id_documentador,ad.numerodocumento as numerodocumento,SUBSTR(ad.data,1,2) as dia,SUBSTR(ad.data,4,2) as mes,SUBSTR(ad.data,7,4) as ano ,add.nomedepartamento as destino,ad.assunto as assunto from admin_documentador ad,admin_departamento add where ad.id_tipo=? and add.id_departamento=ad.id_departamento order by ano desc,mes desc,dia desc,numerodocumento desc"; $query_documentos__p = array($tipo[0]); 
 		$query_tipo[$tipo[0]]=db_query($query_documentos, $query_documentos__p);
-		echo "<tr><td><b>".strtoupper($tipo[1]).":</b></td><td> <select name='documento[".$tipo[0]."]' style=\"width: 500px\"><option value=\"nulo\" selected> --- </option>";
+		echo "<tr><td><b>".strtoupper($tipo[1]).":</b></td><td> <select name='documento[".h($tipo[0])."]' style=\"width: 500px\"><option value=\"nulo\" selected> --- </option>";
 		$cor_de_fundo="#FFFFFF";
 		while($registro=db_fetch_row($query_tipo[$tipo[0]]))
 			{
 			if ($registro[0]==$documento[$tipo[0]]) $selected="selected"; else $selected="";
 
 			if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#E9967A"; else $cor_de_fundo="#FFFFFF";
-			echo "<option value=\"".$registro[0]."\" style=\"COLOR: #000000; BACKGROUND-COLOR: ".$cor_de_fundo."\" ".$selected.">".$tipo[2]." ".$registro[1]." de ".$registro[2]."/".$registro[3]."/".$registro[4]."   DESTINO:".$registro[5]."</option>";
+			echo "<option value=\"".h($registro[0])."\" style=\"COLOR: #000000; BACKGROUND-COLOR: ".$cor_de_fundo."\" ".$selected.">".h($tipo[2])." ".h($registro[1])." de ".h($registro[2])."/".h($registro[3])."/".h($registro[4])."   DESTINO:".h($registro[5])."</option>";
 			}
 		echo "</select> <br></td></tr>";
 		}
@@ -190,7 +190,7 @@ $query_anexos=db_query("select nome_arquivo,numero_anexo from admin_anexos where
 $query_documento=db_query("select numerodocumento,SUBSTR(data,1,2) as dia,SUBSTR(data,4,2) as mes,SUBSTR(data,7,4) as ano from admin_documentador where id_documentador=?", array($id_documento));
 $documento=db_fetch_array($query_documento);
 
-echo "<tr><td colspan=2><b>Lista de anexos ao documento :".$sigla." ".$documento['numerodocumento']." de ".$documento['dia']."/".$documento['mes']."/".$documento['ano']."</b></td></tr>";
+echo "<tr><td colspan=2><b>Lista de anexos ao documento :".h($sigla)." ".h($documento['numerodocumento'])." de ".h($documento['dia'])."/".h($documento['mes'])."/".h($documento['ano'])."</b></td></tr>";
 
 
 while ($registro=db_fetch_row($query_anexos))

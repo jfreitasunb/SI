@@ -79,7 +79,7 @@ if ((!isset($_POST['usuario'])) and (!isset($_POST['maquina'])))// Se o usuario 
 		{
 			$host = $registro[0];  		// primeira coluna da tabela usuario
 			$titulo = $registro[1]." ".$registro[2];         // segunda coluna da tabela usuario
-			echo "<option value=\"$host\">$titulo</option>\n"; //Escreva o codigo e o nome do usuario
+			echo "<option value=\"" . h($host) . "\">" . h($titulo) . "</option>\n"; //Escreva o codigo e o nome do usuario
 		}
 	?>
 	</select>
@@ -124,7 +124,7 @@ else if ((isset($_POST['usuario'])) and (!isset($_POST['maquina'])))
 //patrimonio ; end. IP; sala ; host; end. MAC; tipo mouse; tipo teclado; resol. tela ; tipo de maquina;  status (ativa/nao ativa) ; data_encerramento
 // maqcod    | ipnet  |codloc| host| mac     | mouse     | keyboard    | resolucao   | tipo_maquina   | status                    | data_encerramento| layout_teclado
 
-               $param="'".$tab['maqcod']."','".$tab['ipnet']."','".$tab['codloc']."','".$tab['host']."','".$mac['0']."','".$mac['1']."','".$mac['2']."','".$mac['3']."','".$mac['4']."','".$mac['5']."','".$tab['mouse']."','".$tab['keyboard']."','".$tab['layout_teclado']."','".$tab['resolucao']."','".$tab['tipo_maquina']."','".$dia."','".$mes."','".$ano."'";
+               $param=js_str($tab['maqcod']).','.js_str($tab['ipnet']).','.js_str($tab['codloc']).','.js_str($tab['host']).','.js_str($mac['0']).','.js_str($mac['1']).','.js_str($mac['2']).','.js_str($mac['3']).','.js_str($mac['4']).','.js_str($mac['5']).','.js_str($tab['mouse']).','.js_str($tab['keyboard']).','.js_str($tab['layout_teclado']).','.js_str($tab['resolucao']).','.js_str($tab['tipo_maquina']).','.js_str($dia).','.js_str($mes).','.js_str($ano);
                $param=str_replace(CHR(10)," ",$param);
                $param=str_replace(CHR(13)," ",$param);
 ?>
@@ -132,9 +132,9 @@ else if ((isset($_POST['usuario'])) and (!isset($_POST['maquina'])))
                  utilisateurs[<?php echo $i ?>] = new users(<?php echo $param ?>);
                </script>
 <?php
-               echo "<option value='".$tab['maqcod']."'";
+               echo "<option value='".h($tab['maqcod'])."'";
                if ($_GET['US']==$tab['maqcod']) echo " selected  ";
-               echo ">".$tab['ipnet']."--".$tab['host']." em ".$tab['codloc']."</option>";
+               echo ">".h($tab['ipnet'])."--".h($tab['host'])." em ".h($tab['codloc'])."</option>";
 		}
 
     	?>
@@ -189,7 +189,7 @@ else if ((isset($_POST['usuario'])) and (!isset($_POST['maquina'])))
                 {
                         $codloc = $registro_sala[0];                // primeira coluna da tabela usuario
                         $descricao=$registro_sala[1];
-                        echo "<option value=\"$codloc\">$descricao</option>\n"; //Escreva o codigo e o nome do usuario
+                        echo "<option value=\"" . h($codloc) . "\">" . h($descricao) . "</option>\n"; //Escreva o codigo e o nome do usuario
                 }
         ?>
         </select></td>
@@ -214,7 +214,7 @@ else if ((isset($_POST['usuario'])) and (!isset($_POST['maquina'])))
 	<input type="submit" value="Corrigir dados da Maquina" name="maquina"> 
 	  </form>
 	  <script language="javascript">
-	    var nb_enreg = <?php echo $linhas_maquinas-1 ?>;
+	    var nb_enreg = <?php echo h($linhas_maquinas)-1 ?>;
 	    enregistrement(utilisateurs,i,nb_enreg);
 	  </script>
 	     </table>
@@ -271,8 +271,8 @@ else if (isset($_POST['maquina']))
         else
         {
         $host_cadastrado=db_fetch_array($res_mac);
-	echo "A m&aacute;quina n&atilde;o p&ocirc;de ser cadastrada porque a ".$host_cadastrado[0]." j&aacute; 
-est&aacute; ativa e cadastrada com mesmo MAC! Ou A margem de IP já extrapolou:".$ipnet."!";
+	echo "A m&aacute;quina n&atilde;o p&ocirc;de ser cadastrada porque a ".h($host_cadastrado[0])." j&aacute; 
+est&aacute; ativa e cadastrada com mesmo MAC! Ou A margem de IP já extrapolou:".h($ipnet)."!";
 	}
 	db_close($idconn);
 	}

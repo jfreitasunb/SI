@@ -120,7 +120,7 @@ if(strlen($submit)>0)
 														?>
 														</select></td></tr>
 	<tr><td align=center><input type=submit name='selecao1' value='Confirmar'></td></tr>
-	<tr><td align=center><input type=hidden name='usuario' value="<?php echo $coduser;?>"></td></tr>
+	<tr><td align=center><input type=hidden name='usuario' value="<?php echo h($coduser);?>"></td></tr>
 	</table>
 	</form>
 	</table>

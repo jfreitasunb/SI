@@ -48,7 +48,7 @@ for($i=0;$i<$num;$i++)
 	}
 $horario_teoria=$array_horario_teoria[0];
 if(count($array_horario_teoria)>1) {for($j=1;$j<count($array_horario_teoria);$j++) {$horario_teoria.="-".$array_horario_teoria[$j];}}
-echo $horario_teoria."--/--";
+echo h($horario_teoria)."--/--";
 $horario_exercicios=str_replace($horario_teoria."-", "", $turma[2]);
 
 // determina o turno do grupo da aula teorica:
@@ -197,15 +197,15 @@ $tabela_a="oferta_lista_de_ofertas_nova";
                 if ($cor_de_fundo=="#FFFFFF") $cor_de_fundo="#D0D0D0"; else $cor_de_fundo="#FFFFFF";
 ?>
                 <tr bgcolor="<?php  echo $cor_de_fundo;?>">
-                <td><?php  echo $registro[0];?></td>
-                <td><?php  echo $registro[1];?></td>
-                <td><?php  echo $registro[2];?></td>
-                <td><?php  echo $registro[3];?></td>
-                <td><?php  echo $registro[4];?></td>
-                <td><?php  echo $registro[5];?></td>
-                <td><?php  echo $registro[6];?></td>
-                <td><?php  echo $registro[7];?></td>
-                <td><?php  echo $registro[8];?></td>
+                <td><?php  echo h($registro[0]);?></td>
+                <td><?php  echo h($registro[1]);?></td>
+                <td><?php  echo h($registro[2]);?></td>
+                <td><?php  echo h($registro[3]);?></td>
+                <td><?php  echo h($registro[4]);?></td>
+                <td><?php  echo h($registro[5]);?></td>
+                <td><?php  echo h($registro[6]);?></td>
+                <td><?php  echo h($registro[7]);?></td>
+                <td><?php  echo h($registro[8]);?></td>
                 </tr>
 <?php 
                 }
@@ -227,17 +227,17 @@ $tabela_a="oferta_lista_de_ofertas_nova";
 			while ($registro2[$contador]=db_fetch_row($query_disciplinas_mat[$contador])) 
 				{
 				if ($registro2[$contador][0]==$registro[1]) $selected="selected"; else $selected="";?>
-				<option value="<?php  echo $registro2[$contador][0];?>" <?php  echo $selected;?>><?php  echo $registro2[$contador][0]."/".$registro2[$contador][1];?></option>
+				<option value="<?php  echo h($registro2[$contador][0]);?>" <?php  echo $selected;?>><?php  echo h($registro2[$contador][0])."/".h($registro2[$contador][1]);?></option>
 				<?php }
 			?>
 		</td>
-        	<td><input type=text name='turma[]' value="<?php  echo $registro[2];?>" maxlength=1 size=1></td>
-        	<td><input type=text name='vagas[]' value="<?php  echo $registro[3];?>" maxlength=2 size=1></td>
-        	<td><input type=text name='turno[]' value="<?php  echo $registro[4];?>" maxlength=7 size=6></td>
-        	<td><input type=text name='horarios[]' value="<?php  echo $registro[5];?>" maxlength=11 size=10></td>
-        	<td><input type=text name='salas[]' value="<?php  echo $registro[6];?>"></td>
-        	<td><input type=text name='reserva[]' value="<?php  echo $registro[7];?>"></td>
-        	<td><input type=text name='status[]' value="<?php  echo $registro[8];?>" maxlength=8 size=7></td>
+        	<td><input type=text name='turma[]' value="<?php  echo h($registro[2]);?>" maxlength=1 size=1></td>
+        	<td><input type=text name='vagas[]' value="<?php  echo h($registro[3]);?>" maxlength=2 size=1></td>
+        	<td><input type=text name='turno[]' value="<?php  echo h($registro[4]);?>" maxlength=7 size=6></td>
+        	<td><input type=text name='horarios[]' value="<?php  echo h($registro[5]);?>" maxlength=11 size=10></td>
+        	<td><input type=text name='salas[]' value="<?php  echo h($registro[6]);?>"></td>
+        	<td><input type=text name='reserva[]' value="<?php  echo h($registro[7]);?>"></td>
+        	<td><input type=text name='status[]' value="<?php  echo h($registro[8]);?>" maxlength=8 size=7></td>
 	        </tr>
 <?php 			
 		$contador=$contador+1;

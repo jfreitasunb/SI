@@ -125,7 +125,7 @@ foreach ($noturno_3_semestres as $key => $row)
 
 	if (in_array($total[$key]['coduser'],$coduser)) $cordaletra="#00AA00"; else $cordaletra="#000000";
 
-	echo "<tr bgcolor=".$cordefundo."><td><font color=".$cordaletra.">".$total[$key]['total']."</font></td><td><font color=".$cordaletra.">".h($total[$key]['nome'])."</font></td></tr>";
+	echo "<tr bgcolor=".$cordefundo."><td><font color=".$cordaletra.">".h($total[$key]['total'])."</font></td><td><font color=".$cordaletra.">".h($total[$key]['nome'])."</font></td></tr>";
 
 	}
 

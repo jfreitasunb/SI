@@ -29,10 +29,10 @@ $resultado=db_query("SELECT * FROM admin_rascunho WHERE id_documentador = ?", ar
 $col= db_fetch_array($resultado,0);
 
 ?>
-<! form action='ati.php?id_documentador=<?php echo $id_documentador ?>' method='post'>
+<! form action='ati.php?id_documentador=<?php echo h($id_documentador) ?>' method='post'>
 <form action='ati.php' method='post'>
 <table class=form>
-		<input type=hidden name='id_documentador' value="<?php echo $id_documentador ?>">
+		<input type=hidden name='id_documentador' value="<?php echo h($id_documentador) ?>">
 		<tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Tipo de Documento:</p></font></td>
                 <td><select name= 'dado[]' size='1'>
 		<?php 
@@ -40,7 +40,7 @@ $col= db_fetch_array($resultado,0);
 		or die ("N? foi poss?el consultar o banco.");
                 $registro=db_fetch_row($res,0);
                 $nome=$registro[0];
-                echo"<option value=\"$col[1]\">$nome</option>";
+                echo"<option value=\"" . h($col[1]) . "\">" . h($nome) . "</option>";
 		?>
                 </select></td></tr>
 		<br>
@@ -50,9 +50,9 @@ if($col[1]=="1"){ //memorando
 
 
 	   <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Via:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $col['via'] ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($col['via']) ?>"></td></tr>
 	   <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>C/C:</p></font></td>
-            <td><input name='com_copia'  size=60 value="<?php echo $col['com_copia'] ?>"></td></tr>
+            <td><input name='com_copia'  size=60 value="<?php echo h($col['com_copia']) ?>"></td></tr>
 
 		<tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Destino:</p></font></td>
                 <td><select name= 'dado[]' size='1'>
@@ -64,10 +64,10 @@ if($col[1]=="1"){ //memorando
                 {
                         $cod=$registro[0];
                         $nome=$registro[1];
-                        echo"<option value=\"$cod\"";
+                        echo"<option value=\"" . h($cod) . "\"";
                         if($cod==$col['id_departamento'])
                                 echo"selected";
-                        echo">$nome</option>\n";
+                        echo">" . h($nome) . "</option>\n";
 			$i=$i+1;
                 }
 		$assunto=$col['assunto'];
@@ -80,19 +80,19 @@ if($col[1]=="1"){ //memorando
 		<br>
 
             <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assunto:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $assunto ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($assunto) ?>"></td></tr>
 
             <td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Anexo(s):</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $anexo ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($anexo) ?>"></td></tr>
 
             <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Vocativo:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $vocativo ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($vocativo) ?>"></td></tr>
 
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Mensagem:</p></font></td>
-	    <td><TEXTAREA name= 'dado[]' rows=10 cols=60> <?php echo $mensagem ?> </TEXTAREA></td></tr>
+	    <td><TEXTAREA name= 'dado[]' rows=10 cols=60> <?php echo h($mensagem) ?> </TEXTAREA></td></tr>
 
             <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Desfecho:</p></font></td>
-            <td><input name='dado[]' size=60 value="<?php echo $desfecho ?>"></td></tr>
+            <td><input name='dado[]' size=60 value="<?php echo h($desfecho) ?>"></td></tr>
 
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
                 <td><select name= 'dado[]' size='1'>
@@ -103,10 +103,10 @@ if($col[1]=="1"){ //memorando
                 {
                         $cod=$registro[0];
                         $cargo=$registro[1];
-                        echo"<option value=\"$cod\"";
+                        echo"<option value=\"" . h($cod) . "\"";
                         if($cod==$col['id_assinatura'])
                                 echo"selected";
-                        echo">".$cargo."(".$registro[2].")</option>\n";
+                        echo">".h($cargo)."(".h($registro[2]).")</option>\n";
 			$i=$i+1;
                 }
 		?>
@@ -123,10 +123,10 @@ if($col[1]=="1"){ //memorando
                         $cod2=$registro2[0];
                         $nome2=$registro2[1];
                         $sobrenome2=$registro2[2];
-                        echo"<option value=\"$cod2\"";
+                        echo"<option value=\"" . h($cod2) . "\"";
                         if($cod2==$col['assinante'])
                                 echo"selected";
-                        echo">$nome2 $sobrenome2 </option>\n";
+                        echo">" . h($nome2) . " " . h($sobrenome2) . " </option>\n";
 			$i=$i+1;
                 }
 		?>
@@ -148,9 +148,9 @@ else if(($col[1]=="3")||($col[1]=="6")){ //of?io interno ou externo
 
 
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Via:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $col['via'] ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($col['via']) ?>"></td></tr>
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>C/C:</p></font></td>
-            <td><input name='com_copia'  size=60 value="<?php echo $col['com_copia'] ?>"></td></tr>
+            <td><input name='com_copia'  size=60 value="<?php echo h($col['com_copia']) ?>"></td></tr>
 
 	   <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Destino:</p></font></td>
            <td><select name= 'dado[]' size='1'>
@@ -161,29 +161,29 @@ else if(($col[1]=="3")||($col[1]=="6")){ //of?io interno ou externo
                 {
                  $cod=$registro[0];
                  $nome=$registro[1];
-                 echo"<option value=\"$cod\"";
+                 echo"<option value=\"" . h($cod) . "\"";
                  if($cod==$col['id_departamento'])
                        echo"selected";
-                       echo">$nome</option>\n";
+                       echo">" . h($nome) . "</option>\n";
 	        $i=$i+1;
                 }
 		?>
 
 
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assunto:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $assunto ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($assunto) ?>"></td></tr>
 
             <td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Anexo(s):</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $anexo ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($anexo) ?>"></td></tr>
 
             <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Vocativo:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $vocativo ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($vocativo) ?>"></td></tr>
 
             <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Mensagem:</p></font></td>
-            <td><TEXTAREA name= 'dado[]' rows=10 cols=60> <?php echo $mensagem ?> </TEXTAREA></td></tr>
+            <td><TEXTAREA name= 'dado[]' rows=10 cols=60> <?php echo h($mensagem) ?> </TEXTAREA></td></tr>
 
             <tr><td width='130'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Desfecho:</p></font></td>
-            <td><input name='dado[]' size=60 value="<?php echo $desfecho ?>"></td></tr>
+            <td><input name='dado[]' size=60 value="<?php echo h($desfecho) ?>"></td></tr>
 
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
                 <td><select name= 'dado[]' size='1'>
@@ -194,10 +194,10 @@ else if(($col[1]=="3")||($col[1]=="6")){ //of?io interno ou externo
                 {
                         $cod=$registro[0];
                         $cargo=$registro[1];
-                        echo"<option value=\"$cod\"";
+                        echo"<option value=\"" . h($cod) . "\"";
                         if($cod==$col['id_assinatura'])
                                 echo"selected";
-                        echo">".$cargo."(".$registro[2].")</option>\n";
+                        echo">".h($cargo)."(".h($registro[2]).")</option>\n";
 			$i=$i+1;
                 }
 		?>
@@ -213,10 +213,10 @@ else if(($col[1]=="3")||($col[1]=="6")){ //of?io interno ou externo
                         $cod2=$registro2[0];
                         $nome2=$registro2[1];
                         $sobrenome2=$registro2[2];
-                        echo"<option value=\"$cod2\"";
+                        echo"<option value=\"" . h($cod2) . "\"";
                         if($cod2==$col['assinante'])
                                 echo"selected";
-                        echo">$nome2  $sobrenome2 </option>\n";
+                        echo">" . h($nome2) . "  " . h($sobrenome2) . " </option>\n";
 			$i=$i+1;
                 }
 		?>
@@ -239,10 +239,10 @@ else if($col[1]=="2"){ //circular
                 {
                         $cod=$registro[0];
                         $cargo=$registro[1];
-                        echo"<option value=\"$cod\"";
+                        echo"<option value=\"" . h($cod) . "\"";
                         if($cod==$col['id_assinatura'])
                                 echo"selected";
-                        echo">".$cargo."(".$registro[2].")</option>\n";
+                        echo">".h($cargo)."(".h($registro[2]).")</option>\n";
 			$i=$i+1;
                 }
 ?>
@@ -257,10 +257,10 @@ else if($col[1]=="2"){ //circular
                         $cod2=$registro2[0];
                         $nome2=$registro2[1];
                         $sobrenome2=$registro2[2];
-                        echo"<option value=\"$cod2\"";
+                        echo"<option value=\"" . h($cod2) . "\"";
                         if($cod2==$col['assinante'])
                                 echo"selected";
-                        echo">$nome2  $sobrenome2 </option>\n";
+                        echo">" . h($nome2) . "  " . h($sobrenome2) . " </option>\n";
 			$i=$i+1;
                 }
 ?>
@@ -283,25 +283,25 @@ else if($col[1]=="2"){ //circular
                 {
                  $cod=$registro[0];
                  $nome=$registro[1];
-                 echo"<option value=\"$cod\"";
+                 echo"<option value=\"" . h($cod) . "\"";
                  if($cod==$col['id_departamento'])
                        echo"selected";
-                       echo">$nome</option>\n";
+                       echo">" . h($nome) . "</option>\n";
 	        $i=$i+1;
                 }
 		?>
              </select></td></tr>
             <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assunto:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $assunto ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($assunto) ?>"></td></tr>
 
             <td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Vocativo:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $vocativo ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($vocativo) ?>"></td></tr>
 
             <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Mensagem:</p></font></td>
-            <td><TEXTAREA name= 'dado[]' rows=10 cols=60><?php echo $mensagem ?></TEXTAREA></td></tr>
+            <td><TEXTAREA name= 'dado[]' rows=10 cols=60><?php echo h($mensagem) ?></TEXTAREA></td></tr>
 
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Desfecho:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $desfecho ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($desfecho) ?>"></td></tr>
 
 	    <br>
 <?php
@@ -316,10 +316,10 @@ else if($col[1]=="4"){ // ato
 //		$desfecho=mb_convert_encoding($col['desfecho'],"ISO-8859-1","UTF-8");
 ?>
            <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assunto:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $assunto ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($assunto) ?>"></td></tr>
 	
 	<tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Mensagem:</p></font></td>
-        <td><TEXTAREA name= 'dado[]' rows=10 cols=60><?php echo $mensagem ?></TEXTAREA></td></tr>
+        <td><TEXTAREA name= 'dado[]' rows=10 cols=60><?php echo h($mensagem) ?></TEXTAREA></td></tr>
 
 	    <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
                 <td><select name= 'dado[]' size='1'>
@@ -330,10 +330,10 @@ else if($col[1]=="4"){ // ato
                 {
                         $cod=$registro[0];
                         $cargo=$registro[1];
-                        echo"<option value=\"$cod\"";
+                        echo"<option value=\"" . h($cod) . "\"";
                         if($cod==$col['id_assinatura'])
                                 echo"selected";
-                        echo">".$cargo."(".$registro[2].")</option>\n";
+                        echo">".h($cargo)."(".h($registro[2]).")</option>\n";
 			$i=$i+1;
                 }
 		?>
@@ -350,10 +350,10 @@ else if($col[1]=="4"){ // ato
                         $cod2=$registro2[0];
                         $nome2=$registro2[1];
                         $sobrenome2=$registro2[2];
-                        echo"<option value=\"$cod2\"";
+                        echo"<option value=\"" . h($cod2) . "\"";
                         if($cod2==$col['assinante'])
                                 echo"selected";
-                        echo">$nome2  $sobrenome2 </option>\n";
+                        echo">" . h($nome2) . "  " . h($sobrenome2) . " </option>\n";
 			$i=$i+1;
                 }
 		?>
@@ -372,10 +372,10 @@ else if($col[1]=="5"){ //ata
 //		$desfecho=mb_convert_encoding($col['desfecho'],"ISO-8859-1","UTF-8");
 ?>
 	 <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assunto:</p></font></td>
-            <td><input name='dado[]'  size=60 value="<?php echo $assunto ?>"></td></tr>
+            <td><input name='dado[]'  size=60 value="<?php echo h($assunto) ?>"></td></tr>
 	
 	<tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Mensagem:</p></font></td>
-        <td><TEXTAREA name= 'dado[]' rows=10 cols=60><?php echo $mensagem ?></TEXTAREA></td></tr>
+        <td><TEXTAREA name= 'dado[]' rows=10 cols=60><?php echo h($mensagem) ?></TEXTAREA></td></tr>
 	<br>
 
             <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Assinatura:</p></font></td>
@@ -387,10 +387,10 @@ else if($col[1]=="5"){ //ata
                 {
                         $cod=$registro[0];
                         $cargo=$registro[1];
-                        echo"<option value=\"$cod\"";
+                        echo"<option value=\"" . h($cod) . "\"";
                         if($cod==$col['id_assinatura'])
                                 echo"selected";
-                        echo">".$cargo,"(".$registro[2].")</option>\n";
+                        echo">".h($cargo),"(".h($registro[2]).")</option>\n";
                         $i=$i+1;
                 }
                 ?>
@@ -408,10 +408,10 @@ or die ("N?ofoi poss?vel consultar o banco.");
                         $cod2=$registro2[0];
                         $nome2=$registro2[1];
                         $sobrenome2=$registro2[2];
-                        echo"<option value=\"$cod2\"";
+                        echo"<option value=\"" . h($cod2) . "\"";
                         if($cod2==$col['assinante'])
                                 echo"selected";
-                        echo">$nome2  $sobrenome2 </option>\n";
+                        echo">" . h($nome2) . "  " . h($sobrenome2) . " </option>\n";
                         $i=$i+1;
                 }
                 ?>
@@ -426,10 +426,10 @@ or die ("N?ofoi poss?vel consultar o banco.");
                 {
                         $cod3=$registro3[0];
                         $cargo3=$registro3[1];
-                        echo"<option value=\"$cod3\"";
+                        echo"<option value=\"" . h($cod3) . "\"";
                         if($cod3==$col['assinatura2'])
                                 echo"selected";
-                        echo">".$cargo3."(".$registro3[2].")</option>\n";
+                        echo">".h($cargo3)."(".h($registro3[2]).")</option>\n";
                         $i=$i+1;
                 }
                 ?>
@@ -447,10 +447,10 @@ or die ("N?ofoi poss?vel consultar o banco.");
                         $cod4=$registro4[0];
                         $nome4=$registro4[1];
                         $sobrenome4=$registro4[2];
-                        echo"<option value=\"$cod4\"";
+                        echo"<option value=\"" . h($cod4) . "\"";
                         if($cod4==$col['assinante2'])
                                 echo"selected";
-                        echo">$nome4  $sobrenome4 </option>\n";
+                        echo">" . h($nome4) . "  " . h($sobrenome4) . " </option>\n";
                         $i=$i+1;
                 }
                 ?>

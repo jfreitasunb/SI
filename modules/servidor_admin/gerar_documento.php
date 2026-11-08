@@ -28,7 +28,7 @@ $tipo_documento=$_POST['tipo_documento'];
                 $res=db_query("SELECT nometipo FROM admin_tipo WHERE id_tipo=?", array($tipo_documento)) or die ("Nao foi possivel consultar o banco.");
                 $registro=db_fetch_row($res)
                 ?>
-<h1>Gerar <?php echo $registro[0]; ?> </h1>
+<h1>Gerar <?php echo h($registro[0]); ?> </h1>
 
 
 <?php 
@@ -51,7 +51,7 @@ $tipo_documento=$_POST['tipo_documento'];
                 {
 	                $cod1=$registro1['id_departamento'];
                         $nome1=$registro1['nomedepartamento'];
-                        echo "<option value='".$cod1."' >".$nome1."</option>\n";
+                        echo "<option value='".h($cod1)."' >".h($nome1)."</option>\n";
 			$i=$i+1;
                 }
         	?>
@@ -82,7 +82,7 @@ $tipo_documento=$_POST['tipo_documento'];
                         $cod2=$registro2[0];
                         $cargo2=$registro2[1];
 //			$titulo2=$registro2[2];
-                        echo"<option value='".$cod2."'>".$cargo2."(".$registro2[2].")</option>\n";
+                        echo"<option value='".h($cod2)."'>".h($cargo2)."(".h($registro2[2]).")</option>\n";
 			$i=$i+1;
                 }
         	?>
@@ -98,7 +98,7 @@ $tipo_documento=$_POST['tipo_documento'];
                         $cod3=$registro3[0];
                         $nome3=$registro3[1];
 			$sobrenome=$registro3[2];
-                        echo"<option value='".$cod3."'>".$nome3." ".$sobrenome."</option>\n";
+                        echo"<option value='".h($cod3)."'>".h($nome3)." ".h($sobrenome)."</option>\n";
 			$i=$i+1;
                 }
         	?>
@@ -127,7 +127,7 @@ $tipo_documento=$_POST['tipo_documento'];
                 {
 	                $cod1=$registro1['id_departamento'];
                         $nome1=$registro1['nomedepartamento'];
-                        echo "<option value='".$cod1."' >".$nome1."</option>\n";
+                        echo "<option value='".h($cod1)."' >".h($nome1)."</option>\n";
 			$i=$i+1;
                 }
         	?>
@@ -157,7 +157,7 @@ $tipo_documento=$_POST['tipo_documento'];
                 {
                         $cod2=$registro2[0];
                         $cargo2=$registro2[1];
-                        echo"<option value='".$cod2."'>".$cargo2."(".$registro2[2].")</option>\n";
+                        echo"<option value='".h($cod2)."'>".h($cargo2)."(".h($registro2[2]).")</option>\n";
 			$i=$i+1;
                 }
         	?>
@@ -173,7 +173,7 @@ $tipo_documento=$_POST['tipo_documento'];
                         $cod3=$registro3[0];
                         $nome3=$registro3[1];
 			$sobrenome=$registro3[2];
-                        echo"<option value='".$cod3."'>".$nome3." ".$sobrenome."</option>\n";
+                        echo"<option value='".h($cod3)."'>".h($nome3)." ".h($sobrenome)."</option>\n";
 			$i=$i+1;
                 }
         	?>
@@ -196,7 +196,7 @@ $tipo_documento=$_POST['tipo_documento'];
                 {
                         $cod2=$registro2[0];
                         $cargo2=$registro2[1];
-                        echo"<option value='".$cod2."'>".$cargo2."(".$registro2[2].")</option>\n";
+                        echo"<option value='".h($cod2)."'>".h($cargo2)."(".h($registro2[2]).")</option>\n";
 			$i=$i+1;
                 }
         	?>
@@ -212,7 +212,7 @@ $tipo_documento=$_POST['tipo_documento'];
                         $cod3=$registro3[0];
                         $nome3=$registro3[1];
 			$sobrenome=$registro3[2];
-                        echo"<option value='".$cod3."'>".$nome3." ".$sobrenome."</option>\n";
+                        echo"<option value='".h($cod3)."'>".h($nome3)." ".h($sobrenome)."</option>\n";
 			$i=$i+1;
                 }
         	?>
@@ -227,7 +227,7 @@ $tipo_documento=$_POST['tipo_documento'];
                 {
                         $cod1=$registro1[0];
                         $nome1=$registro1[1];
-                        echo"<option value=\"$cod1\">$nome1</option>\n";
+                        echo"<option value=\"" . h($cod1) . "\">" . h($nome1) . "</option>\n";
 			$i=$i+1;
                 }
 		?>
@@ -273,7 +273,7 @@ $tipo_documento=$_POST['tipo_documento'];
                 {
                         $cod2=$registro2[0];
                         $cargo2=$registro2[1];
-                        echo"<option value='".$cod2."'>".$cargo2."(".$registro2[2].")</option>\n";
+                        echo"<option value='".h($cod2)."'>".h($cargo2)."(".h($registro2[2]).")</option>\n";
 			$i=$i+1;
                 }
         	?>
@@ -289,7 +289,7 @@ $tipo_documento=$_POST['tipo_documento'];
                         $cod3=$registro3[0];
                         $nome3=$registro3[1];
 			$sobrenome=$registro3[2];
-                        echo"<option value='".$cod3."'>".$nome3." ".$sobrenome."</option>\n";
+                        echo"<option value='".h($cod3)."'>".h($nome3)." ".h($sobrenome)."</option>\n";
 			$i=$i+1;
                 }
         	?>
@@ -319,7 +319,7 @@ $tipo_documento=$_POST['tipo_documento'];
                 {
                         $cod2=$registro2[0];
                         $cargo2=$registro2[1];
-                        echo"<option value='".$cod2."'>".$cargo2."(".$registro2[2].")</option>\n";
+                        echo"<option value='".h($cod2)."'>".h($cargo2)."(".h($registro2[2]).")</option>\n";
                         $i=$i+1;
                 }
                 ?>
@@ -336,7 +336,7 @@ or die ("Nao foi possivel consultar o banco.");
                         $cod3=$registro3[0];
                         $nome3=$registro3[1];
                         $sobrenome=$registro3[2];
-                        echo"<option value='".$cod3."'>".$nome3." ".$sobrenome."</option>\n";
+                        echo"<option value='".h($cod3)."'>".h($nome3)." ".h($sobrenome)."</option>\n";
                         $i=$i+1;
                 }
                 ?>
@@ -351,7 +351,7 @@ or die ("Nao foi possivel consultar o banco.");
                 {       
                         $cod4=$registro4[0];
                         $cargo4=$registro4[1];
-                        echo"<option value='".$cod4."'>".$cargo4."(".$registro4[2].")</option>\n";
+                        echo"<option value='".h($cod4)."'>".h($cargo4)."(".h($registro4[2]).")</option>\n";
                         $i=$i+1;
                 }
                 ?>
@@ -368,7 +368,7 @@ or die ("Nao foi possivel consultar o banco.");
                         $cod5=$registro5[0];
                         $nome5=$registro5[1];
                         $sobrenome=$registro5[2];
-                        echo"<option value='".$cod5."'>".$nome5." ".$sobrenome."</option>\n";
+                        echo"<option value='".h($cod5)."'>".h($nome5)." ".h($sobrenome)."</option>\n";
                         $i=$i+1;
                 }
                 ?>

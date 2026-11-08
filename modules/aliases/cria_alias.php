@@ -154,7 +154,7 @@ if ((isset($_POST['confirma'])) and (checa_alias($_POST['alias2'])=="ok"))
 	{
                 grava_alias($usuario[0],$_POST['alias2']);
 		?>
-	        Alias do usu&aacute;rio <?php echo $nome; ?> atualizado</td></tr>
+	        Alias do usu&aacute;rio <?php echo h($nome); ?> atualizado</td></tr>
 		<?php
 	}
 else
@@ -169,7 +169,7 @@ else
 		   if (isset($_POST['alias2'])) 
 		      {
 		      $alias2=$_POST['alias2'];
-echo $alias2;
+echo h($alias2);
 		      if (checa_alias($_POST['alias2'])!="ok") $mensagem="Este Alias j&aacute; existe. Escolha outro"; else $mensagem="";
 		      } 
 		   else $alias2=mb_convert_encoding($res_aliases['alias2'],"ISO-8859-1","UTF-8");
@@ -177,8 +177,8 @@ echo $alias2;
 		?>
                <br>
                 <tr><td><table align=center class=form><tr>
-		<td><h1>Usu&aacute;rio: <?php echo $nome; ?> <?php echo $sobrenome; ?> </h1> </td></tr>
-		<tr><td> <h1> Alias padr&atilde;o do usu&aacute;rio: </h1> </td><td><input type=text name='alias' size="10" maxlength="100" value="<?php echo $alias;?>" readonly></td></tr>
+		<td><h1>Usu&aacute;rio: <?php echo h($nome); ?> <?php echo h($sobrenome); ?> </h1> </td></tr>
+		<tr><td> <h1> Alias padr&atilde;o do usu&aacute;rio: </h1> </td><td><input type=text name='alias' size="10" maxlength="100" value="<?php echo h($alias);?>" readonly></td></tr>
 		<tr><td> <h1> Alias definido pelo usu&aacute;rio: </h1> <?php echo $mensagem;?> </td><td><input type=text name='alias2' size="10" maxlength="100" value="<?php echo retira_acentos($alias2);?>"></td></tr>
                 </table>
                 <br>

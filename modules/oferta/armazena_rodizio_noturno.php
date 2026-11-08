@@ -49,15 +49,15 @@ $query_dados=db_query("select coduser,name||' '||firstname as nome from users wh
 		   }
 		?>
 		<tr VALIGN=CENTER BGCOLOR="<?php  echo $cor_de_fundo;?>">
-		<td><?php  echo $registro[1];?></td>
-		<td><input type=text name='acumulado[<?php  echo $registro[0];?>]' maxlength="2" size=1></td>
-		<td><input type=text name='1_05[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_05[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_06[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_06[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_07[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_07[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_08[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_08[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_09[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_09[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_10[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_10[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
-		<td><input type=text name='1_11[<?php  echo $registro[0];?>]' maxlength="1" size=1></td><td><input type=text name='2_11[<?php  echo $registro[0];?>]' maxlength="1" size=1></td>
+		<td><?php  echo h($registro[1]);?></td>
+		<td><input type=text name='acumulado[<?php  echo h($registro[0]);?>]' maxlength="2" size=1></td>
+		<td><input type=text name='1_05[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td><td><input type=text name='2_05[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_06[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td><td><input type=text name='2_06[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_07[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td><td><input type=text name='2_07[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_08[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td><td><input type=text name='2_08[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_09[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td><td><input type=text name='2_09[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_10[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td><td><input type=text name='2_10[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td>
+		<td><input type=text name='1_11[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td><td><input type=text name='2_11[<?php  echo h($registro[0]);?>]' maxlength="1" size=1></td>
 		</tr>
 	<?php 
 		}

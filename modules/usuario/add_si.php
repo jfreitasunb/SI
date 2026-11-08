@@ -62,7 +62,7 @@
 <?php
   if (!empty($loginsi))
   {
-     echo "<td colspan=4>Un compte Unix ou Samba existe deja pour cet utilisateur.<br>Par defaut, le meme login sera conserve :<b>$loginsi</b>.<br>Il est d'ailleurs conseille de garder le meme mot de passe pour tous les comptes.</td>";
+     echo "<td colspan=4>Un compte Unix ou Samba existe deja pour cet utilisateur.<br>Par defaut, le meme login sera conserve :<b>" . h($loginsi) . "</b>.<br>Il est d'ailleurs conseille de garder le meme mot de passe pour tous les comptes.</td>";
   }
   else
   {
@@ -94,7 +94,7 @@
 ?>
         <tr>
           <td>
-            <b><?php echo $tab['name'] ?></b>
+            <b><?php echo h($tab['name']) ?></b>
           </td>
           <td align=right>
             <select name="droits[]">

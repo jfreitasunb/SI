@@ -42,7 +42,7 @@ function verif_touche(e)
                 	{
                         $cod=$registro[0];
                         $nome=$registro[1];
-                        echo"<option value=$cod>$nome</option>\n";
+                        echo"<option value=" . h($cod) . ">" . h($nome) . "</option>\n";
                 	}
         	?>
 
