@@ -7,6 +7,9 @@ session_start();
 //require("muda_senha/libs.php");
 //require("muda_senha/forms.php");
 require("estudos/pgsql.php");
+if (!function_exists('db_connect')) {
+   require_once(dirname(__FILE__).'/global/function_php.php'); // login_bloqueado() etc.
+}
 //require("estudos/formulario1.php");
 //require("muda_senha/header.php");
 
@@ -36,7 +39,8 @@ if(strlen($submit)>0)
    
 //     $msg="Dados Invalidos!";
    
-     if($res->rowCount()==1 )
+     if (login_bloqueado($usuario)) { echo login_msg_bloqueio(); }
+     elseif($res->rowCount()==1 )
 	{
 //	echo "estou aqui";
            $linha = $res->fetch(PDO::FETCH_NUM);
@@ -44,8 +48,9 @@ if(strlen($submit)>0)
 	   $tipo_usuario=$linha[2];
 	   $coduser=$linha[3];
  
-		if(crypt($senhaatual,$senhaBD) == $senhaBD) //:permite acesso a todos
+		if(hash_equals((string)$senhaBD, (string)crypt($senhaatual,$senhaBD))) //:permite acesso a todos
 		{
+		login_sucesso($usuario);
 		// identifica o professor para as paginas de estudos/ (priorizacao/)
 		session_regenerate_id(true);
 		$_SESSION['priori_coduser'] = $coduser;
@@ -122,10 +127,11 @@ if(strlen($submit)>0)
  	         }
 		else 
 		{
+	        login_falhou($usuario);
 	        echo $msgS;       
 	        } 
      	}
-	else echo $msgL; 
+	else { login_falhou($usuario); echo $msgL; } 
    }
 }
 
@@ -152,7 +158,7 @@ if (!isset($_POST['submit']))
 </tr>
 <tr>
   <td> Senha: </td>
-  <td> <INPUT type="password" name="senhaatual" value="<?php echo htmlspecialchars($senhaatual);?>"> </td>
+  <td> <INPUT type="password" name="senhaatual" autocomplete="off"> </td>
 </tr>
 <tr>
   <td> </td>

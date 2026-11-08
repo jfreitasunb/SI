@@ -2,8 +2,6 @@
    require_once(dirname(__FILE__).'/global/sessao_cookie.php');
    session_start();
    //if sessions'variables already exists, the client doesn't have to him identify
-   if(!isset($_SESSION['tentatives']))
-     $_SESSION['tentatives']=0;
 
 /*
    if (isset($_SESSION['login']) and isset($_SESSION['passwd']))

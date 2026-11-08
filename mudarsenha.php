@@ -34,7 +34,9 @@ if(strlen($submit)>0){
    
      $msg="Dados Invalidos!";
    
-     if($res->rowCount()==1 ){
+     if (login_bloqueado($usuario)) {
+        $msg = login_msg_bloqueio();
+     } elseif($res->rowCount()==1 ){
            $linha = $res->fetch(PDO::FETCH_NUM);
            $senhaBD = $linha[1];
 	   $qtErros = $linha[2];
@@ -42,20 +44,24 @@ if(strlen($submit)>0){
    
 	   if($qtErros>=5){
                 $msg="Conta bloqueada por excesso de tentativas frustradas. Entre em contato com o CPD.";
-           } elseif(crypt($senhaatual,$senhaBD) == $senhaBD) {
+           } elseif(hash_equals((string)$senhaBD, (string)crypt($senhaatual,$senhaBD))) {
+              login_sucesso($usuario);
    
               // Hora de mudar a senha
-              $res = db_query("update unix set passwd=? where login=?", array(crypt($senhanova), $usuario), $con);
+              $res = db_query("update unix set passwd=? where login=?", array(cripta_senha_unix($senhanova), $usuario), $con);
    
               $msg="Senha alterada com sucesso! Estara atualizada em no maximo 15 minutos.";
           }else {
+	      login_falhou($usuario);
 	      if($timeErro + 60*10 > time()){
                  $res = db_query("update unix set erro= erro+1,erro_data=? where login=?", array(time(), $usuario), $con);
                }else {
                  $res = db_query("update unix set erro=1,erro_data=? where login=?", array(time(), $usuario), $con);
                } 
           } 
-     } 
+     } else {
+        login_falhou($usuario);
+     }
    }
 }
 
@@ -81,15 +87,15 @@ if(strlen($submit)>0){
 </tr>
 <tr>
   <td> Senha Atual: </td>
-  <td> <INPUT type="password" name="senhaatual" value="<?php echo htmlspecialchars($senhaatual);?>"> </td>
+  <td> <INPUT type="password" name="senhaatual" autocomplete="off"> </td>
 </tr>
 <tr>
   <td> Senha Nova: </td>
-  <td> <INPUT type="password" name="senhanova" value="<?php echo htmlspecialchars($senhanova);?>"> </td>
+  <td> <INPUT type="password" name="senhanova" autocomplete="off"> </td>
 </tr>
 <tr>
   <td> Confirmacao da Senha Nova: </td>
-  <td> <INPUT type="password" name="senhaconfirmacao" value="<?php echo htmlspecialchars($senhaconfirmacao);?>"> </td>
+  <td> <INPUT type="password" name="senhaconfirmacao" autocomplete="off"> </td>
 </tr>
 <tr>
   <td> </td>

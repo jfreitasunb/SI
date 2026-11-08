@@ -33,14 +33,18 @@ if(strlen($submit)>0)
    
 //     $msg="Dados Invalidos!";
    
-     if($res->rowCount()==1 )
+     if (login_bloqueado($usuario)) { echo login_msg_bloqueio(); }
+     elseif($res->rowCount()==1 )
 	{
            $linha = $res->fetch(PDO::FETCH_NUM);
            $senhaBD = $linha[1];
 	   $tipo_usuario=$linha[2];
  
-		if((crypt($senhaatual,$senhaBD) == $senhaBD) and ($tipo_usuario=="fonctionnaire")) //:so permite acesso a professores e administrativos
+		$senha_ok = hash_equals((string)$senhaBD, (string)crypt($senhaatual,$senhaBD));
+		if ($senha_ok) login_sucesso($usuario);
+		if($senha_ok and ($tipo_usuario=="fonctionnaire")) //:so permite acesso a professores e administrativos
 		{
+            session_regenerate_id(true);
             $_SESSION['autenticado'] = true;
               // Hora de solicitar documentos
 //              SOLICITAR O DOCUMENTO A SER LIDO
@@ -100,10 +104,11 @@ if(strlen($submit)>0)
  	         }
 		else 
 		{
+	        if (!$senha_ok) login_falhou($usuario);
 	        echo $msgS;       
 	        } 
      	}
-	else echo $msgL; 
+	else { login_falhou($usuario); echo $msgL; }
    }
 }
 
@@ -130,7 +135,7 @@ if (!isset($_POST['submit']))
 </tr>
 <tr>
   <td> Senha: </td>
-  <td> <INPUT type="password" name="senhaatual" value="<?php echo htmlspecialchars($senhaatual);?>"> </td>
+  <td> <INPUT type="password" name="senhaatual" autocomplete="off"> </td>
 </tr>
 <tr>
   <td> </td>

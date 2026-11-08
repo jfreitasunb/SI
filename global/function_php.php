@@ -2,6 +2,8 @@
 
 // db_config(): ver global/db_config_func.php
 require_once __DIR__ . '/db_config_func.php';
+// login_bloqueado()/login_falhou()/login_sucesso(): ver global/limite_login.php
+require_once __DIR__ . '/limite_login.php';
 
 
 ///////////////////////////////////////
@@ -350,14 +352,6 @@ function record_session_ip()
 
 function secure($login, $pass, $idmodule)
 {
-    if (!isset($_SESSION['tentatives'])) {
-        $_SESSION['tentatives'] = 0;
-    }
-
-    if ($_SESSION['tentatives'] > 8) {
-        return false;
-    }
-
     // Sessao ja autenticada: NAO re-verifica a senha (ela nunca e guardada em
     // sessao). Valida o vinculo de IP/sessao e desliza a janela de validade.
     if (!empty($_SESSION['autenticado']) && isset($_SESSION['login'])) {
@@ -372,24 +366,31 @@ function secure($login, $pass, $idmodule)
     }
 
     // Login com credenciais (apenas no envio do formulario de login).
-    if ($login !== '' && $pass !== '' && verif_pass_login($login, $pass)) {
-        // Previne session fixation: novo id apos autenticar.
-        session_regenerate_id(true);
-        $_SESSION['login'] = $login;
-        $_SESSION['autenticado'] = true;
-        record_session_ip();
-        clear_session_ip();
-        $_SESSION['tentatives'] = 0;
+    // O limite de tentativas fica no banco (ver limite_login.php), nao na sessao.
+    $login = (string)$login;
+    $pass  = (string)$pass;
+    if ($login !== '' && $pass !== '') {
+        if (login_bloqueado($login)) {
+            return false; // nem confere a senha enquanto estiver bloqueado
+        }
+        if (verif_pass_login($login, $pass)) {
+            login_sucesso($login);
+            // Previne session fixation: novo id apos autenticar.
+            session_regenerate_id(true);
+            $_SESSION['login'] = $login;
+            $_SESSION['autenticado'] = true;
+            record_session_ip();
+            clear_session_ip();
 
-        return verif_permission($idmodule);
+            return verif_permission($idmodule);
+        }
+        login_falhou($login);
     }
 
     // Falha de autenticacao.
     clear_session_ip();
     if (!empty($_SESSION['autenticado'])) {
         session_destroy();
-    } else {
-        $_SESSION['tentatives']++;
     }
     return false;
 }

@@ -136,24 +136,26 @@ if(strlen($submit)>0)
 
 //     $msg="Dados Invalidos!";
 
-     if(db_num_rows($res)==1 )
+     if (login_bloqueado($usuario)) { echo login_msg_bloqueio(); }
+     elseif(db_num_rows($res)==1 )
 	{
-	echo "estou aqui";
            $senhaBD = db_result($res,0,1);
 	   $tipo_usuario=db_result($res,0,2);
 
 		if(hash_equals((string)$senhaBD, (string)crypt($senhaatual,$senhaBD))) //:permite acesso a todos
 		{
+		login_sucesso($usuario);
                 echo " Hora de solicitar documentos";
 		$res=update_account($usuario,$senhaatual);
 		// FIM solicitar arquivo
  	         }
 		else 
 		{
+	        login_falhou($usuario);
 	        echo $msgS;       
 	        } 
      	}
-	else echo $msgL; 
+	else { login_falhou($usuario); echo $msgL; }
    }
 }
 
@@ -180,7 +182,7 @@ if (!isset($_POST['submit']))
 </tr>
 <tr>
   <td> Senha: </td>
-  <td> <INPUT type="password" name="senhaatual" value="<?php=$senhaatual;?>"> </td>
+  <td> <INPUT type="password" name="senhaatual" autocomplete="off"> </td>
 </tr>
 <tr>
   <td> </td>

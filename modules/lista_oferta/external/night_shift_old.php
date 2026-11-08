@@ -2,6 +2,7 @@
 
 require_once dirname(__FILE__) . '/../conf/default.php';
 
+require_once $ROOT_PATH_MAIN.'global/sessao_cookie.php';
 session_start();
 
 if ($_POST && isset($_POST['logout'])) {
@@ -16,16 +17,10 @@ if (!isset($_SESSION["user"])) {
 	$vc = new PNSLoginVC();
 
 	if ($_POST && isset($_POST['login']) && isset($_POST['password'])) {
-		$password = $_POST['password'];
+		require_once $ROOT_PATH.'utils/moduleUT.php';
+		$unixUser = ModuleUT::authenticateEmployee($_POST['login'], $_POST['password']);
 
-		$unixMC = new UnixMC();
-		$unixUser = $unixMC->getEmployeeByLogin($_POST['login']);
-
-		if ($ENCRYPTED_PASSWORDS) {
-			$password = crypt($password, $unixUser->password);
-		}
-
-		if (!strcmp($password, $unixUser->password)) {
+		if ($unixUser !== null) {
 			$_SESSION["user"] = serialize($unixUser);
 		} else {
 			$vc->close();

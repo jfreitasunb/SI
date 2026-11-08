@@ -7,6 +7,7 @@ require_once $ROOT_PATH.'modelController/professorMC.php';
 $semesterMC = new SemesterMC();
 $semester = $semesterMC->last();
 
+require_once $ROOT_PATH_MAIN.'global/sessao_cookie.php';
 session_start();
 
 if ($_POST && isset($_POST['logout'])) {
@@ -19,18 +20,10 @@ if (strcmp($semester->status, SemesterDAO::STATUS_STAGE_2) == 0 || strcmp($semes
 	if (!isset($_SESSION["user"]) && $_POST && isset($_POST['login']) && isset($_POST['password'])) {
 		require_once $ROOT_PATH.'modelController/unixMC.php';
 
-		$password = $_POST['password'];
+		require_once $ROOT_PATH.'utils/moduleUT.php';
+		$unixUser = ModuleUT::authenticateEmployee($_POST['login'], $_POST['password']);
 
-		$unixMC = new UnixMC();
-		//Para a versão do PHP no servidor		
-		$unixUser = $unixMC->getEmployeeByLogin($_POST['login'])[0];
-		
-		$unixUser = $unixMC->getEmployeeByLogin($_POST['login']);
-		if ($ENCRYPTED_PASSWORDS) {
-			$password = crypt($password, $unixUser->password);
-		}
-
-		if (!strcmp($password, $unixUser->password)) {
+		if ($unixUser !== null) {
 
 			$professorMC = new ProfessorMC();
 			$professor = $professorMC->get($unixUser->user_id);
