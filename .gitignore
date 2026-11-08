@@ -3,3 +3,6 @@ global/db_config.php
 
 # Variaveis de ambiente do Docker (nunca versionar)
 .env
+
+# Dumps do banco (dados reais; nunca versionar)
+*_dump.sql
