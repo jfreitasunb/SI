@@ -34,7 +34,10 @@
 	<td align="center">
 		<table id="activity_list">
 			<tr>
-				<th>Professor</th>
+				<th class="activity_professor">
+					<button type="button" id="toggle_all_professors" class="not_print">Selecionar todos</button>
+					Professor
+				</th>
                 <th class="activity_part">
                     <table>
                         <th class="activity_activity">Atividade</th>
@@ -50,7 +53,12 @@
 			</tr>
 			<!-- BEGIN add_professor -->
 			<tr class="row_class_{activity_professor_row_class}">
-				<td class="activity_professor">{activity_professor_name} {activity_professor_last_name}</td>
+				<td class="activity_professor">
+					<label>
+						<input type="checkbox" class="professor_checkbox not_print" name="professors[]" value="{activity_professor_id}">
+						{activity_professor_name} {activity_professor_last_name}
+					</label>
+				</td>
 				<td class="activity_part">
 					<table>
                         <!-- BEGIN add_activity -->

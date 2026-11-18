@@ -30,6 +30,20 @@
 	padding: 0;
 }
 
+#activity_list th.activity_professor {
+	white-space: nowrap;
+}
+
+#activity_list #toggle_all_professors {
+	display: block;
+	margin-bottom: 2px;
+	font-weight: normal;
+}
+
+#activity_list .activity_professor label {
+	cursor: pointer;
+}
+
 @page {
 	size: A4 landscape;
 }

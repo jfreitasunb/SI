@@ -113,6 +113,14 @@ if (count($grantedCreditsList)) {
 		header('Content-Type: text/csv; charset=utf-8');
 		header("Content-Disposition: attachment; filename=$file");
 
+		// Exporta so os professores marcados na tela (?professors=1,2,3)
+		if (isset($_GET["professors"]) && is_string($_GET["professors"])) {
+			$selectedIds = array_filter(array_map('intval', explode(",", $_GET["professors"])));
+			$professorList = array_filter($professorList, function($professor) use ($selectedIds) {
+				return in_array((int) $professor->id, $selectedIds, true);
+			});
+		}
+
 		$output = fopen('php://output', 'w');
 
 		fputcsv($output, array('Professor','Atividade','Descrição','Código','Turma','Turno','Horários','Carga','Total'));
