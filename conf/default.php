@@ -1,13 +1,15 @@
 <?php
 
+// URLs do sistema: lidas das variaveis de ambiente SI_ROOT_MAIN e SI_SITE
+// (ex.: docker-compose.yml); sem elas, valem os defaults do servidor.
 // TODO: Colocar links relativos a essa variável
 //$ROOT_MAIN = "/";
-$ROOT_MAIN = "http://192.168.122.71/si/";
+$ROOT_MAIN = getenv('SI_ROOT_MAIN') ?: "http://192.168.122.71/si/";
 
 $ROOT_PATH_MAIN = dirname(__FILE__)."/../";
 
 //$SITE = "http://e-mural.mat.unb.br/";
-$SITE = "http://192.168.122.36/";
+$SITE = getenv('SI_SITE') ?: "http://192.168.122.36/";
 
 //$CHARSET = "UTF-8";
 $CHARSET = "ASCII";

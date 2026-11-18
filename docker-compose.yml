@@ -72,6 +72,10 @@ services:
     ports:
       - "127.0.0.1:9000:9000"
     working_dir: /var/www
+    environment:
+      # URLs usadas por conf/default.php (o nginx serve a raiz do projeto)
+      - SI_ROOT_MAIN=http://localhost:8080/
+      - SI_SITE=http://localhost:8080/
     depends_on:
       - db
 
