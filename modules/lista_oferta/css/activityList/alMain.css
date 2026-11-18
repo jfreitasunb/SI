@@ -30,14 +30,18 @@
 	padding: 0;
 }
 
-#activity_list th.activity_professor {
+#activity_list .activity_select {
+	text-align: center;
+	vertical-align: middle;
 	white-space: nowrap;
 }
 
 #activity_list #toggle_all_professors {
-	display: block;
-	margin-bottom: 2px;
 	font-weight: normal;
+}
+
+#activity_list .professor_checkbox {
+	cursor: pointer;
 }
 
 #activity_list .activity_professor label {
