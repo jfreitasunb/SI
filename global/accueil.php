@@ -54,12 +54,12 @@
         <table class="form" align="center" width="60%">
         <tr>
           <td class="header" align="center">
-            <b><?php echo mb_convert_encoding($tab['name'], "HTML-ENTITIES", "auto").' : ' ?></b>
+            <b><?php echo h($tab['name']).' : ' ?></b>
           </td> 
         </tr>
         <tr>
           <td class="data">
-            <?php echo mb_convert_encoding($tab['descr'], "HTML-ENTITIES", "auto"); ?>
+            <?php echo h($tab['descr']); ?>
           </td> 
         </tr>
         </table>

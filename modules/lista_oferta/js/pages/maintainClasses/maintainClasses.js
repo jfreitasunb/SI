@@ -269,20 +269,18 @@ $().ready(function() {
 
 	function createLineTable(clas) {
 		var classroom = clas.classroom ? clas.classroom : "";
-		table.row.add($(
-			'<tr id="line_'+clas.id+'">'+
-				'<td id="discipline_name_'+clas.id+'">'+clas.discipline_name+'</td>'+
-				'<td id="class_'+clas.id+'">'+clas.class+'</td>'+
-				'<td id="period_'+clas.id+'">'+clas.period+'</td>'+
-				'<td id="schedule_'+clas.id+'">'+clas.schedule+'</td>'+
-				'<td id="classroom_'+clas.id+'">'+classroom+'</td>'+
-				'<td>'+
-					'<button id="edit_'+clas.id+'" class="edit_class">Editar</button>'+
-					'<input type="hidden" id="discipline_id_'+clas.id+'" value="'+clas.discipline_id+'">'+
-				'</td>'+
-				'<td><button id="delete_'+clas.id+'" class="delete_class">Excluir</button></td>'+
-			'</tr>'
-		)).draw(false);
+		var tr = $('<tr/>').attr('id', 'line_' + clas.id);
+		tr.append($('<td/>').attr('id', 'discipline_name_' + clas.id).text(clas.discipline_name));
+		tr.append($('<td/>').attr('id', 'class_' + clas.id).text(clas.class));
+		tr.append($('<td/>').attr('id', 'period_' + clas.id).text(clas.period));
+		tr.append($('<td/>').attr('id', 'schedule_' + clas.id).text(clas.schedule));
+		tr.append($('<td/>').attr('id', 'classroom_' + clas.id).text(classroom));
+		tr.append($('<td/>')
+			.append($('<button/>').attr('id', 'edit_' + clas.id).addClass('edit_class').text('Editar'))
+			.append($('<input type="hidden"/>').attr('id', 'discipline_id_' + clas.id).val(clas.discipline_id)));
+		tr.append($('<td/>')
+			.append($('<button/>').attr('id', 'delete_' + clas.id).addClass('delete_class').text('Excluir')));
+		table.row.add(tr).draw(false);
 
 		var h = (window.innerHeight - 29) / 2;
 		$('html, body').animate({

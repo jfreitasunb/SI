@@ -25,12 +25,11 @@ $created = false;
 $saved = false;
 $missingProfessor = 0;
 
-if (isset($_GET["revive"]) && strcmp($semester->status, SemesterDAO::STATUS_CLOSED) == 0) {
+if ($_POST && isset($_POST["revive"]) && strcmp($semester->status, SemesterDAO::STATUS_CLOSED) == 0) {
 	$semester->status = SemesterDAO::STATUS_STAGE_3;
 
 	$semester = $semesterMC->update($semester);
-}
-if ($_POST) {
+} elseif ($_POST) {
     $postData = UtilUT::postToObject($_POST, array('year', 'semester', 'beginning', 'end', 'status', 'average_credits', 'reduction_credits', 'publications_threshold'));
 	$postData->beginning = UtilUT::convertDateToSQL($postData->beginning);
 	$postData->end = UtilUT::convertDateToSQL($postData->end);

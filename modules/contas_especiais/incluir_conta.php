@@ -44,7 +44,7 @@ r>
 //			$descricao=mb_convert_encoding($registro[2],"UTF-8");
 			$descricao=$registro[2];
                         $valor_da_conta=$registro[0]."-".$registro[1]."-".$registro[4];
-		        echo "<tr><td><input type=radio name='eliminar' value=".h($valor_da_conta)."></td><td>".h($registro[1])."</td><td>".h($descricao)."</td><td>".h($registro[4])."</td></tr>";
+		        echo "<tr><td><input type=radio name='eliminar' value=\"".h($valor_da_conta)."\"></td><td>".h($registro[1])."</td><td>".h($descricao)."</td><td>".h($registro[4])."</td></tr>";
                         }
                  ?>
          </table>
@@ -75,6 +75,7 @@ r>
 
 if (isset($_POST['seleciona']))
 {
+	exige_escrita();
 	if (isset($_POST['eliminar']))
 	{
        $valor_da_conta=explode("-",$_POST['eliminar']);
@@ -172,11 +173,22 @@ if (isset($_POST['seleciona']))
 	   }
 	else 
 	   {
-	   list($atualiza_unix, $atualiza_unix__p) = array("update unix set passwd=? where login=?", array(cripta_senha_unix($_POST['senha1']), $_POST['nome_conta']));
+	   $nome_conta_upd = isset($_POST['nome_conta']) ? trim((string)$_POST['nome_conta']) : '';
+	   if (empty($_POST['senha1']) || !preg_match('/^[a-z][a-z0-9_-]{1,15}$/', $nome_conta_upd)) {
+	       http_response_code(400);
+	       die(error("Nome de conta ou senha invalidos."));
+	   }
+	   // Restringe a atualizacao exclusivamente a contas especiais existentes (nunca altera usuarios regulares ou root).
+	   $chk_esp = db_query("select 1 from contas_especiais where nome_conta=?", array($nome_conta_upd));
+	   if (db_num_rows($chk_esp) == 0) {
+	       http_response_code(403);
+	       die(error("Conta especial nao encontrada."));
+	   }
+	   list($atualiza_unix, $atualiza_unix__p) = array("update unix set passwd=? where login=? and tabela_user='contas_especiais'", array(cripta_senha_unix($_POST['senha1']), $nome_conta_upd));
            $query_unix=db_query($atualiza_unix, $atualiza_unix__p);
            //echo $atualiza_unix;
 	   echo "\n";
-           echo "Conta ".h($_POST['nome_conta'])."@mat.unb.br atualizada com sucesso.";	   
+           echo "Conta ".h($nome_conta_upd)."@mat.unb.br atualizada com sucesso.";	   
 	   }
 
         }
@@ -197,24 +209,18 @@ if (isset($_POST['seleciona']))
 	$substituto[6]='{';
 	$substituto[7]='}';
 */
-	$substituto[0]='/&([a-zA-Z])(uml|acute|grave|circ|tilde);/';
-	$substituto[1]='" "';
-	//NMBUPGRADE// $nome_limpo=preg_replace($substituto,'',$_POST['nome_conta']);
-    $nome_limpo=preg_replace_callback($substituto, function ($matches) { return ''; }, $_POST['nome_conta']);
+	$nome_conta_novo = isset($_POST['nome_conta']) ? trim((string)$_POST['nome_conta']) : '';
+	$nome_valido = (bool)preg_match('/^[a-z][a-z0-9_-]{1,15}$/', $nome_conta_novo);
 
-        list($pega_nome, $pega_nome__p) = array("select login from unix where login=?", array($nome_limpo));
+        list($pega_nome, $pega_nome__p) = array("select login from unix where login=?", array($nome_conta_novo));
         $query_unix=db_query($pega_nome, $pega_nome__p);
         $num_unix=db_num_rows($query_unix);
 
-// ver como determinar se esses caracteres fazem parte do nome
-	// Se houver acentos ou caracteres proibidos, solicitar outro nome antes de continuar:
-	if ((strlen($nome_limpo)!=strlen($_POST['nome_conta'])) OR ($_POST['senha1']!=$_POST['senha2']) OR ($num_unix!=0)) 
+	if ((!$nome_valido) OR empty($_POST['senha1']) OR ($_POST['senha1']!=$_POST['senha2']) OR ($num_unix!=0)) 
 		{
 		
-//                 #################################
-//                  COPLOCQR AQUI O FORMULARIO
-                if (strlen($nome_limpo)!=strlen($_POST['nome_conta'])) $mensagem1="O nome da conta n&atilde;o pode conter caracteres especiais"; else $mensagem1="";
-                if ($_POST['senha1']!=$_POST['senha2']) $mensagem2="As senhas devem ser id&ecirc;nticas"; else $mensagem2="";
+                if (!$nome_valido) $mensagem1="O nome da conta deve conter apenas letras minusculas, digitos, _ ou - (2 a 16 caracteres)"; else $mensagem1="";
+                if (empty($_POST['senha1']) || $_POST['senha1']!=$_POST['senha2']) $mensagem2="As senhas devem ser id&ecirc;nticas e n&atilde;o vazias"; else $mensagem2="";
                 if ($num_unix!=0) $mensagem3="Escolha outro nome para a conta; j&aacute; existe um login com este nome"; else $mensagem3="";
                 ?>
 <html>
@@ -245,7 +251,7 @@ if (isset($_POST['seleciona']))
 //                        $descricao=mb_convert_encoding($registro[2],"UTF-8");
                         $descricao=$registro[2];
                         $valor_da_conta=$registro[0]."-".$registro[1]."-".$registro[4];
-                    echo "<tr><td><input type=radio name='eliminar' value=".h($valor_da_conta)."></td><td>".h($registro[1])."</td><td>".h($descricao)."</td><td>".h($registro[4])."</td></tr>";
+                    echo "<tr><td><input type=radio name='eliminar' value=\"".h($valor_da_conta)."\"></td><td>".h($registro[1])."</td><td>".h($descricao)."</td><td>".h($registro[4])."</td></tr>";
                         }
                  ?>
          </table>

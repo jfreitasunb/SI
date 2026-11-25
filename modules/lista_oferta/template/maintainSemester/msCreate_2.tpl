@@ -1,3 +1,6 @@
 <div class="left">
-	<a href="?revive"><button>Reativar &Uacute;ltimo Semestre</button></a>
+	<form method="post" action="maintain_semester.php" style="display:inline;">
+		<input type="hidden" name="revive" value="1">
+		<button type="submit">Reativar &Uacute;ltimo Semestre</button>
+	</form>
 </div>

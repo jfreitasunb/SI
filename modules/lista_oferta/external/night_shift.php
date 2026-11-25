@@ -11,8 +11,10 @@ csrf_token();
 ob_start('csrf_injeta');
 
 if ($_POST && isset($_POST['logout'])) {
-	session_unset();
+	$_SESSION = array();
 	session_destroy();
+	session_start();
+	csrf_token();
 }
 
 if (!isset($_SESSION["user"])) {
@@ -26,7 +28,10 @@ if (!isset($_SESSION["user"])) {
 		$unixUser = ModuleUT::authenticateEmployee($_POST['login'], $_POST['password']);
 
 		if ($unixUser !== null) {
+			unset($unixUser->password);
 			$_SESSION["user"] = serialize($unixUser);
+			$_SESSION["lo_last_activity"] = time();
+			$_SESSION["csrf_token"] = bin2hex(random_bytes(32));
 		} else {
 			$vc->close();
 		}
@@ -35,6 +40,14 @@ if (!isset($_SESSION["user"])) {
 	}
 }
 if (isset($_SESSION["user"])) {
+	if (isset($_SESSION["lo_last_activity"]) && (time() - (int)$_SESSION["lo_last_activity"]) > 1800) {
+		$_SESSION = array();
+		session_destroy();
+		header('Location: night_shift.php', true, 302);
+		exit;
+	}
+	$_SESSION["lo_last_activity"] = time();
 	$logged = true;
+	define('LO_ENTRY_AUTHORIZED', true);
 	require_once $ROOT_PATH . 'module/professor_night_shift.php';
 }

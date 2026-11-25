@@ -2,9 +2,12 @@
 require_once dirname(__FILE__).'/../conf/default.php';
 require_once $ROOT_PATH.'utils/moduleUT.php';
 
+header('Content-Type: application/json; charset=utf-8');
+header('X-Content-Type-Options: nosniff');
+
 // Exige usuario autenticado em um dos modulos que usam a tela de creditos concedidos.
 if (!(ModuleUT::haveUserLogged($ID_MODULE) || ModuleUT::haveUserLogged($ID_MODULE_SECRETARY_GRADUATION) || ModuleUT::haveUserLogged($ID_MODULE_SECRETARY_POST))) {
-	echo json_encode(array('success' => false, 'message' => 'Acesso negado.'));
+	echo json_encode(array('success' => false, 'message' => 'Acesso negado.'), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 	exit;
 }
 
@@ -83,4 +86,4 @@ if ($method && isset($method['activity'])) {
 	$return->message = "Sem Grupo.";
 }
 //p($return);
-echo json_encode($return);
+echo json_encode($return, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);

@@ -130,7 +130,7 @@ $( function() {
 	function setQuantity(object, quantity) {
 		object.addClass("quantity");
 		if (quantity) {
-			object.find(".quantity_container").html(quantity);
+			object.find(".quantity_container").text(quantity);
 		}
 	}
 
@@ -489,14 +489,12 @@ $( function() {
 			{
 				text: "Distribuir",
 				click: function() {
-					var win = window.open(url_script_offer_list, '_blank');
-					if (win) {
-					    //Browser has allowed it to be opened
-					    win.focus();
-					} else {
-					    //Browser has blocked it
-					    alert('Favor habilitar popups para este site');
-					}
+					var csrfToken = ($.ajaxSettings && $.ajaxSettings.headers && $.ajaxSettings.headers['X-CSRF-Token']) || '';
+					var form = $('<form/>', { method: 'POST', action: url_script_offer_list, target: '_blank' });
+					form.append($('<input/>', { type: 'hidden', name: 'csrf_token', value: csrfToken }));
+					$('body').append(form);
+					form.submit();
+					form.remove();
 					$(this).dialog('close');
 				}
 			}

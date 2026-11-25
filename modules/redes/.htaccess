@@ -1,0 +1,10 @@
+# Configuracoes de rede geradas (.txt): nunca servir diretamente pela web.
+<FilesMatch "(?i)\.txt$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>

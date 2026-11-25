@@ -24,24 +24,36 @@ function latex_escape($texto)
     ));
 }
 
-// Remove um diretório temporário e o seu conteúdo (não recursivo: o pdflatex só gera arquivos).
+// Remove um diretório temporário e o seu conteúdo (incluindo dotfiles).
 function latex_remove_dir($dir)
 {
-    foreach (glob($dir . '/*') as $arquivo) {
-        @unlink($arquivo);
+    $itens = @scandir($dir);
+    if (is_array($itens)) {
+        foreach ($itens as $item) {
+            if ($item === '.' || $item === '..') continue;
+            $caminho = $dir . '/' . $item;
+            if (is_dir($caminho)) {
+                latex_remove_dir($caminho);
+            } else {
+                @unlink($caminho);
+            }
+        }
     }
     @rmdir($dir);
 }
 
 // Preenche um modelo .tex com os valores de $seds e devolve o PDF gerado (ou false).
-//   $modelo: caminho do arquivo .tex do modelo (deve existir dentro de um diretório modelo_tex)
+//   $modelo: caminho do arquivo .tex do modelo (deve existir dentro de modules/*/modelo_tex)
 //   $seds:   array PLACEHOLDER => valor
-// Os valores são inseridos literalmente, sem passar pelo shell. O pdflatex roda em modo
-// restrito, com leitura/escrita de arquivos limitada ao diretório de trabalho e com tempo limite.
+// Os valores são inseridos literalmente, sem passar pelo shell. O pdflatex roda sem
+// shell-escape (-no-shell-escape), com leitura/escrita limitada ao diretório temporário e timeout.
 function gera_pdf_latex($modelo, array $seds)
 {
     $modelo_real = realpath($modelo);
-    if ($modelo_real === false || basename(dirname($modelo_real)) !== 'modelo_tex'
+    $modules_base = realpath(dirname(__FILE__) . '/../modules');
+    if ($modelo_real === false || $modules_base === false
+        || strpos($modelo_real, $modules_base . DIRECTORY_SEPARATOR) !== 0
+        || basename(dirname($modelo_real)) !== 'modelo_tex'
         || substr($modelo_real, -4) !== '.tex') {
         return false;
     }
@@ -68,7 +80,7 @@ function gera_pdf_latex($modelo, array $seds)
     file_put_contents($tex, $conteudo);
 
     $texinputs = LATEX_DIR_CLASSES . ':' . dirname($modelo_real) . ':';
-    $cmd = 'timeout 30 pdflatex -shell-restricted -interaction=nonstopmode -halt-on-error'
+    $cmd = 'timeout 30 pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error'
          . ' -output-directory=' . escapeshellarg($dir) . ' ' . escapeshellarg($tex);
     $env = array(
         'PATH'         => '/usr/local/bin:/usr/bin:/bin',

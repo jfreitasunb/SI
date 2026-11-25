@@ -8,10 +8,10 @@
 	if (is_int($i/2)) return ("#00BFFF"); else return("#FFFFFF"); 
 	}
 //
-function relatorio($query_pesquisa,$host)
+function relatorio($query_pesquisa,$host,$params = array())
 {
 
-	$result=db_query($query_pesquisa);
+	$result=db_query($query_pesquisa, $params);
 	$retorna=db_fetch_all($result);
 	$linhas=db_num_rows($result);
 
@@ -197,38 +197,40 @@ else	////////////////// Pesquisa do equipamento ////////////////////////////////
 ////se patrimonio!=vazio pesquise por patrimonio sobre as maquinas dos hosts dados e do tipo dado e status dado e sala dada 
 
 	
+	$query_params = array();
 	if ($host!="todos") 
 	{
-	if ($host=="MAT") $query_pesquisa="select users.name, users.firstname, computers.* from users, computers where users.name='Guy' 
-and computers.host like '".$host."_%'"; 
-	else 
-	$query_pesquisa="select users.name, users.firstname, computers.* from users,computers where (substring(computers.host from 
-'^...')=users.coduser and coduser=".db_quote($host).")"; 
-//	else $query_pesquisa="select users.name, users.firstname, computers.* from users, computers where host like '".$host."_%' and 
-//coduser=".db_quote($host)."";
-	if (!empty($_POST['patrimonio'])) $query_pesquisa=$query_pesquisa." and maqcod like '%".$_POST['patrimonio']."%'";
-	if ($tipo!="todos") $query_pesquisa=$query_pesquisa." and tipo_maquina=".db_quote($tipo)."";
-	if ($status!="todas") $query_pesquisa=$query_pesquisa." and computers.status=".db_quote($status)."";
-	if ($sala!="todas") $query_pesquisa=$query_pesquisa." and codloc=".db_quote($sala)."";
-	if (($_POST['IP1']!="") and ($_POST['IP2']!="")) $query_pesquisa=$query_pesquisa." and ipnet=".db_quote($ipnet)."";
-	if (($_POST['IP1']!="") and ($_POST['IP2']=="")) $query_pesquisa=$query_pesquisa." and ipnet like '".$_POST['IP0'].".".$_POST['IP1'].".%'";
-	if (($_POST['IP1']=="") and ($_POST['IP2']!="")) $query_pesquisa=$query_pesquisa." and ipnet like '".$_POST['IP0'].".%.".$_POST['IP2']."'";
-	if ($data!="nulo") $query_pesquisa=$query_pesquisa." and data_encerramento <= ".db_quote($data)."";
-	$query_pesquisa=$query_pesquisa." and mac like ".db_quote($mac)." order by host";
+	if ($host=="MAT") {
+	    $query_pesquisa="select users.name, users.firstname, computers.* from users, computers where users.name='Guy' and computers.host like ?";
+	    $query_params[] = $host . '_%';
+	} else {
+	    $query_pesquisa="select users.name, users.firstname, computers.* from users,computers where (substring(computers.host from '^...')=users.coduser and coduser=?)";
+	    $query_params[] = $host;
+	}
+	if (!empty($_POST['patrimonio'])) { $query_pesquisa .= " and maqcod like ?"; $query_params[] = '%' . $_POST['patrimonio'] . '%'; }
+	if ($tipo!="todos") { $query_pesquisa .= " and tipo_maquina=?"; $query_params[] = $tipo; }
+	if ($status!="todas") { $query_pesquisa .= " and computers.status=?"; $query_params[] = $status; }
+	if ($sala!="todas") { $query_pesquisa .= " and codloc=?"; $query_params[] = $sala; }
+	if (($_POST['IP1']!="") and ($_POST['IP2']!="")) { $query_pesquisa .= " and ipnet=?"; $query_params[] = $ipnet; }
+	if (($_POST['IP1']!="") and ($_POST['IP2']=="")) { $query_pesquisa .= " and ipnet like ?"; $query_params[] = $_POST['IP0'] . '.' . $_POST['IP1'] . '.%'; }
+	if (($_POST['IP1']=="") and ($_POST['IP2']!="")) { $query_pesquisa .= " and ipnet like ?"; $query_params[] = $_POST['IP0'] . '.%.' . $_POST['IP2']; }
+	if ($data!="nulo") { $query_pesquisa .= " and data_encerramento <= ?"; $query_params[] = $data; }
+	$query_pesquisa .= " and mac like ? order by host";
+	$query_params[] = $mac;
 	}
 	else 
 	{
-	$query_pesquisa="select users.name, users.firstname, computers.* from users,computers where (substring(computers.host from 
-'^...')=users.coduser or (users.name='Guy' and computers.host like 'MAT_%'))"; 
-	if (!empty($_POST['patrimonio'])) $query_pesquisa=$query_pesquisa." and maqcod like '%".$_POST['patrimonio']."%'";
-	if ($tipo!="todos") $query_pesquisa=$query_pesquisa." and tipo_maquina=".db_quote($tipo)."";
-	if ($status!="todas") $query_pesquisa=$query_pesquisa." and computers.status=".db_quote($status)."";
-	if ($sala!="todas") $query_pesquisa=$query_pesquisa." and codloc=".db_quote($sala)."";
-	if (($_POST['IP1']!="") and ($_POST['IP2']!="")) $query_pesquisa=$query_pesquisa." and ipnet=".db_quote($ipnet)."";
-	if (($_POST['IP1']!="") and ($_POST['IP2']=="")) $query_pesquisa=$query_pesquisa." and ipnet like '".$_POST['IP0'].".".$_POST['IP1'].".%'";
-	if (($_POST['IP1']=="") and ($_POST['IP2']!="")) $query_pesquisa=$query_pesquisa." and ipnet like '".$_POST['IP0'].".%.".$_POST['IP2']."'";
-	if ($data!="nulo") $query_pesquisa=$query_pesquisa." and data_encerramento <= ".db_quote($data)."";
-	$query_pesquisa=$query_pesquisa." and mac like ".db_quote($mac)." order by name, host";
+	$query_pesquisa="select users.name, users.firstname, computers.* from users,computers where (substring(computers.host from '^...')=users.coduser or (users.name='Guy' and computers.host like 'MAT_%'))";
+	if (!empty($_POST['patrimonio'])) { $query_pesquisa .= " and maqcod like ?"; $query_params[] = '%' . $_POST['patrimonio'] . '%'; }
+	if ($tipo!="todos") { $query_pesquisa .= " and tipo_maquina=?"; $query_params[] = $tipo; }
+	if ($status!="todas") { $query_pesquisa .= " and computers.status=?"; $query_params[] = $status; }
+	if ($sala!="todas") { $query_pesquisa .= " and codloc=?"; $query_params[] = $sala; }
+	if (($_POST['IP1']!="") and ($_POST['IP2']!="")) { $query_pesquisa .= " and ipnet=?"; $query_params[] = $ipnet; }
+	if (($_POST['IP1']!="") and ($_POST['IP2']=="")) { $query_pesquisa .= " and ipnet like ?"; $query_params[] = $_POST['IP0'] . '.' . $_POST['IP1'] . '.%'; }
+	if (($_POST['IP1']=="") and ($_POST['IP2']!="")) { $query_pesquisa .= " and ipnet like ?"; $query_params[] = $_POST['IP0'] . '.%.' . $_POST['IP2']; }
+	if ($data!="nulo") { $query_pesquisa .= " and data_encerramento <= ?"; $query_params[] = $data; }
+	$query_pesquisa .= " and mac like ? order by name, host";
+	$query_params[] = $mac;
 	}
 ///////////////////////////////////
 
@@ -253,7 +255,7 @@ and computers.host like '".$host."_%'";
 		</tr>
 
 <?php
-		relatorio($query_pesquisa,$host);
+		relatorio($query_pesquisa,$host,$query_params);
 ?> 		
 		<br> 
 		</table>

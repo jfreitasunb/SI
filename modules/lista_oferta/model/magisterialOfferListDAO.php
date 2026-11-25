@@ -53,10 +53,10 @@ class MagisterialOfferListDAO extends DAO {
 		$order = $this->orderBy($order, $this->attributeMapDiscipline);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapDiscipline)."
 		FROM $this->table
@@ -88,10 +88,10 @@ class MagisterialOfferListDAO extends DAO {
 		$order = $this->orderBy($order, $this->attributeMapProfessor);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapProfessor)."
 		FROM (($this->table

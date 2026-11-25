@@ -5,17 +5,25 @@
   $result=db_query($query);
   $count=db_num_rows($result);
   if ( isset($_POST['prec']) && $_POST['prec']=="si" )
-  {    
+  {
+     exige_escrita();
+     $novo_login = isset($_POST['login']) ? trim((string)$_POST['login']) : '';
+     if ($novo_login === '' || strtolower($novo_login) === 'root') {
+         http_response_code(403);
+         die(error("Login invalido ou nao permitido."));
+     }
      $account= new c_admin;
-     $account->set_login($_POST['login']);
+     $account->set_login($novo_login);
      $account->set_passwd($_POST['pass1']);
      $account->set_coduser($_GET['cu']);
      $account->create_account();
      $i=0;
-     foreach($_POST['droits']as $arr)
+     foreach($_POST['droits'] as $arr)
      {
+       if (!in_array((string)$arr, array('0', '1', '2'), true)) continue;
        $tab=db_fetch_array($result,$i);
-       $result3=db_query("update permission set permission=? where login=? and idmodule=?", array($arr, $account->get_login(), $tab['idmodule']));
+       if (!$tab) break;
+       $result3=db_query("update permission set permission=? where login=? and idmodule=?", array((int)$arr, $account->get_login(), $tab['idmodule']));
        $i+=1;
       } 
   }

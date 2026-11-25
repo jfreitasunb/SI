@@ -38,10 +38,12 @@ while (ob_get_level() > 0) {
     ob_end_clean();
 }
 
+$nome_seguro = preg_replace('/[^A-Za-z0-9._-]/', '_', $nome);
 header('Content-Type: ' . $tipos[$extensao]);
 header('Content-Length: ' . filesize($caminho));
-header('Content-Disposition: inline; filename="' . $nome . '"');
+header('Content-Disposition: attachment; filename="' . $nome_seguro . '"');
 header('X-Content-Type-Options: nosniff');
+header("Content-Security-Policy: default-src 'none'; sandbox");
 header('Cache-Control: private, no-store');
 readfile($caminho);
 exit;

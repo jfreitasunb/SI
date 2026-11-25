@@ -1,9 +1,14 @@
 <?php
 require("head_account.php");
 require_once("../../global/latex_pdf.php");
+exige_post();
 
-$coduser=$_POST['coduser'];
-$senha=$_POST['senha'];
+$eh_admin = isset($_SESSION['permission']) && (int)$_SESSION['permission'] >= 2;
+$coduser = $eh_admin && isset($_POST['coduser']) ? $_POST['coduser'] : coduser_sessao();
+if ($coduser === null || $coduser === '') {
+    die(error("Sessao invalida."));
+}
+$senha = isset($_POST['senha']) ? (string)$_POST['senha'] : '';
 
 //$senha="TESTE";
 
@@ -34,14 +39,14 @@ $LATEX_MAIL: mail institucional do usuario
 $resultado_pessoais=db_query("SELECT \nus.name as nome,us.firstname as sobrenome,us.matricul as matricula,ux.login as login,ux.cota_disco as cota_disco,ux.cota_mail as cota_mail,ux.cota_impressao as cota_impressao,ux.tabela_user \nas tabela_user FROM users us, unix ux WHERE \nus.coduser=? and ux.coduser=us.coduser", array($coduser)) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
 	$dados_pessoais= db_fetch_array($resultado_pessoais);
 //print_r($dados_pessoais);
-$seds[LATEX_NOME]=$dados_pessoais['nome'];
-$seds[LATEX_SOBRENOME]=$dados_pessoais['sobrenome'];
-$seds[LATEX_MATRICULA]=$dados_pessoais['matricula'];
-$seds[LATEX_LOGIN]=$dados_pessoais['login'];
-$seds[LATEX_SENHA]=$senha;
-$seds[LATEX_QUOTAIMPRESSAO]=$dados_pessoais['cota_impressao'];
-$seds[LATEX_QUOTAMAIL]=$dados_pessoais['cota_mail'];
-$seds[LATEX_QUOTADISCO]=$dados_pessoais['cota_disco'];
+$seds['LATEX_NOME']=$dados_pessoais['nome'];
+$seds['LATEX_SOBRENOME']=$dados_pessoais['sobrenome'];
+$seds['LATEX_MATRICULA']=$dados_pessoais['matricula'];
+$seds['LATEX_LOGIN']=$dados_pessoais['login'];
+$seds['LATEX_SENHA']=$senha;
+$seds['LATEX_QUOTAIMPRESSAO']=$dados_pessoais['cota_impressao'];
+$seds['LATEX_QUOTAMAIL']=$dados_pessoais['cota_mail'];
+$seds['LATEX_QUOTADISCO']=$dados_pessoais['cota_disco'];
 
 
 //busca dos dados do contrato.
@@ -49,7 +54,7 @@ $seds[LATEX_QUOTADISCO]=$dados_pessoais['cota_disco'];
 
 if ($dados_pessoais['tabela_user']=="visitor") 
 	{
-	$resultado_contrato=db_query("SELECT to_char(date_begin, 'DD/MM/YYYY') as data_abertura,to_char(date_end, 'DD/MM/YYYY') as data_encerramento, tipo_visitor FROM visitor WHERE coduser=? and date_end>=?", array($coduser, date(Y).'-'.date(m).'-'.date(d))) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
+	$resultado_contrato=db_query("SELECT to_char(date_begin, 'DD/MM/YYYY') as data_abertura,to_char(date_end, 'DD/MM/YYYY') as data_encerramento, tipo_visitor FROM visitor WHERE coduser=? and date_end>=?", array($coduser, date('Y-m-d'))) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
 	$dados_contrato= db_fetch_array($resultado_contrato);
 	$data_abertura=$dados_contrato['data_abertura'];
 	$data_encerramento=$dados_contrato['data_encerramento'];
@@ -69,19 +74,19 @@ if ($dados_pessoais['tabela_user']=="fonctionnaire")
 	$dados_contrato= db_fetch_array($resultado_contrato);
 	$data_abertura=$dados_contrato['data_abertura'];
 	$data_encerramento=$dados_contrato['data_encerramento'];
-	$vinculo=addslashes($dados_contrato['statut']."-".$dados_contrato['contract_type']);
+	$vinculo=$dados_contrato['statut']."-".$dados_contrato['contract_type'];
 	}
 
-	$seds[LATEX_DATAABERTURA]=$data_abertura;
-	$seds[LATEX_DATAENCERRAMENTO]=$data_encerramento;
-	$seds[LATEX_VINCULO]=str_replace("_"," ",$vinculo);
+	$seds['LATEX_DATAABERTURA']=$data_abertura;
+	$seds['LATEX_DATAENCERRAMENTO']=$data_encerramento;
+	$seds['LATEX_VINCULO']=str_replace("_"," ",$vinculo);
 
 
 //busca do alias
 	$resultado_alias=db_query("SELECT alias FROM aliases WHERE coduser=?", array($coduser)) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
 	$dados_alias= db_fetch_array($resultado_alias);
 
-	$seds[LATEX_MAIL]=$dados_alias['alias']."@mat.unb.br";
+	$seds['LATEX_MAIL']=$dados_alias['alias']."@mat.unb.br";
 
 //busca outros mails
 /* corrigido em 12/04/2012 para evitar que "_" no endereco de mail atrapalhe a impressao dos dados
@@ -99,7 +104,7 @@ if ($dados_pessoais['tabela_user']=="fonctionnaire")
              }
 */
 
-	$seds[LATEX_OUTROSMAILS]="";
+	$seds['LATEX_OUTROSMAILS']="";
 
 //###########################################################################################
 /*
@@ -129,8 +134,12 @@ if ($dados_pessoais['tabela_user']=="fonctionnaire")
 	// Gera o PDF sem passar pelo shell (ver global/latex_pdf.php)
 	$pdf = gera_pdf_latex("./modelo_tex/".$arquivo, $seds);
 	if ($pdf === false) die("N\xe3o foi poss\xedvel gerar o documento.");
-	Header("Content-type: application/pdf");
-	echo h($pdf);
+	while (ob_get_level() > 0) { ob_end_clean(); }
+	header("Content-Type: application/pdf");
+	header("X-Content-Type-Options: nosniff");
+	header("Cache-Control: private, no-store");
+	echo $pdf;
+	exit;
 //}
 
 ?>

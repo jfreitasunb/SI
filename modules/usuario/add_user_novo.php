@@ -156,7 +156,7 @@
 					$res_tipo_cont = db_query("SELECT * from users_tipo_contrato order by descricao", array());
 					while($reg_tipo_cont = db_fetch_row($res_tipo_cont)) 
 						{
-						echo "<option value='".$reg_tipo_cont[0]."'>".$reg_tipo_cont[1]."</option>";
+						echo "<option value='".h($reg_tipo_cont[0])."'>".htmlspecialchars((string)$reg_tipo_cont[1], ENT_QUOTES, 'ISO-8859-1', false)."</option>";
 						}
 				?></select></td></tr>
 							
@@ -210,7 +210,7 @@ N&iacute;vel: <select name="credencia_nivel">
 					$res_bolsas = db_query("SELECT * FROM users_bolsas order by descricao", array());
 					while($reg_bolsas = db_fetch_row($res_bolsas)) 
 						{
-						echo "<option value='".$reg_bolsas[0]."'>".$reg_bolsas[1]."</option>";
+						echo "<option value='".h($reg_bolsas[0])."'>".htmlspecialchars((string)$reg_bolsas[1], ENT_QUOTES, 'ISO-8859-1', false)."</option>";
 						}
 				?></select></td>
 </td></tr>

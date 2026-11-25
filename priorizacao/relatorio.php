@@ -116,7 +116,7 @@ $fim_ultima=$registro[34];
         </td>
       </tr>
      <tr>    
-        <td align=center><b> Informa&ccedil;&otilde;es sobre o per&iacute;odo: de <?php   echo $semestre_inicio."/".$ano_inicio;?> a <?php   echo $semestre_fim."/".$ano_fim;?> </b> </td></tr>
+        <td align=center><b> Informa&ccedil;&otilde;es sobre o per&iacute;odo: de <?php echo h($semestre_inicio)."/".h($ano_inicio);?> a <?php echo h($semestre_fim)."/".h($ano_fim);?> </b> </td></tr>
         <td align=center><b> &Uacute;ltimas licen&ccedil;as: <?php echo h($licencas);?></b> </td></tr>
         <tr><td align=center>
 	<table border>
@@ -175,9 +175,9 @@ $fim_ultima=$registro[34];
 	</table>
 	</td></tr>
 	<tr><td align=center><input type=submit name='relatorio' value="Confirmar"></td></tr>
-	<input type=hidden name='semestre' value="<?php echo $semestre;?>">
-	<input type=hidden name='ano' value="<?php echo $ano;?>">
-	<input type=hidden name='usuario' value="<?php echo $usuario;?>">
+	<input type=hidden name='semestre' value="<?php echo h($semestre);?>">
+	<input type=hidden name='ano' value="<?php echo h($ano);?>">
+	<input type=hidden name='usuario' value="<?php echo h($usuario);?>">
 
 </form>
 </table>

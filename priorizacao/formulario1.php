@@ -104,7 +104,7 @@ $ano=date("Y");
 														?>
 														</select></td></tr>
 	<tr><td align=center><input type=submit name='selecao1' value='Confirmar'></td></tr>
-	<tr><td align=center><input type=hidden name='usuario' value="<?php echo $usuario;?>"></td></tr>
+	<tr><td align=center><input type=hidden name='usuario' value="<?php echo h($usuario);?>"></td></tr>
 	</table>
 	</form>
 	</table>
@@ -115,14 +115,14 @@ $ano=date("Y");
 
 if (isset($_POST['selecao1']))
 {
-$semestre=$_POST['semestre'];
-$ano=$_POST['ano'];
-$usuario=$_SESSION['priori_coduser'];
+$semestre = (int)(isset($_POST['semestre']) ? $_POST['semestre'] : 0);
+$ano = (int)(isset($_POST['ano']) ? $_POST['ano'] : 0);
+$usuario = $_SESSION['priori_coduser'];
 
-$semestre_inicio=$_POST['semestre_inicio'];
-$semestre_fim=$_POST['semestre_fim'];
-$ano_inicio=$_POST['ano_inicio'];
-$ano_fim=$_POST['ano_fim'];
+$semestre_inicio = (int)(isset($_POST['semestre_inicio']) ? $_POST['semestre_inicio'] : 0);
+$semestre_fim = (int)(isset($_POST['semestre_fim']) ? $_POST['semestre_fim'] : 0);
+$ano_inicio = (int)(isset($_POST['ano_inicio']) ? $_POST['ano_inicio'] : 0);
+$ano_fim = (int)(isset($_POST['ano_fim']) ? $_POST['ano_fim'] : 0);
 
 $teste1=$ano*$semestre;
 $teste2=$semestre_inicio*$semestre_fim*$ano_inicio*$ano_fim;

@@ -8,6 +8,7 @@ $chave="";
 
 if (isset($_POST['seleciona']) and ($chave!="atualizar"))
 {
+	exige_escrita();
 	if ($_POST['eliminar']!="criar")
 	{
         $valor_da_conta=explode("-",$_POST['eliminar']);
@@ -30,19 +31,16 @@ if (isset($_POST['seleciona']) and ($chave!="atualizar"))
 // CASO SEJA CRIAÇÃO DE LISTA
    	else 
 	{
-	$substituto[0]='/&([a-zA-Z])(uml|acute|grave|circ|tilde);/';
-	$substituto[1]='" "';
-	//NMBUPGRADE// $nome_limpo=preg_replace($substituto,'',$_POST['nome_conta']);
-    $nome_limpo=preg_replace_callback($substituto, function ($matches) { return ''; }, $_POST['nome_conta']);
+	$nome_lista_novo = isset($_POST['nome_conta']) ? trim((string)$_POST['nome_conta']) : '';
+	$nome_valido = (bool)preg_match('/^[a-zA-Z0-9._-]{1,32}$/', $nome_lista_novo);
 
-        $pega_nome="select * from listas_de_mails where nome_lista=?"; $pega_nome__p = array($nome_limpo);
+        $pega_nome="select * from listas_de_mails where nome_lista=?"; $pega_nome__p = array($nome_lista_novo);
         $query_listas=db_query($pega_nome, $pega_nome__p);
         $num_listas=db_num_rows($query_listas);
 
-	// Se houver acentos ou caracteres proibidos, solicitar outro nome antes de continuar:
-	if ((strlen($nome_limpo)!=strlen($_POST['nome_conta'])) OR ($num_listas!=0)) 
+	if ((!$nome_valido) OR ($num_listas!=0)) 
 		{
-                if (strlen($nome_limpo)!=strlen($_POST['nome_conta'])) $mensagem1="O nome da lista n&atilde;o pode conter caracteres especiais"; else $mensagem1="";
+                if (!$nome_valido) $mensagem1="O nome da lista n&atilde;o pode conter caracteres especiais"; else $mensagem1="";
                 if ($num_listas!=0) $mensagem3="Escolha outro nome para a lista; j&aacute; existe uma lista com este nome"; else $mensagem3="";
                 ?>
 		<html>
@@ -328,14 +326,16 @@ $total=$num_prof_do_quadro+$num_prof_substitutos+$num_administrativos+$num_aluno
 
 if (isset($_POST['enviar']))
 {
-  $usuario=$_POST['usuario'];
-  $usuarios_lista="";
-  $total=count($usuario); 
-//)$_POST['total'];
-  for ($k=0;$k<$total;$k++)
-         {
-         if (!empty($usuario[$k])) {if ($k!=$total-1) $usuarios_lista.=$usuario[$k]."@mat.unb.br,"; else $usuarios_lista.=$usuario[$k]."@mat.unb.br";}
-         }
+  exige_escrita();
+  $usuario = isset($_POST['usuario']) && is_array($_POST['usuario']) ? $_POST['usuario'] : array();
+  $validos = array();
+  foreach ($usuario as $u) {
+      $u = trim((string)$u);
+      if ($u !== '' && preg_match('/^[A-Za-z0-9._-]{1,64}$/', $u)) {
+          $validos[] = $u . "@mat.unb.br";
+      }
+  }
+  $usuarios_lista = implode(",", $validos);
   $grava_usuarios_lista="update listas_de_mails set e_mails=? where id_lista=?"; $grava_usuarios_lista__p = array($usuarios_lista, $_POST['id_lista']);
   $query_grava_usuarios_lista=db_query($grava_usuarios_lista, $grava_usuarios_lista__p);
   echo "Lista ".h($_POST['nome_lista'])."@mat.unb.br atualizada com sucesso.";

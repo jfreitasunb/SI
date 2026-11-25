@@ -38,6 +38,7 @@ if ($acao!="Visualizar"){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $data=strftime("%d/%m/%Y");
 if ($acao == "Salvar Rascunho"){
+	exige_escrita();
 	//verifica?o se o documento j?foi inserido anteriormente na mesma se?o
 	if((!isset($_SESSION["verifica_reenvio"])) || strcmp($_SESSION["verifica_reenvio"],$valor))
 		{
@@ -144,6 +145,7 @@ if ($acao == "Salvar Rascunho"){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 else if($acao=="Rascunho"){   
+	exige_escrita();
 
 //	$id_documentador=$_GET["id_documentador"];
 	$id_documentador=$_POST["id_documentador"];
@@ -264,17 +266,17 @@ else if($acao=="Definitivo"){
 		                $destino=$dado[2];
 				require "acessorio.php";
 				echo"
-                        	<p><a>Tipo de Documento: </a>$palavra_documento[1]</p>
+                        	<p><a>Tipo de Documento: </a>" . h($palavra_documento[1]) . "</p>
 				<p><a>Via: </a>" . h($dado[1]) . "</p>
 				<p><a>C/C: </a>" . h($com_copia) . "</p>
-                        	<p><a>Destino: </a>$palavra_destino[0]</p>
+                        	<p><a>Destino: </a>" . h($palavra_destino[0]) . "</p>
                         	<p><a>Assunto: </a>" . h($dado[3]) . "</p>
                         	<p><a>Anexo(s): </a>" . h($dado[4]) . "</p>
                         	<p><a>Vocativo: </a>" . h($dado[5]) . "</p>
                         	<p><a>Mensagem: </a>" . h($dado[6]) . "</p>
                         	<p><a>Desfecho: </a>" . h($dado[7]) . "</p>
-                        	<p><a>Assinante: </a>$palavra_assinatura[0]  $palavra_assinatura[1]</p>;
-			  	<p><a>Assinatura: </a>$palavra_assinatura[2]</p>";
+                        	<p><a>Assinante: </a>" . h($palavra_assinatura[0]) . "  " . h($palavra_assinatura[1]) . "</p>;
+			  	<p><a>Assinatura: </a>" . h($palavra_assinatura[2]) . "</p>";
 				}
 			else if(($dado[0]=="3")||($dado[0]=="6")) //of?io interno ou of?io externo
 				{
@@ -284,7 +286,7 @@ else if($acao=="Definitivo"){
         		        $destino=$dado[2];
   				require "acessorio.php";
 				echo"
-				<p><a>Tipo de Documento: </a>$palavra_documento[1]</p>
+				<p><a>Tipo de Documento: </a>" . h($palavra_documento[1]) . "</p>
                                 <p><a>Via: </a>" . h($dado[1]) . "</p>
 				<p><a>C/C: </a>" . h($com_copia) . "</p>
                                 <p><a>Destino: </a>" . h($dado[2]) . "</p>
@@ -293,8 +295,8 @@ else if($acao=="Definitivo"){
                                 <p><a>Vocativo: </a>" . h($dado[5]) . "</p>
                                 <p><a>Mensagem: </a>" . h($dado[6]) . "</p>
                         	<p><a>Desfecho: </a>" . h($dado[7]) . "</p>
-                        	<p><a>Assinante: </a>$palavra_assinatura[0]   $palavra_assinatura[1]</p>;
-			  	<p><a>Assinatura: </a>$palavra_assinatura[2]</p>";
+                        	<p><a>Assinante: </a>" . h($palavra_assinatura[0]) . "   " . h($palavra_assinatura[1]) . "</p>;
+			  	<p><a>Assinatura: </a>" . h($palavra_assinatura[2]) . "</p>";
 				}
 			else if($dado[0]=="2")  //circular
 				{
@@ -303,10 +305,10 @@ else if($acao=="Definitivo"){
 		                $destino=$dado[3];
 				require "acessorio.php";
                                 echo"
-                                <p><a>Tipo de Documento: </a>$palavra_documento[1]</p>
-                                <p><a>Remetente: </a>$palavra_assinatura[0]   $palavra_assinatura[1]</p>
-			  	<p><a>Assinatura: </a>$palavra_assinatura[2]</p>;
-                                <p><a>Destinat?io: </a>$palavra_destino[0]</p>
+                                <p><a>Tipo de Documento: </a>" . h($palavra_documento[1]) . "</p>
+                                <p><a>Remetente: </a>" . h($palavra_assinatura[0]) . "   " . h($palavra_assinatura[1]) . "</p>
+			  	<p><a>Assinatura: </a>" . h($palavra_assinatura[2]) . "</p>;
+                                <p><a>Destinat?io: </a>" . h($palavra_destino[0]) . "</p>
                                 <p><a>Assunto: </a>" . h($dado[4]) . "</p>
                                 <p><a>Vocativo: </a>" . h($dado[5]) . "</p>
 				<p><a>Mensagem: </a>" . h($dado[6]) . "</p>
@@ -318,10 +320,10 @@ else if($acao=="Definitivo"){
 				$assinante=$dado[4];
 				require "acessorio.php";
                                 echo"
-                                <p><a>Tipo de Documento: </a>$palavra_documento[1]</p>
+                                <p><a>Tipo de Documento: </a>" . h($palavra_documento[1]) . "</p>
                                 <p><a>Mensagem: </a>" . h($dado[2]) . "</p>
-                        	<p><a>Assinante: </a>$palavra_assinatura[0]    $palavra_assinatura[1]</p>;
-			  	<p><a>Assinatura: </a>$palavra_assinatura[2]</p>";
+                        	<p><a>Assinante: </a>" . h($palavra_assinatura[0]) . "    " . h($palavra_assinatura[1]) . "</p>;
+			  	<p><a>Assinatura: </a>" . h($palavra_assinatura[2]) . "</p>";
 				}
 			 else if($dado[0]=="5")    //ata
 			 	{
@@ -331,7 +333,7 @@ else if($acao=="Definitivo"){
                                 $assinante2=$dado[6];
 				require "acessorio.php";
                                 echo"
-                                <p><a>Tipo de Documento: </a>$palavra_documento[1]</p>
+                                <p><a>Tipo de Documento: </a>" . h($palavra_documento[1]) . "</p>
                                 <p><a>Descri?o da ata: </a>" . h($dado[1]) . "</p>";
 				}
 
@@ -365,61 +367,53 @@ else if ($acao=="Visualizar"){
 	$res_SIGLA=db_query("SELECT sigla FROM admin_tipo WHERE id_tipo= ?", array($documento));
 	$sigla= $res_SIGLA->fetch(PDO::FETCH_NUM);
 	
-	$seds[LATEXSIGLA]=$sigla[0];
-	$seds[LATEXNUMERO]="XX";
-	$seds[LATEXANO]=date("y");
-	$seds[LATEXDATA]=$data;
+	$seds['LATEXSIGLA']=$sigla[0];
+	$seds['LATEXNUMERO']="XX";
+	$seds['LATEXANO']=date("y");
+	$seds['LATEXDATA']=$data;
 //	$com_copia="";
 	if (($dado[0]=="1") ) //memorando
         	{
-//		if (empty($_POST['com_copia'])) $com_copia=""; else $com_copia=$_POST['com_copia'];
 		$assinatura=$dado[8];
 		$assinante=$dado[9];
                 $destino=$dado[2];
 		require "acessorio.php";
-		$seds[LATEXDESTINO]=mb_convert_encoding($palavra_destino[0],"ISO-8859-1","UTF-8");
-		$seds[LATEXVIA]=mb_convert_encoding($dado[1],"ISO-8859-1","UTF-8");
-		$seds[LATEXCOMCOPIA]=mb_convert_encoding($com_copia,"ISO-8859-1","UTF-8");
-        	$seds[LATEXASSUNTO]=mb_convert_encoding($dado[3],"ISO-8859-1","UTF-8");
-        	$seds[LATEXANEXO]=mb_convert_encoding($dado[4],"ISO-8859-1","UTF-8");
-        	$seds[LATEXVOCATIVO]=mb_convert_encoding($dado[5],"ISO-8859-1","UTF-8");
-        	$seds[LATEXMENSAGEM]=mb_convert_encoding($dado[6],"ISO-8859-1","UTF-8");
-        	$seds[LATEXDESFECHO]=mb_convert_encoding($dado[7],"ISO-8859-1","UTF-8");
+		$seds['LATEXDESTINO']=mb_convert_encoding($palavra_destino[0],"ISO-8859-1","UTF-8");
+		$seds['LATEXVIA']=mb_convert_encoding($dado[1],"ISO-8859-1","UTF-8");
+		$seds['LATEXCOMCOPIA']=mb_convert_encoding($com_copia,"ISO-8859-1","UTF-8");
+        	$seds['LATEXASSUNTO']=mb_convert_encoding($dado[3],"ISO-8859-1","UTF-8");
+        	$seds['LATEXANEXO']=mb_convert_encoding($dado[4],"ISO-8859-1","UTF-8");
+        	$seds['LATEXVOCATIVO']=mb_convert_encoding($dado[5],"ISO-8859-1","UTF-8");
+        	$seds['LATEXMENSAGEM']=mb_convert_encoding($dado[6],"ISO-8859-1","UTF-8");
+        	$seds['LATEXDESFECHO']=mb_convert_encoding($dado[7],"ISO-8859-1","UTF-8");
 		$nome_assinatura=$palavra_assinatura[0];
 		$sobrenome_assinatura=$palavra_assinatura[1];
-//
 		$funcao_assinatura=$palavra_assinatura[2];
-        	$seds[LATEXNASSINATURA]=mb_convert_encoding($palavra_assinatura[3]." ".$nome_assinatura." ".$sobrenome_assinatura,"ISO-8859-1","UTF-8");
-		$seds[LATEXCASSINATURA]=mb_convert_encoding($funcao_assinatura,"ISO-8859-1","UTF-8");
-//nova formatacao com matricula: substituido em 06/09/2012
-		$seds[LATEXMATRICULA]="Matr. FUB: ".$palavra_assinatura[4];
+        	$seds['LATEXNASSINATURA']=mb_convert_encoding($palavra_assinatura[3]." ".$nome_assinatura." ".$sobrenome_assinatura,"ISO-8859-1","UTF-8");
+		$seds['LATEXCASSINATURA']=mb_convert_encoding($funcao_assinatura,"ISO-8859-1","UTF-8");
+		$seds['LATEXMATRICULA']="Matr. FUB: ".$palavra_assinatura[4];
 	if ($com_copia=="") $arquivo="modelo_memorando.tex"; else  $arquivo="modelo_memorandocc.tex";
 		}
-	else if (($dado[0]=="3") || ($dado[0]=="6")) //oficio interno ou of?io externo
+	else if (($dado[0]=="3") || ($dado[0]=="6")) //oficio interno ou oficio externo
         	{
-//		if (empty($_POST['com_copia'])) $com_copia=""; else $com_copia=$_POST['com_copia'];
 		$assinatura=$dado[8];
 		$assinante=$dado[9];
                 $destino=$dado[2];
                 require "acessorio.php";
-		$seds[LATEXDESTINO]=mb_convert_encoding($palavra_destino[0],"ISO-8859-1","UTF-8");
-		$seds[LATEXVIA]=mb_convert_encoding($dado[1],"ISO-8859-1","UTF-8");
-		$seds[LATEXCOMCOPIA]=mb_convert_encoding($com_copia,"ISO-8859-1","UTF-8");
-        	$seds[LATEXASSUNTO]=mb_convert_encoding($dado[3],"ISO-8859-1","UTF-8");
-        	$seds[LATEXANEXO]=mb_convert_encoding($dado[4],"ISO-8859-1","UTF-8");
-        	$seds[LATEXVOCATIVO]=mb_convert_encoding($dado[5],"ISO-8859-1","UTF-8");
-        	$seds[LATEXMENSAGEM]=mb_convert_encoding($dado[6],"ISO-8859-1","UTF-8");
-        	$seds[LATEXDESFECHO]=mb_convert_encoding($dado[7],"ISO-8859-1","UTF-8");
+		$seds['LATEXDESTINO']=mb_convert_encoding($palavra_destino[0],"ISO-8859-1","UTF-8");
+		$seds['LATEXVIA']=mb_convert_encoding($dado[1],"ISO-8859-1","UTF-8");
+		$seds['LATEXCOMCOPIA']=mb_convert_encoding($com_copia,"ISO-8859-1","UTF-8");
+        	$seds['LATEXASSUNTO']=mb_convert_encoding($dado[3],"ISO-8859-1","UTF-8");
+        	$seds['LATEXANEXO']=mb_convert_encoding($dado[4],"ISO-8859-1","UTF-8");
+        	$seds['LATEXVOCATIVO']=mb_convert_encoding($dado[5],"ISO-8859-1","UTF-8");
+        	$seds['LATEXMENSAGEM']=mb_convert_encoding($dado[6],"ISO-8859-1","UTF-8");
+        	$seds['LATEXDESFECHO']=mb_convert_encoding($dado[7],"ISO-8859-1","UTF-8");
 		$nome_assinatura=$palavra_assinatura[0];
 		$sobrenome_assinatura=$palavra_assinatura[1];
 		$funcao_assinatura=$palavra_assinatura[2];
-        	$seds[LATEXNASSINATURA]=mb_convert_encoding($palavra_assinatura[3]." ".$nome_assinatura." ".$sobrenome_assinatura,"ISO-8859-1","UTF-8");
-		$seds[LATEXCASSINATURA]=mb_convert_encoding($funcao_assinatura,"ISO-8859-1","UTF-8");
+        	$seds['LATEXNASSINATURA']=mb_convert_encoding($palavra_assinatura[3]." ".$nome_assinatura." ".$sobrenome_assinatura,"ISO-8859-1","UTF-8");
+		$seds['LATEXCASSINATURA']=mb_convert_encoding($funcao_assinatura,"ISO-8859-1","UTF-8");
 		if ($com_copia=="") $arquivo="modelo_oficio.tex"; else  $arquivo="modelo_oficiocc.tex";
-//		if ($dado[0]=="3")
-//        		$arquivo="modelo_oficio_interno.tex";
-//		else
-//			$arquivo="modelo_oficio_externo.tex";
         	}
         else if($dado[0]=="2") //circular
         	{
@@ -427,17 +421,16 @@ else if ($acao=="Visualizar"){
 		$assinante=$dado[2];
                 $destino=$dado[3];
                 require "acessorio.php";
-		$seds[LATEXDESTINO]=mb_convert_encoding($palavra_destino[0],"ISO-8859-1","UTF-8");
-		$seds[LATEXASSUNTO]=mb_convert_encoding($dado[4],"ISO-8859-1","UTF-8");
-//		$seds[LATEXANEXO]=$dado[3];
-        	$seds[LATEXVOCATIVO]=mb_convert_encoding($dado[5],"ISO-8859-1","UTF-8");
-        	$seds[LATEXMENSAGEM]=mb_convert_encoding($dado[6],"ISO-8859-1","UTF-8");
-        	$seds[LATEXDESFECHO]=mb_convert_encoding($dado[7],"ISO-8859-1","UTF-8");
+		$seds['LATEXDESTINO']=mb_convert_encoding($palavra_destino[0],"ISO-8859-1","UTF-8");
+		$seds['LATEXASSUNTO']=mb_convert_encoding($dado[4],"ISO-8859-1","UTF-8");
+        	$seds['LATEXVOCATIVO']=mb_convert_encoding($dado[5],"ISO-8859-1","UTF-8");
+        	$seds['LATEXMENSAGEM']=mb_convert_encoding($dado[6],"ISO-8859-1","UTF-8");
+        	$seds['LATEXDESFECHO']=mb_convert_encoding($dado[7],"ISO-8859-1","UTF-8");
 		$nome_assinatura=$palavra_assinatura[0];
 		$sobrenome_assinatura=$palavra_assinatura[1];
 		$funcao_assinatura=$palavra_assinatura[2];
-        	$seds[LATEXNASSINATURA]=mb_convert_encoding($palavra_assinatura[3]." ".$nome_assinatura." ".$sobrenome_assinatura,"ISO-8859-1","UTF-8");
-		$seds[LATEXCASSINATURA]=mb_convert_encoding($funcao_assinatura,"ISO-8859-1","UTF-8");
+        	$seds['LATEXNASSINATURA']=mb_convert_encoding($palavra_assinatura[3]." ".$nome_assinatura." ".$sobrenome_assinatura,"ISO-8859-1","UTF-8");
+		$seds['LATEXCASSINATURA']=mb_convert_encoding($funcao_assinatura,"ISO-8859-1","UTF-8");
         	$arquivo="modelo_circular.tex";
         	}
 	else if($dado[0]=="4") //ato
@@ -445,12 +438,12 @@ else if ($acao=="Visualizar"){
 		$assinatura=$dado[3];
 		$assinante=$dado[4];
                 require "acessorio.php";
-		$seds[LATEXMENSAGEM]=mb_convert_encoding($dado[2],"ISO-8859-1","UTF-8");
+		$seds['LATEXMENSAGEM']=mb_convert_encoding($dado[2],"ISO-8859-1","UTF-8");
 		$nome_assinatura=$palavra_assinatura[0];
 		$sobrenome_assinatura=$palavra_assinatura[1];
 		$funcao_assinatura=$palavra_assinatura[2];
-        	$seds[LATEXNASSINATURA]=mb_convert_encoding($palavra_assinatura[3]." ".$nome_assinatura." ".$sobrenome_assinatura,"ISO-8859-1","UTF-8");
-		$seds[LATEXCASSINATURA]=mb_convert_encoding($funcao_assinatura,"ISO-8859-1","UTF-8");
+        	$seds['LATEXNASSINATURA']=mb_convert_encoding($palavra_assinatura[3]." ".$nome_assinatura." ".$sobrenome_assinatura,"ISO-8859-1","UTF-8");
+		$seds['LATEXCASSINATURA']=mb_convert_encoding($funcao_assinatura,"ISO-8859-1","UTF-8");
         	$arquivo="modelo_ato.tex";
         	}
         else if ($dado[0]=="5") //ata
@@ -460,44 +453,35 @@ else if ($acao=="Visualizar"){
 		$assinatura2=$dado[5];
                 $assinante2=$dado[6];
 		require "acessorio.php";
-        	$seds[LATEXMENSAGEM]=mb_convert_encoding($dado[2],"ISO-8859-1","UTF-8");
+        	$seds['LATEXMENSAGEM']=mb_convert_encoding($dado[2],"ISO-8859-1","UTF-8");
 		$nome_assinatura=$palavra_assinatura[0];
 		$sobrenome_assinatura=$palavra_assinatura[1];
 		$funcao_assinatura=$palavra_assinatura[2];
-		$seds[LATEXNASSINATURA]=mb_convert_encoding($palavra_assinatura[3]." ".$nome_assinatura." ".$sobrenome_assinatura,"ISO-8859-1","UTF-8");
-                $seds[LATEXCASSINATURA]=mb_convert_encoding($funcao_assinatura,"ISO-8859-1","UTF-8");
+		$seds['LATEXNASSINATURA']=mb_convert_encoding($palavra_assinatura[3]." ".$nome_assinatura." ".$sobrenome_assinatura,"ISO-8859-1","UTF-8");
+                $seds['LATEXCASSINATURA']=mb_convert_encoding($funcao_assinatura,"ISO-8859-1","UTF-8");
 		$nome2_assinatura=$palavra_assinatura2[0];
 		$sobrenome2_assinatura=$palavra_assinatura2[1];
 		$funcao2_assinatura=$palavra_assinatura2[2];
-		$seds[LATEXN2ASSINATURA]=mb_convert_encoding($palavra_assinatura2[3]." ".$nome2_assinatura." ".$sobrenome2_assinatura,"ISO-8859-1","UTF-8");
-                $seds[LATEXC2ASSINATURA]=mb_convert_encoding($funcao2_assinatura,"ISO-8859-1","UTF-8");
+		$seds['LATEXN2ASSINATURA']=mb_convert_encoding($palavra_assinatura2[3]." ".$nome2_assinatura." ".$sobrenome2_assinatura,"ISO-8859-1","UTF-8");
+                $seds['LATEXC2ASSINATURA']=mb_convert_encoding($funcao2_assinatura,"ISO-8859-1","UTF-8");
         	$arquivo="modelo_ata.tex";
         	}
 // adicionado em 5/11/2010
 		$arquivo=escolhe_arquivo($data,$dado[0],$com_copia);
-//echo $arquivo;
 
+	// Gera o PDF sem passar pelo shell (ver global/latex_pdf.php); escapa todos os campos contra LaTeX injection.
+	require_once("../../global/latex_pdf.php");
 	foreach ($seds as $colchete => $valor)
 		{
-		$seds[$colchete]=str_replace("ê",'\^e',$seds[$colchete]);
-		$seds[$colchete]=str_replace("ç",'\c c',$seds[$colchete]);
-		$seds[$colchete]=str_replace("?",'?',$seds[$colchete]);
-		$seds[$colchete]=str_replace("ó",'\'o',$seds[$colchete]);
-		$seds[$colchete]=str_replace("õ",'\~o',$seds[$colchete]);
-		$seds[$colchete]=str_replace("ã",'\~a',$seds[$colchete]);
-		$seds[$colchete]=str_replace("à",'\`a',$seds[$colchete]);
-		$seds[$colchete]=str_replace("á",'\'a',$seds[$colchete]);
+		$seds[$colchete]=latex_escape($valor);
 		}
-//print_r($seds);
-//die();
-//	print "a array seds ? ".print_r($seds);	
-
-	// Gera o PDF sem passar pelo shell (ver global/latex_pdf.php)
-	require_once("../../global/latex_pdf.php");
 	$pdf = gera_pdf_latex("./modelo_tex/".$arquivo, $seds);
 	if ($pdf === false) die("N\xe3o foi poss\xedvel gerar o documento.");
-	Header("Content-type: application/pdf");
-	echo h($pdf);
+	while (ob_get_level() > 0) { ob_end_clean(); }
+	header("Content-Type: application/pdf");
+	header("X-Content-Type-Options: nosniff");
+	echo $pdf;
+	exit;
 }
 ?>
 <?php

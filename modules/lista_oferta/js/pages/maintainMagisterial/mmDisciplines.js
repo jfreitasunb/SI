@@ -56,8 +56,11 @@ $().ready(function() {
 		var mClass = disciplineFromLine(id);
 		var name = mClass.discipline_name.split(" (")[0];
 
-		var desc = "A disciplina "+name+" não será mais magistral.<br>Tem certeza disso?";
-		$('#delete_confirmation_dialog_description').html(desc);
+		$('#delete_confirmation_dialog_description')
+			.empty()
+			.append(document.createTextNode("A disciplina " + name + " não será mais magistral."))
+			.append($('<br/>'))
+			.append(document.createTextNode("Tem certeza disso?"));
 
 		startLineAnimation(id, "deleted");
 
@@ -231,16 +234,17 @@ $().ready(function() {
 	}
 
 	function createLineTable(magisterial_discipline) {
-		table.row.add($(
-			'<tr id="line_'+magisterial_discipline.id+'">'+
-				'<td id="discipline_name_'+magisterial_discipline.id+'" data-discipline="'+magisterial_discipline.discipline+'">'+magisterial_discipline.name+' ('+magisterial_discipline.credits+')</td>'+
-				'<td id="theory_quantity_'+magisterial_discipline.id+'">'+magisterial_discipline.theory_quantity+'</td>'+
-				'<td id="exercises_quantity_'+magisterial_discipline.id+'">'+magisterial_discipline.exercises_quantity+'</td>'+
-				'<td><button id="edit_'+magisterial_discipline.id+'" class="edit_magisterial_discipline">Editar</button></td>'+
-				'<td><button id="delete_'+magisterial_discipline.id+'" class="delete_magisterial_discipline">Excluir</button></td>'+
-                '<td><a href="?discipline='+magisterial_discipline.discipline+'"><button>Grupos Teoria</button></a></td>'+
-			'</tr>'
-		)).draw(false);
+		var tr = $('<tr/>').attr('id', 'line_' + magisterial_discipline.id);
+		tr.append($('<td/>')
+			.attr('id', 'discipline_name_' + magisterial_discipline.id)
+			.attr('data-discipline', magisterial_discipline.discipline)
+			.text(magisterial_discipline.name + ' (' + magisterial_discipline.credits + ')'));
+		tr.append($('<td/>').attr('id', 'theory_quantity_' + magisterial_discipline.id).text(magisterial_discipline.theory_quantity));
+		tr.append($('<td/>').attr('id', 'exercises_quantity_' + magisterial_discipline.id).text(magisterial_discipline.exercises_quantity));
+		tr.append($('<td/>').append($('<button/>').attr('id', 'edit_' + magisterial_discipline.id).addClass('edit_magisterial_discipline').text('Editar')));
+		tr.append($('<td/>').append($('<button/>').attr('id', 'delete_' + magisterial_discipline.id).addClass('delete_magisterial_discipline').text('Excluir')));
+		tr.append($('<td/>').append($('<a/>').attr('href', '?discipline=' + encodeURIComponent(magisterial_discipline.discipline)).append($('<button/>').text('Grupos Teoria'))));
+		table.row.add(tr).draw(false);
 
 		var h = (window.innerHeight - 29) / 2;
 		$('html, body').animate({

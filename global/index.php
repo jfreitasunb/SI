@@ -9,6 +9,9 @@
    // Previne erros de "Undefined variable" se $idmodule não estiver setado antes
    $idmodule = isset($idmodule) ? $idmodule : null;
 
+   // Protecao contra Login CSRF: valida o token em POSTs antes de autenticar.
+   csrf_valida();
+
    // Checa a identificação
    if (isset($_POST['login']) && isset($_POST['pass'])) {
        $identification = secure($_POST['login'], $_POST['pass'], $idmodule);
@@ -28,6 +31,9 @@
        exit; // IMPORTANTE: Interrompe o carregamento da página caso o usuário não esteja logado
    }
   
+   // Garante que o token CSRF exista ja na carga inicial pos-login.
+   csrf_token();
+
    // PDO: Consulta principal com Prepared Statement para evitar SQL Injection
    $query = "SELECT m.url, m.name, m.idmodule FROM module m, permission p WHERE m.idmodule = p.idmodule AND p.login = :login AND p.permission > 0";
    
@@ -50,7 +56,7 @@
     // Usamos um foreach para percorrer os resultados (muito mais limpo que o while com contador)
     foreach ($modules as $array)
     {
-        echo "      menu.AddRub(\"<B>".addslashes($array["name"])."</B>\",\"N\");\n";
+        echo "      menu.AddRub(" . js_str("<B>" . h($array["name"]) . "</B>") . ",'N');\n";
              
         // PDO: Segunda consulta (Interna) 
         $query2 = "SELECT funcurl, funcname FROM functions f WHERE f.idmodule = :idmodule";
@@ -62,7 +68,12 @@
             
             foreach ($functions as $array2)
             {
-                echo "      menu.AddLien(\"".addslashes($array2["funcname"])."\",\"".addslashes($array2["funcurl"])."\");\n"; 
+                $funcurl = (string)$array2["funcurl"];
+                // Rejeita esquemas perigosos (ex.: javascript:, data:) em URLs do menu.
+                if (preg_match('/^\s*(javascript|data|vbscript):/i', $funcurl)) {
+                    continue;
+                }
+                echo "      menu.AddLien(" . js_str(h($array2["funcname"])) . "," . js_str(h($funcurl)) . ");\n"; 
             }
         } catch (PDOException $e) {
             die(error());

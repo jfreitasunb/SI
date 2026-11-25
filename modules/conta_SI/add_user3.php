@@ -1,5 +1,7 @@
 <?php
   require("head_conta_SI.php");
+  exige_post();
+  exige_escrita();
 ?>
  <script language=javascript src="formu.js">
     </script>
@@ -30,9 +32,15 @@
     </script>
     <?php
 
-  $resverif1=db_query("select * from admin where login=?", array($_POST['login']));
+  $novo_login = isset($_POST['login']) ? trim((string)$_POST['login']) : '';
+  if ($novo_login === '' || strtolower($novo_login) === 'root' || empty($_POST['pass1'])) {
+      http_response_code(400);
+      die(error("Login ou senha invalidos."));
+  }
+
+  $resverif1=db_query("select * from admin where login=?", array($novo_login));
   $countverif1=db_num_rows($resverif1);
-  $resverif2=db_query("select * from unix where login=?", array($_POST['login']));
+  $resverif2=db_query("select * from unix where login=?", array($novo_login));
   $countverif2=db_num_rows($resverif2);
 
  if (($countverif1==0) and ($countverif2==0))
@@ -43,7 +51,7 @@
  if ($verifbool)  
   {
     $compte3= new c_admin;
-    $compte3->set_login($_POST['login']);
+    $compte3->set_login($novo_login);
     $compte3->set_passwd($_POST['pass1']);
     $compte3->set_coduser($_POST['coduser']);
     $compte3->create_account();
@@ -52,8 +60,10 @@
     $i=0;
     foreach($_POST['droits'] as $arr)
     {
+      if (!in_array((string)$arr, array('0', '1', '2'), true)) continue;
       $sl=db_fetch_array($result4,$i);
-      $result3=db_query("update permission set permission=? where login=? and idmodule=?", array($arr, $compte3->get_login(), $sl['idmodule']));
+      if (!$sl) break;
+      $result3=db_query("update permission set permission=? where login=? and idmodule=?", array((int)$arr, $compte3->get_login(), $sl['idmodule']));
       $i+=1;
     }
 

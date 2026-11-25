@@ -39,6 +39,11 @@
       <td>
         <a href="accueil.php" target="right" class="menu"><B>P&aacute;gina principal</B></a>
         <br>
+        <form method="post" action="logout.php" target="_top" style="display:inline;margin:4px 0;">
+          <?php echo csrf_campo(); ?>
+          <button type="submit" class="menu" style="cursor:pointer;">Sair</button>
+        </form>
+        <br>
         <script type="text/JavaScript">
           Aff(parent.menu);
         </script>

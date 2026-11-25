@@ -41,7 +41,7 @@
         ?>
         <tr>
           <td>
-            <b><?php echo mb_convert_encoding($tab3['name'],"ISO-8859-1","UTF-8") ?></b>
+            <b><?php echo h(mb_convert_encoding($tab3['name'],"ISO-8859-1","UTF-8")) ?></b>
           </td>
           <td align=right>
 		<select name="droits[]">

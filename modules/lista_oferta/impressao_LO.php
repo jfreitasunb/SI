@@ -20,10 +20,10 @@ $semesterMC = new SemesterMC();
 $semesters = $semesterMC->allSemesters();
 
 if ($_GET && isset($_GET["semester"])) {
-	$semesterData = explode("-", $_GET["semester"]);
+	$semesterData = explode("-", (string)$_GET["semester"]);
 	$semester = new SemesterTO();
-	$semester->year = $semesterData[0];
-	$semester->semester = $semesterData[1];
+	$semester->year = (int)(isset($semesterData[0]) ? $semesterData[0] : 0);
+	$semester->semester = (int)(isset($semesterData[1]) ? $semesterData[1] : 0);
 } else {
 	$semester = $semesters[0];
 }
@@ -104,9 +104,11 @@ if (count($grantedCreditsList)) {
 	}
 
 	if ($_GET && isset($_GET["csv"])) {
-		$file = "lista_de_atividade_".$semester->year."_".$semester->semester.".csv";
+		$file = "lista_de_atividade_".(int)$semester->year."_".(int)$semester->semester.".csv";
+		while (ob_get_level() > 0) { ob_end_clean(); }
 		header('Content-Type: text/csv; charset=utf-8');
-		header("Content-Disposition: attachment; filename=$file");
+		header('Content-Disposition: attachment; filename="' . $file . '"');
+		header('X-Content-Type-Options: nosniff');
 
 		$output = fopen('php://output', 'w');
 
@@ -118,12 +120,12 @@ if (count($grantedCreditsList)) {
 			$credits = "$professor->credits_total";
 			if (isset($professor->activity)) {
 				foreach ($professor->activity as $activity) {
-					fputcsv($output, array($name,"$activity->activity","$activity->description","$activity->code","$activity->class","$activity->period","$activity->schedule","$activity->credits",$credits));
+					fputcsv($output, array_map('csv_celula_segura', array($name,"$activity->activity","$activity->description","$activity->code","$activity->class","$activity->period","$activity->schedule","$activity->credits",$credits)));
 					$name = " ";
 					$credits = '';
 				}
 			} else {
-				fputcsv($output, array($name,'','','','','','','',$credits));
+				fputcsv($output, array_map('csv_celula_segura', array($name,'','','','','','','',$credits)));
 			}
 		}
 

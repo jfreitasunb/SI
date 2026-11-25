@@ -161,8 +161,10 @@ function prepareReport($tempOfferList, $classes, $temporarySolution, $listProfes
 $semesterMC = new SemesterMC();
 $semester = $semesterMC->last();
 
-//TODO: Se estiver na etapa do semestre que deva rodar, e se o usuario tiver permissão para executar o script
-if(strcmp($semester->status, SemesterDAO::STATUS_STAGE_3) == 0 && ($DEVELOPMENT || ModuleUT::haveUserLogged($ID_MODULE))) {
+// Exige POST + sessao autenticada no modulo (impede CSRF via GET e DoS por navegacao).
+if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
+	&& strcmp($semester->status, SemesterDAO::STATUS_STAGE_3) == 0
+	&& ModuleUT::haveUserLogged($ID_MODULE)) {
 
 	// As $OFFER_LIST_QUANTITY_ATTEMPTS tentativas estouram os 30 s padrao do PHP-FPM.
 	// Manter alinhado com fastcgi_read_timeout no nginx.
@@ -196,8 +198,8 @@ if(strcmp($semester->status, SemesterDAO::STATUS_STAGE_3) == 0 && ($DEVELOPMENT 
 
 // $OFFER_LIST_QUANTITY_ATTEMPTS = 1;
 	for ($j = 0; $j < $OFFER_LIST_QUANTITY_ATTEMPTS; $j++) {
-		$classes = unserialize($classesJson);
-		$listProfessors = unserialize($listProfessorsJson);
+		$classes = unserialize($classesJson, array('allowed_classes' => array('stdClass')));
+		$listProfessors = unserialize($listProfessorsJson, array('allowed_classes' => array('stdClass')));
 
 		//começa aqui o loop
 		$disciplinesChosen = array();

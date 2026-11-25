@@ -81,10 +81,10 @@ class ActivitiesDAO extends DAO {
 		$order = $this->orderBy($order, $this->attributeMapGroup);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapGroup)."
 				FROM ($this->table
@@ -126,10 +126,10 @@ class ActivitiesDAO extends DAO {
 		$order = $this->orderBy($order);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		unset($this->attributeMap["id"]);
 
@@ -145,8 +145,8 @@ class ActivitiesDAO extends DAO {
 						LEFT JOIN lo_granted_credits ON
 							lac_clac = lgc_clac AND
 							lgc_stat = 'active' AND
-							lgc_year = $semester->year AND
-							lgc_seme = $semester->semester
+							lgc_year = ".(int)$semester->year." AND
+							lgc_seme = ".(int)$semester->semester."
 					GROUP BY lac_clac, lgc_year, lgc_seme) AS am INNER JOIN $this->table AS T ON T.lac_clac = am.lac_clac
 				$where
 				$order

@@ -355,19 +355,4 @@ abstract class DAO {
         $res->execute();
 
 	}
-
-
-    /**
-     * @param $sql
-     * @return array[anyClass]
-     * @throws Exception
-     */
-    public function runSQL($sql) {
-		$res = $this->_db->prepare($sql);
-
-        $res->execute();
-
-
-		return $res;
-	}
 }

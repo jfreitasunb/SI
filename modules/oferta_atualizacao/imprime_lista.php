@@ -121,22 +121,26 @@ $periodo=explode("_",$_GET['lista']);
 $lista=$_GET['lista'];
 }
 */
-$periodo=explode("_",$lista);
-$semestre=$periodo[0];
-$ano=$periodo[1];
+$periodo=explode("_",isset($lista) ? (string)$lista : '');
+$semestre=isset($periodo[0]) ? $periodo[0] : '';
+$ano=isset($periodo[1]) ? $periodo[1] : '';
+if (!ctype_digit((string)$semestre) || !ctype_digit((string)$ano)) {
+	http_response_code(400);
+	die(error("Semestre/ano invalido."));
+}
 //$lista_oferta="oferta_lista_de_ofertas_".$lista;
 $lista_oferta="oferta_lista_de_ofertas";
 
 if (isset($_GET['ordena'])) 
 	{
 	$ordena=$_GET['ordena']; 
-//	$linhas_ordenadas=ordena_array($linhas,$ordena);
 	}
 	else 
 	{
+	// Reconstruir a tabela temporaria exige POST (evita mutacao/CSRF via GET).
+	exige_post();
 	$ordena="professor";
 	$linhas=prepara_array_de_linhas($semestre,$ano);
-//	$linhas_ordenadas=ordena_array($linhas,"professor");
 	}
 
 //echo "<BR>";

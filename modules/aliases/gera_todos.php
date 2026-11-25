@@ -119,6 +119,8 @@ $resultados=db_fetch_all($result);
   <form method="POST" name="utilisateur" action="cria_alias.php">
         <tr><td class=header align=center>
 <?php
+exige_post();
+exige_escrita();
 
 for ($k=0;$k<$numero;$k++)
     {

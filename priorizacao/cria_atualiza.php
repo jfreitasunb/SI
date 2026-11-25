@@ -70,7 +70,7 @@ function verif_touche(e)
         </td>
       </tr>
      <tr>    
-        <td align=center><b> Semestre : <?php   echo $semestre."/".$ano;?> </b> </td></tr>
+        <td align=center><b> Semestre : <?php echo h($semestre)."/".h($ano);?> </b> </td></tr>
         <td align=center><b> Per&iacute;odo da &uacute;ltima licen&ccedil;a: de <select name='dia_inicio'>
 										<option value=0 <?php if ($data_inicio_ultima[0]==0) echo "selected";?>>--</option>
 										<?php 
@@ -229,9 +229,9 @@ function verif_touche(e)
 	</table>
 	</td></tr>
 	<tr><td align=center><input type=submit name='salva_dados' value="Confirmar"></td></tr>
-	<input type=hidden name='semestre' value="<?php echo $semestre;?>">
-	<input type=hidden name='ano' value="<?php echo $ano;?>">
-	<input type=hidden name='usuario' value="<?php echo $usuario;?>">
+	<input type=hidden name='semestre' value="<?php echo h($semestre);?>">
+	<input type=hidden name='ano' value="<?php echo h($ano);?>">
+	<input type=hidden name='usuario' value="<?php echo h($usuario);?>">
 
 </form>
 </table>

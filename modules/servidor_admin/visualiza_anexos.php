@@ -145,7 +145,7 @@ if ($docs_numero!=1)
 		{
 		$query_documentos="select ad.id_documentador as id_documentador,ad.numerodocumento as numerodocumento,SUBSTR(ad.data,1,2) as dia,SUBSTR(ad.data,4,2) as mes,SUBSTR(ad.data,7,4) as ano ,add.nomedepartamento as destino,ad.assunto as assunto from admin_documentador ad,admin_departamento add where ad.id_tipo=? and add.id_departamento=ad.id_departamento order by ano desc,mes desc,dia desc,numerodocumento desc"; $query_documentos__p = array($tipo[0]); 
 		$query_tipo[$tipo[0]]=db_query($query_documentos, $query_documentos__p);
-		echo "<tr><td><b>".strtoupper($tipo[1]).":</b></td><td> <select name='documento[".h($tipo[0])."]' style=\"width: 500px\"><option value=\"nulo\" selected> --- </option>";
+		echo "<tr><td><b>".h(strtoupper($tipo[1])).":</b></td><td> <select name='documento[".h($tipo[0])."]' style=\"width: 500px\"><option value=\"nulo\" selected> --- </option>";
 		$cor_de_fundo="#FFFFFF";
 		while($registro=db_fetch_row($query_tipo[$tipo[0]]))
 			{

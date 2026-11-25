@@ -88,19 +88,15 @@ $( function() {
     }
 
     function instantiateBasicGroup(group) {
-        var groupHtml =
-            "<div class='group' data-group='"+group+"'>"+
-                "<div class='group_content'>"+
-                    "<h2>Grupo "+group+"</h2>"+
-                    "<div class='schedule'></div>"+
-                    "<div class='classes'>"+
-                        "<div class='title'><div class='title_contend'><label>Turmas</label></div></div>"+
-                        "<div class='clear'></div>"+
-                    "</div>"+
-                "</div>"+
-            "</div>";
-
-        var divGroup = $($.parseHTML(groupHtml));
+        var divGroup = $('<div class="group"/>').attr('data-group', group);
+        var content = $('<div class="group_content"/>');
+        content.append($('<h2/>').text('Grupo ' + group));
+        content.append($('<div class="schedule"/>'));
+        var classesDiv = $('<div class="classes"/>')
+            .append($('<div class="title"/>').append($('<div class="title_contend"/>').append($('<label/>').text('Turmas'))))
+            .append($('<div class="clear"/>'));
+        content.append(classesDiv);
+        divGroup.append(content);
         divGroup.droppable(groupDroppable);
 
         return divGroup;
@@ -113,21 +109,21 @@ $( function() {
         if (groupObj.schedule.length > 0) {
             if (groupObj.selected.length < discipline.quantity) {
                 var text = "Selecione mais " + (discipline.quantity - groupObj.selected.length);
-                schedule.append("<span class='error'>" + text + "</span>");
+                schedule.append($('<span class="error"/>').text(text));
             } else if (groupObj.selected.length > discipline.quantity) {
                 var text = "Selecione menos " + (groupObj.selected.length - discipline.quantity);
-                schedule.append("<span class='error'>" + text + "</span>");
+                schedule.append($('<span class="error"/>').text(text));
             }
             for (var i in groupObj.schedule) {
                 var time = groupObj.schedule[i];
+                var span = $('<span class="time"/>').attr('data-time', time).text(time);
                 if (groupObj.selected.indexOf(time+"") > -1) {
-                    schedule.append("<span data-time='"+time+"' class='time selected'>"+time+"</span>");
-                } else {
-                    schedule.append("<span data-time='" + time + "' class='time'>" + time + "</span>");
+                    span.addClass('selected');
                 }
+                schedule.append(span);
             }
         } else {
-            schedule.append("<span class='error'>ERRO</span>");
+            schedule.append($('<span class="error"/>').text('ERRO'));
         }
     }
 
@@ -318,9 +314,9 @@ $( function() {
     function updateGroupOfClass(divClass, divGroup) {
         var classId = divClass.data('id');
         if (!divGroup) {
-            $(".class_"+classId).find(".class_group").html("");
+            $(".class_"+classId).find(".class_group").text("");
         } else {
-            $(".class_"+classId).find(".class_group").html(divGroup.data('group'));
+            $(".class_"+classId).find(".class_group").text(divGroup.data('group'));
         }
     }
 

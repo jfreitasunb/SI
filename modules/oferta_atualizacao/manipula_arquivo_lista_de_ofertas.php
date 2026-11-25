@@ -108,7 +108,7 @@ $acentos=array(Á,À,Ã,É,È,Ê,Í,Ó,Ò,Õ,Ô,Ö,Ú,Ù,Ç);
 $letras=array(A,A,A,E,E,E,I,O,O,O,O,O,U,U,C);
 echo "<br> em procura_prof:".h($prof)."<br>"; // $prof vem do arquivo enviado (lista SAA)
 $prof_sem_acentos=str_replace($acentos,$letras,$prof);
-echo "<br>sem acentos em procura_prof: ".$prof_sem_acentos."<br>";
+echo "<br>sem acentos em procura_prof: ".h($prof_sem_acentos)."<br>";
 $devolve="nulo";
 if (isset($array_prof[$prof_sem_acentos])) $devolve=$array_prof[$prof_sem_acentos][0]."__--__".$array_prof[$prof_sem_acentos][1];
 /*foreach ($array_prof as $key => $value)
@@ -282,15 +282,31 @@ for ($i=0;$i<count($trimmed);$i++)
 return $devolve;
 }
 
+function caminho_lista_saa_seguro($arquivo)
+{
+    $base = realpath(__DIR__ . '/listas_SAA');
+    $nome = basename((string)$arquivo);
+    if ($base === false || $nome === '' || $nome !== (string)$arquivo) {
+        return false;
+    }
+    $alvo = realpath($base . DIRECTORY_SEPARATOR . $nome);
+    if ($alvo === false || strpos($alvo, $base . DIRECTORY_SEPARATOR) !== 0) {
+        return false;
+    }
+    return $alvo;
+}
+
 function testa_arquivo_sigaa($semestre,$ano,$arquivo)
 {
     //; $tipo deve ser um de: lstofelst,lstofedlp
 
     $periodo=0;
 
-    $diretorio="listas_SAA/";
-    // $trimmed=file($diretorio.$arquivo);
-    $trimmed = file_get_contents($diretorio.$arquivo);
+    $caminho = caminho_lista_saa_seguro($arquivo);
+    if ($caminho === false) {
+        return false;
+    }
+    $trimmed = file_get_contents($caminho);
 
     if (stripos($trimmed,"MAT0025") !== false and stripos($trimmed, "MAT0022") !== false and stripos($trimmed, "MAT0010") !== false) {
         $devolve=true;
@@ -306,13 +322,16 @@ function manipula_arquivo_sigaa_atualiza_lista($semestre,$ano,$arquivo)
 
     set_time_limit(100);
 
-    $diretorio="listas_SAA/";
+    $caminho = caminho_lista_saa_seguro($arquivo);
+    if ($caminho === false) {
+        return array();
+    }
 
-    $trimmed=file($diretorio.$arquivo);
+    $trimmed=file($caminho);
 
     $devolve = array();
 
-    $rows = file($diretorio.$arquivo);
+    $rows = file($caminho);
 
     $arquivo_tratado = str_replace(".txt", "", $arquivo)."_tratado.txt";
 

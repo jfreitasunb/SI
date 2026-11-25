@@ -1,5 +1,8 @@
 <?php
+  // Endpoint legado desativado: operava na tabela licences sob o modulo de listas de mail (96).
   require("head_listas.php");
+  http_response_code(410);
+  die(error("Endpoint desativado."));
 
 
 if ($_POST['licenca']=="palestra") $id_licence=0;

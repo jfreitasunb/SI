@@ -26,6 +26,7 @@ if(($_POST['acao2']!="Visualizar") and ($_GET['acao2']!="Visualizar"))
 <?php
 }
 if ($_POST['acao2'] == "Confirmar"){
+	exige_escrita();
 
 //	print " Estou no Confirmar do operacao_2";
 	$dado=$_POST['dado'];
@@ -157,9 +158,11 @@ if ($_POST['acao2'] == "Confirmar"){
 		$coluna = $resultado2->fetch(PDO::FETCH_NUM);
 		$id_documentador = $coluna[0];
 
-		//dele?o do documento na tabela "rascunho".
-		$r_documento=$_POST['r_documento'];
-		$resultado=db_query("DELETE FROM admin_rascunho WHERE id_documentador=?", array($r_documento));
+		//delecao do documento na tabela "rascunho" (apenas se r_documento for inteiro valido).
+		$r_documento = isset($_POST['r_documento']) ? (string)$_POST['r_documento'] : '';
+		if (ctype_digit($r_documento)) {
+			$resultado=db_query("DELETE FROM admin_rascunho WHERE id_documentador=?", array($r_documento));
+		}
 		echo"
         	<h1>Servidor Administrativo</h1>
 		<p> O documento foi inserido com sucesso. Para que ele possa ser impresso, clique no bot? abaixo . </p><br>
@@ -233,31 +236,22 @@ else if(($_POST['acao2']=="Visualizar")||($_GET['acao2']=="Visualizar")){
 //        or die("N?o foi poss?vel executar a opera??o. Contacte a Coordena??o de Inform?tica.");
 //        $sigla= $res_SIGLA->fetch(PDO::FETCH_NUM);
 
-        $seds[LATEXSIGLA]=$palavra_documento[0]; //$sigla[0];
-
-        $seds[LATEXNUMERO]=$coluna[2];
+        $seds['LATEXSIGLA']=$palavra_documento[0];
+        $seds['LATEXNUMERO']=$coluna[2];
 	$latexano=explode("/",$coluna[9]); 
-//	$seds[LATEXANO]=date("y");
-	$seds[LATEXANO]=$latexano[2];
-        $seds[LATEXDATA]=$coluna[9];
-	
-	//Acrescentado por Jose Antonio, 25/02/2015
-	if (strpos($coluna[4],'\\\\') === false) {
-    	$coluna[4] = addslashes(addslashes($coluna[4]));
-	} else {
-    	$coluna[4] = addslashes($coluna[4]);
-	}
+	$seds['LATEXANO']=isset($latexano[2]) ? $latexano[2] : '';
+        $seds['LATEXDATA']=$coluna[9];
 
-        $seds[LATEXDESTINO]=mb_convert_encoding($palavra_destino[0],"ISO-8859-1","UTF-8");
-        $seds[LATEXVIA]=mb_convert_encoding($coluna[11],"ISO-8859-1","UTF-8");
-        $seds[LATEXCOMCOPIA]=mb_convert_encoding($coluna[15],"ISO-8859-1","UTF-8");
-        $seds[LATEXASSUNTO]=mb_convert_encoding($coluna[7],"ISO-8859-1","UTF-8");
-        $seds[LATEXANEXO]=mb_convert_encoding($coluna[8],"ISO-8859-1","UTF-8");
-        $seds[LATEXVOCATIVO]=mb_convert_encoding($coluna[10],"ISO-8859-1","UTF-8");
-        $seds[LATEXMENSAGEM]=mb_convert_encoding($coluna[4],"ISO-8859-1","UTF-8");
-        $seds[LATEXDESFECHO]=mb_convert_encoding($coluna[5],"ISO-8859-1","UTF-8");
-       	$seds[LATEXNASSINATURA]=$palavra_assinatura[3]." ".mb_convert_encoding($palavra_assinatura[0]." ".$palavra_assinatura[1],"ISO-8859-1","UTF-8");
-	$seds[LATEXCASSINATURA]=mb_convert_encoding($palavra_assinatura[2],"ISO-8859-1","UTF-8");
+        $seds['LATEXDESTINO']=mb_convert_encoding($palavra_destino[0],"ISO-8859-1","UTF-8");
+        $seds['LATEXVIA']=mb_convert_encoding($coluna[11],"ISO-8859-1","UTF-8");
+        $seds['LATEXCOMCOPIA']=mb_convert_encoding($coluna[15],"ISO-8859-1","UTF-8");
+        $seds['LATEXASSUNTO']=mb_convert_encoding($coluna[7],"ISO-8859-1","UTF-8");
+        $seds['LATEXANEXO']=mb_convert_encoding($coluna[8],"ISO-8859-1","UTF-8");
+        $seds['LATEXVOCATIVO']=mb_convert_encoding($coluna[10],"ISO-8859-1","UTF-8");
+        $seds['LATEXMENSAGEM']=mb_convert_encoding($coluna[4],"ISO-8859-1","UTF-8");
+        $seds['LATEXDESFECHO']=mb_convert_encoding($coluna[5],"ISO-8859-1","UTF-8");
+       	$seds['LATEXNASSINATURA']=$palavra_assinatura[3]." ".mb_convert_encoding($palavra_assinatura[0]." ".$palavra_assinatura[1],"ISO-8859-1","UTF-8");
+	$seds['LATEXCASSINATURA']=mb_convert_encoding($palavra_assinatura[2],"ISO-8859-1","UTF-8");
 
         if (($coluna[1]=="1") ) //memorando
                 {
@@ -271,7 +265,7 @@ else if(($_POST['acao2']=="Visualizar")||($_GET['acao2']=="Visualizar")){
         	$seds[LATEXNASSINATURA]=mb_convert_encoding($palavra_assinatura[0]." ".$palavra_assinatura[1],"ISO-8859-1","UTF-8");
 		$seds[LATEXCASSINATURA]=mb_convert_encoding($palavra_assinatura[2],"ISO-8859-1","UTF-8");
 */
-		$seds[LATEXMATRICULA]="Matr. FUB: ".$palavra_assinatura[4];
+		$seds['LATEXMATRICULA']="Matr. FUB: ".$palavra_assinatura[4];
 		if ($coluna[15]=="") $arquivo="modelo_memorando.tex"; else $arquivo="modelo_memorandocc.tex";
                 }
         else if (($coluna[1]=="3") ||($coluna[1]=="6")) //oficio interno ou oficio externo
@@ -311,8 +305,8 @@ else if(($_POST['acao2']=="Visualizar")||($_GET['acao2']=="Visualizar")){
                 }
         else if ($coluna[1]=="5") //ata
                 {
-		$seds[LATEXN2ASSINATURA]=$palavra_assinatura2[3]." ".mb_convert_encoding($palavra_assinatura2[0]." ".$palavra_assinatura2[1],"ISO-8859-1","UTF-8");
-	        $seds[LATEXC2ASSINATURA]=mb_convert_encoding($palavra_assinatura2[2],"ISO-8859-1","UTF-8");
+		$seds['LATEXN2ASSINATURA']=$palavra_assinatura2[3]." ".mb_convert_encoding($palavra_assinatura2[0]." ".$palavra_assinatura2[1],"ISO-8859-1","UTF-8");
+	        $seds['LATEXC2ASSINATURA']=mb_convert_encoding($palavra_assinatura2[2],"ISO-8859-1","UTF-8");
 //                $seds[LATEXMENSAGEM]=addslashes(mb_convert_encoding($coluna[4],"ISO-8859-1","UTF-8"));
                 $arquivo="modelo_ata.tex";
                 }
@@ -321,12 +315,18 @@ else if(($_POST['acao2']=="Visualizar")||($_GET['acao2']=="Visualizar")){
 	if (empty($coluna[15])) $com_copia=""; else $com_copia=$coluna[15];
 	$arquivo=escolhe_arquivo($coluna[9],$coluna[1],$com_copia);
 
-	// Gera o PDF sem passar pelo shell (ver global/latex_pdf.php)
+	// Gera o PDF sem passar pelo shell (ver global/latex_pdf.php); escapa todos os campos contra LaTeX injection.
 	require_once("../../global/latex_pdf.php");
+	foreach ($seds as $colchete => $valor) {
+		$seds[$colchete] = latex_escape($valor);
+	}
 	$pdf = gera_pdf_latex("./modelo_tex/".$arquivo, $seds);
 	if ($pdf === false) die("N\xe3o foi poss\xedvel gerar o documento.");
-	Header("Content-type: application/pdf");
-	echo h($pdf);
+	while (ob_get_level() > 0) { ob_end_clean(); }
+	header("Content-Type: application/pdf");
+	header("X-Content-Type-Options: nosniff");
+	echo $pdf;
+	exit;
 }
 
 ?>

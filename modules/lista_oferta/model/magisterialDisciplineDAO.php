@@ -45,10 +45,10 @@ class MagisterialDisciplineDAO extends DAO {
 		$order = $this->orderBy($order, $this->attributeMapDisciplinesDescription);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapDisciplinesDescription)."
 				FROM ($this->table AS DM

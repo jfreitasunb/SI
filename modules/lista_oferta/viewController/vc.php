@@ -135,7 +135,7 @@ abstract class VC {
 
 				if (!is_object($value) && !is_array($value)) {
 					$tpl->setVariable(array(
-						$prefix.$name  => str_replace("amp;", "", htmlspecialchars($value, FALSE))
+						$prefix.$name  => htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'ISO-8859-1', false)
 					));
 				}
 			}
@@ -157,7 +157,7 @@ abstract class VC {
 		if($obj !== null) {
 			foreach($obj as $name => $value) {
 				if (!isset($templatesKeys[$name])) {
-					$value = str_replace("amp;", "", htmlspecialchars($value));
+					$value = htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'ISO-8859-1', false);
 				}
 				$tpl->setVariable(array(
 					$prefix.$name  => $value
@@ -212,7 +212,7 @@ abstract class VC {
 		$this->tplMain->setVariable(array(
 			'ROOT'  => $this->root,
 			'ROOT_MAIN'  => $this->root_main,
-			'page_title'  => $h1,
+			'page_title'  => htmlspecialchars((string)$h1, ENT_QUOTES | ENT_SUBSTITUTE, 'ISO-8859-1', false),
 		));
 
 		$this->tplMain->show();
@@ -292,7 +292,7 @@ abstract class VC {
 
 		foreach ($arrH1 as $h1) {
 			$tpl->setVariable(array(
-				'h1' => str_replace("amp;", "", htmlspecialchars($h1))
+				'h1' => htmlspecialchars((string)$h1, ENT_QUOTES | ENT_SUBSTITUTE, 'ISO-8859-1', false)
 			));
 			$tpl->parse('add_header');
 		}

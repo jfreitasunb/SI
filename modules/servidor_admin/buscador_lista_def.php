@@ -19,8 +19,8 @@
         <td align=center>
                <title>Servidor Administrativo</title>
 <?php
-$pagina=$_GET["pagina"];
-$xpagina=($pagina)*10;
+$pagina = max(0, (int)(isset($_GET["pagina"]) ? $_GET["pagina"] : 0));
+$xpagina = $pagina * 10;
 $paginamenosum=$pagina - 1;
 $pagina=$pagina+1;
 $visual="Visualizar";
@@ -76,7 +76,7 @@ if (!empty($assunto)) $selecione_o_que.=" and assunto like ".db_quote('%'.$assun
 if (!empty($numerodocumento)) $selecione_o_que.=" and numerodocumento=".db_quote($numerodocumento);
 if (!empty($ano) and !empty($mes)) $selecione_o_que.=" and data like ".db_quote('%'.$mes.'/'.$ano);
 if (!empty($ano) and empty($mes)) $selecione_o_que.=" and data like ".db_quote('%'.$ano);
-if (empty($ano) and !empty($mes)) $selecione_o_que.=" and data like ".db_quote('%'.$mes)."%";
+if (empty($ano) and !empty($mes)) $selecione_o_que.=" and data like ".db_quote('%'.$mes.'%');
 if (!empty($unbdoc)) 
 	{
 	$query_unbdoc=db_query("select id_documentador from admin_unbdoc where unbdoc=?", array($unbdoc));

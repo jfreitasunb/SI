@@ -1,6 +1,12 @@
 <?php
   require("head_user.php");
-include("alias.php");
+  include("alias.php");
+  exige_post();
+  exige_escrita();
+  if (empty($_POST['login'])) {
+      http_response_code(400);
+      die(error("Login obrigatorio."));
+  }
 
 ?>
  <script language=javascript src="formu.js">

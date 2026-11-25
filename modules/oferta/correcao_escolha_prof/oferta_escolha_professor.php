@@ -1,6 +1,8 @@
 <?PHP
 $idmodule=98;
    include("../../../global/header.php");
+exige_post();
+exige_escrita();
 //include("../head_oferta.php");
 //require("../muda_senha/pgsql.php");
 include("imprime_oferta_prof.php");

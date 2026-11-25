@@ -1,16 +1,30 @@
 <?php
   require("head_account.php");
+  // Administracao de permissoes SI exige permissao de escrita no modulo conta_SI (91),
+  // nunca apenas acesso ao modulo self-service 72.
+  if (!verif_permission(91)) {
+      http_response_code(403);
+      die(error("Acesso negado."));
+  }
 
   if ( isset($_POST['prec']) && $_POST['prec']=="si" )
-  {                
+  {
+     exige_escrita();
+     $alvo_login = isset($_POST['login']) ? trim((string)$_POST['login']) : '';
+     if ($alvo_login === '' || strtolower($alvo_login) === 'root') {
+         http_response_code(403);
+         die(error("Operacao nao permitida para este usuario."));
+     }
      $query="select idmodule,name from module order by name"; $query__p = array();
      $result=db_query($query, $query__p);
      $count=db_num_rows($result);
      $i=0;
-     foreach($_POST['droits']as $arr)
+     foreach($_POST['droits'] as $arr)
      {
+       if (!in_array((string)$arr, array('0', '1', '2'), true)) continue;
        $tab=db_fetch_array($result,$i);
-       $query3="update permission set permission=? where login=? and idmodule=?"; $query3__p = array($arr, $_POST['login'], $tab['idmodule']);
+       if (!$tab) break;
+       $query3="update permission set permission=? where login=? and idmodule=?"; $query3__p = array((int)$arr, $alvo_login, $tab['idmodule']);
        $result3=db_query($query3, $query3__p);
        $i+=1;
       } 

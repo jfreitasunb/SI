@@ -41,7 +41,7 @@ function db_connect()
         return $pdo;
     } catch (PDOException $e) {
         error_log("db_connect: " . $e->getMessage());
-        die("The server ".$host." seems to be have many problem. Please try again in a few time.");
+        die("O servidor de banco de dados parece estar indisponivel. Tente novamente em instantes.");
     }
 }
 
@@ -229,14 +229,20 @@ function verif_session_ip()
     
     $ip = $_SERVER['REMOTE_ADDR'];
     $id = session_id();
+    $limit_datetime = strtotime("-15 minutes");
+    $limit_date = date("Y-m-d", $limit_datetime);
+    $limit_time = date("H:i:s", $limit_datetime);
     
-    $query = "SELECT 1 FROM ident WHERE ip = :ip AND session = :session LIMIT 1";
+    $query = "SELECT 1 FROM ident WHERE ip = :ip AND session = :session AND (date > :date OR (date = :date2 AND time > :time)) LIMIT 1";
     
     try {
         $stmt = $pdo->prepare($query);
         $stmt->execute([
             ':ip' => $ip, 
-            ':session' => $id
+            ':session' => $id,
+            ':date' => $limit_date,
+            ':date2' => $limit_date,
+            ':time' => $limit_time
         ]);
         
         if ($stmt->fetchColumn() !== false) {
@@ -266,6 +272,8 @@ function verif_pass_login($login, $pass)
         $hash = $stmt->fetchColumn();
 
         if ($hash === false) {
+            // Evita oracle de temporizacao quando o login nao existe.
+            password_verify($pass, '$2y$10$abcdefghijklmnopqrstuvABCDEFGHIJKLMNOPQRSTUVWXYZ01234');
             return false; // login inexistente
         }
 
@@ -325,13 +333,16 @@ function record_session_ip()
     
     $ip = $_SERVER['REMOTE_ADDR'];
     $session = session_id();
-    $fai = gethostbyaddr($ip);
+    $fai = $ip;
     $date = date("Y-m-d");
     $time = date("H:i:s");
     
-    $query = "INSERT INTO ident (session, ip, date, time, fai) VALUES (:session, :ip, :date, :time, :fai)";
-    
     try {
+        // Mantem apenas o registro mais recente da sessao (evita crescimento ilimitado e reverse DNS por requisicao).
+        $del = $pdo->prepare("DELETE FROM ident WHERE session = :session");
+        $del->execute([':session' => $session]);
+
+        $query = "INSERT INTO ident (session, ip, date, time, fai) VALUES (:session, :ip, :date, :time, :fai)";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
             ':session' => $session,
@@ -342,6 +353,27 @@ function record_session_ip()
         ]);
     } catch (PDOException $e) {
         die(error());
+    }
+}
+
+function destroy_session_completa()
+{
+    $session = session_id();
+    if ($session !== '') {
+        try {
+            $del = db_connect()->prepare("DELETE FROM ident WHERE session = :session");
+            $del->execute([':session' => $session]);
+        } catch (PDOException $e) {
+            error_log("destroy_session_completa: " . $e->getMessage());
+        }
+    }
+    $_SESSION = array();
+    if (ini_get("session.use_cookies") && !headers_sent()) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+    }
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        session_destroy();
     }
 }
 
@@ -359,7 +391,7 @@ function secure($login, $pass, $idmodule)
     if (!empty($_SESSION['si_autenticado']) && isset($_SESSION['login'])) {
         if (!verif_session_ip()) {
             clear_session_ip();
-            session_destroy();
+            destroy_session_completa();
             return false;
         }
         record_session_ip(); // renova a janela (sessao deslizante)
@@ -377,10 +409,11 @@ function secure($login, $pass, $idmodule)
         }
         if (verif_pass_login($login, $pass)) {
             login_sucesso($login);
-            // Previne session fixation: novo id apos autenticar.
+            // Previne session fixation: novo id e novo token CSRF apos autenticar.
             session_regenerate_id(true);
             $_SESSION['login'] = $login;
             $_SESSION['si_autenticado'] = true;
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
             record_session_ip();
             clear_session_ip();
 
@@ -392,7 +425,7 @@ function secure($login, $pass, $idmodule)
     // Falha de autenticacao.
     clear_session_ip();
     if (!empty($_SESSION['si_autenticado'])) {
-        session_destroy();
+        destroy_session_completa();
     }
     return false;
 }
@@ -436,6 +469,26 @@ function verif_permission($idmodule)
 
     } catch (PDOException $e) {
         die(error());
+    }
+}
+
+// Exige nivel de permissao de escrita (>= 2) no modulo atual.
+function exige_escrita()
+{
+    if (!isset($_SESSION['permission']) || (int)$_SESSION['permission'] < 2) {
+        http_response_code(403);
+        die(error("Acesso negado: permissao de escrita obrigatoria para esta operacao."));
+    }
+}
+
+// Exige requisicao HTTP POST para endpoints que alteram estado (impede CSRF via GET).
+function exige_post()
+{
+    $metodo = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
+    if ($metodo !== 'POST') {
+        http_response_code(405);
+        header('Allow: POST');
+        die(error("Metodo HTTP nao permitido."));
     }
 }
 
@@ -536,8 +589,13 @@ function csrf_valida()
 
     $esperado = isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '';
 
-    // Sem token na sessao ainda (ex.: POST de login antes de autenticar): nada a validar.
+    // Sem token na sessao ainda: so permite passar se NAO houver sessao autenticada
+    // (ex.: POST de login inicial). Sessao autenticada sem token falha fechada (fail-closed).
     if ($esperado === '') {
+        if (!empty($_SESSION['si_autenticado']) || !empty($_SESSION['user']) || !empty($_SESSION['autenticado'])) {
+            http_response_code(403);
+            die(error("Requisicao invalida (CSRF). Recarregue a pagina e tente novamente."));
+        }
         return;
     }
 
@@ -627,7 +685,7 @@ function upload_mime_ok($tmp_name, $extensao)
     }
 
     if ($mime === false) {
-        return true; // sem finfo disponivel: nao bloqueia (extensao ja validada)
+        return false; // fail-closed: sem deteccao confiavel de MIME, recusa o upload
     }
 
     // Arquivos de texto tem deteccao de MIME inconsistente entre ambientes.
@@ -667,6 +725,28 @@ function precisa_rehash_app($hash)
 // Senhas de contas UNIX/Samba: precisam continuar em formato crypt() compativel
 // com o /etc/shadow do sistema. Usa SHA-512 ($6$) com salt aleatorio, em vez do
 // DES default (que trunca em 8 caracteres e usa salt de 2 caracteres).
+// Neutraliza formula injection em celulas CSV (Excel/LibreOffice).
+function csv_celula_segura($valor)
+{
+    $s = (string)$valor;
+    if ($s !== '' && preg_match('/^[\t\r ]*[=+\-@]/', $s)) {
+        return "'" . $s;
+    }
+    return $s;
+}
+
+// Gera senha aleatoria criptograficamente segura usando random_int().
+function gera_senha_segura($tamanho = 12)
+{
+    $alfabeto = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789@#$%&*';
+    $max = strlen($alfabeto) - 1;
+    $senha = '';
+    for ($i = 0; $i < $tamanho; $i++) {
+        $senha .= $alfabeto[random_int(0, $max)];
+    }
+    return $senha;
+}
+
 function cripta_senha_unix($senha)
 {
     $alfabeto = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';

@@ -1,14 +1,22 @@
 <?php
   require("head_conta_SI.php");
+  exige_post();
+  exige_escrita();
 
- if($_POST['retira']=="sim")
+  $alvo_login = isset($_POST['login']) ? trim((string)$_POST['login']) : '';
+  if ($alvo_login === '' || strtolower($alvo_login) === 'root') {
+      http_response_code(403);
+      die(error("Operacao nao permitida para este usuario."));
+  }
+
+ if(isset($_POST['retira']) && $_POST['retira']=="sim")
 	{
-	$query0="select u.name, u.firstname from users u, admin ad where ad.coduser=u.coduser and ad.login=?"; $query0__p = array($_POST['login']);
+	$query0="select u.name, u.firstname from users u, admin ad where ad.coduser=u.coduser and ad.login=?"; $query0__p = array($alvo_login);
  	$res0=db_query($query0, $query0__p);
 	$nome=db_fetch_array($res0);
-	$query1="delete from permission where login=?"; $query1__p = array($_POST['login']);
+	$query1="delete from permission where login=?"; $query1__p = array($alvo_login);
 	$res1=db_query($query1, $query1__p);
-	$query1="delete from admin where login=?"; $query1__p = array($_POST['login']);
+	$query1="delete from admin where login=?"; $query1__p = array($alvo_login);
 	$res1=db_query($query1, $query1__p);
 	?>
 	<html>
@@ -38,10 +46,12 @@
 	     $result=db_query($query, $query__p);
 	     $count=db_num_rows($result);
 	     $i=0;
-	     foreach($_POST['droits']as $arr)
+	     foreach($_POST['droits'] as $arr)
 	     {
+	       if (!in_array((string)$arr, array('0', '1', '2'), true)) continue;
 	       $tab=db_fetch_array($result,$i);
-	       $query3="update permission set permission=? where login=? and idmodule=?"; $query3__p = array($arr, $_POST['login'], $tab['idmodule']);
+	       if (!$tab) break;
+	       $query3="update permission set permission=? where login=? and idmodule=?"; $query3__p = array((int)$arr, $alvo_login, $tab['idmodule']);
 	       $result3=db_query($query3, $query3__p);
 	       $i+=1;
 	      } 

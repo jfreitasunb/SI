@@ -1,6 +1,12 @@
 <?php
   require("head_account.php");
   include("gera_senha.php");
+  exige_post();
+  exige_escrita();
+  if (empty($_POST['login_novo'])) {
+      http_response_code(400);
+      die(error("Login obrigatorio."));
+  }
 ?>
  <script language=javascript src="formu.js">
     </script>

@@ -1,7 +1,5 @@
-<Limit GET POST>
-order deny,allow
-allow from all
-#allow from 172.
-#allow from 164.41.38.
-</Limit>
+# Restricoes de acesso devem aplicar-se a todos os metodos HTTP (nao usar <Limit GET POST>).
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>
 

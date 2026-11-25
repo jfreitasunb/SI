@@ -1,6 +1,7 @@
-# Bloqueia acesso pela web a dumps de banco, logs/auxiliares do LaTeX,
-# arquivos de infraestrutura e arquivos ocultos (.git, .htaccess, .env...).
-<FilesMatch "(?i)(\.(sql|log|aux|bak|old|orig|swp|zip)|^Dockerfile|^docker-compose\.ya?ml|^banco_dado_admin)$">
+# Desabilita listagem de diretorios e bloqueia acesso web a arquivos sensiveis/ocultos.
+Options -Indexes
+
+<FilesMatch "^\.">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
@@ -10,7 +11,24 @@
     </IfModule>
 </FilesMatch>
 
+<FilesMatch "(?i)(\.(sql|log|aux|bak|old|orig|swp|zip|md)|^Dockerfile|^docker-compose\.ya?ml|^banco_dado_admin)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule (^|/)\. - [F]
+    RewriteRule ^(tools|sql|telas)(/|$) - [F,NC]
 </IfModule>

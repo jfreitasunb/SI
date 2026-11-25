@@ -42,10 +42,10 @@ class UserDAO extends DAO {
 		$order = $this->orderBy($order, $this->attributeMapProf);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapProf)."
 				FROM (($this->table AS U

@@ -1,0 +1,6 @@
+# Bloqueia acesso direto pela web a diretorios internos e scripts de migracao do lista_oferta.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(model|modelController|viewController|processing|utils|conf|template)(/|$) - [F,NC]
+    RewriteRule ^scripts/migrationScript\.php$ - [F,NC]
+</IfModule>

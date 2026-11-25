@@ -66,7 +66,7 @@ $ano=date("Y");
 														?>
 														</select></td></tr>
 	<tr><td align=center><input type=submit name='selecao1' value='Confirmar'></td></tr>
-	<tr><td align=center><input type=hidden name='usuario' value="<?php echo $usuario;?>"></td></tr>
+	<tr><td align=center><input type=hidden name='usuario' value="<?php echo h($usuario);?>"></td></tr>
 	</table>
 	</form>
 	</table>

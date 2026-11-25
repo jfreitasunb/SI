@@ -74,6 +74,7 @@ $query_dados=db_query("select coduser,name||' '||firstname as nome from users wh
 
 if (isset($_POST['registra']))
 {
+exige_escrita();
 
 $query_dados=db_query("select coduser from users where tipo_users='professor'", array());
 

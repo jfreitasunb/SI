@@ -31,10 +31,10 @@ class MagisterialTheoryGroupsDAO extends DAO {
 		$order = $this->orderBy($order);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect()."
 				FROM $this->table
@@ -61,10 +61,10 @@ class MagisterialTheoryGroupsDAO extends DAO {
 		$order = $this->orderBy($order);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect()."
 				FROM $this->table

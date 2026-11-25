@@ -108,8 +108,13 @@ return $checa_alias;
 
 function grava_alias($coduser,$alias) 
 {
+exige_escrita();
 $alias=retira_acentos($alias);
-$alias_0=str_replace(" ",".",$alias);
+$alias_0=str_replace(" ",".",trim((string)$alias));
+if (!preg_match('/^[A-Za-z0-9._-]{1,64}$/', $alias_0)) {
+    http_response_code(400);
+    die(error("Alias invalido: use apenas letras, numeros, ponto, hifen ou sublinhado."));
+}
 $alias0=mb_convert_encoding($alias_0,"UTF-8");
 
 $query_banco="select * from aliases where coduser=?"; $query_banco__p = array($coduser);
@@ -179,7 +184,7 @@ echo h($alias2);
                 <tr><td><table align=center class=form><tr>
 		<td><h1>Usu&aacute;rio: <?php echo h($nome); ?> <?php echo h($sobrenome); ?> </h1> </td></tr>
 		<tr><td> <h1> Alias padr&atilde;o do usu&aacute;rio: </h1> </td><td><input type=text name='alias' size="10" maxlength="100" value="<?php echo h($alias);?>" readonly></td></tr>
-		<tr><td> <h1> Alias definido pelo usu&aacute;rio: </h1> <?php echo $mensagem;?> </td><td><input type=text name='alias2' size="10" maxlength="100" value="<?php echo retira_acentos($alias2);?>"></td></tr>
+		<tr><td> <h1> Alias definido pelo usu&aacute;rio: </h1> <?php echo $mensagem;?> </td><td><input type=text name='alias2' size="10" maxlength="100" value="<?php echo h(retira_acentos($alias2));?>"></td></tr>
                 </table>
                 <br>
              <tr>

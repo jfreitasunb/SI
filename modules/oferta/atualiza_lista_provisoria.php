@@ -125,7 +125,7 @@ if (!ctype_digit((string)$semestre) || !ctype_digit((string)$ano)) {
 $tabela="oferta_lista_de_ofertas_nova";
 
 
-if(isset($_POST['limpa_tabela']) && $_POST['limpa_tabela']=="sim") $query_limpa_oferta_semestre=db_query("update ".$tabela." set professor='0' where semestre=? and ano=?", array($semestre, $ano));
+if(isset($_POST['limpa_tabela']) && $_POST['limpa_tabela']=="sim") { exige_escrita(); $query_limpa_oferta_semestre=db_query("update ".$tabela." set professor='0' where semestre=? and ano=?", array($semestre, $ano)); }
 
 // lista de disciplinas no esquema magistral:
 $query_magistral=db_query("select * from oferta_disciplinas_magistral", array()); 
@@ -260,6 +260,7 @@ while($magistral_0=db_fetch_row($query_magistral))
 
 if (!isset($_POST['registra']) and isset($_POST['registra2']))
 {
+exige_escrita();
 
 
 $semestre=$_POST['semestre'];

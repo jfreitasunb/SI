@@ -46,10 +46,10 @@ class OfferListTemporaryDAO extends DAO {
 		$order = $this->orderBy($order, $this->attributeMapDiscipline);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapDiscipline)."
 			FROM $this->table INNER JOIN $this->disciplineTable ON ".$this->attributeMapDiscipline['discipline_id']." = ".$this->attributeMapDiscipline['discipline']."
@@ -71,10 +71,10 @@ class OfferListTemporaryDAO extends DAO {
 		$order = $this->orderBy($order, $this->attributeMapProfessor);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapProfessor)."
 			FROM (($this->table
@@ -109,10 +109,10 @@ class OfferListTemporaryDAO extends DAO {
 		$order = $this->orderBy($order, $att);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect($att)."
 			FROM $this->table INNER JOIN $this->disciplineTable ON ".$att['discipline_id']." = ".$att['discipline']."

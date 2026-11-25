@@ -17,47 +17,37 @@ ob_start('csrf_injeta');
 //require("estudos/formulario1.php");
 //require("muda_senha/header.php");
 
-$submit           = trim(addslashes($_POST['submit']));
-// O login vai para o banco via Prepared Statement (sem addslashes).
-$usuario          = trim($_POST['usuario']);
-$senhaatual       = trim(addslashes($_POST['senhaatual']));
-
-$msgL="Login invalido.";
-$msgS="Senha atual invalida.";
+$submit           = isset($_POST['submit']) ? trim((string)$_POST['submit']) : '';
+$usuario          = isset($_POST['usuario']) ? trim((string)$_POST['usuario']) : '';
+$senhaatual       = isset($_POST['senhaatual']) ? trim(addslashes((string)$_POST['senhaatual'])) : '';
+$msg = '';
+$msgErro = "Usuario ou senha invalidos.";
 
 if(strlen($submit)>0)
 {
-  sleep(1);
-
-   if(strlen($usuario)==0)
+   if(strlen($usuario)==0 || strlen($senhaatual)==0)
 	{
-	echo $msgL;
-   	}
-   elseif(strlen($senhaatual)==0)
-	{
-        echo $msgS;
-        }
+	$msg = $msgErro;
+	}
    else {
-   
      $res = db_query("select login,passwd,tabela_user,coduser from unix where login=?", array($usuario), $con);
-   
-//     $msg="Dados Invalidos!";
-   
-     if (login_bloqueado($usuario)) { echo login_msg_bloqueio(); }
+     if (login_bloqueado($usuario)) { $msg = login_msg_bloqueio(); }
      elseif($res->rowCount()==1 )
 	{
-//	echo "estou aqui";
            $linha = $res->fetch(PDO::FETCH_NUM);
-           $senhaBD = $linha[1];
+           $senhaBD = (string)$linha[1];
 	   $tipo_usuario=$linha[2];
 	   $coduser=$linha[3];
  
-		if(hash_equals((string)$senhaBD, (string)crypt($senhaatual,$senhaBD))) //:permite acesso a todos
+		$senha_ok = ($senhaBD !== '') && hash_equals($senhaBD, (string)crypt($senhaatual,$senhaBD));
+		if ($senha_ok) login_sucesso($usuario);
+		// Restringe priorizacao de licencas a servidores/professores (fonctionnaire).
+		if($senha_ok && ($tipo_usuario=="fonctionnaire"))
 		{
-		login_sucesso($usuario);
 		// identifica o professor para as paginas de estudos/ (priorizacao/)
 		session_regenerate_id(true);
 		$_SESSION['priori_coduser'] = $coduser;
+		$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                 //echo abre formulario para fornecer semestre/ano/ se quer relatorio ou se quer incluir.
 		$ano=date("Y");
 //----------------------------  Inserir preferencias
@@ -131,15 +121,15 @@ if(strlen($submit)>0)
  	         }
 		else 
 		{
-	        login_falhou($usuario);
-	        echo $msgS;       
+	        if (!$senha_ok) login_falhou($usuario);
+	        $msg = $msgErro;
 	        } 
      	}
-	else { login_falhou($usuario); echo $msgL; } 
+	else { crypt($senhaatual, '$6$abcdefghijklmnop$'); login_falhou($usuario); $msg = $msgErro; } 
    }
 }
 
-if (!isset($_POST['submit']))
+if (empty($_SESSION['priori_coduser']) || $msg !== '')
 {
 ?>
 <HTML>
@@ -147,18 +137,18 @@ if (!isset($_POST['submit']))
 </HEAD>
 <BODY onload="document.form1.usuario.focus();">
 
-<FORM name="form1" method="POST" action="<?php echo $PHP_SELF;?>">
+<FORM name="form1" method="POST" action="">
 
 <h2> Formul&aacute;rio para prioriza&ccedil;&atilde;o de licen&ccedil;as do MAT/UnB </h2>
 
 <h3>
-<font color="red"><?php echo $msg;?></font>
+<font color="red"><?php echo h($msg);?></font>
 </h3>
 
 <table border="0">
 <tr>
   <td> Usuario: </td>
-  <td> <INPUT type="TEXT" name="usuario" value="<?php echo htmlspecialchars($usuario);?>"> </td>
+  <td> <INPUT type="TEXT" name="usuario" value="<?php echo h($usuario);?>"> </td>
 </tr>
 <tr>
   <td> Senha: </td>

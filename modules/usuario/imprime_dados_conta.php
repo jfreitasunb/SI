@@ -1,6 +1,8 @@
 <?php
 require("head_user.php");
 require_once("../../global/latex_pdf.php");
+exige_post();
+exige_escrita();
 
 $coduser=$_POST['coduser'];
 $senha=$_POST['senha'];
@@ -33,14 +35,14 @@ $LATEX_MAIL: mail institucional do usuario
 $resultado_pessoais=db_query("SELECT \nus.name as nome,us.firstname as sobrenome,us.matricul as matricula,ux.login as login,ux.cota_disco as cota_disco,ux.cota_mail as cota_mail,ux.cota_impressao as cota_impressao,ux.tabela_user \nas tabela_user FROM users us, unix ux WHERE \nus.coduser=? and ux.coduser=us.coduser", array($coduser)) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
 	$dados_pessoais= db_fetch_array($resultado_pessoais);
 
-$seds[LATEX_NOME]=$dados_pessoais['nome'];
-$seds[LATEX_SOBRENOME]=$dados_pessoais['sobrenome'];
-$seds[LATEX_MATRICULA]=$dados_pessoais['matricula'];
-$seds[LATEX_LOGIN]=$dados_pessoais['login'];
-$seds[LATEX_SENHA]=$senha;
-$seds[LATEX_QUOTAIMPRESSAO]=$dados_pessoais['cota_impressao'];
-$seds[LATEX_QUOTAMAIL]=$dados_pessoais['cota_mail'];
-$seds[LATEX_QUOTADISCO]=$dados_pessoais['cota_disco'];
+$seds['LATEX_NOME']=$dados_pessoais['nome'];
+$seds['LATEX_SOBRENOME']=$dados_pessoais['sobrenome'];
+$seds['LATEX_MATRICULA']=$dados_pessoais['matricula'];
+$seds['LATEX_LOGIN']=$dados_pessoais['login'];
+$seds['LATEX_SENHA']=$senha;
+$seds['LATEX_QUOTAIMPRESSAO']=$dados_pessoais['cota_impressao'];
+$seds['LATEX_QUOTAMAIL']=$dados_pessoais['cota_mail'];
+$seds['LATEX_QUOTADISCO']=$dados_pessoais['cota_disco'];
 
 
 //busca dos dados do contrato.
@@ -71,27 +73,27 @@ if ($dados_pessoais['tabela_user']=="fonctionnaire")
 	$vinculo=$dados_contrato['statut']."-".$dados_contrato['contract_type'];
 	}
 
-	$seds[LATEX_DATAABERTURA]=$data_abertura;
-	$seds[LATEX_DATAENCERRAMENTO]=$data_encerramento;
-	$seds[LATEX_VINCULO]=$vinculo;
+	$seds['LATEX_DATAABERTURA']=$data_abertura;
+	$seds['LATEX_DATAENCERRAMENTO']=$data_encerramento;
+	$seds['LATEX_VINCULO']=$vinculo;
 
 
 //busca do alias
 	$resultado_alias=db_query("SELECT alias FROM aliases WHERE coduser=?", array($coduser)) or die("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
 	$dados_alias= db_fetch_array($resultado_alias);
 
-	$seds[LATEX_MAIL]=$dados_alias['alias']."@mat.unb.br";
+	$seds['LATEX_MAIL']=$dados_alias['alias']."@mat.unb.br";
 
 //busca outros mails
 	$resultado_mails=db_query("SELECT mail FROM mail WHERE coduser=? and mail not like '%mat.unb.br'", array($coduser)) or die ("Nao foi possivel executar a operacao. Contacte a Coordenacao de Informatica.");
         $dados_mails= db_fetch_all($resultado_mails);
 	$num_mails=db_num_rows($resultado_mails);
-	if ($num_mails==0) $seds[LATEX_OUTROSMAILS]="favor cadastrar outro mail"; 
+	if ($num_mails==0) $seds['LATEX_OUTROSMAILS']="favor cadastrar outro mail"; 
 	else 
  	     {
 	     	for ($i=0;$i<$num_mails; $i++) 
 		    {
-		    if ($i==0) $seds[LATEX_OUTROSMAILS]=$dados_mails[0]['mail']; else $seds[LATEX_OUTROSMAILS].=", ".$dados_mails[$i]['mail'];
+		    if ($i==0) $seds['LATEX_OUTROSMAILS']=$dados_mails[0]['mail']; else $seds['LATEX_OUTROSMAILS'].=", ".$dados_mails[$i]['mail'];
 		    }
 	     }
 
@@ -122,8 +124,12 @@ if ($dados_pessoais['tabela_user']=="fonctionnaire")
 	// Gera o PDF sem passar pelo shell (ver global/latex_pdf.php)
 	$pdf = gera_pdf_latex("./modelo_tex/".$arquivo, $seds);
 	if ($pdf === false) die("N\xe3o foi poss\xedvel gerar o documento.");
-	Header("Content-type: application/pdf");
-	echo h($pdf);
+	while (ob_get_level() > 0) { ob_end_clean(); }
+	header("Content-Type: application/pdf");
+	header("X-Content-Type-Options: nosniff");
+	header("Cache-Control: private, no-store");
+	echo $pdf;
+	exit;
 //}
 
 ?>

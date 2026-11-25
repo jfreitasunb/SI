@@ -1,4 +1,8 @@
 <?php
+if (!defined('LO_ENTRY_AUTHORIZED')) {
+	http_response_code(403);
+	exit;
+}
 require_once dirname(__FILE__).'/../conf/default.php';
 
 require_once $ROOT_PATH.'modelController/semesterMC.php';

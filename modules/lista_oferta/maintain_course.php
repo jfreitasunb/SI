@@ -33,6 +33,18 @@ if (isset($_GET["id"])) {
 	$vc = new MCListVC();
 
 	if ($_POST) {
+		// Reautenticacao obrigatoria no servidor (nao confiar apenas na validacao JS).
+		$senha_conf = isset($_POST['password']) ? (string)$_POST['password'] : '';
+		$login_sess = isset($_SESSION['login']) ? (string)$_SESSION['login'] : '';
+		if ($login_sess === '' || $senha_conf === '' || login_bloqueado($login_sess) || !verif_pass_login($login_sess, $senha_conf)) {
+			if ($login_sess !== '') {
+				login_falhou($login_sess);
+			}
+			http_response_code(403);
+			die(error("Senha incorreta ou muitas tentativas. Operacao cancelada."));
+		}
+		login_sucesso($login_sess);
+
 		$courseForm = UtilUT::postToObject($_POST, array('id', 'name', 'credits', 'type_key'));
 
 

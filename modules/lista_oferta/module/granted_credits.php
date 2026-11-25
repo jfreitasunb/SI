@@ -39,9 +39,17 @@ if(isset($type) && ($semester->status == SemesterDAO::STATUS_STAGE_1 || $semeste
 
 	$inserted = null;
 	if ($_POST) {
+		require_once $ROOT_PATH.'modelController/activitiesMC.php';
 		$dataPosted = UtilUT::postToObject($_POST, array('teacher', 'activity', 'credits', 'extra'));
-
-		$inserted = $grantedCreditsMC->insert($dataPosted, $semester);
+		// Valida que a atividade pertence ao departamento/secretaria do usuario ($type).
+		$activitiesMC = new ActivitiesMC();
+		$actInfo = $activitiesMC->getComplete($dataPosted->activity);
+		if ($actInfo && isset($actInfo->group_type) && (string)$actInfo->group_type === (string)$type) {
+			$inserted = $grantedCreditsMC->insert($dataPosted, $semester);
+		} else {
+			http_response_code(403);
+			die(error("Atividade nao permitida para esta secretaria."));
+		}
 	}
 
 	$listGrantedCredits = $grantedCreditsMC->listBySemester($semester, $type);

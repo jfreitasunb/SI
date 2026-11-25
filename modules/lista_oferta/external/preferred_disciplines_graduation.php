@@ -16,8 +16,17 @@ csrf_token();
 ob_start('csrf_injeta');
 
 if ($_POST && isset($_POST['logout'])) {
-	session_unset();
+	$_SESSION = array();
 	session_destroy();
+	session_start();
+	csrf_token();
+}
+
+if (isset($_SESSION["user"]) && isset($_SESSION["lo_last_activity"]) && (time() - (int)$_SESSION["lo_last_activity"]) > 1800) {
+	$_SESSION = array();
+	session_destroy();
+	session_start();
+	csrf_token();
 }
 
 $vc = NULL;
@@ -29,14 +38,16 @@ if (strcmp($semester->status, SemesterDAO::STATUS_STAGE_2) == 0 || strcmp($semes
 		$unixUser = ModuleUT::authenticateEmployee($_POST['login'], $_POST['password']);
 
 		if ($unixUser !== null) {
-
+			unset($unixUser->password);
 			$professorMC = new ProfessorMC();
-			$professor = $professorMC->get($unixUser->user_id);
+			$professor = $professorMC->getByProfessorAndSemester($unixUser->user_id, $semester);
 
 			$unixUser->type2 = isset($professor->type) ? $professor->type : "";
 			$unixUser->status = isset($professor->status) ? $professor->status : "";
 
 			$_SESSION["user"] = serialize($unixUser);
+			$_SESSION["lo_last_activity"] = time();
+			$_SESSION["csrf_token"] = bin2hex(random_bytes(32));
 		}
 	}
 
@@ -46,7 +57,8 @@ if (strcmp($semester->status, SemesterDAO::STATUS_STAGE_2) == 0 || strcmp($semes
 		$vc = new PDGNotLoggedInVC();
 		$vc->setSemester($semester);
 	} else{
-		$user = unserialize($_SESSION["user"]);
+		$_SESSION["lo_last_activity"] = time();
+		$user = unserialize($_SESSION["user"], array('allowed_classes' => array('stdClass')));
 		 //p($user);
 
 		if (strcmp($user->type2, ProfessorDAO::TYPE_PROFESSOR) == 0 && strcmp($user->status, DAO::ACTIVE) == 0) {
@@ -69,33 +81,46 @@ if (strcmp($semester->status, SemesterDAO::STATUS_STAGE_2) == 0 || strcmp($semes
 					foreach ($_POST as $key => $value) {
 						if(strpos($key, "discipline_") !== false && strpos($key, "discipline_") == 0) {
 							$key_2 = substr($key, 11);
+							if (!ctype_digit($key_2)) {
+								$valid = false;
+								break;
+							}
 
 							if (!isset($preferred[$key_2])) {
 								$preferred[$key_2] = new stdClass();
 							}
-							$split = explode("-", $value);
+							$split = explode("-", (string)$value);
 
-							if (isset($chosen[$value])) {
+							if (count($split) < 2 || isset($chosen[$value])) {
+								$valid = false;
+								break;
+							}
+							$period_val = $split[0];
+							$disc_val = $split[1];
+							$type_val = count($split) > 2 ? $split[2] : null;
+							if (!in_array($period_val, array('Diurno', 'Noturno'), true)
+								|| !preg_match('/^[A-Za-z0-9]+$/', $disc_val)
+								|| ($type_val !== null && !in_array($type_val, array('T', 'E'), true))) {
 								$valid = false;
 								break;
 							}
 							$chosen[$value] = true;
 
-							$preferred[$key_2]->discipline = $split[1];
-							$preferred[$key_2]->period = $split[0];
-
-							if (count($split) > 2) {
-								$preferred[$key_2]->type = $split[2];
-							} else {
-								$preferred[$key_2]->type = null;
-							}
+							$preferred[$key_2]->discipline = $disc_val;
+							$preferred[$key_2]->period = $period_val;
+							$preferred[$key_2]->type = $type_val;
 						} else if (strpos($key, "quantity_") !== false && strpos($key, "quantity_") == 0) {
 							$key_2 = substr($key, 9);
+							if (!ctype_digit($key_2)) {
+								$valid = false;
+								break;
+							}
 							if (!isset($preferred[$key_2])) {
 								$preferred[$key_2] = new stdClass();
 							}
 							if ($key_2 == 1) {
-								$preferred[$key_2]->quantity = $value;
+								$qty = (int)$value;
+								$preferred[$key_2]->quantity = ($qty >= 1 && $qty <= 3) ? $qty : 1;
 							} else {
 								$preferred[$key_2]->quantity = 1;
 							}

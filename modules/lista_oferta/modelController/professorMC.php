@@ -11,6 +11,16 @@ class ProfessorMC extends MC
 		$this->DAO = new ProfessorDAO();
 	}
 
+	public function getByProfessorAndSemester($userId, $semester)
+	{
+		$filter['professor'] = $userId;
+		$filter['year'] = $semester->year;
+		$filter['semester'] = $semester->semester;
+
+		$list = $this->DAO->filter($filter);
+		return isset($list[0]) ? $list[0] : null;
+	}
+
 	public function listProfessors($semester)
 	{
 		$filter['type'] = ProfessorDAO::TYPE_PROFESSOR;

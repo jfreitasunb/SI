@@ -34,10 +34,10 @@ class DisciplinesDAO extends DAO {
 		$order = $this->orderBy($order, $this->attributeMapOLT);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT DISTINCT ".$this->attributesSelect($this->attributeMapOLT)."
 				FROM ($this->table

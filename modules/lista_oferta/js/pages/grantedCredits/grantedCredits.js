@@ -45,11 +45,13 @@ $().ready(function() {
 						activity_select.append('<option value=""></option>');
 					}
 					for (var i = 0; i < response.data.length; i++) {
-						var part2 = ' - ' +response.data[i].amount + '/';
-						part2 += response.data[i].maximum ? response.data[i].maximum : '&infin;';
-						activity_select.append('<option ' +
-							'value="' + response.data[i].id + '" ' +
-							'data-credits="'+ response.data[i].credits + '">' + response.data[i].description + part2 + '</option>');
+						var part2 = ' - ' + response.data[i].amount + '/';
+						part2 += response.data[i].maximum ? response.data[i].maximum : '\u221E';
+						var descText = $('<textarea/>').html(String(response.data[i].description)).text();
+						activity_select.append($('<option/>')
+							.val(response.data[i].id)
+							.attr('data-credits', response.data[i].credits)
+							.text(descText + part2));
 					}
 					activity_select.change();
 				} else {
@@ -69,20 +71,23 @@ $().ready(function() {
 				if (response.success) {
 					$("#dynamic_line").remove();
 					if (response.title) {
-						$("#activity_line").closest("tr").after("<tr id='dynamic_line'><td>" + response.title + "</td>" +
-							"<td><select id='extra' name='extra'></select></td>"+
-							"<td><label id='extra-error' class='error' for='extra'></label></td></tr>");
+						var tr = $('<tr id="dynamic_line"/>');
+						tr.append($('<td/>').text(response.title));
+						tr.append($('<td/>').append($('<select id="extra" name="extra"/>')));
+						tr.append($('<td/>').append($('<label id="extra-error" class="error" for="extra"/>')));
+						$("#activity_line").closest("tr").after(tr);
 
 						var select = $("#extra");
-						select.append('<option value=""></option>');
+						select.append($('<option/>').val(''));
 						select.rules("add", {
 							required: true
 						});
 
 						for (var i = 0; i < response.data.length; i++) {
-							select.append('<option value="' + response.data[i].key + '" ' +
-								'data-credits="'+ response.data[i].credits + '">' + response.data[i].description + '</option>');
-							// select.append('<option value="' + response.data[i].key + '>' + response.data[i].description + '</option>');
+							select.append($('<option/>')
+								.val(response.data[i].key)
+								.attr('data-credits', response.data[i].credits)
+								.text(response.data[i].description));
 						}
 					}
 				} else {
@@ -108,16 +113,16 @@ $().ready(function() {
 	}
 
 	$(".bt_remove").click(function () {
-		var name = $(this).closest('tr').find('.professor').html();
-		var activity = $(this).closest('tr').find('.activity').html();
-		var credits = $(this).closest('tr').find('.credits').html();
+		var name = $(this).closest('tr').find('.professor').text();
+		var activity = $(this).closest('tr').find('.activity').text();
+		var credits = $(this).closest('tr').find('.credits').text();
 
 		var text = $('#dialog_delete > .message').data("format");
 		var values = [name, activity, credits];
 
 		var formatted = formatString(text, values);
 
-		$('#dialog_delete > .message').html(formatted);
+		$('#dialog_delete > .message').text(formatted);
 
 		$('#dialog_delete').data("id", $(this).data('id'));
 		$('#dialog_delete').dialog('open');

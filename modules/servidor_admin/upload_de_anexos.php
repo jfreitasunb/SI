@@ -120,7 +120,7 @@ if ($docs_numero!=1)
 		{
 		$query_documentos="select ad.id_documentador as id_documentador,ad.numerodocumento as numerodocumento,SUBSTR(ad.data,1,2) as dia,SUBSTR(ad.data,4,2) as mes,SUBSTR(ad.data,7,4) as ano ,add.nomedepartamento as destino,ad.assunto as assunto from admin_documentador ad,admin_departamento add where ad.id_tipo=? and add.id_departamento=ad.id_departamento order by ano desc,mes desc,dia desc,numerodocumento desc"; $query_documentos__p = array($tipo[0]); 
 		$query_tipo[$tipo[0]]=db_query($query_documentos, $query_documentos__p);
-		echo "<tr><td><b>".strtoupper($tipo[1]).":</b></td><td> <select name='documento[".h($tipo[0])."]' style=\"width: 500px\"><option value=\"nulo\" selected> --- </option>";
+		echo "<tr><td><b>".h(strtoupper($tipo[1])).":</b></td><td> <select name='documento[".h($tipo[0])."]' style=\"width: 500px\"><option value=\"nulo\" selected> --- </option>";
 		$cor_de_fundo="#FFFFFF";
 		while($registro=db_fetch_row($query_tipo[$tipo[0]]))
 			{
@@ -157,6 +157,7 @@ if ($docs_numero!=1)
 
 if ($docs_numero==1) //and !isset($_POST['confirmar']))
 {
+exige_escrita();
 $query_tipos=db_query("select id_tipo,nometipo,sigla from admin_tipo where nometipo<>'Ata' order by nometipo", array());
 
 $documento=$_POST['documento'];
@@ -170,6 +171,12 @@ while ($tipo=db_fetch_row($query_tipos))
 // (impede path traversal, ex.: documento[x]=../../algum/lugar).
 if (!isset($id_documento) || !ctype_digit((string)$id_documento)) {
 	die(error("Documento invalido."));
+}
+// Confirma que o documento de destino realmente existe antes de aceitar anexos.
+$chk_doc = db_query("select 1 from admin_documentador where id_documentador=?", array($id_documento));
+if (db_num_rows($chk_doc) == 0) {
+	http_response_code(404);
+	die(error("Documento nao encontrado."));
 }
 
 
@@ -247,8 +254,8 @@ for ($i=0;$i<5;$i++)
 		// Primeiro verifica se deve trocar o nome do arquivo
 				if ($_UP['renomeia'] == true)
 					{
-		// Cria um nome baseado no UNIX TIMESTAMP atual e com extensão .jpg
-					$nome_final = $id_documento."_".$numero_anexo.".".$extensao;
+		// Nome unico com entropia aleatoria para evitar sobrescrita por concorrencia (TOCTOU).
+					$nome_final = $id_documento."_".$numero_anexo."_".bin2hex(random_bytes(8)).".".$extensao;
 					} else
 					{
 		// Mantém o nome original do arquivo (sanitizado: sem caminho nem caracteres perigosos)

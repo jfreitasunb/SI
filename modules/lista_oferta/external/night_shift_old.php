@@ -1,6 +1,7 @@
 <?php
-
-require_once dirname(__FILE__) . '/../conf/default.php';
+// Endpoint legado desativado: utilize external/night_shift.php.
+http_response_code(410);
+exit;
 
 require_once $ROOT_PATH_MAIN.'global/sessao_cookie.php';
 session_start();

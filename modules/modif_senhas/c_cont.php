@@ -64,24 +64,30 @@
 	$confere_senha=db_query($query_confere_senha, $query_confere_senha__p);
 	$confere_senha_array=db_fetch_array($confere_senha,0);
 
-	$senha_a_conferir=crypt($this->passwd0);
-//echo "senha que esta no banco: ".$confere_senha_array[0];
-//echo "";
-//echo "senha que eu entrei como sendo a que esta no banco: ".$senha_a_conferir;
-//echo "";
-//echo "senha que eu quero conferir com a do banco: ".crypt($this->passwd0,$confere_senha_array[0]);
-//echo "";
+	$eh_admin = isset($_SESSION['permission']) && (int)$_SESSION['permission'] >= 2;
+	$hash_atual = ($confere_senha_array && isset($confere_senha_array[0])) ? (string)$confere_senha_array[0] : '';
+	$senha_atual_ok = ($hash_atual !== '') && hash_equals($hash_atual, (string)crypt((string)$this->passwd0, $hash_atual));
 
-	if ((!empty($this->passwd)) and (crypt($this->passwd0,$confere_senha_array[0])==$confere_senha_array[0]))
-//	if ((!empty($this->passwd)) and ($this->passwd0==$confere_senha_array[0]))
+	if ((!empty($this->passwd)) && $senha_atual_ok)
 	{
-	$query="update unix set passwd=?, \ncota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?"; $query__p = array(cripta_senha_unix($this->passwd), $this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
+		if ($eh_admin) {
+			$query="update unix set passwd=?, cota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?";
+			$query__p = array(cripta_senha_unix($this->passwd), $this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
+		} else {
+			// Self-service: altera apenas a propria senha, nunca cotas ou SSH.
+			$query="update unix set passwd=? where coduser=?";
+			$query__p = array(cripta_senha_unix($this->passwd), $coduser);
+		}
+		$result=db_query($query, $query__p);
+		return true;
 	}
-	else
+	elseif ($eh_admin)
 	{
-	$query="update unix set \ncota_impressao=?,cota_disco=?,cota_mail=?,ssh=? \nwhere coduser=?"; $query__p = array($this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
+		$query="update unix set cota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?";
+		$query__p = array($this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
+		$result=db_query($query, $query__p);
 	}
-	$result=db_query($query, $query__p);
+	return false;
         }
 	
 

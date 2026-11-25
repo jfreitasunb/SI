@@ -96,7 +96,6 @@
 //			$sql_cred=pg_query("select * from orientateur where coduser='".$tab['coduser']."' and date_debut<='".$data_hoje."' and '".$data_hoje."'<=date_fin");
 			$sql_cred=db_query("select date_fin,orientacao from orientateur where coduser=?", array($tab['coduser']));
 			$cred_array=db_fetch_array($sql_cred, 0);
-var_dump($cred_array);
 			//$debut_credencia=$cred_array['date_debut'];
 			if(!empty($cred_array))
 			{
@@ -376,7 +375,7 @@ var_dump($cred_array);
 							$res_tipo_cont = db_query("SELECT * FROM users_tipo_contrato order by descricao");
 							while($reg_tipo_cont = db_fetch_row($res_tipo_cont)) 
 								{
-								echo "<option value='".$reg_tipo_cont[0]."'>".$reg_tipo_cont[1]."</option>";
+								echo "<option value='".h($reg_tipo_cont[0])."'>".htmlspecialchars((string)$reg_tipo_cont[1], ENT_QUOTES, 'ISO-8859-1', false)."</option>";
 								}
 							?></select></td>
 
@@ -459,7 +458,7 @@ $res = db_query("SELECT pf.coduser, us.name, us.firstname FROM profs pf,users us
 							$res_bolsas = db_query("SELECT * FROM users_bolsas order by descricao");
 							while($reg_bolsas = db_fetch_row($res_bolsas)) 
 								{
-								echo "<option value='".$reg_bolsas[0]."'>".$reg_bolsas[1]."</option>";
+								echo "<option value='".h($reg_bolsas[0])."'>".htmlspecialchars((string)$reg_bolsas[1], ENT_QUOTES, 'ISO-8859-1', false)."</option>";
 /*
 							<OPTION  value="sem bolsa">Sem Bolsa
 							<OPTION  value="pibic">Pibic

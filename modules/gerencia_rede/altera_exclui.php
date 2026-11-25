@@ -228,6 +228,7 @@ else if ((isset($_POST['usuario'])) and (!isset($_POST['maquina'])))
 
 else if (isset($_POST['maquina']))	
 	{
+	exige_escrita();
 //patrimonio ; end. IP; sala ; host; end. MAC; tipo mouse; tipo teclado; resol. tela ; tipo de maquina;  status (ativa/nao ativa) ; data_encerramento
 // maqcod    | ipnet  |codloc| host| mac     | mouse     | keyboard    | resolucao   | tipo_maquina   | status                    | data_encerramento
 	if ($_POST['teclado']=="nao_altera") $teclado=$_POST['teclado0']; else $teclado=$_POST['teclado'];
@@ -239,12 +240,12 @@ else if (isset($_POST['maquina']))
 	$data=$_POST['ano']."-".$_POST['mes']."-".$_POST['dia'];
 	$mac=$_POST['mac1'].":".$_POST['mac2'].":".$_POST['mac3'].":".$_POST['mac4'].":".$_POST['mac5'].":".$_POST['mac6'];
 	// compara o status fornecido com o status do banco para atribuir um novo IP se necessario
-	$query_status="select status from computers where host=?"; $query_status__p = array($_POST['host']);
+	$query_status="select status, ipnet from computers where host=?"; $query_status__p = array($_POST['host']);
 	$res_status=db_query($query_status, $query_status__p);
 	$status=db_fetch_array($res_status);
-	if ($status[0]==$_POST['status']) 
+	if ($status && $status[0]==$_POST['status']) 
 		{
-		$ipnet=$_POST['ipnet'];
+		$ipnet=$status[1];
 		}
 	else
 		{

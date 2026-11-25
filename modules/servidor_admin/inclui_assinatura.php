@@ -30,6 +30,7 @@ if (!isset($_POST['grava']))
 }
 else
 {
+exige_escrita();
 $dado=$_POST['dado'];
 //for($i=0;$i<2; $i++)
 //{

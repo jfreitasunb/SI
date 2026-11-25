@@ -5,47 +5,37 @@ session_start();
 //require("muda_senha/libs.php");
 //require("muda_senha/forms.php");
 require("muda_senha/pgsql.php");
-//require("muda_senha/header.php");
+csrf_valida();
+csrf_token();
 
-$submit           = trim(addslashes($_POST['submit']));
-// O login vai para o banco via Prepared Statement (sem addslashes).
-$usuario          = trim($_POST['usuario']);
-$senhaatual       = trim(addslashes($_POST['senhaatual']));
-
-$msgL="Login invalido.";
-$msgS="Senha atual invalida.";
+$submit           = isset($_POST['submit']) ? trim((string)$_POST['submit']) : '';
+$usuario          = isset($_POST['usuario']) ? trim((string)$_POST['usuario']) : '';
+$senhaatual       = isset($_POST['senhaatual']) ? trim(addslashes((string)$_POST['senhaatual'])) : '';
+$msg = '';
+$msgErro = "Usuario ou senha invalidos.";
 
 if(strlen($submit)>0)
 {
-  sleep(1);
-
-   if(strlen($usuario)==0)
+   if(strlen($usuario)==0 || strlen($senhaatual)==0)
 	{
-	echo $msgL;
-   	}
-   elseif(strlen($senhaatual)==0)
-	{
-        echo $msgS;
-        }
+	$msg = $msgErro;
+	}
    else {
-   
      $res = db_query("select login,passwd,tabela_user from unix where login=?", array($usuario), $con);
-   
-//     $msg="Dados Invalidos!";
-   
-     if (login_bloqueado($usuario)) { echo login_msg_bloqueio(); }
+     if (login_bloqueado($usuario)) { $msg = login_msg_bloqueio(); }
      elseif($res->rowCount()==1 )
 	{
            $linha = $res->fetch(PDO::FETCH_NUM);
-           $senhaBD = $linha[1];
+           $senhaBD = (string)$linha[1];
 	   $tipo_usuario=$linha[2];
  
-		$senha_ok = hash_equals((string)$senhaBD, (string)crypt($senhaatual,$senhaBD));
+		$senha_ok = ($senhaBD !== '') && hash_equals($senhaBD, (string)crypt($senhaatual,$senhaBD));
 		if ($senha_ok) login_sucesso($usuario);
 		if($senha_ok and ($tipo_usuario=="fonctionnaire")) //:so permite acesso a professores e administrativos
 		{
             session_regenerate_id(true);
             $_SESSION['autenticado'] = true;
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
               // Hora de solicitar documentos
 //              SOLICITAR O DOCUMENTO A SER LIDO
 //	php 
@@ -74,7 +64,8 @@ if(strlen($submit)>0)
 	        echo "  <h1>Buscar Resolu&ccedil;&atilde;o</h1>
 	                <p> Escolha abaixo os crit&eacute;rios da busca. </p> ";
 		?>
-	<form action='http://si.mat.unb.br/ler_resolucoes/visualiza_resolucoes_finais.php' method='post'>
+	<form action='/ler_resolucoes/visualiza_resolucoes_finais.php' method='post'>
+	<?php echo csrf_campo(); ?>
 <table><br>
         
     <tr>
@@ -105,14 +96,14 @@ if(strlen($submit)>0)
 		else 
 		{
 	        if (!$senha_ok) login_falhou($usuario);
-	        echo $msgS;       
+	        $msg = $msgErro;
 	        } 
      	}
-	else { login_falhou($usuario); echo $msgL; }
+	else { crypt($senhaatual, '$6$abcdefghijklmnop$'); login_falhou($usuario); $msg = $msgErro; }
    }
 }
 
-if (!isset($_POST['submit']))
+if (empty($_SESSION['autenticado']) || $msg !== '')
 {
 ?>
 <HTML>
@@ -120,18 +111,19 @@ if (!isset($_POST['submit']))
 </HEAD>
 <BODY onload="document.form1.usuario.focus();">
 
-<FORM name="form1" method="POST" action="<?php echo $PHP_SELF;?>">
+<FORM name="form1" method="POST" action="">
+<?php echo csrf_campo(); ?>
 
 <h2> Login e Senha do usuarios </h2>
 
 <h3>
-<font color="red"><?php echo $msg;?></font>
+<font color="red"><?php echo h($msg);?></font>
 </h3>
 
 <table border="0">
 <tr>
   <td> Usuario: </td>
-  <td> <INPUT type="TEXT" name="usuario" value="<?php echo htmlspecialchars($usuario);?>"> </td>
+  <td> <INPUT type="TEXT" name="usuario" value="<?php echo h($usuario);?>"> </td>
 </tr>
 <tr>
   <td> Senha: </td>

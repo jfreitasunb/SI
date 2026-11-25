@@ -65,37 +65,40 @@
 	$confere_senha=db_query($query_confere_senha, $query_confere_senha__p);
 	$confere_senha_array=db_fetch_array($confere_senha,0);
 
-	$senha_a_conferir=crypt($this->passwd0);
-//echo "senha que esta no banco: ".$confere_senha_array[0];
-//echo "";
-//echo "senha que eu entrei como sendo a que esta no banco: ".$senha_a_conferir;
-//echo "";
-//echo "senha que eu quero conferir com a do banco: ".crypt($this->passwd0,$confere_senha_array[0]);
-//echo "";
+	$eh_admin = isset($_SESSION['permission']) && (int)$_SESSION['permission'] >= 2;
+	$hash_atual = ($confere_senha_array && isset($confere_senha_array[0])) ? (string)$confere_senha_array[0] : '';
+	$senha_atual_ok = ($hash_atual !== '') && hash_equals($hash_atual, (string)crypt((string)$this->passwd0, $hash_atual));
+	$pode_forcar = $eh_admin && ($muda_senha === "sim");
 
-	if ((!empty($this->passwd)) and ((crypt($this->passwd0,$confere_senha_array[0])==$confere_senha_array[0]) or ($muda_senha=="sim")))
-//	if ((!empty($this->passwd)) and ($this->passwd0==$confere_senha_array[0]))
+	if ((!empty($this->passwd)) && ($senha_atual_ok || $pode_forcar))
 	{
-	$query="update unix set passwd=?, cota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?"; $query__p = array(cripta_senha_unix($this->passwd), $this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
-//	require 'atualiza_samba.php';
-//	$nt_has=ntPasswordHash($this->passwd);
-//	$lan_has=lmPasswordHash($this->$passwd);
-//	$query="update unix set passwd='".crypt($this->passwd)."', cota_impressao='".$this->cota_impressao."',cota_disco='".$this->cota_disco."',cota_mail='".$this->cota_mail."',ssh='".$this->ssh."', lan_has='".$lan_hash."',nt_hash='".$nt_hash."' where coduser='".$_POST['coduser']."'";
-
-// muda senha na tabela admin se exustir usuario:
-	$select_admin=db_query("select * from admin where coduser=?", array($coduser));
-	$num_admin=db_num_rows($select_admin);
-	if ($num_admin!=0)
-		{
-		$query_update="update admin set passwd=? where coduser=?"; $query_update__p = array(hash_senha_app($this->passwd), $coduser);
-		$res_query=db_query($query_update, $query_update__p) or die ("problemas de conexao com o banco");
+		if ($eh_admin) {
+			$query="update unix set passwd=?, cota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?";
+			$query__p = array(cripta_senha_unix($this->passwd), $this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
+		} else {
+			// Self-service: altera apenas a propria senha, nunca cotas ou SSH.
+			$query="update unix set passwd=? where coduser=?";
+			$query__p = array(cripta_senha_unix($this->passwd), $coduser);
 		}
+
+		// muda senha na tabela admin se existir usuario:
+		$select_admin=db_query("select * from admin where coduser=?", array($coduser));
+		$num_admin=db_num_rows($select_admin);
+		if ($num_admin!=0)
+		{
+			$query_update="update admin set passwd=? where coduser=?"; $query_update__p = array(hash_senha_app($this->passwd), $coduser);
+			$res_query=db_query($query_update, $query_update__p) or die ("problemas de conexao com o banco");
+		}
+		$result=db_query($query, $query__p);
+		return true;
 	}
-	else
+	elseif ($eh_admin)
 	{
-	$query="update unix set \ncota_impressao=?,cota_disco=?,cota_mail=?,ssh=? \nwhere coduser=?"; $query__p = array($this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
+		$query="update unix set cota_impressao=?,cota_disco=?,cota_mail=?,ssh=? where coduser=?";
+		$query__p = array($this->cota_impressao, $this->cota_disco, $this->cota_mail, $this->ssh, $coduser);
+		$result=db_query($query, $query__p);
 	}
-	$result=db_query($query, $query__p);
+	return false;
         }
 	
 

@@ -113,10 +113,10 @@ class GrantedCreditsDAO extends DAO {
 		$order = $this->orderBy($order, $this->attributeMapJoined);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapJoined)."
 				FROM (((($this->table
@@ -155,10 +155,10 @@ class GrantedCreditsDAO extends DAO {
 		$order = $this->orderBy($order, $this->attributeMapJoined);
 
 		if(strlen($limit) > 0)
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT ".(int)$limit;
 
 		if(strlen($offset) > 0)
-			$offset = "OFFSET $offset";
+			$offset = "OFFSET ".(int)$offset;
 
         $minCredits = 10;
 		$sql = "SELECT ".$this->attributesSelect($this->attributeMapJoined)."

@@ -138,15 +138,20 @@ $query_acusa_lista=db_query("select * from oferta_acusa_lista where encaminhada<
 
 if (isset($_POST['continuar']) and !isset($_POST['confirmar']))
 {
+exige_escrita();
 $nome=array();
 $manipula=array();
-$lista=explode("_",$_POST['lista']);
-$semestre=$lista[0];
-$ano=$lista[1];
+$lista=explode("_",isset($_POST['lista']) ? (string)$_POST['lista'] : '');
+$semestre=isset($lista[0]) ? $lista[0] : '';
+$ano=isset($lista[1]) ? $lista[1] : '';
+if (!in_array($semestre, array('0', '1', '2'), true) || !preg_match('/^\d{4}$/', $ano)) {
+	http_response_code(400);
+	die(error("Semestre ou ano invalido."));
+}
 
 
-// Pasta onde o arquivo vai ser salvo
-$_UP['pasta'] = '/home/jfreitas/www/si/modules/oferta_atualizacao/listas_SAA/';
+// Pasta onde o arquivo vai ser salvo (relativa ao modulo, sem caminho fixo de usuario)
+$_UP['pasta'] = __DIR__ . '/listas_SAA/';
 
 // Tamanho máximo do arquivo (em Bytes)
 $_UP['tamanho'] = 1024 * 1024 * 2; // 2Mb
@@ -172,7 +177,7 @@ for ($i=0;$i<1;$i++) //CORRIGIDO EM 18/12/2014
 	{
 	set_time_limit(60);
 	$j=$i+1;
-	if ($_FILES['arquivo']['name']!="")
+	if (!empty($_FILES['arquivo']['name'][$i]))
 		{
 		//############### CASO ESTEJA PRONTO PARA UPLOAD
 		// Verifica se houve algum erro com o upload. Se sim, exibe a mensagem do erro
@@ -223,19 +228,16 @@ for ($i=0;$i<1;$i++) //CORRIGIDO EM 18/12/2014
 					{
 		// Upload efetuado com sucesso, exibe uma mensagem e um link para o arquivo; insere ponteiro na tabela
 					echo "<br>Upload efetuado com sucesso!<br>";
-					echo '<br /><a href="http://www.mat.unb.br/si/modules/oferta/listas_SAA/'.h($nome_final) . '">Clique aqui para acessar o arquivo</a><br>';
 					if (testa_arquivo_sigaa($semestre,$ano,$nome_final,$tipo[$i]))
 						{
 						echo "<BR> Testando arquivos <BR>";
 						echo "O arquivo ".$j." e tipo ".$tipo[$i]."<BR><BR>";
 						$manipula[$i]=TRUE;
 						$nome[$i]=$nome_final;
-						// incluir aqui a rotina de manipulacao do arquivo!!!
-//						$array_linhas=manipula_arquivo_atualiza_lista($semestre,$ano,$nome_final);
-//						$processadas=processa_linhas($array_linhas,$semestre,$ano);
 						}
 					else
 						{
+						@unlink($_UP['pasta'].$nome_final);
 						echo "<BR><BR> O arquivo carregado ".$j." nao e compativel com o tipo ".$tipo[$i]." de arquivo desejado<br>";
 						echo "<BR> Favor repetir a operacao<BR><BR>";
 						$manipula[$i]=FALSE;

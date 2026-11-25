@@ -168,11 +168,11 @@ $tabela_a="oferta_lista_de_ofertas_nova";
 
 	if ($num_oferta_acusa_lista==0)
 		{
+		exige_escrita();
 		//limpa tabela de rascunho da lista:
 		$query_limpa_provisoria=db_query("delete from ".$tabela_a, array()) or die ("Problema de acesso ao banco");
 		//Insere na tabela de rascunho as disciplinas fixas
 		list($query_insere_tabela_provisoria, $query_insere_tabela_provisoria__p) = array("insert into ".$tabela_a." (codigo,turma,vagas,turno,horarios,salas,reserva,status,professor,elimina,semestre,ano) select codigo,turma,vagas,turno,horarios,salas,reserva,status,'0','nao',?,? from oferta_semestres where semestre=? or semestre='12'", array($semestre, $ano, $semestre));
-		echo $query_insere_tabela_provisoria;
 		$insere_tabela_provisoria=db_query($query_insere_tabela_provisoria, $query_insere_tabela_provisoria__p)  or die ("Problema de acesso ao banco");
 		//
 		if($insere_tabela_provisoria)
@@ -262,6 +262,7 @@ $tabela_a="oferta_lista_de_ofertas_nova";
 
 if (isset($_POST['registra2']))
 {
+exige_escrita();
 $optativas=$_POST['optativas'];
 $turma=$_POST['turma'];
 $vagas=$_POST['vagas'];

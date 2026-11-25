@@ -1,18 +1,8 @@
 <?php
    require_once(dirname(__FILE__).'/global/sessao_cookie.php');
    session_start();
-   //if sessions'variables already exists, the client doesn't have to him identify
-
-/*
-   if (isset($_SESSION['login']) and isset($_SESSION['passwd']))
-   {
-?>
-     <script language="javascript">
-       document.location.href="global/index.php";
-     </script>
-<?php
-    }*/
-    
+   require_once(dirname(__FILE__).'/global/function_php.php');
+   csrf_token();
 ?>
 
 <html>
@@ -26,7 +16,7 @@
      //-->
     </script>
 <?php
-  if (isset($_SESSION['login']) and isset($_SESSION['passwd']))
+  if (!empty($_SESSION['si_autenticado']) && isset($_SESSION['login']))
    {
 ?>
      <script language="javascript">
@@ -51,6 +41,7 @@
           </td>
         </tr>
         <form method="post" name="identification" action="global/index.php">
+        <?php echo csrf_campo(); ?>
         <tr align="left">
           <td>
             Login : 

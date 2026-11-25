@@ -44,8 +44,8 @@ class MagisterialDAO extends DAO {
 	public function theoryGroups($semester) {
 		$sql = "SELECT ".$this->attributesSelect($this->amTheoryGroups)."
 		FROM $this->theoryGroupsTable
-		WHERE ano = $semester->year AND
-			semestre = $semester->semester
+		WHERE ano = ".(int)$semester->year." AND
+			semestre = ".(int)$semester->semester."
 		ORDER BY codigo, turmas";
 
 		$res = $this->_db->prepare($sql);

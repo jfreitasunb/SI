@@ -28,7 +28,7 @@ reauditar tudo.
   - PHP: `global/db_config.php` (ignorado) ou variaveis `SI_DB_*` / `PYKOTA_DB_*`
     (ver `global/db_config.sample.php` e a funcao `db_config()`).
   - Docker: `.env` (ignorado), modelo em `.env.example`.
-  - **Pendente operacional**: a senha antiga (`estudos`) ainda existe no
+  - **Pendente operacional**: credenciais antigas ainda existem no
     historico do git — rotacione a senha no PostgreSQL para fechar o risco.
 - **Cookie de sessao**: `global/sessao_cookie.php` (httponly, secure sob HTTPS,
   SameSite=Lax), incluido antes de cada `session_start()`.
