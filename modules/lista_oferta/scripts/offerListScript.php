@@ -274,6 +274,25 @@ function isBetterDistribution($count, $credits, $options, $countBest, $creditsBe
 	return false;
 }
 
+// Linhas "Opcao N" do resultado: percentual dos pedidos da opcao que foram atendidos.
+// Um pedido e a N-esima escolha de um professor; e atendido se ele recebeu ao menos
+// uma turma dela.
+function optionsSummary($optionsBest, $solutionBest, $professorsByOption) {
+	$served = array();
+	foreach ($solutionBest as $solution) {
+		$served[$solution->level][$solution->professor] = true;
+	}
+
+	$lines = array();
+	foreach ($optionsBest as $key => $option) {
+		$requested = isset($professorsByOption[$key]) ? $professorsByOption[$key] : 0;
+		$count = isset($served[$key]) ? count($served[$key]) : 0;
+		$percent = $requested > 0 ? number_format(100 * $count / $requested, 1, ',', '') . '%' : '-';
+		$lines[] = "Op&ccedil;&atilde;o $key: $count de $requested pedidos atendidos ($percent)";
+	}
+	return $lines;
+}
+
 function sortCountElements($item1, $item2) {
 	$c1 = count($item1);
 	$c2 = count($item2);
@@ -369,6 +388,19 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 
 	$classesJson = serialize($classes);
 	$listProfessorsJson = serialize($listProfessors);
+
+	// Total de pedidos em cada opcao (todos os professores que fizeram aquela escolha,
+	// inclusive os que ja tinham creditos suficientes): base do percentual de atendimento.
+	$professorsByOption = array_fill(1, $QUANTITY_PREFERRED_DISCIPLINE, 0);
+	foreach ($listProfessors as $professor) {
+		if (isset($professor->choices)) {
+			foreach ($professor->choices as $order => $choice) {
+				if (isset($professorsByOption[$order])) {
+					$professorsByOption[$order]++;
+				}
+			}
+		}
+	}
 
 	$solutionBest = array();
 	$creditsCountBest = 0;
@@ -568,8 +600,8 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 	echo "\nTurmas Preenchidas: " . count($solutionBest);
 	echo "\nCr&eacute;ditos Preenchidos: $creditsCountBest\n";
 
-	foreach ($optionsBest as $key => $option) {
-		echo "\nOp&ccedil;&atilde;o $key: $option";
+	foreach (optionsSummary($optionsBest, $solutionBest, $professorsByOption) as $line) {
+		echo "\n" . $line;
 	}
 	echo "</pre>";
 } else {
