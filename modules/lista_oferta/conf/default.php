@@ -6,6 +6,9 @@ $ROOT = $ROOT_MAIN."modules/lista_oferta/";
 $ROOT_PATH = $ROOT_PATH_MAIN."modules/lista_oferta/";
 
 $QUANTITY_PREFERRED_DISCIPLINE = 6;
+
+// true: offerListScript.php imprime o relatorio detalhado da distribuicao.
+$DISTRIBUTION_REPORT = false;
 $DEFAULT_DISCIPLINE_SELECTED_QUANTITY = 1;
 
 $ID_MODULE = 107;

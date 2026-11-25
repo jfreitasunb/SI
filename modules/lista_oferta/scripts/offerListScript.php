@@ -164,6 +164,10 @@ $semester = $semesterMC->last();
 //TODO: Se estiver na etapa do semestre que deva rodar, e se o usuario tiver permissão para executar o script
 if(strcmp($semester->status, SemesterDAO::STATUS_STAGE_3) == 0 && ($DEVELOPMENT || ModuleUT::haveUserLogged($ID_MODULE))) {
 
+	// As $OFFER_LIST_QUANTITY_ATTEMPTS tentativas estouram os 30 s padrao do PHP-FPM.
+	// Manter alinhado com fastcgi_read_timeout no nginx.
+	set_time_limit(600);
+
 	$creditsEachProfessor = $semester->average_credits;
 
 	$listProfessors = ProfessorPR::activeProfessorsWithCredits($semester);
