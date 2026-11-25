@@ -32,7 +32,12 @@ $ENCRYPTED_PASSWORDS = true;
 //$DEVELOPMENT = true;
 $DEVELOPMENT = false;
 
-$OFFER_LIST_QUANTITY_ATTEMPTS = 1000;
+$OFFER_LIST_QUANTITY_ATTEMPTS = 10000;
+// Distribuicao da LO: para antes do maximo acima se a melhor distribuicao nao
+// melhorar por este numero de tentativas seguidas (0 desliga). Medido com os dados
+// de 2027/1: a melhor distribuicao aparece em media na tentativa ~1000, e o risco de
+// parar antes dela e de ~1% com 5000 (~15% com 2000, ~60% com 500).
+$OFFER_LIST_ATTEMPTS_WITHOUT_IMPROVEMENT = 5000;
 $CREDITS_PLUS_AVERAGE = 2;
 
 function p($thing, $pre = true) {

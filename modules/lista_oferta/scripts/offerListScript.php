@@ -10,90 +10,268 @@ require_once $ROOT_PATH.'modelController/semesterMC.php';
 require_once $ROOT_PATH.'modelController/offerListTemporaryMC.php';
 require_once $ROOT_PATH.'modelController/magisterialOfferListMC.php';
 
-function exchange($list, $classes, $professors, $averageCredits, $type, $bypass) {
-	$return = array();
+// ===== MEDICAO TEMPORARIA (remover depois de analisar) =====
+// Conta os nos da busca (assignSearch) e o tempo de cada suggestDistribution(),
+// agregados por grupo (disciplina-periodo) e fase. O relatorio sai no fim da
+// pagina e no log de erros, mesmo se o script estourar o tempo.
+$PROF = array(
+	'start' => microtime(true), 'setup' => 0.0, 'attempts' => 0,
+	'calls' => 0, 'leaves' => 0, 'ctx' => '', 'groups' => array(), 'enabled' => false,
+);
 
-	if (strcmp($type, "p") == 0) {
-		$quantity = count($classes);
-		$quantityOpposite = count($professors);
-	} else {
-		$quantity = count($professors);
-		$quantityOpposite = count($classes);
+function profileReport() {
+	global $PROF;
+	if (!$PROF['enabled']) return;
+
+	$total = microtime(true) - $PROF['start'];
+	$inGroups = 0.0;
+	foreach ($PROF['groups'] as $g) $inGroups += $g['time'];
+
+	$groups = $PROF['groups'];
+	uasort($groups, function ($a, $b) { return $b['time'] <=> $a['time']; });
+
+	$lines = array();
+	$lines[] = sprintf("MEDICAO offerListScript: %.1f s no total | carga inicial %.2f s | %d tentativa(s) iniciada(s) | %.1f s em suggestDistribution",
+		$total, $PROF['setup'], $PROF['attempts'], $inGroups);
+	if ($PROF['attempts'] > 0) {
+		$lines[] = sprintf("Media por tentativa: %.3f s | busca: %s nos, %s folhas",
+			($total - $PROF['setup']) / $PROF['attempts'], number_format($PROF['calls'], 0, ',', '.'), number_format($PROF['leaves'], 0, ',', '.'));
+	}
+	$lines[] = "";
+	$lines[] = sprintf("%-28s %6s %9s %8s %8s %6s %6s %6s %14s %12s",
+		"grupo [fase]", "%tempo", "tempo(s)", "max(ms)", "chamadas", "turmas", "vagas", "profs", "nos busca", "max nos");
+	$n = 0;
+	foreach ($groups as $key => $g) {
+		if (++$n > 40) { $lines[] = "... (" . (count($groups) - 40) . " grupos a mais)"; break; }
+		$lines[] = sprintf("%-28s %5.1f%% %9.2f %8.1f %8d %6d %6d %6d %14s %12s",
+			$key, $inGroups > 0 ? 100 * $g['time'] / $inGroups : 0, $g['time'], 1000 * $g['max_time'], $g['n'],
+			$g['max_classes'], $g['max_slots'], $g['max_profs'],
+			number_format($g['calls'], 0, ',', '.'), number_format($g['max_leaves'], 0, ',', '.'));
+	}
+	$lines[] = "";
+	$lines[] = "turmas/vagas/profs = maior tamanho visto do grupo (vagas = soma das turmas que os professores aceitam).";
+	$lines[] = "max nos = maior numero de nos visitados pela busca numa unica chamada.";
+
+	$text = implode("\n", $lines);
+	error_log($text);
+	echo "<pre>" . htmlspecialchars($text, ENT_QUOTES, 'UTF-8') . "</pre>";
+}
+register_shutdown_function('profileReport');
+// ===== FIM MEDICAO TEMPORARIA =====
+
+// Limite de seguranca por grupo: nos visitados pela busca. Com os grupos atuais
+// a busca usa poucos; se estourar, devolve a melhor solucao encontrada ate ali.
+$DISTRIBUTION_SEARCH_NODE_LIMIT = 200000;
+
+/**
+ * Atribuicao com o maior numero possivel de turmas de um grupo (mesma
+ * disciplina/periodo) a professores.
+ *
+ * Busca em profundidade turma a turma: atribui a turma a um professor com vaga,
+ * horario livre e creditos, ou a deixa sem professor. Poda os ramos que nao
+ * podem superar a melhor solucao, usando como limite superior o emparelhamento
+ * maximo entre as turmas restantes e as vagas restantes. Chega ao mesmo maximo
+ * da antiga enumeracao de permutacoes, sem testar permutacoes equivalentes
+ * (por exemplo, as copias de um professor que escolheu varias turmas).
+ *
+ * $professors: professores distintos; $capacity[k]: quantas turmas o professor k aceita.
+ * Retorna objetos {class, professor} com os ids, como a versao anterior.
+ */
+function assignClasses($classes, $professors, $capacity, $averageCredits, $bypass) {
+	global $DISTRIBUTION_SEARCH_NODE_LIMIT;
+
+	$s = new stdClass();
+	$s->classes = array_values($classes);
+	$s->professors = array_values($professors);
+	$s->capacity = array_values($capacity);
+	$s->averageCredits = $averageCredits;
+	$s->bypass = $bypass;
+	$s->current = array();
+	$s->best = array();
+	$s->target = min(count($s->classes), array_sum($s->capacity));
+	$s->nodes = 0;
+	$s->nodeLimit = $DISTRIBUTION_SEARCH_NODE_LIMIT;
+
+	if ($s->target > 0) {
+		assignSearch($s, 0);
 	}
 
-	if (count($list) < $quantity) {
-		for ($i = 0; $i < $quantityOpposite; $i++) {
-			$listTmp = $list;
+	$result = array();
+	foreach ($s->best as $pair) {
+		$obj = new stdClass();
+		$obj->class = $s->classes[$pair[0]]->id;
+		$obj->professor = $s->professors[$pair[1]]->id;
+		$result[] = $obj;
+	}
+	return $result;
+}
 
-			if (strcmp($type, "p") == 0) {
-				$classesCopy = $classes;
-				$professorsCopy = $professors;
-				$listTmp[] = $professorsCopy[$i];
-				array_splice($professorsCopy, $i, 1);
-			} else {
-				$classesCopy = $classes;
-				$professorsCopy = $professors;
-				$listTmp[] = $classesCopy[$i];
-				array_splice($classesCopy, $i, 1);
+// Retorna true quando a busca deve parar (alvo atingido ou limite de nos).
+function assignSearch($s, $i) {
+	global $PROF; // MEDICAO TEMPORARIA
+	$PROF['calls']++;
+
+	$s->nodes++;
+	if (count($s->current) > count($s->best)) {
+		$s->best = $s->current;
+	}
+	if (count($s->best) >= $s->target || $s->nodes >= $s->nodeLimit) {
+		return true;
+	}
+
+	$n = count($s->classes);
+	if ($i >= $n) {
+		$PROF['leaves']++; // MEDICAO TEMPORARIA
+		return false;
+	}
+
+	// Poda barata, depois a exata (emparelhamento das turmas restantes).
+	$have = count($s->current);
+	if ($have + min($n - $i, array_sum($s->capacity)) <= count($s->best)) {
+		return false;
+	}
+	if ($have + assignUpperBound($s, $i) <= count($s->best)) {
+		return false;
+	}
+
+	$class = $s->classes[$i];
+	foreach ($s->professors as $k => $professor) {
+		if ($s->capacity[$k] > 0 && ProfessorPR::professorCanGetClass($professor, $class, $s->averageCredits, $s->bypass)) {
+			ProfessorPR::addTemporaryClassToProfessor($class, $professor);
+			$s->capacity[$k]--;
+			$s->current[] = array($i, $k);
+
+			$stop = assignSearch($s, $i + 1);
+
+			array_pop($s->current);
+			$s->capacity[$k]++;
+			ProfessorPR::removeTemporaryClassFromProfessor($class, $professor);
+			if ($stop) {
+				return true;
 			}
-
-			$r = exchange($listTmp, $classesCopy, $professorsCopy, $averageCredits, $type, $bypass);
-
-			if (count($r) == $quantity) {
-				return $r;
-			}
-
-			if (count($r) > count($return)) {
-				$return = $r;
-			}
-		}
-	} else {
-		if (strcmp($type, "p") == 0) {
-			$listProfessors = & $list;
-			$listClasses = & $classes;
-		} else {
-			$listClasses = & $list;
-			$listProfessors = & $professors;
-		}
-		for ($i = 0; $i < $quantity; $i++) {
-			if (ProfessorPR::professorCanGetClass($listProfessors[$i], $listClasses[$i], $averageCredits, $bypass)) {
-				ProfessorPR::addTemporaryClassToProfessor($listClasses[$i], $listProfessors[$i]);
-				$obj = new stdClass();
-				$obj->class = $listClasses[$i]->id;
-				$obj->professor = $listProfessors[$i]->id;
-//				$obj->schedule = $listClasses[$i]->schedule;
-				$return[] = $obj;
-			}
-		}
-
-		for ($i = 0; $i < $quantity; $i++) {
-			ProfessorPR::cleanTemporaryClassFromProfessor($listProfessors[$i]);
 		}
 	}
-	return $return;
+
+	// Turma $i fica sem professor.
+	return assignSearch($s, $i + 1);
+}
+
+// Limite superior de turmas ainda atribuiveis a partir da turma $from: emparelhamento
+// maximo (com a capacidade de cada professor) entre as turmas restantes e os
+// professores que podem pega-las no estado atual. Ignora conflitos de horario e de
+// creditos entre as proprias turmas restantes, por isso nunca subestima.
+function assignUpperBound($s, $from) {
+	$n = count($s->classes);
+	$adj = array();
+	for ($c = $from; $c < $n; $c++) {
+		$adj[$c] = array();
+		foreach ($s->professors as $k => $professor) {
+			if ($s->capacity[$k] > 0 && ProfessorPR::professorCanGetClass($professor, $s->classes[$c], $s->averageCredits, $s->bypass)) {
+				$adj[$c][] = $k;
+			}
+		}
+	}
+
+	$assigned = array_fill(0, count($s->professors), array());
+	$matched = 0;
+	for ($c = $from; $c < $n; $c++) {
+		if (count($adj[$c])) {
+			$seen = array();
+			if (assignAugment($c, $adj, $assigned, $s->capacity, $seen)) {
+				$matched++;
+			}
+		}
+	}
+	return $matched;
+}
+
+// Caminho aumentante (Kuhn) com capacidade por professor.
+function assignAugment($c, &$adj, &$assigned, &$capacity, &$seen) {
+	foreach ($adj[$c] as $k) {
+		if (isset($seen[$k])) {
+			continue;
+		}
+		$seen[$k] = true;
+		if (count($assigned[$k]) < $capacity[$k]) {
+			$assigned[$k][] = $c;
+			return true;
+		}
+		foreach ($assigned[$k] as $pos => $other) {
+			if (assignAugment($other, $adj, $assigned, $capacity, $seen)) {
+				$assigned[$k][$pos] = $c;
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function suggestDistribution($classes, $professors, $averageCredits, $bypass = false) {
-	$listProfessor = array();
+	$first = reset($classes);
+
+	// Professores distintos com a quantidade de turmas que escolheram (antes cada um
+	// era repetido "quantity" vezes, o que multiplicava as permutacoes testadas).
+	$candidates = array();
 	foreach ($professors as $professor) {
-		$class = array_values($classes);
-		if (ProfessorPR::creditsProfessorNeed($professor->professor, $averageCredits) >= $class[0]->discipline_credits) {
-			for ($i = 0; $i < $professor->quantity; $i++) {
-				$listProfessor[] = $professor->professor;
-			}
+		if ($first && ProfessorPR::creditsProfessorNeed($professor->professor, $averageCredits) >= $first->discipline_credits) {
+			$candidates[] = array($professor->professor, $professor->quantity);
 		}
 	}
 
+	// Ordem aleatoria: entre solucoes empatadas, cada tentativa encontra uma diferente.
 	shuffle($classes);
-	shuffle($listProfessor);
+	shuffle($candidates);
 
-	if (count($classes) > count($listProfessor)) {
-		$type = "c";
-	} else {
-		$type = "p";
+	$listProfessor = array();
+	$capacity = array();
+	foreach ($candidates as $candidate) {
+		$listProfessor[] = $candidate[0];
+		$capacity[] = $candidate[1];
 	}
 
-	return exchange(array(), $classes, $listProfessor, $averageCredits, $type, $bypass);
+	// MEDICAO TEMPORARIA
+	global $PROF;
+	$key = ($first ? $first->discipline . '-' . $first->period : '?') . ' [' . $PROF['ctx'] . ']';
+	$calls0 = $PROF['calls'];
+	$leaves0 = $PROF['leaves'];
+	$t0 = microtime(true);
+
+	$result = assignClasses($classes, $listProfessor, $capacity, $averageCredits, $bypass);
+
+	$dt = microtime(true) - $t0;
+	if (!isset($PROF['groups'][$key])) {
+		$PROF['groups'][$key] = array('n' => 0, 'time' => 0.0, 'max_time' => 0.0, 'calls' => 0, 'max_leaves' => 0,
+			'max_classes' => 0, 'max_slots' => 0, 'max_profs' => 0);
+	}
+	$g = &$PROF['groups'][$key];
+	$g['n']++;
+	$g['time'] += $dt;
+	$g['max_time'] = max($g['max_time'], $dt);
+	$g['calls'] += $PROF['calls'] - $calls0;
+	$g['max_leaves'] = max($g['max_leaves'], $PROF['calls'] - $calls0);
+	$g['max_classes'] = max($g['max_classes'], count($classes));
+	$g['max_slots'] = max($g['max_slots'], array_sum($capacity));
+	$g['max_profs'] = max($g['max_profs'], count($listProfessor));
+	unset($g);
+
+	return $result;
+}
+
+// Cascata de desempate entre duas distribuicoes: mais turmas preenchidas, depois mais
+// creditos, depois mais turmas na 1a escolha, na 2a, ... ate a 6a.
+function isBetterDistribution($count, $credits, $options, $countBest, $creditsBest, $optionsBest) {
+	if ($count != $countBest) {
+		return $count > $countBest;
+	}
+	if ($credits != $creditsBest) {
+		return $credits > $creditsBest;
+	}
+	for ($i = 1; $i <= 6; $i++) {
+		if ($options[$i] != $optionsBest[$i]) {
+			return $options[$i] > $optionsBest[$i];
+		}
+	}
+	return false;
 }
 
 function sortCountElements($item1, $item2) {
@@ -169,6 +347,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 	// As $OFFER_LIST_QUANTITY_ATTEMPTS tentativas estouram os 30 s padrao do PHP-FPM.
 	// Manter alinhado com fastcgi_read_timeout no nginx.
 	set_time_limit(600);
+	$PROF['enabled'] = true; // MEDICAO TEMPORARIA
 
 	$creditsEachProfessor = $semester->average_credits;
 
@@ -196,8 +375,12 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 	$optionsBest = array(1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0);
 	$distributionReportBest = array();
 
-// $OFFER_LIST_QUANTITY_ATTEMPTS = 1;
+	$attemptsWithoutImprovement = 0;
+	$stoppedEarly = false;
+
+	$PROF['setup'] = microtime(true) - $PROF['start']; // MEDICAO TEMPORARIA
 	for ($j = 0; $j < $OFFER_LIST_QUANTITY_ATTEMPTS; $j++) {
+		$PROF['attempts'] = $j + 1; // MEDICAO TEMPORARIA
 		$classes = unserialize($classesJson, array('allowed_classes' => array('stdClass')));
 		$listProfessors = unserialize($listProfessorsJson, array('allowed_classes' => array('stdClass')));
 
@@ -245,6 +428,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 						}
 					}
 
+					$PROF['ctx'] = '6cr'; // MEDICAO TEMPORARIA
 					$temporarySolution = suggestDistribution($classes[$keyClass], $professorsList, $creditsEachProfessor, true);
 
 					$solution = array_merge($solution, $temporarySolution);
@@ -276,6 +460,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 				$key = $c->discipline . '-' . $c->period;
 
 				if (isset($disciplinesChosen[$key][$i])) {
+					$PROF['ctx'] = 'op' . $i; // MEDICAO TEMPORARIA
 					$temporarySolution = suggestDistribution($classes[$keyClass], $disciplinesChosen[$key][$i], $creditsEachProfessor);
 
 					$solution = array_merge($solution, $temporarySolution);
@@ -303,77 +488,23 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 			$creditsCount += $tempOfferList[$class->class]->discipline_credits;
 		}
 
-		if (count($solution) > count($solutionBest)) {
-//			echo "M0.1<br>";
+		if (isBetterDistribution(count($solution), $creditsCount, $options, count($solutionBest), $creditsCountBest, $optionsBest)) {
 			$solutionBest = $solution;
 			$creditsCountBest = $creditsCount;
 			$optionsBest = $options;
 			$distributionReportBest = $distributionReport;
-		} elseif (count($solution) == count($solutionBest)) {
-//			echo "M0<br>";
-			if($creditsCount > $creditsCountBest) {
-//				echo "M0.2<br>";
-				$solutionBest = $solution;
-				$creditsCountBest = $creditsCount;
-				$optionsBest = $options;
-				$distributionReportBest = $distributionReport;
-			} elseif($creditsCount == $creditsCountBest) {
-//				echo "M1<br>";
-				if ($options[1] > $optionsBest[1]) {
-//					echo "M1.1<br>";
-					$solutionBest = $solution;
-					$creditsCountBest = $creditsCount;
-					$optionsBest = $options;
-					$distributionReportBest = $distributionReport;
-				} elseif ($options[1] == $optionsBest[1]) {
-//					echo "M2<br>";
-					if ($options[2] > $optionsBest[2]) {
-//						echo "M2.1<br>";
-						$solutionBest = $solution;
-						$creditsCountBest = $creditsCount;
-						$optionsBest = $options;
-						$distributionReportBest = $distributionReport;
-					} elseif ($options[2] == $optionsBest[2]) {
-//						echo "M3<br>";
-						if ($options[3] > $optionsBest[3]) {
-//							echo "M3.1<br>";
-							$solutionBest = $solution;
-							$creditsCountBest = $creditsCount;
-							$optionsBest = $options;
-							$distributionReportBest = $distributionReport;
-						} elseif ($options[3] == $optionsBest[3]) {
-//							echo "M4<br>";
-							if ($options[4] > $optionsBest[4]) {
-//								echo "M4.1<br>";
-								$solutionBest = $solution;
-								$creditsCountBest = $creditsCount;
-								$optionsBest = $options;
-								$distributionReportBest = $distributionReport;
-							} elseif ($options[4] == $optionsBest[4]) {
-//								echo "M5<br>";
-								if ($options[5] > $optionsBest[5]) {
-//									echo "M5.1<br>";
-									$solutionBest = $solution;
-									$creditsCountBest = $creditsCount;
-									$optionsBest = $options;
-									$distributionReportBest = $distributionReport;
-								} elseif ($options[5] == $optionsBest[5]) {
-//									echo "M6<br>";
-									if ($options[6] > $optionsBest[6]) {
-//										echo "M6.1<br>";
-										$solutionBest = $solution;
-										$creditsCountBest = $creditsCount;
-										$optionsBest = $options;
-										$distributionReportBest = $distributionReport;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+			$attemptsWithoutImprovement = 0;
+		} else {
+			$attemptsWithoutImprovement++;
+		}
+
+		// Parada antecipada: a melhor distribuicao nao muda ha N tentativas seguidas.
+		if ($OFFER_LIST_ATTEMPTS_WITHOUT_IMPROVEMENT > 0 && $attemptsWithoutImprovement >= $OFFER_LIST_ATTEMPTS_WITHOUT_IMPROVEMENT) {
+			$stoppedEarly = true;
+			break;
 		}
 	}
+	$attemptsRun = $j + ($stoppedEarly ? 1 : 0);
 		
 	$magisterialDisciplineMC = new MagisterialOfferListMC();
 	foreach ($solutionBest as $solution) {
@@ -433,7 +564,8 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 		}
 	}
 
-	echo "<pre>Turmas Preenchidas: " . count($solutionBest);
+	echo "<pre>Tentativas: $attemptsRun" . ($stoppedEarly ? " (parou apos $OFFER_LIST_ATTEMPTS_WITHOUT_IMPROVEMENT sem melhora)" : "");
+	echo "\nTurmas Preenchidas: " . count($solutionBest);
 	echo "\nCr&eacute;ditos Preenchidos: $creditsCountBest\n";
 
 	foreach ($optionsBest as $key => $option) {

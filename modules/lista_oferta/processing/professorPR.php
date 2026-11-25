@@ -39,7 +39,7 @@ class ProfessorPR {
 
 				$listProfessors[$class->professor]->classes[$class->id] = $class;
 
-				$hoursArray = explode('-', $class->schedule);
+				$hoursArray = explode('-', (string) $class->schedule);
 				
 				foreach ($hoursArray as $hour) {
 					if (!isset($listProfessors[$class->professor]->schedule[$hour])) {
@@ -124,7 +124,7 @@ class ProfessorPR {
 
 	static public function professorCanGetClass($professor, $class, $averageCredits, $bypass) {
 		if ($bypass || $class->discipline_credits <= self::creditsProfessorNeed($professor, $averageCredits)) {
-			$hoursArray = explode('-', $class->schedule);
+			$hoursArray = explode('-', (string) $class->schedule);
 //			p($hoursArray);
 //			p($professor);
 			foreach ($hoursArray as $hour) {
@@ -142,11 +142,21 @@ class ProfessorPR {
 	}
 
 	static public function addTemporaryClassToProfessor($class, &$professor) {
-		$hoursArray = explode('-', $class->schedule);
+		$hoursArray = explode('-', (string) $class->schedule);
 		foreach ($hoursArray as $hour) {
 			$professor->scheduleTmp[$hour] = $class->id;
 		}
-		$professor->credits_tmp = $class->discipline_credits;
+		// Soma: o professor pode receber varias turmas temporarias na mesma busca.
+		$professor->credits_tmp = (isset($professor->credits_tmp) ? $professor->credits_tmp : 0) + $class->discipline_credits;
+	}
+
+	// Desfaz addTemporaryClassToProfessor para uma unica turma (backtracking).
+	static public function removeTemporaryClassFromProfessor($class, &$professor) {
+		$hoursArray = explode('-', (string) $class->schedule);
+		foreach ($hoursArray as $hour) {
+			unset($professor->scheduleTmp[$hour]);
+		}
+		$professor->credits_tmp -= $class->discipline_credits;
 	}
 
 	static public function cleanTemporaryClassFromProfessor(&$professor) {
@@ -155,7 +165,7 @@ class ProfessorPR {
 	}
 
 	static public function addClassToProfessor($class, &$professor) {
-		$hoursArray = explode('-', $class->schedule);
+		$hoursArray = explode('-', (string) $class->schedule);
 		foreach ($hoursArray as $hour) {
 			$professor->schedule[$hour] = $class->id;
 		}
