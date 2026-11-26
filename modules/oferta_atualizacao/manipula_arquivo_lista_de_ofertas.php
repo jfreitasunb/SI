@@ -317,6 +317,49 @@ function testa_arquivo_sigaa($semestre,$ano,$arquivo)
     return $devolve;
 }
 
+// Lista do SIGAA no formato novo (2026.2 em diante):
+//   2026.2,Turma 02,JOAO ... (60h) e MAURO ... (30h),REGULAR,Presencial,ABERTA,246T23 (10/08/2026 - 14/12/2026),ICC ASS 415/10,26/36 estudantes
+// vira linhas no formato antigo, que processa_linhas_sigaa le, uma por professor:
+//   02,2026.2,JOAO ... (60h),246T23,,36,0,ICC ASS 415/10
+//   02,2026.2,MAURO ... (30h),246T23,,36,0,ICC ASS 415/10
+// Cabecalhos de disciplina e linhas no formato antigo voltam sem mudanca.
+function normaliza_linha_sigaa($row)
+{
+    $campos = explode(",", rtrim($row, "\r\n"));
+    $n = count($campos);
+    if ($n < 9 || !preg_match('/^\d{4}\.\d$/', trim($campos[0])) || !preg_match('/^Turma\b/i', trim($campos[1]))) {
+        return array($row);
+    }
+
+    $periodo = trim($campos[0]);
+    $turma = trim(preg_replace('/^Turma\s*/i', '', trim($campos[1])));
+    // Tira o periodo de aulas "(10/08/2026 - 14/12/2026)" do horario.
+    $horario = trim(preg_replace('/\(\s*\d{2}\/\d{2}\/\d{4}\s*-\s*\d{2}\/\d{2}\/\d{4}\s*\)/', '', $campos[6]));
+    // A sala pode ter virgulas; as vagas sao sempre o ultimo campo ("26/36 estudantes" -> 36).
+    $sala = trim(implode(",", array_slice($campos, 7, $n - 8)));
+    $vagas = trim($campos[$n - 1]);
+    if (preg_match('/(\d+)\s*\/\s*(\d+)/', $vagas, $m)) {
+        $vagas = $m[2];
+    }
+
+    // "NOME (60h) e OUTRO NOME (30h)": um professor para cada "(NNh)".
+    preg_match_all('/\s*(?:e\s+)?(.+?\(\d+h\))/', $campos[2], $profs);
+    $profs = count($profs[1]) ? $profs[1] : array(trim($campos[2]));
+
+    $linhas = array();
+    foreach ($profs as $prof) {
+        $linhas[] = implode(",", array($turma, $periodo, trim($prof), $horario, "", $vagas, "0", $sala)) . "\n";
+    }
+    return $linhas;
+}
+
+// Cabecalho de disciplina: "MAT0025 - CALCULO 1 ...". Antes o teste era contar
+// hifens, o que confundia as linhas novas que tem "(10/08/2026 - 14/12/2026)".
+function linha_e_disciplina_sigaa($row)
+{
+    return preg_match('/^\s*[A-Z]{3}\d{4}\s*-/', $row) === 1;
+}
+
 function manipula_arquivo_sigaa_atualiza_lista($semestre,$ano,$arquivo)
 {
 
@@ -346,25 +389,27 @@ function manipula_arquivo_sigaa_atualiza_lista($semestre,$ano,$arquivo)
     $dados_tratados = [];
 
     foreach ($rows as $key) {
-        $dados_tratados[] = $key;
+        foreach (normaliza_linha_sigaa($key) as $linha) {
+            $dados_tratados[] = $linha;
+        }
     }
 
     $tamanho = count($dados_tratados);
 
     for ($i=0; $i < $tamanho - 1; $i++) {
 
-        if (count(explode("-", $dados_tratados[$i])) == 2) {
+        if (linha_e_disciplina_sigaa($dados_tratados[$i])) {
 
             $temp = array();
 
             for ($j=$i+1; $j < $tamanho; $j++) {
-                if (count(explode("-", $dados_tratados[$j])) == 1) {
+                if (!linha_e_disciplina_sigaa($dados_tratados[$j])) {
                     $temp[] = $dados_tratados[$j];
                 }else{
                     break;
                 }
 
-                $devolve[trim(str_replace(",,,,,,,", "", $dados_tratados[$i]))] = $temp;
+                $devolve[rtrim(trim($dados_tratados[$i]), ",")] = $temp;
             }
             unset($temp);
         }
