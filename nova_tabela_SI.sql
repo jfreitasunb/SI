@@ -4,7 +4,7 @@ CREATE TABLE public.oferta_horarios_rodizio_noturno_creditos (
     semestre integer,
     ano integer,
     credito_noturno integer,
-    disciplina integer,
+    disciplina character varying(10),
     turma character varying(20)
 );
 

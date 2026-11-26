@@ -87,6 +87,7 @@ function codigos_disciplinas_sigaa()
         'MAT0164' => '164',
         'MAT0166' => '166',
         'MAT0174' => '174',
+        'MAT0141' => '117141',
     );
 }
 

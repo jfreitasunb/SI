@@ -264,6 +264,13 @@ set_time_limit(60);
         $query_limpa=db_query("delete from oferta_lista_sigra where semestre=? and ano=?", array($semestre, $ano)) or die("problema de acesso ao banco");
 	$processadas=processa_linhas_sigaa($array_linhas,$semestre,$ano);
 
+echo "<BR> Registrando os cr&eacute;ditos do rod&iacute;zio noturno <BR>";
+	$rodizio=registra_rodizio_noturno_sigaa($array_linhas,$semestre,$ano);
+	echo "Inseridos: ".$rodizio['inseridos']." | J&aacute; existentes: ".$rodizio['existentes']."<BR>";
+	foreach ($rodizio['ignorados'] as $motivo) {
+		echo "N&atilde;o registrado: ".h($motivo)."<BR>";
+	}
+
 	//CORRIGIDO EM 18/12/2014
 	/*
 	 *	SUBSTITUIR PELA FUNÇAÕ QUE ANALISA A CARGA EM TURMAS MAGISTRAIS A PARTIR A DA LISTA DE OFERTA DO SIGRA

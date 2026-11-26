@@ -706,6 +706,142 @@ if ($existe[0]) $devolve['coduser']=$existe[2]; else $devolve['coduser']="";
 return $devolve;
 }
 
+// Horario "2N12 35N34" -> aulas individuais ("2N1", "2N2", "3N3", ...), para comparar horarios.
+function aulas_do_horario_sigaa($horario)
+{
+    $aulas = array();
+    foreach (preg_split('/\s+/', trim($horario)) as $parte) {
+        if (preg_match('/^(\d+)([MTN])(\d+)$/i', $parte, $m)) {
+            foreach (str_split($m[1]) as $dia) {
+                foreach (str_split($m[3]) as $aula) {
+                    $aulas[$dia . strtoupper($m[2]) . $aula] = true;
+                }
+            }
+        }
+    }
+    return $aulas;
+}
+
+// Nome do arquivo ("WILLIAN CINTRA DA SILVA") na chave de monta_array_de_profs(): sem espacos e acentos, maiusculo.
+function chave_nome_prof_sigaa($nome)
+{
+    $acentos = array('á','à','ã','â','é','è','ê','í','ó','ò','õ','ô','ö','ú','ù','ü','ç','Á','À','Ã','Â','É','È','Ê','Í','Ó','Ò','Õ','Ô','Ö','Ú','Ù','Ü','Ç');
+    $letras  = array('a','a','a','a','e','e','e','i','o','o','o','o','o','u','u','u','c','A','A','A','A','E','E','E','I','O','O','O','O','O','U','U','U','C');
+    return strtoupper(str_replace($acentos, $letras, preg_replace('/\s+/', '', $nome)));
+}
+
+/**
+ * Calcula os creditos do rodizio noturno a partir da lista do SIGAA
+ * ($array_linhas, saida de manipula_arquivo_sigaa_atualiza_lista):
+ *  - turma noturna: horario com "N";
+ *  - disciplina: codigo do SIGAA ("MAT0025"), desde que conste em codigos_disciplinas_sigaa.php;
+ *  - creditos: horas do professor na turma / 15 ("(60h)" -> 4);
+ *  - turma como texto, sem zero a esquerda ("02" -> "2");
+ *  - MAT0025 (Calculo 1): as turmas em que o mesmo professor de 30h aparece em
+ *    horarios parecidos (com ao menos uma aula em comum, ex. 236M12 e 235M12) viram
+ *    um registro so, com as turmas separadas por hifen ("7-8-9") e 2 creditos.
+ * Devolve array('registros' => [{coduser, disciplina, turma, creditos}], 'ignorados' => [motivos]).
+ */
+function calcula_rodizio_noturno_sigaa($array_linhas)
+{
+    $profs_si = monta_array_de_profs();
+    $codigos = codigos_disciplinas_sigaa();
+    $ignorados = array();
+
+    // Uma entrada por professor em cada turma noturna.
+    $entradas = array();
+    foreach ($array_linhas as $nome_disciplina => $turmas) {
+        $codigo_sigaa = strtoupper(trim(explode("-", $nome_disciplina)[0]));
+        foreach ($turmas as $linha) {
+            $campos = explode(",", trim($linha));
+            if (count($campos) < 4 || stripos($campos[3], "N") === false) {
+                continue;
+            }
+            $turma = preg_replace('/^0+(?=\d)/', '', trim($campos[0]));
+            $prof = trim($campos[2]);
+            if (!preg_match('/^(.*?)\s*\((\d+)h\)\s*$/i', $prof, $m)) {
+                $ignorados[] = "$codigo_sigaa turma $turma: sem carga horaria em \"$prof\"";
+                continue;
+            }
+            if (!isset($codigos[$codigo_sigaa])) {
+                $ignorados[] = "$codigo_sigaa turma $turma: disciplina fora de codigos_disciplinas_sigaa.php";
+                continue;
+            }
+            $chave = chave_nome_prof_sigaa($m[1]);
+            if (!isset($profs_si[$chave])) {
+                $ignorados[] = "$codigo_sigaa turma $turma: professor \"{$m[1]}\" nao encontrado na tabela users";
+                continue;
+            }
+            $entradas[] = array(
+                'disciplina' => $codigo_sigaa,
+                'turmas' => array($turma),
+                'horas' => (int)$m[2],
+                'coduser' => $profs_si[$chave][0],
+                'aulas' => aulas_do_horario_sigaa($campos[3]),
+            );
+        }
+    }
+
+    // Regra do MAT0025: junta as entradas do mesmo professor de 30h com horarios parecidos.
+    $agrupadas = array();
+    foreach ($entradas as $entrada) {
+        if ($entrada['disciplina'] == 'MAT0025' && $entrada['horas'] == 30) {
+            foreach ($agrupadas as $k => $outra) {
+                if ($outra['disciplina'] == 'MAT0025' && $outra['horas'] == 30
+                    && $outra['coduser'] == $entrada['coduser']
+                    && count(array_intersect_key($outra['aulas'], $entrada['aulas']))) {
+                    $agrupadas[$k]['turmas'][] = $entrada['turmas'][0];
+                    $agrupadas[$k]['aulas'] += $entrada['aulas'];
+                    continue 2;
+                }
+            }
+        }
+        $agrupadas[] = $entrada;
+    }
+
+    $registros = array();
+    foreach ($agrupadas as $entrada) {
+        $turmas = array_unique($entrada['turmas']);
+        usort($turmas, 'strnatcmp');
+        $registros[] = array(
+            'coduser' => $entrada['coduser'],
+            'disciplina' => $entrada['disciplina'],
+            'turma' => implode("-", $turmas),
+            'creditos' => intdiv($entrada['horas'], 15),
+        );
+    }
+
+    return array('registros' => $registros, 'ignorados' => $ignorados);
+}
+
+/**
+ * Grava em oferta_horarios_rodizio_noturno_creditos o que calcula_rodizio_noturno_sigaa()
+ * devolve, sem duplicar: nao insere se ja houver registro com o mesmo professor,
+ * semestre, ano, disciplina e turma.
+ * Devolve array('inseridos' => n, 'existentes' => n, 'ignorados' => array(motivos)).
+ */
+function registra_rodizio_noturno_sigaa($array_linhas, $semestre, $ano)
+{
+    $calculo = calcula_rodizio_noturno_sigaa($array_linhas);
+    $resultado = array('inseridos' => 0, 'existentes' => 0, 'ignorados' => $calculo['ignorados']);
+
+    foreach ($calculo['registros'] as $registro) {
+        $existe = db_query("select 1 from oferta_horarios_rodizio_noturno_creditos where coduser=? and semestre=? and ano=? and disciplina=? and turma=?",
+            array($registro['coduser'], $semestre, $ano, $registro['disciplina'], $registro['turma']));
+        if (db_fetch_row($existe)) {
+            $resultado['existentes']++;
+            continue;
+        }
+
+        db_query("insert into oferta_horarios_rodizio_noturno_creditos (coduser, semestre, ano, credito_noturno, disciplina, turma) values (?,?,?,?,?,?)",
+            array($registro['coduser'], $semestre, $ano, $registro['creditos'], $registro['disciplina'], $registro['turma']))
+            or die("problema de acesso ao banco: nao foi possivel inserir em oferta_horarios_rodizio_noturno_creditos");
+        $resultado['inseridos']++;
+    }
+
+    return $resultado;
+}
+
 function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 {
     $codigos_disciplinas_sigaa = codigos_disciplinas_sigaa();
