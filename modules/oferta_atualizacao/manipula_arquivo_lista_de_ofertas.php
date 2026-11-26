@@ -243,8 +243,10 @@ function testa_arquivo_sigaa($semestre,$ano,$arquivo)
 // Lista do SIGAA no formato novo (2026.2 em diante):
 //   2026.2,Turma 02,JOAO ... (60h) e MAURO ... (30h),REGULAR,Presencial,ABERTA,246T23 (10/08/2026 - 14/12/2026),ICC ASS 415/10,26/36 estudantes
 // vira linhas no formato antigo, que processa_linhas_sigaa le, uma por professor:
-//   02,2026.2,JOAO ... (60h),246T23,,36,0,ICC ASS 415/10
-//   02,2026.2,MAURO ... (30h),246T23,,36,0,ICC ASS 415/10
+//   2,2026.2,JOAO ... (60h),246T23,,36,0,ICC ASS 415/10
+//   2,2026.2,MAURO ... (30h),246T23,,36,0,ICC ASS 415/10
+// A turma perde o zero a esquerda ("02" -> "2"), como no resto do SI
+// (oferta_grupos_magistral_teoria, oferta_lista_de_ofertas).
 // Cabecalhos de disciplina e linhas no formato antigo voltam sem mudanca.
 function normaliza_linha_sigaa($row)
 {
@@ -256,6 +258,7 @@ function normaliza_linha_sigaa($row)
 
     $periodo = trim($campos[0]);
     $turma = trim(preg_replace('/^Turma\s*/i', '', trim($campos[1])));
+    $turma = preg_replace('/^0+(?=\d)/', '', $turma);
     // Tira o periodo de aulas "(10/08/2026 - 14/12/2026)" do horario.
     $horario = trim(preg_replace('/\(\s*\d{2}\/\d{2}\/\d{4}\s*-\s*\d{2}\/\d{2}\/\d{4}\s*\)/', '', $campos[6]));
     // A sala pode ter virgulas; as vagas sao sempre o ultimo campo ("26/36 estudantes" -> 36).
@@ -854,21 +857,22 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
     $array_c1 = [];
 
-    $array_c1sp = [];
-
     $array_mat1 = [];
 
     $l = 0;
 
     $k = 0;
 
-    $m = 0;
-
     foreach ($array_linhas as $nome_disciplina => $array_turmas) {
         foreach ($array_turmas as $turma) {
 
             $codigo_sigaa = trim(explode("-", $nome_disciplina)[0]);
 
+            // Codigo gravado nas tabelas da oferta: o do SIGRA, pela associacao de codigos_disciplinas_sigaa.php.
+            if (!isset($codigos_disciplinas_sigaa[$codigo_sigaa])) {
+                echo "<br>Turma n&atilde;o gravada: ".h($codigo_sigaa)." n&atilde;o est&aacute; em codigos_disciplinas_sigaa.php<br>";
+                continue;
+            }
             $codigo = $codigos_disciplinas_sigaa[$codigo_sigaa];
 
             if ($codigo_sigaa == "MAT0025") {
@@ -898,34 +902,6 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
                 $array_c1[$l]['coduser'] = $coduser;
 
                 $l++;
-
-            }else if ($codigo_sigaa == "MAT0137") {
-
-                $dados_c1sp = explode(",", $turma);
-
-                $array_c1sp[$m]['turma'] = "SP".$dados_c1sp[0];
-
-                $array_c1sp[$m]['turno'] = stripos($dados_c1sp[3], "N") !== false ? "Noturno" : "Diurno";
-
-                $array_c1sp[$m]['vagas'] = $dados_c1sp[5];
-
-                $array_c1sp[$m]['horarios'] = $dados_c1sp[3];
-
-                $array_c1sp[$m]['sala'] = $dados_c1sp[7];
-
-                $temporario = explode(" ", $dados_c1sp[2]);
-
-                $nome="";
-
-                for ($i=0; $i < count($temporario)-1; $i++) {
-                    $nome .= $temporario[$i];
-                }
-
-                $coduser = $profs_si[$nome][0];
-
-                $array_c1sp[$m]['coduser'] = $coduser;
-
-                $m++;
 
             }else if ($codigo_sigaa == "MAT0022") {
 
@@ -1005,36 +981,10 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
         $verifica_registro = db_query($query_verifica_registro, $query_verifica_registro__p);
 
-        if (count(db_fetch_row($verifica_registro)) == 1) {
+        if (!db_fetch_row($verifica_registro)) { // turma ainda nao gravada
             $query_insere="insert into oferta_lista_sigra values (?,?,?,?,?,?,'sem reserva',?,?,?)"; $query_insere__p = array($codigo_c1, $array_c1[$i]['turma'], $array_c1[$i]['vagas'], $array_c1[$i]['turno'], $array_c1[$i]['horarios'], $array_c1[$i]['sala'], $semestre, $ano, $coduser);
 
             $res_insere=db_query($query_insere, $query_insere__p) or die ("problema de acesso ao banco 04: ".$query_insere."");
-        }
-    }
-
-    for ($i=0; $i < count($array_c1sp); $i++) {
-
-        $coduser = $array_c1sp[$i]['coduser'];
-
-        for ($j=$i+1; $j < count($array_c1sp); $j++) {
-
-            if ($array_c1sp[$i]['turma'] == $array_c1sp[$j]['turma']) {
-                $coduser .= "-".$array_c1sp[$j]['coduser'];
-            }else{
-                break;
-            }
-        }
-
-        $query_verifica_registro ="select * from oferta_lista_sigra where codigo=? and turma=? and semestre=? and ano=?"; $query_verifica_registro__p = array($codigo_c1, $array_c1sp[$i]['turma'], $semestre, $ano);
-
-        $verifica_registro = db_query($query_verifica_registro, $query_verifica_registro__p);
-
-        if (count(db_fetch_row($verifica_registro)) == 1) {
-            $query_insere="insert into oferta_lista_sigra values (?,?,?,?,?,?,'sem reserva',?,?,?)"; $query_insere__p = array($codigo_c1, $array_c1sp[$i]['turma'], $array_c1sp[$i]['vagas'], $array_c1sp[$i]['turno'], $array_c1sp[$i]['horarios'], $array_c1sp[$i]['sala'], $semestre, $ano, $coduser);
-
-            echo "<br>Insere nova Turma: ".$query_insere."<br>";
-
-            $res_insere=db_query($query_insere, $query_insere__p) or die ("problema de acesso ao banco 05: ".$query_insere."");
         }
     }
 
@@ -1053,7 +1003,7 @@ function processa_linhas_sigaa($array_linhas,$semestre,$ano)
 
         $verifica_registro = db_query($query_verifica_registro, $query_verifica_registro__p);
 
-        if (count(db_fetch_row($verifica_registro)) == 1) {
+        if (!db_fetch_row($verifica_registro)) { // turma ainda nao gravada
             $query_insere="insert into oferta_lista_sigra values (?,?,?,?,?,?,'sem reserva',?,?,?)"; $query_insere__p = array($codigo_mat1, $array_mat1[$i]['turma'], $array_mat1[$i]['vagas'], $array_mat1[$i]['turno'], $array_mat1[$i]['horarios'], $array_mat1[$i]['sala'], $semestre, $ano, $coduser);
 
             echo "<br>Insere nova Turma: ".$query_insere."<br>";
@@ -1254,7 +1204,9 @@ while($registro=db_fetch_row($query_lista))
  echo "<BR>";
 	if (count($professores)!=1)
 		{
-		$coduser=$array_prof_exercicio[$disciplina][$turma];
+		// Sem professor de exercicio definido para a turma: usa o primeiro da lista
+		// (antes o insert com professor vazio falhava e a turma ficava de fora).
+		$coduser=isset($array_prof_exercicio[$disciplina][$turma]) ? $array_prof_exercicio[$disciplina][$turma] : (current(array_filter($professores, 'strlen')) ?: 0);
 		}
 	else
 		{
