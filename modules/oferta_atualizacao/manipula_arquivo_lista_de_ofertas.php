@@ -1,82 +1,82 @@
 <?php
 //Equival�ncia de c�digo do SIGAA para o SIGRA
 //
-$codigos_disciplinas_sigaa[MAT0002] = '105317';
-$codigos_disciplinas_sigaa[MAT0006] = '113825';
-$codigos_disciplinas_sigaa[MAT0010] = '105881';
-$codigos_disciplinas_sigaa[MAT0022] = '113018';
-$codigos_disciplinas_sigaa[MAT0023] = '113026';
-$codigos_disciplinas_sigaa[MAT0025] = '113034';
-$codigos_disciplinas_sigaa[MAT0026] = '113042';
-$codigos_disciplinas_sigaa[MAT0027] = '113051';
-$codigos_disciplinas_sigaa[MAT0028] = '113069';
-$codigos_disciplinas_sigaa[MAT0031] = '113093';
-$codigos_disciplinas_sigaa[MAT0034] = '113107';
-$codigos_disciplinas_sigaa[MAT0038] = '113115';
-$codigos_disciplinas_sigaa[MAT0039] = '113123';
-$codigos_disciplinas_sigaa[MAT0040] = '113131';
-$codigos_disciplinas_sigaa[MAT0041] = '113158';
-$codigos_disciplinas_sigaa[MAT0045] = '113204';
-$codigos_disciplinas_sigaa[MAT0046] = '113212';
-$codigos_disciplinas_sigaa[MAT0047] = '113263';
-$codigos_disciplinas_sigaa[MAT0050] = '113328';
-$codigos_disciplinas_sigaa[MAT0053] = '113417';
-$codigos_disciplinas_sigaa[MAT0054] = '113433';
-$codigos_disciplinas_sigaa[MAT0057] = '113506';
-$codigos_disciplinas_sigaa[MAT0059] = '113522';
-$codigos_disciplinas_sigaa[MAT0060] = '113603';
-$codigos_disciplinas_sigaa[MAT0061] = '113611';
-$codigos_disciplinas_sigaa[MAT0066] = '113671';
-$codigos_disciplinas_sigaa[MAT0068] = '113689';
-$codigos_disciplinas_sigaa[MAT0069] = '113697';
-$codigos_disciplinas_sigaa[MAT0072] = '113808';
-$codigos_disciplinas_sigaa[MAT0075] = '113824';
-$codigos_disciplinas_sigaa[MAT0076] = '113832';
-$codigos_disciplinas_sigaa[MAT0077] = '113841';
-$codigos_disciplinas_sigaa[MAT0078] = '113859';
-$codigos_disciplinas_sigaa[MAT0080] = '113930';
-$codigos_disciplinas_sigaa[MAT0081] = '113948';
-$codigos_disciplinas_sigaa[MAT0082] = '113972';
-$codigos_disciplinas_sigaa[MAT0087] = '117013';
-$codigos_disciplinas_sigaa[MAT0091] = '117030';
-$codigos_disciplinas_sigaa[MAT0097] = '117056';
-$codigos_disciplinas_sigaa[MAT0098] = '117064';
-$codigos_disciplinas_sigaa[MAT0099] = '117072';
-$codigos_disciplinas_sigaa[MAT0100] = '117081';
-$codigos_disciplinas_sigaa[MAT0101] = '117099';
-$codigos_disciplinas_sigaa[MAT0102] = '117102';
-$codigos_disciplinas_sigaa[MAT0103] = '117111';
-$codigos_disciplinas_sigaa[MAT0105] = '117129';
-$codigos_disciplinas_sigaa[MAT0106] = '117137';
-$codigos_disciplinas_sigaa[MAT0107] = '117145';
-$codigos_disciplinas_sigaa[MAT0111] = '117161';
-$codigos_disciplinas_sigaa[MAT0114] = '117170';
-$codigos_disciplinas_sigaa[MAT0115] = '117293';
-$codigos_disciplinas_sigaa[MAT0117] = '117307';
-$codigos_disciplinas_sigaa[MAT0118] = '117323';
-$codigos_disciplinas_sigaa[MAT0119] = '117358';
-$codigos_disciplinas_sigaa[MAT0120] = '117412';
-$codigos_disciplinas_sigaa[MAT0122] = '117421';
-$codigos_disciplinas_sigaa[MAT0124] = '117439';
-$codigos_disciplinas_sigaa[MAT0125] = '117447';
-$codigos_disciplinas_sigaa[MAT0126] = '117455';
-$codigos_disciplinas_sigaa[MAT0127] = '117463';
-$codigos_disciplinas_sigaa[MAT0129] = '117471';
-$codigos_disciplinas_sigaa[MAT0131] = '117480';
-$codigos_disciplinas_sigaa[MAT0132] = '117498';
-$codigos_disciplinas_sigaa[MAT0134] = '117501';
-$codigos_disciplinas_sigaa[MAT0136] = '117510';
-$codigos_disciplinas_sigaa[MAT0137] = '113034';
-$codigos_disciplinas_sigaa[MAT0139] = '139';
-$codigos_disciplinas_sigaa[MAT0140] = '140';
-$codigos_disciplinas_sigaa[MAT0141] = '141';
-$codigos_disciplinas_sigaa[MAT0142] = '200142';
-$codigos_disciplinas_sigaa[MAT0143] = '200143';
-$codigos_disciplinas_sigaa[MAT0144] = '200144';
-$codigos_disciplinas_sigaa[MAT0163] = '163';
-$codigos_disciplinas_sigaa[MAT0164] = '164';
-$codigos_disciplinas_sigaa[MAT0166] = '166';
-$codigos_disciplinas_sigaa[MAT0174] = '174';
+$codigos_disciplinas_sigaa['MAT0002'] = '105317';
+$codigos_disciplinas_sigaa['MAT0006'] = '113825';
+$codigos_disciplinas_sigaa['MAT0010'] = '105881';
+$codigos_disciplinas_sigaa['MAT0022'] = '113018';
+$codigos_disciplinas_sigaa['MAT0023'] = '113026';
+$codigos_disciplinas_sigaa['MAT0025'] = '113034';
+$codigos_disciplinas_sigaa['MAT0026'] = '113042';
+$codigos_disciplinas_sigaa['MAT0027'] = '113051';
+$codigos_disciplinas_sigaa['MAT0028'] = '113069';
+$codigos_disciplinas_sigaa['MAT0031'] = '113093';
+$codigos_disciplinas_sigaa['MAT0034'] = '113107';
+$codigos_disciplinas_sigaa['MAT0038'] = '113115';
+$codigos_disciplinas_sigaa['MAT0039'] = '113123';
+$codigos_disciplinas_sigaa['MAT0040'] = '113131';
+$codigos_disciplinas_sigaa['MAT0041'] = '113158';
+$codigos_disciplinas_sigaa['MAT0045'] = '113204';
+$codigos_disciplinas_sigaa['MAT0046'] = '113212';
+$codigos_disciplinas_sigaa['MAT0047'] = '113263';
+$codigos_disciplinas_sigaa['MAT0050'] = '113328';
+$codigos_disciplinas_sigaa['MAT0053'] = '113417';
+$codigos_disciplinas_sigaa['MAT0054'] = '113433';
+$codigos_disciplinas_sigaa['MAT0057'] = '113506';
+$codigos_disciplinas_sigaa['MAT0059'] = '113522';
+$codigos_disciplinas_sigaa['MAT0060'] = '113603';
+$codigos_disciplinas_sigaa['MAT0061'] = '113611';
+$codigos_disciplinas_sigaa['MAT0066'] = '113671';
+$codigos_disciplinas_sigaa['MAT0068'] = '113689';
+$codigos_disciplinas_sigaa['MAT0069'] = '113697';
+$codigos_disciplinas_sigaa['MAT0072'] = '113808';
+$codigos_disciplinas_sigaa['MAT0075'] = '113824';
+$codigos_disciplinas_sigaa['MAT0076'] = '113832';
+$codigos_disciplinas_sigaa['MAT0077'] = '113841';
+$codigos_disciplinas_sigaa['MAT0078'] = '113859';
+$codigos_disciplinas_sigaa['MAT0080'] = '113930';
+$codigos_disciplinas_sigaa['MAT0081'] = '113948';
+$codigos_disciplinas_sigaa['MAT0082'] = '113972';
+$codigos_disciplinas_sigaa['MAT0087'] = '117013';
+$codigos_disciplinas_sigaa['MAT0091'] = '117030';
+$codigos_disciplinas_sigaa['MAT0097'] = '117056';
+$codigos_disciplinas_sigaa['MAT0098'] = '117064';
+$codigos_disciplinas_sigaa['MAT0099'] = '117072';
+$codigos_disciplinas_sigaa['MAT0100'] = '117081';
+$codigos_disciplinas_sigaa['MAT0101'] = '117099';
+$codigos_disciplinas_sigaa['MAT0102'] = '117102';
+$codigos_disciplinas_sigaa['MAT0103'] = '117111';
+$codigos_disciplinas_sigaa['MAT0105'] = '117129';
+$codigos_disciplinas_sigaa['MAT0106'] = '117137';
+$codigos_disciplinas_sigaa['MAT0107'] = '117145';
+$codigos_disciplinas_sigaa['MAT0111'] = '117161';
+$codigos_disciplinas_sigaa['MAT0114'] = '117170';
+$codigos_disciplinas_sigaa['MAT0115'] = '117293';
+$codigos_disciplinas_sigaa['MAT0117'] = '117307';
+$codigos_disciplinas_sigaa['MAT0118'] = '117323';
+$codigos_disciplinas_sigaa['MAT0119'] = '117358';
+$codigos_disciplinas_sigaa['MAT0120'] = '117412';
+$codigos_disciplinas_sigaa['MAT0122'] = '117421';
+$codigos_disciplinas_sigaa['MAT0124'] = '117439';
+$codigos_disciplinas_sigaa['MAT0125'] = '117447';
+$codigos_disciplinas_sigaa['MAT0126'] = '117455';
+$codigos_disciplinas_sigaa['MAT0127'] = '117463';
+$codigos_disciplinas_sigaa['MAT0129'] = '117471';
+$codigos_disciplinas_sigaa['MAT0131'] = '117480';
+$codigos_disciplinas_sigaa['MAT0132'] = '117498';
+$codigos_disciplinas_sigaa['MAT0134'] = '117501';
+$codigos_disciplinas_sigaa['MAT0136'] = '117510';
+$codigos_disciplinas_sigaa['MAT0137'] = '113034';
+$codigos_disciplinas_sigaa['MAT0139'] = '139';
+$codigos_disciplinas_sigaa['MAT0140'] = '140';
+$codigos_disciplinas_sigaa['MAT0141'] = '141';
+$codigos_disciplinas_sigaa['MAT0142'] = '200142';
+$codigos_disciplinas_sigaa['MAT0143'] = '200143';
+$codigos_disciplinas_sigaa['MAT0144'] = '200144';
+$codigos_disciplinas_sigaa['MAT0163'] = '163';
+$codigos_disciplinas_sigaa['MAT0164'] = '164';
+$codigos_disciplinas_sigaa['MAT0166'] = '166';
+$codigos_disciplinas_sigaa['MAT0174'] = '174';
 //Fim das equival�ncias de c�digos do SIGAA para o SIGRA
 
 
@@ -85,8 +85,8 @@ function monta_array_profs()
  $query_profs=db_query("select name,firstname from users where tipo_users='professor' order by name", array());
 $i=0;
 $devolve=array();
-$acentos=array(á,à,ã,é,è,ê,í,ó,ò,õ,ô,ö,ú,ù,ç);
-$letras=array(a,a,a,e,e,e,i,o,o,o,o,o,u,u,c);
+$acentos=array('á','à','ã','é','è','ê','í','ó','ò','õ','ô','ö','ú','ù','ç');
+$letras=array('a','a','a','e','e','e','i','o','o','o','o','o','u','u','c');
 while ($registro=db_fetch_row($query_profs))
       {
       $registro_0=implode(explode(" ",$registro[0]));
@@ -104,8 +104,8 @@ return $devolve;
 
 function procura_prof($array_prof,$prof)
 {
-$acentos=array(Á,À,Ã,É,È,Ê,Í,Ó,Ò,Õ,Ô,Ö,Ú,Ù,Ç);
-$letras=array(A,A,A,E,E,E,I,O,O,O,O,O,U,U,C);
+$acentos=array('Á','À','Ã','É','È','Ê','Í','Ó','Ò','Õ','Ô','Ö','Ú','Ù','Ç');
+$letras=array('A','A','A','E','E','E','I','O','O','O','O','O','U','U','C');
 echo "<br> em procura_prof:".h($prof)."<br>"; // $prof vem do arquivo enviado (lista SAA)
 $prof_sem_acentos=str_replace($acentos,$letras,$prof);
 echo "<br>sem acentos em procura_prof: ".h($prof_sem_acentos)."<br>";
@@ -143,17 +143,17 @@ foreach ($array as $key => $value) {
 
 function decide_o_que_e_linha($disciplinas,$linha)
 {
-$turmas_disc_outros_campi=array(113018 => array(J), 113034 => array(Q,R,AA,BB,CC,DD), 113042 => array(N,AA,BB,CC), 113051 => array(AA,BB), 113093 => array(AA,BB,CC));
+$turmas_disc_outros_campi=array(113018 => array('J'), 113034 => array('Q','R','AA','BB','CC','DD'), 113042 => array('N','AA','BB','CC'), 113051 => array('AA','BB'), 113093 => array('AA','BB','CC'));
 //Inclusao de novas turmas no C1. Mudanca feita por Jose Antonio.
-$turmas=array(A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,AF,CH,HO,DM,GK,AB,SA,SB,SC,SD,SE,SF,SG,SH,SI,SJ,SK,SL,SM,SN);
+$turmas=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AF','CH','HO','DM','GK','AB','SA','SB','SC','SD','SE','SF','SG','SH','SI','SJ','SK','SL','SM','SN');
 //$turmas=array(A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z);
-$dias=array(Segunda,Terça,Quarta,Quinta,Sexta,Sábado);
-$acentos=array(á,à,ã,é,è,ê,í,ó,ò,õ,ô,ö,ú,ù,ç);
-$letras=array(a,a,a,e,e,e,i,o,o,o,o,o,u,u,c);
-$lista_de_salas=array(ICC,PAT,BAES,PJC,FA,"BSA S");
-$lista_de_blocos=array(AT,BT,A1,"ANF.",B1,CSS,B2,A2,"ASS");
-$dias_si=array(Segunda=>2,Terça=>3,Quarta=>4,Quinta=>5,Sexta=>6,Sábado=>7);
-$titulos=array(Turma,Vagas,Turno,dia,inicio,fim,Local,Professores,"Reserva/Vagas",Obs);
+$dias=array('Segunda','Terça','Quarta','Quinta','Sexta','Sábado');
+$acentos=array('á','à','ã','é','è','ê','í','ó','ò','õ','ô','ö','ú','ù','ç');
+$letras=array('a','a','a','e','e','e','i','o','o','o','o','o','u','u','c');
+$lista_de_salas=array('ICC','PAT','BAES','PJC','FA',"BSA S");
+$lista_de_blocos=array('AT','BT','A1',"ANF.",'B1','CSS','B2','A2',"ASS");
+$dias_si=array('Segunda'=>2,'Terça'=>3,'Quarta'=>4,'Quinta'=>5,'Sexta'=>6,'Sábado'=>7);
+$titulos=array('Turma','Vagas','Turno','dia','inicio','fim','Local','Professores',"Reserva/Vagas",'Obs');
 
 // deve retornar dizendo se é um:
 // nova disciplina
@@ -175,9 +175,9 @@ return $devolve;
 function testa_sala($linha,$k)
 {
 $devolve=array();
-$lista_de_salas=array(ICC,PAT,BAES,PJC,FA,BSA);
-$lista_de_blocos=array(AT,BT,A1,"ANF.",B1,CSS,B2,A2,"ASS");
-$lista_de_locais=array(S);
+$lista_de_salas=array('ICC','PAT','BAES','PJC','FA','BSA');
+$lista_de_blocos=array('AT','BT','A1',"ANF.",'B1','CSS','B2','A2',"ASS");
+$lista_de_locais=array('S');
 
 $p=$k;
 //$sala=$linha[$k];
@@ -395,25 +395,25 @@ $creditos=array();
 $turmas_a_incluir=array();
 $num_a_incluir=0;
 
-$turmas_disc_outros_campi=array(113018 => array(J), 113034 => array(Q,R,AA,BB,CC,DD), 113042 => array(N,AA,BB,CC), 113051 => array(AA,BB), 113093 => array(AA,BB,CC));
+$turmas_disc_outros_campi=array(113018 => array('J'), 113034 => array('Q','R','AA','BB','CC','DD'), 113042 => array('N','AA','BB','CC'), 113051 => array('AA','BB'), 113093 => array('AA','BB','CC'));
 
 //Inclusao de novas turmas no C1. Mudanca feita por Jose Antonio.
-$turmas=array(A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,AF,CH,HO,DM,GK,AB,SA,SB,SC,SD,SE,SF,SG,SH,SI,SJ,SK,SL,SM,SN);
+$turmas=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AF','CH','HO','DM','GK','AB','SA','SB','SC','SD','SE','SF','SG','SH','SI','SJ','SK','SL','SM','SN');
 //$turmas=array(A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z);
 //$dias=array(Segunda,Terça,Quarta,Quinta,Sexta,Sábado);
-$dias=array(Segunda,Terça,Quarta,Quinta,Sexta,Sábado);
+$dias=array('Segunda','Terça','Quarta','Quinta','Sexta','Sábado');
 
-$acentos=array(á,à,ã,é,è,ê,í,ó,ò,õ,ô,ö,ú,ù,ç);
-$letras=array(a,a,a,e,e,e,i,o,o,o,o,o,u,u,c);
+$acentos=array('á','à','ã','é','è','ê','í','ó','ò','õ','ô','ö','ú','ù','ç');
+$letras=array('a','a','a','e','e','e','i','o','o','o','o','o','u','u','c');
 
-$lista_de_salas=array(ICC,PAT,BAES,PJC,FA,"BSA S");
-$lista_de_blocos=array(AT,BT,A1,"ANF.",B1,CSS,B2,A2);
+$lista_de_salas=array('ICC','PAT','BAES','PJC','FA',"BSA S");
+$lista_de_blocos=array('AT','BT','A1',"ANF.",'B1','CSS','B2','A2');
 
-$dias_si=array(Segunda=>2,Terça=>3,Quarta=>4,Quinta=>5,Sexta=>6,Sábado=>7);
+$dias_si=array('Segunda'=>2,'Terça'=>3,'Quarta'=>4,'Quinta'=>5,'Sexta'=>6,'Sábado'=>7);
 
-$titulos=array(Turma,Vagas,Turno,dia,inicio,fim,Local,Professores,"Reserva/Vagas",Obs);
+$titulos=array('Turma','Vagas','Turno','dia','inicio','fim','Local','Professores',"Reserva/Vagas",'Obs');
 
-$proibidos=array(Universidade,Secretaria,Lista,"IE-MAT","----------------------------------------------",Turma,"000","004","006","010","008","002","005",Observações,"(*)",lstofelst,Disciplinas,lstofedlp,DEPARTAMENTO,Período,Orgão,Nome,$ano."/".$semestre,Disciplina,Professor);
+$proibidos=array('Universidade','Secretaria','Lista',"IE-MAT","----------------------------------------------",'Turma',"000","004","006","010","008","002","005",'Observações',"(*)",'lstofelst','Disciplinas','lstofedlp','DEPARTAMENTO','Período','Orgão','Nome',$ano."/".$semestre,'Disciplina','Professor');
 
 $num_turmas_SI=0;
 
@@ -576,7 +576,7 @@ return $devolve;
 
 function trata_horario($dia,$hora_inicio,$hora_fim)
 {
-$dias_si=array(Segunda=>2,Terça=>3,Quarta=>4,Quinta=>5,Sexta=>6,Sábado=>7);
+$dias_si=array('Segunda'=>2,'Terça'=>3,'Quarta'=>4,'Quinta'=>5,'Sexta'=>6,'Sábado'=>7);
 foreach ($dias_si as $key => $value)
 	{
 	if ($dia==$key) {$devolve_dia=$value; break;}
@@ -597,8 +597,8 @@ return $devolve;
 function _existe_prof_na_linha($k,$linha,$profs_si)  // teste para ver se ha um prof na linha
 {
 set_time_limit(60);
-$acentos=array(Á,À,Ã,É,È,Ê,Í,Ó,Ò,Õ,Ô,Ö,Ú,Ù,Ç);
-$letras=array(A,A,A,E,E,E,I,O,O,O,O,O,U,U,C);
+$acentos=array('Á','À','Ã','É','È','Ê','Í','Ó','Ò','Õ','Ô','Ö','Ú','Ù','Ç');
+$letras=array('A','A','A','E','E','E','I','O','O','O','O','O','U','U','C');
 $key=0;
 $devolve=array();
 $resto_linha="";
@@ -1032,8 +1032,8 @@ function monta_array_de_profs()
     $query_profs=db_query("select name,firstname,coduser,matricul from users where tipo_users='professor' order by name", array());
     $i=0;
     $devolve=array();
-    $acentos=array(á,à,ã,é,è,ê,í,ó,ò,õ,ô,ö,ú,ù,ç);
-    $letras=array(a,a,a,e,e,e,i,o,o,o,o,o,u,u,c);
+    $acentos=array('á','à','ã','é','è','ê','í','ó','ò','õ','ô','ö','ú','ù','ç');
+    $letras=array('a','a','a','e','e','e','i','o','o','o','o','o','u','u','c');
     while ($registro=db_fetch_row($query_profs))
           {
 
