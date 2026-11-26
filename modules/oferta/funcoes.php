@@ -472,6 +472,8 @@ $num_dados=db_num_rows($query_dados);
 }
 
 
+// Desativada: o rodizio noturno nao e mais calculado por esta funcao.
+/*
 function atualiza_rodizio_noturno($semestre, $ano){
 	$disciplinas_magistrais = array('113018', '113034');
 
@@ -597,6 +599,7 @@ function atualiza_rodizio_noturno($semestre, $ano){
 		}
 	}
 }
+*/
 
 function atualiza_rodizio_noturno_antiga($semestre,$ano)
 {

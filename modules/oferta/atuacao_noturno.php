@@ -61,7 +61,7 @@ if (!ctype_digit((string)$semestre) || !ctype_digit((string)$ano)) {
 
 //if ($mes_atual<6) and $semestre
 
-atualiza_rodizio_noturno($semestre,$ano);
+// atualiza_rodizio_noturno($semestre,$ano); // desativada em funcoes.php
 
 //if ($semestre==1) {$ano_anterior=$ano-1;$semestre_anterior=2;} else {$ano_anterior=$ano;$semestre_anterior=1;}
 //1-

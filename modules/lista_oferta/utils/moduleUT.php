@@ -88,8 +88,8 @@ class ModuleUT {
 	static public function updateNightShift($semester) {
 		global $ROOT_PATH_MAIN;
 
-		require_once $ROOT_PATH_MAIN.'modules/oferta/funcoes.php';
-
-		atualiza_rodizio_noturno($semester->semester, $semester->year);
+		// atualiza_rodizio_noturno() foi desativada em modules/oferta/funcoes.php.
+		// require_once $ROOT_PATH_MAIN.'modules/oferta/funcoes.php';
+		// atualiza_rodizio_noturno($semester->semester, $semester->year);
 	}
 }
