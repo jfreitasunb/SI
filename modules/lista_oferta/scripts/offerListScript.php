@@ -377,10 +377,13 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 	$tempOfferList = $oltMC->getListWithDisciplineWithoutProfessorsOfSemester($semester);
 	$tempOfferList = MagisterialUT::adjustClassList($tempOfferList);
 
+	// Creditos de todas as turmas sem professor: base dos creditos que ficam sem preencher.
 	$classes = array();
+	$creditsToFill = 0;
 	foreach ($tempOfferList as $class) {
 		if (strlen($class->professor) == 0) {
 			$classes[$class->discipline . '-' . $class->period][$class->id] = $class;
+			$creditsToFill += $class->discipline_credits;
 		}
 	}
 
@@ -598,7 +601,8 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 
 	echo "<pre>Tentativas: $attemptsRun" . ($stoppedEarly ? " (parou apos $OFFER_LIST_ATTEMPTS_WITHOUT_IMPROVEMENT sem melhora)" : "");
 	echo "\nTurmas Preenchidas: " . count($solutionBest);
-	echo "\nCr&eacute;ditos Preenchidos: $creditsCountBest\n";
+	echo "\nCr&eacute;ditos Preenchidos: $creditsCountBest";
+	echo "\nCr&eacute;ditos N&atilde;o Preenchidos: " . ($creditsToFill - $creditsCountBest) . "\n";
 
 	foreach (optionsSummary($optionsBest, $solutionBest, $professorsByOption) as $line) {
 		echo "\n" . $line;
