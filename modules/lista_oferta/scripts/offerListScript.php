@@ -276,9 +276,9 @@ function isBetterDistribution($count, $credits, $options, $countBest, $creditsBe
 
 // Linhas "Opcao N" do resultado: percentual dos pedidos da opcao que foram atendidos.
 // Um pedido e a N-esima escolha de um professor; e atendido se ele recebeu ao menos
-// uma turma dela.
-function optionsSummary($optionsBest, $solutionBest, $professorsByOption) {
-	$served = array();
+// uma turma dela, na distribuicao ou antes dela ($initialServed).
+function optionsSummary($optionsBest, $solutionBest, $professorsByOption, $initialServed) {
+	$served = $initialServed;
 	foreach ($solutionBest as $solution) {
 		$served[$solution->level][$solution->professor] = true;
 	}
@@ -400,6 +400,23 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 			foreach ($professor->choices as $order => $choice) {
 				if (isset($professorsByOption[$order])) {
 					$professorsByOption[$order]++;
+				}
+			}
+		}
+	}
+
+	// Pedidos ja atendidos antes do script: turmas que o professor ja tinha de uma
+	// disciplina que ele escolheu. Ficam [opcao][professor] => true, como em optionsSummary.
+	$initialServed = array();
+	foreach ($listProfessors as $professor) {
+		if (isset($professor->choices) && isset($professor->classes)) {
+			foreach ($professor->classes as $class) {
+				$key = $class->discipline . '-' . $class->period;
+				foreach ($professor->choices as $order => $choice) {
+					if ($choice->discipline == $key) {
+						$initialServed[$order][$professor->id] = true;
+						break;
+					}
 				}
 			}
 		}
@@ -604,7 +621,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 	echo "\nCr&eacute;ditos Preenchidos: $creditsCountBest";
 	echo "\nCr&eacute;ditos N&atilde;o Preenchidos: " . ($creditsToFill - $creditsCountBest) . "\n";
 
-	foreach (optionsSummary($optionsBest, $solutionBest, $professorsByOption) as $line) {
+	foreach (optionsSummary($optionsBest, $solutionBest, $professorsByOption, $initialServed) as $line) {
 		echo "\n" . $line;
 	}
 	echo "</pre>";
