@@ -60,3 +60,8 @@ RUN pear install HTML_Template_Sigma-1.4.0 \
 
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
+
+# O PHP-FPM roda como www-data. Com o mesmo uid/gid do dono do projeto no host,
+# ele consegue gravar nas pastas montadas em /var/www (ex.: uploads em
+# modules/oferta_atualizacao/listas_SAA) e os arquivos criados ficam do usuario.
+RUN groupmod -o -g ${uid} www-data && usermod -o -u ${uid} -g ${uid} www-data
