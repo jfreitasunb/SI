@@ -7,7 +7,18 @@
       "Port": 5432,
       "MaintenanceDB": "si",
       "Username": "si",
-      "SSLMode": "prefer"
+      "SSLMode": "prefer",
+      "PassFile": "/pgpass"
+    },
+    "2": {
+      "Name": "si (admin)",
+      "Group": "Servers",
+      "Host": "db",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "si",
+      "SSLMode": "prefer",
+      "PassFile": "/pgpass"
     }
   }
 }

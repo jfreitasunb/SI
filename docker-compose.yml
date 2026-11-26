@@ -46,13 +46,18 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-si}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no arquivo .env}
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-jota@pgadmin.org}
+    # O pgAdmin guarda os arquivos de cada usuario em storage/<email com @ trocado por _>.
+    # O pgpass vale para qualquer banco (*), para que o servidor "si (admin)", que se
+    # conecta pelo banco postgres, consiga apagar/recriar o banco si.
     entrypoint:
       - sh
       - -c
       - |
-        mkdir -p /var/lib/pgadmin/storage/pgadmin4_pgadmin.org/
-        printf 'db:5432:si:%s:%s\n' "$$POSTGRES_USER" "$$POSTGRES_PASSWORD" > /var/lib/pgadmin/storage/pgadmin4_pgadmin.org/pgpass
-        chmod 600 /var/lib/pgadmin/storage/pgadmin4_pgadmin.org/pgpass
+        dir=/var/lib/pgadmin/storage/$$(echo "$$PGADMIN_DEFAULT_EMAIL" | tr '@' '_')
+        mkdir -p "$$dir"
+        printf 'db:5432:*:%s:%s\n' "$$POSTGRES_USER" "$$POSTGRES_PASSWORD" > "$$dir/pgpass"
+        chmod 600 "$$dir/pgpass"
         chown -R pgadmin /var/lib/pgadmin
     volumes:
       - pgadmin_data:/var/lib/pgadmin
