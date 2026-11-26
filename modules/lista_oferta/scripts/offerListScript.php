@@ -429,6 +429,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 
 	$attemptsWithoutImprovement = 0;
 	$stoppedEarly = false;
+	$bestAttempt = 0;
 
 	$PROF['setup'] = microtime(true) - $PROF['start']; // MEDICAO TEMPORARIA
 	for ($j = 0; $j < $OFFER_LIST_QUANTITY_ATTEMPTS; $j++) {
@@ -546,6 +547,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 			$optionsBest = $options;
 			$distributionReportBest = $distributionReport;
 			$attemptsWithoutImprovement = 0;
+			$bestAttempt = $j + 1;
 		} else {
 			$attemptsWithoutImprovement++;
 		}
@@ -616,7 +618,8 @@ if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
 		}
 	}
 
-	echo "<pre>Tentativas: $attemptsRun" . ($stoppedEarly ? " (parou apos $OFFER_LIST_ATTEMPTS_WITHOUT_IMPROVEMENT sem melhora)" : "");
+	echo "<pre>Tentativas: $attemptsRun (melhor na $bestAttempt"
+		. ($stoppedEarly ? "; parou ap&oacute;s $OFFER_LIST_ATTEMPTS_WITHOUT_IMPROVEMENT sem melhora" : "") . ")";
 	echo "\nTurmas Preenchidas: " . count($solutionBest);
 	echo "\nCr&eacute;ditos Preenchidos: $creditsCountBest";
 	echo "\nCr&eacute;ditos N&atilde;o Preenchidos: " . ($creditsToFill - $creditsCountBest) . "\n";
