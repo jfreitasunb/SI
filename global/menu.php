@@ -16,20 +16,34 @@
    if (!$identification)
    {
 ?>
-     <script language="javascript">
-       document.location.href="../index.php"
-     </script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    window.top.location.href = "../index.php";
+  </script>
+</head>
+<body></body>
+</html>
 <?php
        exit; // Previne vazamento de informações da tela
    }
+
+   csrf_token();
+   $idconn = null;
 ?>
-<html>
-  <head>
-    <script language="JavaScript" src="menu2.js"></script>
-    <link type="text/css" rel="stylesheet" href="grafic.css">
-  </head>
-  <body>
-    <table class="big">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu — SI</title>
+  <script src="menu2.js"></script>
+  <link type="text/css" rel="stylesheet" href="grafic.css?v=<?php echo (int)@filemtime(__DIR__ . '/grafic.css'); ?>">
+</head>
+<body>
+  <table class="big">
     <tr>
       <td class="header">
         <h1 align="center">Menu</h1>
@@ -37,22 +51,20 @@
     </tr>
     <tr valign="top">
       <td>
-        <a href="accueil.php" target="right" class="menu"><B>P&aacute;gina principal</B></a>
-        <br>
-        <form method="post" action="logout.php" target="_top" style="display:inline;margin:4px 0;">
+        <p>
+          <a href="accueil.php" target="right" class="menu"><b>Página principal</b></a>
+        </p>
+        <form method="post" action="logout.php" target="_top" style="margin: 8px 0 12px;">
           <?php echo csrf_campo(); ?>
-          <button type="submit" class="menu" style="cursor:pointer;">Sair</button>
+          <button type="submit">Sair</button>
         </form>
-        <br>
-        <script type="text/JavaScript">
-          Aff(parent.menu);
+        <script>
+          if (parent && parent.menu && typeof Aff === 'function') {
+            Aff(parent.menu);
+          }
         </script>
       </td>
     </tr>
-    </table> 
-  </body>
+  </table>
+</body>
 </html>
-<?php
-  // Fechando conexão PDO
-  $idconn = null;
-?>
