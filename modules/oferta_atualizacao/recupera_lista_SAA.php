@@ -151,155 +151,112 @@ if (!in_array($semestre, array('0', '1', '2'), true) || !preg_match('/^\d{4}$/',
 
 
 // Pasta onde o arquivo vai ser salvo (relativa ao modulo, sem caminho fixo de usuario)
-$_UP['pasta'] = __DIR__ . '/listas_SAA/';
+$pasta = __DIR__ . '/listas_SAA/';
+$tamanho_maximo = 1024 * 1024 * 2; // 2 MB
+$nome_final = "lista_de_ofertas_".$semestre."_".$ano.".txt";
 
-// Tamanho máximo do arquivo (em Bytes)
-$_UP['tamanho'] = 1024 * 1024 * 2; // 2Mb
+$erros_upload = array(
+	UPLOAD_ERR_INI_SIZE   => 'o arquivo &eacute; maior do que o limite do servidor',
+	UPLOAD_ERR_FORM_SIZE  => 'o arquivo &eacute; maior do que o limite do formul&aacute;rio',
+	UPLOAD_ERR_PARTIAL    => 'o envio foi interrompido no meio',
+	UPLOAD_ERR_NO_FILE    => 'nenhum arquivo foi escolhido',
+	UPLOAD_ERR_NO_TMP_DIR => 'o servidor n&atilde;o tem pasta tempor&aacute;ria para uploads',
+	UPLOAD_ERR_CANT_WRITE => 'o servidor n&atilde;o conseguiu gravar o arquivo',
+	UPLOAD_ERR_EXTENSION  => 'uma extens&atilde;o do PHP bloqueou o envio',
+);
 
-// Array com as extensões permitidas
-$_UP['extensoes'] = array('txt');
+// Mensagem final: $erro (HTML ja escapado) se algo falhou; senao $sucesso e $avisos.
+$erro = '';
+$sucesso = '';
+$avisos = array();
 
-// Renomeia o arquivo? (Se true, o arquivo será salvo como .jpg e um nome único)
-$_UP['renomeia'] = true;
+$arquivo = isset($_FILES['arquivo']) ? $_FILES['arquivo'] : null;
+$codigo_erro = ($arquivo && isset($arquivo['error'][0])) ? (int)$arquivo['error'][0] : UPLOAD_ERR_NO_FILE;
 
-// Array com os tipos de erros de upload do PHP
-$_UP['erros'][0] = 'N&atilde;o houve erro';
-$_UP['erros'][1] = 'O arquivo no upload &eacute; maior do que o limite do PHP';
-$_UP['erros'][2] = 'O arquivo ultrapassa o limite de tamanho especifiado no HTML';
-$_UP['erros'][3] = 'O upload do arquivo foi feito parcialmente';
-$_UP['erros'][4] = 'N&atilde;o foi feito o upload do arquivo';
+if ($codigo_erro !== UPLOAD_ERR_OK) {
+	$erro = "N&atilde;o foi poss&iacute;vel enviar o arquivo: "
+		. (isset($erros_upload[$codigo_erro]) ? $erros_upload[$codigo_erro] : "erro ".$codigo_erro) . ".";
+} elseif (strtolower(pathinfo($arquivo['name'][0], PATHINFO_EXTENSION)) !== 'txt') {
+	$erro = "Envie o arquivo .txt da lista de ofertas exportado do SIGAA.";
+} elseif ($arquivo['size'][0] > $tamanho_maximo) {
+	$erro = "O arquivo enviado &eacute; muito grande; o limite &eacute; 2 MB.";
+} elseif (!upload_mime_ok($arquivo['tmp_name'][0], 'txt')) {
+	$erro = "O conte&uacute;do do arquivo n&atilde;o &eacute; texto; envie o .txt exportado do SIGAA.";
+} elseif (!move_uploaded_file($arquivo['tmp_name'][0], $pasta.$nome_final)) {
+	$erro = "O servidor n&atilde;o conseguiu gravar o arquivo na pasta listas_SAA; verifique a permiss&atilde;o de escrita.";
+} elseif (!testa_arquivo_sigaa($semestre, $ano, $nome_final)) {
+	@unlink($pasta.$nome_final);
+	$erro = "O arquivo n&atilde;o parece ser a lista de ofertas do SIGAA: ele precisa conter as disciplinas MAT0025, MAT0022 e MAT0010.";
+}
 
-$tipo=array("lstofelst","lstofedlp");
-
-// tabela admin_anexos: id_documento, numero_anexo, nome_arquivo
-//for ($i=0;$i<2;$i++)
-for ($i=0;$i<1;$i++) //CORRIGIDO EM 18/12/2014
-	{
+if ($erro === '') {
 	set_time_limit(60);
-	$j=$i+1;
-	if (!empty($_FILES['arquivo']['name'][$i]))
-		{
-		//############### CASO ESTEJA PRONTO PARA UPLOAD
-		// Verifica se houve algum erro com o upload. Se sim, exibe a mensagem do erro
-		if ($_FILES['arquivo']['error'][$i] != 0)
-			{
-			die("N&atilde;o foi poss&iacute;vel fazer o upload, erro:<br />" . $_UP['erros'][$_FILES['arquivo']['error'][$i]]);
-			exit; // Para a execução do script
-			}
-	 	// Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
+	$pdo = db_connect();
+	// Tudo numa transacao: se uma etapa falhar, nada fica gravado pela metade.
+	db_lanca_excecoes(true);
+	$etapa = "lendo o arquivo";
+	try {
+		$pdo->beginTransaction();
 
-		// Faz a verificação da extensão do arquivo
-		$extensao = strtolower(pathinfo($_FILES['arquivo']['name'][$i], PATHINFO_EXTENSION));
-		if (array_search($extensao, $_UP['extensoes']) === false)
-			{
-			echo "Por favor, envie arquivos com as seguintes extens&otilde;es: txt";
-			}
-
-		// Faz a verificação do tamanho do arquivo
-			else if ($_UP['tamanho'] < $_FILES['arquivo']['size'][$i])
-			{
-			echo "O arquivo enviado &eacute; muito grande, envie arquivos de at&eacute; 2Mb.";
-			}
-
-		// Verifica se o conteudo do arquivo confere com a extensao (anti-disfarce)
-			else if (!upload_mime_ok($_FILES['arquivo']['tmp_name'][$i], $extensao))
-			{
-			echo "O conte&uacute;do do arquivo n&atilde;o confere com a extens&atilde;o informada.";
-			}
-
-		// O arquivo passou em todas as verificações, hora de tentar movê-lo para a pasta
-			else {
-		// Primeiro verifica se deve trocar o nome do arquivo
-				if ($_UP['renomeia'] == true)
-					{
-		// Cria um nome baseado no UNIX TIMESTAMP atual e com extensão .jpg
-					if ($i==0) $nome_final = "lista_de_ofertas_".$semestre."_".$ano.".".$extensao;
-					//if ($i==1) $nome_final = "lista_carga_professor_".$semestre."_".$ano.".".$extensao; //CORRIGIDO EM 18/12/2014
-					//echo $nome_final;
-					} else
-					{
-		// Mantém o nome original do arquivo (sanitizado: sem caminho nem caracteres perigosos)
-					$nome_final = preg_replace('/[^A-Za-z0-9._-]/', '_', basename($_FILES['arquivo']['name'][$i]));
-					}
-
-		// Depois verifica se é possível mover o arquivo para a pasta escolhida
-//echo $nome_final;
-				if (move_uploaded_file($_FILES['arquivo']['tmp_name'][$i], $_UP['pasta'].$nome_final))
-					{
-		// Upload efetuado com sucesso, exibe uma mensagem e um link para o arquivo; insere ponteiro na tabela
-					echo "<br>Upload efetuado com sucesso!<br>";
-					if (testa_arquivo_sigaa($semestre,$ano,$nome_final,$tipo[$i]))
-						{
-						echo "<BR> Testando arquivos <BR>";
-						echo "O arquivo ".$j." e tipo ".$tipo[$i]."<BR><BR>";
-						$manipula[$i]=TRUE;
-						$nome[$i]=$nome_final;
-						}
-					else
-						{
-						@unlink($_UP['pasta'].$nome_final);
-						echo "<BR><BR> O arquivo carregado ".$j." nao e compativel com o tipo ".$tipo[$i]." de arquivo desejado<br>";
-						echo "<BR> Favor repetir a operacao<BR><BR>";
-						$manipula[$i]=FALSE;
-						}
-					}
-					else
-					{
-		// Não foi possível fazer o upload, provavelmente a pasta está incorreta
-					echo "<BR> N&atilde;o foi poss&iacute;vel enviar o arquivo ".$j.", tente novamente <BR>";
-					}
-
-			     }
-
+		$array_linhas = manipula_arquivo_sigaa_atualiza_lista($semestre, $ano, $nome_final);
+		if (!count($array_linhas)) {
+			throw new RuntimeException("nenhuma turma do MAT foi encontrada no arquivo.");
 		}
+
+		$etapa = "gravando as turmas (oferta_lista_sigra)";
+		db_query("delete from oferta_lista_sigra where semestre=? and ano=?", array($semestre, $ano));
+		$sigra = processa_linhas_sigaa($array_linhas, $semestre, $ano);
+
+		$etapa = "registrando os cr&eacute;ditos do rod&iacute;zio noturno";
+		$rodizio = registra_rodizio_noturno_sigaa($array_linhas, $semestre, $ano);
+
+		$etapa = "montando a lista do e-mural (oferta_lista_de_ofertas)";
+		db_query("delete from oferta_lista_de_ofertas where semestre=? and ano=?", array($semestre, $ano));
+		monta_ofertas_emural($semestre, $ano);
+
+		$etapa = "atualizando oferta_semestres";
+		atualiza_oferta_semestres($semestre, $ano);
+
+		$pdo->commit();
+
+		$sucesso = "Lista de ofertas ".h($semestre)."/".h($ano)." atualizada com sucesso: "
+			. $sigra['turmas']." registro(s) de turma gravado(s). Rod&iacute;zio noturno: "
+			. $rodizio['inseridos']." cr&eacute;dito(s) novo(s), ".$rodizio['existentes']." j&aacute; existia(m).";
+		$avisos = array_values(array_unique(array_merge($sigra['avisos'], $rodizio['ignorados'])));
+	} catch (Throwable $e) {
+		if ($pdo->inTransaction()) {
+			$pdo->rollBack();
+		}
+		error_log("recupera_lista_SAA ($semestre/$ano, $etapa): " . $e->getMessage());
+		$erro = "A lista ".h($semestre)."/".h($ano)." n&atilde;o foi atualizada e nada foi alterado no banco. "
+			. "O erro ocorreu ".$etapa.": ".h($e->getMessage());
 	}
-
-//if ($manipula[0] and $manipula[1])
-if ($manipula[0]) //CORRIGIDO EM 18/12/2014
-	{
-echo "<BR> Manipulando os arquivos <BR>";
-set_time_limit(60);
-// processa lista de ofertas:
-	$array_linhas=manipula_arquivo_sigaa_atualiza_lista($semestre,$ano,$nome[0]);
-        $query_limpa=db_query("delete from oferta_lista_sigra where semestre=? and ano=?", array($semestre, $ano)) or die("problema de acesso ao banco");
-	$processadas=processa_linhas_sigaa($array_linhas,$semestre,$ano);
-
-echo "<BR> Registrando os cr&eacute;ditos do rod&iacute;zio noturno <BR>";
-	$rodizio=registra_rodizio_noturno_sigaa($array_linhas,$semestre,$ano);
-	echo "Inseridos: ".$rodizio['inseridos']." | J&aacute; existentes: ".$rodizio['existentes']."<BR>";
-	foreach ($rodizio['ignorados'] as $motivo) {
-		echo "N&atilde;o registrado: ".h($motivo)."<BR>";
-	}
-
-	//CORRIGIDO EM 18/12/2014
-	/*
-	 *	SUBSTITUIR PELA FUNÇAÕ QUE ANALISA A CARGA EM TURMAS MAGISTRAIS A PARTIR A DA LISTA DE OFERTA DO SIGRA
-// manipula arquivo de carga:
-        $lista_arquivo=manipula_arquivo_atualiza_lista($semestre,$ano,$nome[1]);
-//        echo " cria array de profs<br>";
-        $array_profs=monta_array_de_profs();
-        $query_limpa=db_query("delete from oferta_carga_professor where semestre=? and ano=?", array($semestre, $ano)) or die ("problema de acesso ao banco");
-//        echo "<BR>".$query_limpa."<BR>";
-        $melhora_lista=melhora_lista_carga($array_profs,$lista_arquivo,$semestre,$ano);
-//        echo $melhora_lista;
-	*/
-
-echo "<BR> Atualizando a lista de ofertas para o e-mural <BR>";
-        $query_limpa=db_query("delete from oferta_lista_de_ofertas where semestre=? and ano=?", array($semestre, $ano)) or die ("problema de acesso ao banco");
-	$monta_emural=monta_ofertas_emural($semestre,$ano);
-
-echo "<BR> Atualizando a tabela oferta_semestres <BR>";
-	$atualiza_oferta_semestres=atualiza_oferta_semestres($semestre,$ano);
-echo "<BR> Atualiza&ccedil;&otilde;es efetuadas.<BR>";
-        }
-
+	db_lanca_excecoes(false);
+}
+// O topo da pagina (titulo "Departamento de Matematica" e a tabela .form) ja foi
+// impresso acima, para o formulario e para o resultado; aqui entram so as linhas.
+// A tabela .form usa fonte de 10px (grafic.css): o resultado usa uma maior.
+$estilo = 'style="font-size: 16px; line-height: 1.5; padding: 8px 12px;"';
 ?>
-</table>
-</td></tr>
+		<tr><td class=header align=center><h1>Corre&ccedil;&atilde;o da Lista de Oferta de Disciplinas</h1></td></tr>
+<?php if ($erro !== '') { ?>
+		<tr><td <?php echo $estilo; ?>><b>Erro:</b> <?php echo $erro; ?></td></tr>
+<?php } else { ?>
+		<tr><td <?php echo $estilo; ?>><?php echo $sucesso; ?></td></tr>
+<?php if (count($avisos)) { ?>
+		<tr><td <?php echo $estilo; ?>><b>Avisos (<?php echo count($avisos); ?>):</b><ul>
+<?php foreach ($avisos as $aviso) { ?>
+			<li><?php echo h($aviso); ?></li>
+<?php } ?>
+		</ul></td></tr>
+<?php } ?>
+<?php } ?>
+		<tr><td align=center <?php echo $estilo; ?>><a href="recupera_lista_SAA.php">Voltar</a></td></tr>
+	</table>
+	</td></tr>
 </table>
 </body>
 </html>
-
 <?php
 }
 

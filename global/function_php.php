@@ -158,8 +158,24 @@ function db_query($sql, array $params = array(), $pdo = null)
         return new DbResult($stmt);
     } catch (PDOException $e) {
         error_log("db_query: " . $e->getMessage() . " | SQL: " . $sql);
+        if (db_lanca_excecoes()) {
+            throw new RuntimeException("Erro no banco: " . $e->getMessage(), 0, $e);
+        }
         die(error());
     }
+}
+
+// Por padrao, um erro em db_query() encerra a pagina com error(). Uma pagina que
+// trata os erros (ex.: dentro de uma transacao, para desfazer e explicar o que houve)
+// chama db_lanca_excecoes(true) e passa a receber RuntimeException. Sem argumento,
+// so informa o modo atual.
+function db_lanca_excecoes($ativar = null)
+{
+    static $ativo = false;
+    if ($ativar !== null) {
+        $ativo = (bool)$ativar;
+    }
+    return $ativo;
 }
 
 // Escapa um valor para ser embutido com segurança numa SQL montada dinamicamente
