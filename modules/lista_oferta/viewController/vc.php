@@ -76,7 +76,10 @@ abstract class VC {
 		$this->tplMain = new HTML_Template_Sigma($this->root_path.'template/header_footer');
 		$this->tplMain->loadTemplateFile('main.tpl');
 
-		$this->useCSS($this->root_main."global/gra"."fic.css", FALSE);
+		$graficPath = dirname(dirname(dirname($this->root_path))).'/global/gra'.'fic.css';
+		$graficVer = @filemtime($graficPath);
+		$graficUrl = $this->root_main."global/gra"."fic.css".($graficVer ? "?v=".(int)$graficVer : "");
+		$this->useCSS($graficUrl, FALSE);
 		$this->useCSS("generic.css");
 	}
 
@@ -193,6 +196,9 @@ abstract class VC {
 				$this->tplMain->parse('add_external_js');
 			}
 		}
+
+		// Aplica tema institucional UnB por ultimo para estilizar jQuery UI, DataTables e telas do modulo
+		$this->useCSS("unb-theme.css");
 
 		if (count($this->css)) {
 			foreach ($this->css as $css) {
@@ -398,10 +404,15 @@ abstract class VC {
 	}
 
 	protected function useCSS($css, $rootPathCSS = TRUE) {
-		if (!$this->hasCSS($css, $rootPathCSS)) {
-			if ($rootPathCSS) {
-				$this->css[] = $this->root."css/".$css;
-			} else {
+		if ($rootPathCSS) {
+			$localFile = $this->root_path."css/".$css;
+			$ver = @filemtime($localFile);
+			$url = $this->root."css/".$css.($ver ? "?v=".(int)$ver : "");
+			if (!in_array($url, $this->css)) {
+				$this->css[] = $url;
+			}
+		} else {
+			if (!in_array($css, $this->css)) {
 				$this->css[] = $css;
 			}
 		}
