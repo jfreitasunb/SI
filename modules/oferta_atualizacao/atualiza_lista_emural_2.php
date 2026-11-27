@@ -78,11 +78,11 @@ while($registro_0=db_fetch_row($query_disciplinas))
 		{
 		?>
 		<tr VALIGN=CENTER BGCOLOR="<?php echo $cor_de_fundo;?>">
-		<td><?php echo h($registro[0])."-".h($Disciplinas[$registro[0]]);?></td>
+		<td><?php echo h($registro[0])."-".h(isset($Disciplinas[$registro[0]]) ? $Disciplinas[$registro[0]] : "");?></td>
 		<td><?php echo h($registro[1]);?></td>
-		<td><?php echo h($nome[$coduser[$i]]);?></td> 
+		<td><?php echo h(isset($nome[$coduser[$i]]) ? $nome[$coduser[$i]] : "");?></td> 
 		<?php
-		if($LO_prof[$registro[0]][$registro[1]]==$coduser[$i]){$ex="exerc.";$checked="checked";}else{$checked="";$ex="teoria";};
+		if(isset($LO_prof[$registro[0]][$registro[1]]) && $LO_prof[$registro[0]][$registro[1]]==$coduser[$i]){$ex="exerc.";$checked="checked";}else{$checked="";$ex="teoria";};
 		?>
 			<td><?php echo $ex;?></td>
 			<td><input type=radio name='e_mural[<?php echo h($registro[0]);?>][<?php echo h($registro[1]);?>]' <?php echo $checked;?> value="<?php echo h($coduser[$i]);?>"></td>

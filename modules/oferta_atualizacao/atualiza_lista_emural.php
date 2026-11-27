@@ -1,8 +1,6 @@
 <?php
 require("head_oferta.php");
 
-$ordena=$_POST['ordena'];
-
 ?>
 
 <html>
