@@ -354,9 +354,11 @@ abstract class VC {
 	}
 
 	protected function useJS($js) {
-		$js = $this->root."js/".$js;
-		if (!$this->hasJS($js)) {
-			$this->externalJS[] = $js;
+		$localFile = $this->root_path."js/".$js;
+		$ver = @filemtime($localFile);
+		$url = $this->root."js/".$js.($ver ? "?v=".(int)$ver : "");
+		if (!$this->hasJS($url)) {
+			$this->externalJS[] = $url;
 		}
 	}
 

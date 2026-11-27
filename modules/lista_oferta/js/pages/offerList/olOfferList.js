@@ -509,6 +509,125 @@ $( function() {
 
 
 
+	// Registra a ordem original (alfabetica) para restaurar ao mostrar todos ou limpar selecao
+	var origClassGroups = $("#classes > .class_group").toArray();
+	origClassGroups.forEach(function(groupEl, gIdx) {
+		$(groupEl).data("orig-group-index", gIdx);
+		$(groupEl).children(".class").each(function(cIdx, classEl) {
+			$(classEl).data("orig-group", groupEl);
+			$(classEl).data("orig-group-index", gIdx);
+			$(classEl).data("orig-class-index", cIdx);
+		});
+	});
+	$("#professors > .professor").each(function(pIdx, profEl) {
+		$(profEl).data("orig-prof-index", pIdx);
+	});
+
+	function getPriority($el) {
+		for (var p = 1; p <= 6; p++) {
+			if ($el.hasClass("option" + p)) {
+				return p;
+			}
+		}
+		if ($el.hasClass("selected")) {
+			return 7;
+		}
+		return 999;
+	}
+
+	function restoreClassesOrder() {
+		var $priorityGroups = $("#classes > .class_group.priority-group");
+		if ($priorityGroups.length === 0) {
+			return;
+		}
+
+		var allClasses = $("#classes .class").toArray();
+		allClasses.sort(function(a, b) {
+			var $a = $(a), $b = $(b);
+			var gDiff = ($a.data("orig-group-index") || 0) - ($b.data("orig-group-index") || 0);
+			if (gDiff !== 0) return gDiff;
+			return ($a.data("orig-class-index") || 0) - ($b.data("orig-class-index") || 0);
+		});
+
+		allClasses.forEach(function(classEl) {
+			var origGroup = $(classEl).data("orig-group");
+			if (origGroup) {
+				$(origGroup).append(classEl);
+			}
+		});
+
+		$priorityGroups.remove();
+	}
+
+	function sortClassesByPriority() {
+		restoreClassesOrder();
+
+		var visibleClasses = $("#classes .class:not(.hide)").toArray();
+		if (visibleClasses.length === 0) {
+			return;
+		}
+
+		visibleClasses.sort(function(a, b) {
+			var $a = $(a), $b = $(b);
+			var pDiff = getPriority($a) - getPriority($b);
+			if (pDiff !== 0) return pDiff;
+			var gDiff = ($a.data("orig-group-index") || 0) - ($b.data("orig-group-index") || 0);
+			if (gDiff !== 0) return gDiff;
+			return ($a.data("orig-class-index") || 0) - ($b.data("orig-class-index") || 0);
+		});
+
+		var fragment = document.createDocumentFragment();
+		var currentKey = null;
+		var currentGroup = null;
+
+		visibleClasses.forEach(function(classEl) {
+			var $el = $(classEl);
+			var key = getPriority($el) + "|" + ($el.data("discipline") || $el.data("orig-group-index"));
+			if (key !== currentKey) {
+				currentKey = key;
+				currentGroup = $('<div class="class_group priority-group"></div>')[0];
+				fragment.appendChild(currentGroup);
+			}
+			currentGroup.appendChild(classEl);
+		});
+
+		$("#classes").prepend(fragment).scrollTop(0);
+	}
+
+	function restoreProfessorsOrder() {
+		var $container = $("#professors");
+		var $comment = $container.children(".comment");
+		var profs = $container.children(".professor").toArray();
+		profs.sort(function(a, b) {
+			return ($(a).data("orig-prof-index") || 0) - ($(b).data("orig-prof-index") || 0);
+		});
+		profs.forEach(function(profEl) {
+			$container.append(profEl);
+		});
+		if ($comment.length) {
+			$container.append($comment);
+		}
+	}
+
+	function sortProfessorsByPriority() {
+		var $container = $("#professors");
+		var $comment = $container.children(".comment");
+		var profs = $container.children(".professor").toArray();
+		profs.sort(function(a, b) {
+			var $a = $(a), $b = $(b);
+			var pDiff = getPriority($a) - getPriority($b);
+			if (pDiff !== 0) return pDiff;
+			return ($a.data("orig-prof-index") || 0) - ($b.data("orig-prof-index") || 0);
+		});
+		profs.forEach(function(profEl) {
+			$container.append(profEl);
+		});
+		if ($comment.length) {
+			$container.append($comment);
+		}
+		$container.scrollTop(0);
+	}
+
 	var hidden = false;
 	$("#hide_unselected_professors").click(function(event) {
 		if (hidden) {
@@ -532,11 +651,16 @@ $( function() {
 			$('#professors .professor').removeClass('hide');
 			if (push && hidden) {
 				$("#professors .professor:not(.option1,.option2,.option3,.option4,.option5,.option6,.selected)").addClass('hide');
+				sortProfessorsByPriority();
+			} else {
+				restoreProfessorsOrder();
 			}
 		} else {
+			restoreClassesOrder();
 			$('#classes .class').removeClass('hide');
 			if (push && hidden) {
 				$("#classes .class:not(.option1,.option2,.option3,.option4,.option5,.option6,.selected)").addClass('hide');
+				sortClassesByPriority();
 			}
 		}
 	}
