@@ -209,29 +209,13 @@ function db_last_error($c = null)    { return ''; }
 function error($error="")
 {
     if (empty($error)) {
-        $error = "This maybe come to the server. Please try again in a few minutes and contact an administrator if the probleme go on.";
+        $error = "Ocorreu um erro no servidor. Tente novamente em alguns instantes e, se o problema persistir, contate o administrador.";
     }
-    
+
     // Evita XSS (Cross-Site Scripting) na exibição da mensagem
     $safe_error = htmlspecialchars($error, ENT_QUOTES, 'UTF-8');
-?>
-<html>
-  <body>
-    <table width="100%" height="100%" bgcolor="#aaaaaa">
-    <tr valign="bottom" height="50%">
-      <td align="center">
-        <h1><b>An error has occured.</b></h1>
-      </td>
-    </tr>
-    <tr valign="top">
-      <td align="center">
-        <?php echo $safe_error; ?>
-      </td>
-    </tr>
-    </table>
-  </body>
-</html>
-<?php
+    require_once __DIR__ . '/layout.php';
+    si_render_error($safe_error);
 }
 
 

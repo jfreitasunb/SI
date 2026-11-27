@@ -1106,6 +1106,192 @@ body.si-home-body {
 }
 
 /* ==========================================================================
+   Padronizacao de Modulos Legados e Componentes Reutilizaveis (Fase 4)
+   ========================================================================== */
+
+/* Suaviza atributos bgcolor antigos em relatorios legados */
+tr[bgcolor="#00BFFF"],
+tr[bgcolor="#00bfff"],
+tr[bgcolor="#00BFFF" i] {
+  background-color: var(--unb-blue-soft) !important;
+}
+
+tr[bgcolor="#CCCCCC"],
+tr[bgcolor="#cccccc"],
+tr[bgcolor="#E0E0E0"],
+tr[bgcolor="#e0e0e0"],
+tr[bgcolor="#E6E6E6"],
+tr[bgcolor="#e6e6e6"],
+tr[bgcolor="#CFCFBB"],
+tr[bgcolor="#cfcfbb"] {
+  background-color: var(--si-surface-muted) !important;
+}
+
+tr[bgcolor="#FFFFFF"],
+tr[bgcolor="#ffffff"] {
+  background-color: var(--si-surface) !important;
+}
+
+/* Tabelas legadas com atributo border (ex.: relatorios de usuarios e redes) */
+table[border],
+table.form[border] {
+  border: 1px solid var(--si-border);
+  border-collapse: collapse;
+}
+
+table[border] > tbody > tr > td,
+table[border] > tbody > tr > th,
+table[border] > tr > td,
+table[border] > tr > th {
+  border: 1px solid var(--si-border);
+  padding: 8px 11px;
+}
+
+/* Normaliza tags <font> legadas preservando cores semanticas */
+font {
+  font-family: var(--si-font);
+}
+
+/* Selects multi-linha (size > 1) */
+select[size]:not([size="1"]) {
+  padding: 4px;
+  min-height: 110px;
+}
+
+/* Layout compartilhado (global/layout.php) */
+.si-page-card {
+  max-width: 1180px;
+  margin: 0 auto;
+  background: var(--si-surface);
+  border: 1px solid var(--si-border);
+  border-radius: var(--si-radius);
+  box-shadow: var(--si-shadow);
+  overflow: hidden;
+}
+
+.si-page-header {
+  background: linear-gradient(135deg, var(--unb-blue) 0%, var(--unb-blue-mid) 100%);
+  color: #ffffff;
+  padding: 18px 24px;
+  border-bottom: 3px solid var(--unb-green);
+}
+
+.si-page-header h1 {
+  color: #ffffff;
+  font-size: 1.28rem;
+  margin: 0;
+}
+
+.si-page-header p {
+  margin: 4px 0 0;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.si-page-content {
+  padding: 20px 24px 24px;
+}
+
+/* Alertas reutilizaveis (si_alerta) */
+.si-alert {
+  padding: 12px 15px;
+  border-radius: var(--si-radius-sm);
+  border: 1px solid var(--si-border);
+  font-size: 13.5px;
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+
+.si-alert--info {
+  background: var(--unb-blue-soft);
+  border-color: #b7cde3;
+  color: var(--unb-blue-dark);
+}
+
+.si-alert--success {
+  background: var(--unb-green-soft);
+  border-color: #b7dec9;
+  color: var(--unb-green-dark);
+}
+
+.si-alert--warning {
+  background: #fef9c3;
+  border-color: #fde047;
+  color: #854d0e;
+}
+
+.si-alert--error {
+  background: var(--si-danger-bg);
+  border-color: var(--si-danger-border);
+  color: var(--si-danger);
+}
+
+/* Pagina de erro global (error() / si_render_error()) */
+body.si-error-body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--si-bg);
+}
+
+.si-error-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--si-surface);
+  border: 1px solid var(--si-border);
+  border-radius: var(--si-radius-lg);
+  box-shadow: var(--si-shadow);
+  overflow: hidden;
+}
+
+.si-error-header {
+  background: linear-gradient(135deg, var(--unb-blue) 0%, var(--unb-blue-mid) 100%);
+  color: #ffffff;
+  padding: 18px 24px;
+  border-bottom: 3px solid var(--si-danger);
+}
+
+.si-error-header h1 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.si-error-content {
+  padding: 22px 24px 24px;
+  color: var(--si-text);
+  font-size: 14px;
+}
+
+.si-error-actions {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.si-btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: var(--si-radius-sm);
+  background: var(--unb-blue);
+  color: #ffffff !important;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: background-color 0.15s ease;
+}
+
+.si-btn-link:hover {
+  background: var(--unb-blue-dark);
+}
+
+/* ==========================================================================
    Impressao
    ========================================================================== */
 @media print {

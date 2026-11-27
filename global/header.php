@@ -2,6 +2,7 @@
    require_once(dirname(__FILE__).'/sessao_cookie.php');
    session_start();
    include("function_php.php");
+   require_once(dirname(__FILE__).'/layout.php');
 
    $idconn = db_connect();
    $idmodule = isset($idmodule) ? $idmodule : null;
@@ -26,8 +27,8 @@
        exit;
    }
 
-   // Usuario autenticado: garante o token e injeta o campo oculto em todo
-   // <form method=post> da pagina automaticamente (synchronizer token).
+   // Usuario autenticado: garante o token, normaliza HTML legado (Fase 4)
+   // e injeta o campo oculto CSRF em todo <form method=post> da pagina.
    csrf_token();
-   ob_start('csrf_injeta');
+   ob_start('si_processa_html');
 ?>

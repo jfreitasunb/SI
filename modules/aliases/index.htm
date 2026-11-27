@@ -1,13 +1,101 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-<title>xxxxxxxxxx</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criação/Atualização de Aliases — SI</title>
+  <link type="text/css" rel="stylesheet" href="../../global/grafic.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: var(--si-bg, #f3f6f9);
+    }
+
+    .si-aliases-page {
+      height: 100%;
+      padding: 16px 20px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .si-aliases-card {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--si-surface, #ffffff);
+      border: 1px solid var(--si-border, #d0dbe6);
+      border-radius: var(--si-radius, 10px);
+      box-shadow: var(--si-shadow, 0 4px 14px rgba(0, 34, 68, 0.08));
+      overflow: hidden;
+    }
+
+    .si-aliases-header {
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--unb-blue, #003366) 0%, var(--unb-blue-mid, #004a8f) 100%);
+      color: #ffffff;
+      padding: 16px 24px;
+      text-align: center;
+      border-bottom: 3px solid var(--unb-green, #006633);
+    }
+
+    .si-aliases-header h1 {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .si-aliases-frame-top {
+      flex-shrink: 0;
+      width: 100%;
+      height: 86px;
+      border: 0;
+      border-bottom: 1px solid var(--si-border, #d0dbe6);
+      background: var(--si-surface-muted, #f7f9fc);
+    }
+
+    .si-aliases-frame-bottom {
+      flex: 1;
+      min-height: 0;
+      width: 100%;
+      border: 0;
+      background: var(--si-surface, #ffffff);
+    }
+
+    @media (max-width: 720px) {
+      .si-aliases-page {
+        padding: 10px 12px;
+      }
+
+      .si-aliases-frame-top {
+        height: 132px;
+      }
+    }
+  </style>
 </head>
-<FRAMESET ROWS="20% , 80%" FRAMEBORDER=NO FRAMESPACING=0 BORDER=0>
-    <FRAME NAME="linha1" SRC="pega_nome.php" NORESIZE target="linha2">
-    <FRAME NAME="linha2" SRC="cria_alias.php" NORESIZE scrolling="auto">    
-<noframes>
 <body>
+  <div class="si-aliases-page">
+    <div class="si-aliases-card">
+      <div class="si-aliases-header">
+        <h1>Criação/Atualização de Aliases para as contas de usuários</h1>
+      </div>
+      <iframe
+        name="linha1"
+        src="pega_nome.php"
+        class="si-aliases-frame-top"
+        title="Seleção de usuário"
+      ></iframe>
+      <iframe
+        name="linha2"
+        src="cria_alias.php"
+        class="si-aliases-frame-bottom"
+        title="Edição de alias"
+      ></iframe>
+    </div>
+  </div>
 </body>
-</noframes>
-</FRAMESET>
 </html>
