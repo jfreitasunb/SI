@@ -79,7 +79,7 @@ if ($_POST && isset($_POST["revive"]) && strcmp($semester->status, SemesterDAO::
 			$tempOfferList = MagisterialUT::adjustClassList($tempOfferList);
 
 			foreach ($tempOfferList as $class) {
-				if (strlen($class->professor) == 0) {
+				if (strlen((string)$class->professor) == 0) {
 					$missingProfessor++;
 				}
 			}
@@ -130,14 +130,18 @@ if (strcmp($semester->status, SemesterDAO::STATUS_CLOSED) == 0) {
 	$publicationsCreditsAboveThreshold = $grantedCreditsMC->publicationsCreditsAboveThreshold($semester, $semester->publications_threshold);
 
 
+	$totalCredits = (float)$graduationCredits + (float)$gcAll - (float)$semester->reduction_credits;
+	$professorsCount = count($users);
+	$meanCredits = $professorsCount > 0 ? ($totalCredits / $professorsCount) : 0;
+
 	$credits = new stdClass();
-	$credits->class_graduation = UtilUT::formatNumber($graduationCredits);
-	$credits->class_post = UtilUT::formatNumber($gcPostClass);
-	$credits->other = UtilUT::formatNumber($gcAll - $gcPostClass);
-	$credits->total = UtilUT::formatNumber($graduationCredits + $gcAll - $semester->reduction_credits);
-	$credits->professors = UtilUT::formatNumber(count($users));
-	$credits->mean = UtilUT::formatNumber($credits->total / $credits->professors);
-	$credits->publications_credits_above_threshold = UtilUT::formatNumber($publicationsCreditsAboveThreshold);
+	$credits->class_graduation = UtilUT::formatNumber((float)$graduationCredits);
+	$credits->class_post = UtilUT::formatNumber((float)$gcPostClass);
+	$credits->other = UtilUT::formatNumber((float)$gcAll - (float)$gcPostClass);
+	$credits->total = UtilUT::formatNumber($totalCredits);
+	$credits->professors = UtilUT::formatNumber($professorsCount);
+	$credits->mean = UtilUT::formatNumber($meanCredits);
+	$credits->publications_credits_above_threshold = UtilUT::formatNumber((float)$publicationsCreditsAboveThreshold);
 
 	$stages = $semesterMC->stages();
 	$vc = new MSDetailsVC();

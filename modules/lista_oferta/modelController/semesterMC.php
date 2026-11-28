@@ -70,7 +70,7 @@ class SemesterMC extends MC {
 		$update["status"] = $semester->status;
 		$update["reduction_credits"] = $semester->reduction_credits;
 		$update["publications_threshold"] = $semester->publications_threshold;
-		if (isset($semester->average_credits) && strlen($semester->average_credits)) {
+		if (isset($semester->average_credits) && strlen((string)$semester->average_credits)) {
 			$update["average_credits"] = $semester->average_credits;
 		} else {
 			$update["average_credits"] = null;
@@ -79,9 +79,12 @@ class SemesterMC extends MC {
 		$filter = array();
 		$filter["id"] = $semester->id;
 
-        $return = $this->DAO->update($update, $filter);
+		$return = $this->DAO->update($update, $filter);
 
-		return $return;
+		if (count($return)) {
+			return $return[0];
+		}
+		return null;
 	}
 
 	/**
