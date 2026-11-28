@@ -81,7 +81,7 @@ function verif_mail(mail)
         var i=0;
          while((i<mail.length) && (valide))
         {
-                if( (mail.charAt(i)=="'")||(mail.charAt(i)==",")||(mail.charAt(i)=="é")||(mail.charAt(i)=="è")||(mail.charAt(i)=="~"))
+                if( (mail.charAt(i)=="'")||(mail.charAt(i)==",")||(mail.charAt(i)=="Ã©")||(mail.charAt(i)=="Ã¨")||(mail.charAt(i)=="~"))
                 {
                         valide=false;
                 }

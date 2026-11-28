@@ -37,13 +37,13 @@
             </td>
           </tr>
           <tr>
-            <td>Endere&cedil;o :</td>
+            <td>Endere&ccedil;o :</td>
             <td colspan=3>
               <input type=text name='adresse' maxlength=100>
             </td>
           </tr>
           <tr>
-             <td>C&ocute;digo Postal :</td>
+             <td>C&oacute;digo Postal :</td>
              <td>
                <input type=text name='cp' maxlength=10 onkeypress="return verif_touche(event);" >
              </td>
@@ -100,19 +100,19 @@
             </td>
           </tr>
           <tr>
-            <td>Número de matrícula :</td>
+            <td>NÃºmero de matrÃ­cula :</td>
             <td>
             <?php /* <input type=text name="matricul" maxlength=11  onkeypress="return verif_touche(event);">
             </td> */ ?>
 <input type=text name="matricul" maxlength=15 onBlur="if(document.formu.matricul.value.length<6){alert ('O Campo deve ter no minimo 6 caracteres.');document.formu.cpf.focus();}" onkeypress="return verif_touche(event);">
            </td>
-            <td>Número de CPF :</td>
+            <td>NÃºmero de CPF :</td>
             <td>
               <input type=text name='cpf' maxlength=14 onkeypress="return verif_touche(event);" onkeyup="if(event.keyCode!=8 && event.keyCode!=13){this.value = saisie_cpf(this.value);}" onfocus="if(document.formu.matricul.value.length<6){document.formu.matricul.focus();}" >
             </td>
           </tr>
           <tr>
-            <td>Número de Identidade:</td>
+            <td>NÃºmero de Identidade:</td>
             <td>
               <input type=text name='identity' maxlength=40>
 <?php
@@ -124,12 +124,12 @@
            <tr>
 	   <td align=center>
              	<table class=form>
-           	<tr><td class=header align=center colspan=3>Vínculo</td></tr>
+           	<tr><td class=header align=center colspan=3>VÃ­nculo</td></tr>
            	<tr>
 	   		<td>
 			<input type=button name='rights' value='Aluno' onclick="window.open('aluno.php?idmod=<?php echo rawurlencode(isset($_GET['idmod']) ? (string)$_GET['idmod'] : '') ?>','pop1','width=600,height=600');">
 			<input type=button name='rights' value='Convidados' onclick="window.open('convidado.php?idmod=<?php echo rawurlencode(isset($_GET['idmod']) ? (string)$_GET['idmod'] : '') ?>','pop1','width=600,height=600');">
-			<input type=button name='rights' value='Funcionário' onclick="window.open('funcionario.php?idmod=<?php echo rawurlencode(isset($_GET['idmod']) ? (string)$_GET['idmod'] : '') ?>','pop1','width=600,height=600');">
+			<input type=button name='rights' value='FuncionÃ¡rio' onclick="window.open('funcionario.php?idmod=<?php echo rawurlencode(isset($_GET['idmod']) ? (string)$_GET['idmod'] : '') ?>','pop1','width=600,height=600');">
 		</td>
 	  	</tr>
 	  	</table>

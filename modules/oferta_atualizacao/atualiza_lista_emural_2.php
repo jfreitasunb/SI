@@ -12,7 +12,7 @@ $ano=$periodo[1];
 // carga_prof: nome | coduser | codigo | nivel | turma_disc | creditos_disc | creditos_prof | matriculas_na_turma | semestre | ano 
 //$query_dados_carga=pg_query("select name||' '||firstname as nome,c.* from oferta_carga_professor c,users u where c.coduser=u.coduser and semestre='".$semestre."' and ano='".$ano."' and nivel='GR' order by codigo,turma_disc,creditos_prof") or die("problema de conexa 1 em atualiza_lista_emural_2.php");
 //
-// DEVE SER SUBSTITUÕDO PELA FUN«√O ANALISA_CARGA_PROF QUE DETERMINA A CARGA DOS PROFESSORES ENVOLVIDOS NAS DISCIPLINAS MAGISTRAIS; ISSO DEVE SER FEITO A APRTIR DA LO VINDA DO SIGRA.
+// DEVE SER SUBSTITU√çDO PELA FUN√á√ÉO ANALISA_CARGA_PROF QUE DETERMINA A CARGA DOS PROFESSORES ENVOLVIDOS NAS DISCIPLINAS MAGISTRAIS; ISSO DEVE SER FEITO A APRTIR DA LO VINDA DO SIGRA.
 //
 //
 
@@ -65,7 +65,7 @@ while($registro_0=db_fetch_row($query_disciplinas))
 	<?php
 	$cor_de_fundo="#ffffff";
 	$disc=0;
-	while ($registro=db_fetch_row($query_sigra))// USAR UMA ARRAY COM CHAVE SENDO O C”DIGO DA DISCIPLINA/TURMA corrigido em 20/12/2014
+	while ($registro=db_fetch_row($query_sigra))// USAR UMA ARRAY COM CHAVE SENDO O C√ìDIGO DA DISCIPLINA/TURMA corrigido em 20/12/2014
 		{
 		if ($disc===0) $disc=$registro[0].$registro[1]; 
 		if ($registro[0].$registro[1]!==$disc) 

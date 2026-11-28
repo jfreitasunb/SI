@@ -25,7 +25,7 @@ function relatorio($query_pesquisa,$host,$params = array())
 	</tr>
 	<td colspan=9 class=header align=center>
 	<tr>
-	<td>Respons&aacute;vel</td><td>Patrim&ohat;nio</td><td> IP </td><td> Local </td><td> host </td><td> MAC </td><td> Tipo </td><td> Ativo </td><td> Data de desativa&ccedil;&atilde;o </td>
+	<td>Respons&aacute;vel</td><td>Patrim&ocirc;nio</td><td> IP </td><td> Local </td><td> host </td><td> MAC </td><td> Tipo </td><td> Ativo </td><td> Data de desativa&ccedil;&atilde;o </td>
 	</tr> 
 	<?php
 	$j=0;
@@ -38,7 +38,7 @@ function relatorio($query_pesquisa,$host,$params = array())
 		$host_anterior_ex=explode("_",$host_anterior); 
 		$data_de_encerramento=explode("-",$dados['data_encerramento']);
 		$dados_host=explode("_",$dados['host']);
-		if ($dados_host[0]=="MAT") $nome="Maquina do MAT"; else $nome=mb_convert_encoding($dados['name'],"ISO-8859-1","UTF-8")." ".mb_convert_encoding($dados['firstname'],"ISO-8859-1","UTF-8");
+		if ($dados_host[0]=="MAT") $nome="Maquina do MAT"; else $nome=$dados['name']." ".$dados['firstname'];
 		$data_encerramento=$data_de_encerramento[2]."/".$data_de_encerramento[1]."/".$data_de_encerramento[0];
 		if ($dados['status']==1) $dados_status="sim"; else $dados_status="nao";
 		if ($cor_anterior=="#00BFFF") $nova_cor="#FFFFFF"; else $nova_cor="#00BFFF";

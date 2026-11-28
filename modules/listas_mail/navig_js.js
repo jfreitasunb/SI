@@ -1,15 +1,15 @@
 function precedent(i)
 {
-         //si i est égal à 0, c'est qu'on est sur la 1ère fiche et on ne peut pas aller plus loin
+         //si i est Ã©gal Ã  0, c'est qu'on est sur la 1Ã¨re fiche et on ne peut pas aller plus loin
          if(i==0)return i;
-         //sinon, on décrémente i pour passer à la fiche précédente
+         //sinon, on dÃ©crÃ©mente i pour passer Ã  la fiche prÃ©cÃ©dente
          else return i-1;
 }
 function suivant(i,nb_enreg)
 {
-         //si i est égal à nb_enreg, c'est qu'on est sur la dernière fiche et on ne peut pas aller plus loin
+         //si i est Ã©gal Ã  nb_enreg, c'est qu'on est sur la derniÃ¨re fiche et on ne peut pas aller plus loin
          if(i==nb_enreg)return i;
-         //sinon, on incrémente i pour passer à la fiche suivante
+         //sinon, on incrÃ©mente i pour passer Ã  la fiche suivante
          else return i+1;
 }
 

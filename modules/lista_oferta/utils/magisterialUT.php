@@ -10,9 +10,9 @@ require_once $ROOT_PATH.'modelController/offerListTemporaryMC.php';
 class MagisterialUT {
 
 	const THEORY_SHORT_DESCRIPTION = 'TEORIA';
-	const EXERCISE_SHORT_DESCRIPTION = 'EXERC&Iacute;CIO';
+	const EXERCISE_SHORT_DESCRIPTION = 'EXERCÍCIO';
 	const THEORY_DESCRIPTION = 'MAGISTRAL TEORIA';
-	const EXERCISE_DESCRIPTION = 'MAGISTRAL EXERC&Iacute;CIO';
+	const EXERCISE_DESCRIPTION = 'MAGISTRAL EXERCÍCIO';
 
 	/**
 	 * @param array $disciplineList

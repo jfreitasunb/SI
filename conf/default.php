@@ -11,8 +11,7 @@ $ROOT_PATH_MAIN = dirname(__FILE__)."/../";
 //$SITE = "http://e-mural.mat.unb.br/";
 $SITE = getenv('SI_SITE') ?: "http://192.168.122.36/";
 
-//$CHARSET = "UTF-8";
-$CHARSET = "ASCII";
+$CHARSET = "UTF-8";
 
 // Banco: mesma configuracao do resto do sistema (global/db_config.php ou
 // variaveis SI_DB_*; ver global/db_config_func.php). Nada de senha/host aqui.

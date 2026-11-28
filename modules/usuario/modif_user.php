@@ -18,7 +18,7 @@
   <form name="utilisateur" action="add_user2.php" method="POST">
   <tr>
       <td class=header align=center>
-        <h1>Modificação de Dados do Usuário</h1>
+        <h1>ModificaÃ§Ã£o de Dados do UsuÃ¡rio</h1>
       </td>
     </tr>
     <tr>
@@ -28,7 +28,7 @@
           <td class=header align=center colspan=2>Box :</td>
         </tr>
         <tr>
-          <td>Utilize o menu para selecionar o Usuário</td>
+          <td>Utilize o menu para selecionar o UsuÃ¡rio</td>
           <td>
 <?php
      list($query, $query__p) = array("select * from users order by name", array());
@@ -106,13 +106,13 @@
           </td>
         </tr>
         <tr>
-           <td>Endereço :</td>
+           <td>EndereÃ§o :</td>
            <td colspan=3>
              <input type=text name='adresse' maxlength=100>
            </td>
          </tr>
          <tr>
-           <td>Código Postal :</td>
+           <td>CÃ³digo Postal :</td>
            <td>
              <input type=text name='cp' maxlength=10 onkeypress="return verif_touche(event);">
            </td>
@@ -134,17 +134,17 @@
          </tr>
          <tr><td colspan=4><hr></td></tr>
          <tr>
-            <td>Número de matrícula :</td>
+            <td>NÃºmero de matrÃ­cula :</td>
             <td>
               <input type=text name='matricul' maxlength=15  onkeypress="return verif_touche(event);" onBlur="if(this.value.length<6){alert ('O Campo deve ter no minimo 6 caracteres.');this.focus();}">
             </td>
-            <td>Número de CPF :</td>
+            <td>NÃºmero de CPF :</td>
             <td>
               <input type=text name='cpf' maxlength=14 onkeypress="return verif_touche(event);" onkeyup="if(event.keyCode!=8 && event.keyCode!=13){this.value = saisie_cpf(this.value);}" onfocus="if(document.formu.matricul.value.length<6){document.formu.matricul.focus();}">
             </td>
           </tr>
           <tr>
-            <td>Número de identidade:</td>
+            <td>NÃºmero de identidade:</td>
             <td>
               <input type=text name='identity' maxlength=40>
             </td>
@@ -157,12 +157,12 @@
 <td align=center>
           <table class=form>
           <tr>
-            <td class=header align=center colspan=3>Vínculo</td>
+            <td class=header align=center colspan=3>VÃ­nculo</td>
           </tr>
            <td>
 		<input type=button name='rights' value='Aluno' onclick="window.open('aluno.php?idmod=<?php echo h($_GET['idmod']) ?>','pop1','width=600,height=600');">
 		<input type=button name='rights' value='Convidados' onclick="window.open('convidado.php?idmod=<?php echo h($_GET['idmod']) ?>','pop1','width=600,height=600');">
-		<input type=button name='rights' value='Funcionário' onclick="window.open('funcionario.php?idmod=<?php echo h($_GET['idmod']) ?>','pop1','width=600,height=600');">
+		<input type=button name='rights' value='FuncionÃ¡rio' onclick="window.open('funcionario.php?idmod=<?php echo h($_GET['idmod']) ?>','pop1','width=600,height=600');">
 	  </td>
            </table>
 </tr>

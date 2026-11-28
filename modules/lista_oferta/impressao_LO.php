@@ -49,7 +49,7 @@ foreach ($professorList as $professor) {
 
 foreach ($offerList as $offer) {
 	$obj = new stdClass();
-	$obj->activity = "Gradua&ccedil;&atildeo";
+	$obj->activity = "Graduação";
 	$obj->description = $offer->discipline_name;
 	$obj->code = $offer->discipline_id;
 	$obj->class = $offer->class;
@@ -83,7 +83,7 @@ if (count($grantedCreditsList)) {
 	foreach ($grantedCreditsList as $grantedCredit) {
 		$obj = new stdClass();
 		if (strcmp($grantedCredit->activity, GrantedCreditsDAO::ACTIVITY_POST_CLASS) == 0) {
-			$obj->activity = "P&oacute;s-Gradua&ccedil;&atilde;o";
+			$obj->activity = "Pós-Graduação";
 			$obj->description = $grantedCredit->discipline_name;
 			$obj->code = $grantedCredit->extra;
 		} else {
@@ -111,6 +111,7 @@ if (count($grantedCreditsList)) {
 		header('X-Content-Type-Options: nosniff');
 
 		$output = fopen('php://output', 'w');
+		fwrite($output, "\xEF\xBB\xBF");
 
 		fputcsv($output, array('Professor','Atividade','Descrição','Código','Turma','Turno','Horários','Carga','Total'));
 

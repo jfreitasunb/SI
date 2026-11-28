@@ -34,8 +34,8 @@ exige_escrita();
 $dado=$_POST['dado'];
 //for($i=0;$i<2; $i++)
 //{
-$insere=mb_convert_encoding($dado[0],"UTF-8");
-$titulo=mb_convert_encoding($dado[1],"UTF-8");
+$insere=$dado[0];
+$titulo=$dado[1];
 
 $query_admin_assinatura="insert into admin_assinatura values(default,'',?,?)"; $query_admin_assinatura__p = array($insere, $titulo);
 $result=db_query($query_admin_assinatura, $query_admin_assinatura__p);

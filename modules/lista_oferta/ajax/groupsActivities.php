@@ -26,10 +26,6 @@ if ($method && isset($method['group'])) {
 	$activitiesMC = new ActivitiesMC();
 	$listActivities = $activitiesMC->listByGroupAvailable($semester, $method['group']);
 
-	foreach ($listActivities as $activity) {
-		$activity->description = mb_convert_encoding($activity->description, "HTML-ENTITIES", $CHARSET);
-	}
-
 	$return->success = true;
 	$return->data = $listActivities;
 } else {

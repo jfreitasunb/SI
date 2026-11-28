@@ -139,7 +139,7 @@ function imprime_escolha_prof($coduser,$semestre,$ano)
 	<tr><td><b>Atua&ccedil;&atilde;o em disciplinas no esquema magistral:</b></td></tr>
         <tr><td><b>C&aacute;lculo 1:</b>  Teoria(<?php  echo $ck_c1_teoria;?>); Exerc&iacute;cios(<?php  echo $ck_c1_exos;?>)</td></tr>
         <tr><td><b>Matem&aacute;tica 1:</b>  Teoria(<?php  echo $ck_m1_teoria;?>); Exerc&iacute;cios(<?php  echo $ck_m1_exos;?>)</td></tr>
-        <tr><td><b>Introdu&ccedil;&atilde;o &agrave; Matem&aacutetica Superior:</b>  Teoria(<?php  echo $ck_ims_teoria;?>); Exerc&iacute;cios(<?php  echo $ck_ims_exos;?>)</td></tr>
+        <tr><td><b>Introdu&ccedil;&atilde;o &agrave; Matem&aacute;tica Superior:</b>  Teoria(<?php  echo $ck_ims_teoria;?>); Exerc&iacute;cios(<?php  echo $ck_ims_exos;?>)</td></tr>
         <tr><td><br><br></td></tr>
 
         </td>

@@ -13,7 +13,7 @@ include("manipula_arquivo_lista_de_ofertas.php");
 
 ------ para audios das atas
 1) O usuário faz o upload para um diretório específico;
-2) O usuário abre a tela do sistema, digita as informaçÃµes de data e outras coisas. O SI apresenta os arquivos que estão no diretório do servidor para o usuário selecionar qual ele enviou.
+2) O usuário abre a tela do sistema, digita as informações de data e outras coisas. O SI apresenta os arquivos que estão no diretório do servidor para o usuário selecionar qual ele enviou.
 3) Após confirmação do usuário, o SI renomeia o arquivo e muda ele para a pasta correta, onde o usuário não teria acesso nem via FTP.
 -------
 

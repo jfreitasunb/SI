@@ -45,8 +45,7 @@ function gera_alias($nome, $sobrenome)
 function checa_alias($alias)
 {
   $alias = retira_acentos($alias);
-  $alias_0 = str_replace(" ", ".", $alias);
-  $alias0 = mb_convert_encoding($alias_0, "UTF-8");
+  $alias0 = str_replace(" ", ".", $alias);
 
   $query_checa = "select * from aliases where alias=? or alias2=?";
   $query_checa__p = array($alias0, $alias0);
@@ -68,7 +67,7 @@ function grava_alias($coduser, $alias)
       http_response_code(400);
       die(error("Alias invalido: use apenas letras, numeros, ponto, hifen ou sublinhado."));
   }
-  $alias0 = mb_convert_encoding($alias_0, "UTF-8");
+  $alias0 = $alias_0;
 
   $query_banco = "select * from aliases where coduser=?";
   $query_banco__p = array($coduser);
@@ -101,7 +100,7 @@ function grava_alias($coduser, $alias)
       $query_aliases = db_query($pega_aliases, $pega_aliases__p);
       $res_aliases = db_fetch_array($query_aliases);
       $alias = ($res_aliases && isset($res_aliases['alias']))
-          ? mb_convert_encoding($res_aliases['alias'], "ISO-8859-1", "UTF-8")
+          ? $res_aliases['alias']
           : '';
       if (isset($_POST['alias2'])) {
           $alias2 = $_POST['alias2'];
@@ -110,7 +109,7 @@ function grava_alias($coduser, $alias)
           }
       } else {
           $alias2 = ($res_aliases && isset($res_aliases['alias2']))
-              ? mb_convert_encoding($res_aliases['alias2'], "ISO-8859-1", "UTF-8")
+              ? $res_aliases['alias2']
               : '';
       }
   }

@@ -66,12 +66,12 @@ $cor_anterior=$nova_cor;}
 
 		
 //coduser |  name  | firstname | matricul | cpf | identity | phone_work | phone_home |  adresse | cp | city | is_actif | tipo_users
-		$nome=mb_convert_encoding($dados['name'],"ISO-8859-1","UTF-8")." ".mb_convert_encoding($dados['firstname'],"ISO-8859-1","UTF-8");
+		$nome=$dados['name']." ".$dados['firstname'];
 		echo "<td align=\"left\" valign=\"top\"> <b>Nome:</b> " . h($nome) . " <br> \n"; 
 		if (!empty($dados_pessoais))
 		{
 		if (in_array("endereco_res", $dados_pessoais))
-			{$endereco=mb_convert_encoding($dados['adresse'],"ISO-8859-1","UTF-8").",".$dados['cp'].",".mb_convert_encoding($dados['city'],"ISO-8859-1","UTF-8");
+			{$endereco=$dados['adresse'].",".$dados['cp'].",".$dados['city'];
 			echo "<b>Endere&ccedil;o:</b> " . h($endereco) . " <br> \n"; 
 			}
 		if (in_array("e_mails", $dados_pessoais))
@@ -162,11 +162,10 @@ $cor_anterior=$nova_cor;}
 				{
 				if($dados['tipo_credenciamento']=="ambos") $tipo_credenciamento="mestrado e no doutorado"; else $tipo_credenciamento=$dados['tipo_credenciamento'];
 //				$orientador=mb_convert_encoding($dados['name'],"ISO-8859-1","UTF-8")." ".mb_convert_encoding($dados['firstname'],"ISO-8859-1","UTF-8")." credenciado para orientar no ".$tipo_credenciamento." at&eacute; ".$dados['fim_credenciamento'];
-				$orientador=" credenciado para orientar no ".$tipo_credenciamento." at&eacute; ".$dados['fim_credenciamento'];
+				$orientador=" credenciado para orientar no ".$tipo_credenciamento." até ".$dados['fim_credenciamento'];
 				} // fim incluido em 18/10/2018
 			if (!empty($dados['orientador_name']) and !empty($dados['orientador_firstname'])) 
-				{$orientador=mb_convert_encoding($dados['orientador_name'],"ISO-8859-1","UTF-8")." 
-".mb_convert_encoding($dados['orientador_firstname'],"ISO-8859-1","UTF-8");
+				{$orientador=$dados['orientador_name']." ".$dados['orientador_firstname'];
 				}
 			 else  if(!empty($dados['orientador_do_aluno']))
 				{
@@ -175,8 +174,7 @@ coduser=".db_quote($dados['orientador_do_aluno'])."";
 				 $query_orientateur=db_query($select_orientador);
 				 $orientador_pg=db_fetch_array($query_orientateur);
 				 if ($orientador_pg['name']=="root") $orientador="cpg"; else 
-$orientador=mb_convert_encoding($orientador_pg['name'],"ISO-8859-1","UTF-8")." 
-".mb_convert_encoding($orientador_pg['firstname'],"ISO-8859-1","UTF-8");
+$orientador=$orientador_pg['name']." ".$orientador_pg['firstname'];
 				}
 			
 			echo "<b>Orientador:</b> " . h($orientador) . " <br>\n"; 
@@ -207,8 +205,7 @@ std.formation,orientando.name";
 				for ($k=0; $k< $num_orientandos; $k++)			
 					{
 					$dados_do_orientando=$dados_orientandos[$k];
-					$orientando=mb_convert_encoding($dados_do_orientando['name'],"ISO-8859-1","UTF-8")."
-".mb_convert_encoding($dados_do_orientando['firstname'],"ISO-8859-1","UTF-8");
+					$orientando=$dados_do_orientando['name']." ".$dados_do_orientando['firstname'];
 					$matricula=$dados_do_orientando['matricul'];
 					$formacao=$dados_do_orientando['formation'];
 					$status_do_orientando=$dados_do_orientando['status'];

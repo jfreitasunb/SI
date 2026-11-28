@@ -41,10 +41,10 @@
      function add_user ()
      {
 
-	$nome=mb_convert_encoding($this->name,"UTF-8");
-        $sobrenome=mb_convert_encoding($this->firstname,"UTF-8");
-        $endereco=mb_convert_encoding($this->adresse,"UTF-8");
-        $cidade=mb_convert_encoding($this->city,"UTF-8");
+	$nome=$this->name;
+        $sobrenome=$this->firstname;
+        $endereco=$this->adresse;
+        $cidade=$this->city;
 
        $query="insert into users (name, firstname, matricul, cpf, identity, phone_home,\n                      phone_work, adresse, cp, city, is_actif,tipo_users)values(\n                      ?, ?,\n                      ?, ?,\n                      ?, ?,\n                      ?, ?,\n                      ?, ?, 'true',?)"; $query__p = array($nome, $sobrenome, $this->matricul, $this->cpf, $this->identity, $this->phone_home, $this->phone_work, $endereco, $this->cp, $cidade, $this->status_usuario);
       $result=db_query($query, $query__p);

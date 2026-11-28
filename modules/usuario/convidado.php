@@ -14,7 +14,7 @@
       <form method="POST" name="formu" action="add_user2.php" onsubmit="return controle_choix()">
       <tr>
         <td class=header align=center>
-          <h1>Visitantes</h1>Est·giarios, Convidados,Visitantes,...
+          <h1>Visitantes</h1>Est√°giarios, Convidados,Visitantes,...
         </td>
       </tr>
       <tr>
@@ -32,11 +32,11 @@
           </tr>
           <tr><td colspan=4><hr></td></tr>
           <tr>
-            <td>Data de Admiss„o :</td>
+            <td>Data de Admiss√£o :</td>
             <td>
               <input type=text name='phone_home' maxlength=15 onkeypress="return verif_touche(event);">
             </td>
-            <td>Data de SaÌda Prevista :</td>
+            <td>Data de Sa√≠da Prevista :</td>
             <td>
               <input type=text name='phone_work' maxlength=15 onkeypress="return verif_touche(event);">
             </td>

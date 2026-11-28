@@ -34,13 +34,13 @@ exige_escrita();
 $dado=$_POST['dado'];
 //for($i=0;$i<10; $i++)
 //{
-$nomedepartamento=mb_convert_encoding($dado[0],"UTF-8");
-$sigla=mb_convert_encoding($dado[1],"UTF-8");
-$descricao=mb_convert_encoding($dado[2],"UTF-8");
-$pessoadecontato=mb_convert_encoding($dado[4],"UTF-8");
-$rua=mb_convert_encoding($dado[5],"UTF-8");
-$bairro=mb_convert_encoding($dado[6],"UTF-8");
-$cidade=mb_convert_encoding($dado[7],"UTF-8");
+$nomedepartamento=$dado[0];
+$sigla=$dado[1];
+$descricao=$dado[2];
+$pessoadecontato=$dado[4];
+$rua=$dado[5];
+$bairro=$dado[6];
+$cidade=$dado[7];
 
 // id_departamento | nomedepartamento | sigla | descricao | fone | pessoadecontato | rua | bairro | cidade | uf | cep
 

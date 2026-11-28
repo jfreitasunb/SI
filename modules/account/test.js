@@ -50,16 +50,16 @@ function saisie_cpf(cpf)
         return retour;
 }
 
-//verifie la validité du format de tel sur la perte de focus du champ
+//verifie la validitÃ© du format de tel sur la perte de focus du champ
 //FONCTION A APPELER SUR l'EVENEMENT "ONBLUR"
 function format_tel(tel)
 {
         //si la chaine, on renvoie "" (cas ou l'on ne saisi pas de tel) pour ne pas envoyer de message d'erreur
         if(tel=="") return "";
-        //sinon, si la longueure de la chaine n'est pas de 14 caractères (chiffres+espaces)
+        //sinon, si la longueure de la chaine n'est pas de 14 caractÃ¨res (chiffres+espaces)
         if(tel.length!=14)
         {
-                //on envoie un message d'erreur et on réinitialise le champ à chaine vide
+                //on envoie un message d'erreur et on rÃ©initialise le champ Ã  chaine vide
                 alert("Mauvais format!\nVeuillez saisir le numero au format xx xx xx xx xx");
                 return "";
         }
@@ -67,7 +67,7 @@ function format_tel(tel)
         else return tel;
 }
 
-/*fonction de saisie semi automatique de la date avec vérification de format*/
+/*fonction de saisie semi automatique de la date avec vÃ©rification de format*/
 //FONCTION A APPELER SUR l'EVENEMENT "ONKEYUP"
 function saisie_date(date)
 {
@@ -127,7 +127,7 @@ function saisie_date(date)
                                 annee = date.substring(6,10);
                                 if(((annee*1)<=1950) || ((annee*1)>2020))
                                 {
-                                        alert("Année invalide !\nL'année doit etre comprise entre 1950 et 2020");
+                                        alert("AnnÃ©e invalide !\nL'annÃ©e doit etre comprise entre 1950 et 2020");
                                         format = false;
                                         retour = date.substring(0,6);
                                 }
@@ -159,30 +159,30 @@ function format_date(date)
 
 
 
-/*verification de la validité de l'email*/
+/*verification de la validitÃ© de l'email*/
 function verif_mail(mail)
 {
         if(mail=="")return "";
         /*initialisation des variables*/
         var valide=true;
         var i=0;
-        /*on parcours la chaine de caractères tant que l'on arrive pas à la fin ou tant que l'on 
-        ne trouve pas un des caractères ci apres*/
+        /*on parcours la chaine de caractÃ¨res tant que l'on arrive pas Ã  la fin ou tant que l'on 
+        ne trouve pas un des caractÃ¨res ci apres*/
         while((i<mail.length) && (valide))
         {
-        	if( (mail.charAt(i)=="'")||(mail.charAt(i)==",")||(mail.charAt(i)=="é")||(mail.charAt(i)=="è")||(mail.charAt(i)=="~"))
+        	if( (mail.charAt(i)=="'")||(mail.charAt(i)==",")||(mail.charAt(i)=="Ã©")||(mail.charAt(i)=="Ã¨")||(mail.charAt(i)=="~"))
                 {
                 	valide=false;
                 }
                 i++;
         }
-        /*on teste le drapeau, si il est à faux, c'est que l'email n'est pas valide*/
+        /*on teste le drapeau, si il est Ã  faux, c'est que l'email n'est pas valide*/
         if(!valide)
         {
         	alert("E-mail non valide");
                 return "";
         }
-        /*on teste la présence des caractères "." et "@" qui doivent etre obligatoires*/
+        /*on teste la prÃ©sence des caractÃ¨res "." et "@" qui doivent etre obligatoires*/
         if((mail.indexOf(".")==-1)||(mail.indexOf("@")==-1))
         {
         	alert("E-mail non valide");

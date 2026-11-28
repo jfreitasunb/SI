@@ -14,7 +14,7 @@
       <form method="POST" name="formu" action="add_user2.php" onsubmit="return controle_choix()">
       <tr>
         <td class=header align=center>
-          <h1>Criação de Novos Usuarios</h1>Atualização de Dados
+          <h1>CriaÃ§Ã£o de Novos Usuarios</h1>AtualizaÃ§Ã£o de Dados
         </td>
       </tr>
       <tr>
@@ -36,13 +36,13 @@
             </td>
           </tr>
           <tr>
-            <td>Endereço :</td>
+            <td>EndereÃ§o :</td>
             <td colspan=3>
               <input type=text name='adresse' maxlength=100>
             </td>
           </tr>
           <tr>
-             <td>Código Postal :</td>
+             <td>CÃ³digo Postal :</td>
              <td>
                <input type=text name='cp' maxlength=10 onkeypress="return verif_touche(event);" >
              </td>
@@ -70,7 +70,7 @@
           <table class=form>
           <tr>
             <td colspan=4 class=header align=center>
-              Endereço de E-mail:
+              EndereÃ§o de E-mail:
             </td>
           </tr>
           <tr>
@@ -93,11 +93,11 @@
           <table class=form>
           <tr>
             <td class=header colspan=4 align=center>
-              Documentação :
+              DocumentaÃ§Ã£o :
             </td>
           </tr>
           <tr>
-            <td>Número de matrícula :</td>
+            <td>NÃºmero de matrÃ­cula :</td>
             <td>
               <input type=text name="matricul" maxlength=6 onBlur="if(document.formu.matricul.value.length!=6){alert ('Campo doit avoir 6 caracteres.');document.formu.cpf.focus();}" onkeypress="return verif_touche(event);">
             </td>
@@ -123,7 +123,7 @@
        <td align=center>
          <table class=form>
           <tr>
-            <td class=header align=center colspan=3>Vínculo</td>
+            <td class=header align=center colspan=3>VÃ­nculo</td>
           </tr>
            <td>
 		<input type=button name='rights' value='Aluno' onclick="window.open('aluno.php?idmod=<?php echo rawurlencode(isset($_GET['idmod']) ? (string)$_GET['idmod'] : '') ?>','pop1','width=600,height=600');">

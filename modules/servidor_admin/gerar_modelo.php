@@ -20,7 +20,7 @@
                <title>Servidor Administrativo</title>
 <?php
 $tipo_modelo=$_POST["tipo_modelo"]; //busca pelo "modelo" na tabela "modelo".
-$vetor_modelo=db_query("SELECT * FROM admin_modelo WHERE id_modelo = ?", array($tipo_modelo)) or die("N„o foi possÌvel executar a operaÁ„o. Contacte a CoordenaÁ„o de Inform·tica.");
+$vetor_modelo=db_query("SELECT * FROM admin_modelo WHERE id_modelo = ?", array($tipo_modelo)) or die("N√£o foi poss√≠vel executar a opera√ß√£o. Contacte a Coordena√ß√£o de Inform√°tica.");
 $col= db_fetch_array($vetor_modelo,0);
 
 $res=db_query("SELECT nometipo FROM admin_tipo WHERE id_tipo=?", array($col[1]))
@@ -66,7 +66,7 @@ if($col[1]=="1") //memorando
                 <td><select name= 'dado[]' size='1'>
 		<?php
                 $res1=db_query("SELECT id_departamento,nomedepartamento FROM admin_departamento", array())
-		or die ("N„o foi possÌvel consultar o banco.");
+		or die ("N√£o foi poss√≠vel consultar o banco.");
 		$i=0;
                 while($registro1=db_fetch_row($res1,$i))
                 {
@@ -128,7 +128,7 @@ if($col[1]=="1") //memorando
 		</select></td></tr>
 <?php
 	}
-else if (($col[1]=="3")||($col[1]=="6"))//ofÌcio interno ou externo
+else if (($col[1]=="3")||($col[1]=="6"))//of√≠cio interno ou externo
 	{
 //(id_modelo,id_tipo,assunto,anexo,vocativo,mensagem,desfecho,campo_6,campo_7,campo_8,campo_9,campo_10) 
 		$assunto=$col['assunto'];
@@ -150,7 +150,7 @@ else if (($col[1]=="3")||($col[1]=="6"))//ofÌcio interno ou externo
                 <td><select name= 'dado[]' size='1'>
 		<?php
                 $res1=db_query("SELECT id_departamento,nomedepartamento FROM admin_departamento", array())
-		or die ("N„o foi possÌvel consultar o banco.");
+		or die ("N√£o foi poss√≠vel consultar o banco.");
 		$i=0;
                 while($registro1=db_fetch_row($res1,$i))
                 {
@@ -256,11 +256,11 @@ else if ($col[1]=="2") //circular
                 }
         	?>
 		</select></td></tr>
-	   <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Destinat·rio:</p></font></td>
+	   <tr><td width='20%'><font size='2' face='Verdana, Arial, Helvetica, sans-serif'><p>Destinat√°rio:</p></font></td>
                 <td><select name= 'dado[]' size='1'>
 		<?php
                 $res1=db_query("SELECT id_departamento,nomedepartamento FROM admin_departamento", array())
-		or die ("N„o foi possÌvel consultar o banco.");
+		or die ("N√£o foi poss√≠vel consultar o banco.");
 		$i=0;
                 while($registro1=db_fetch_row($res1,$i))
                 {

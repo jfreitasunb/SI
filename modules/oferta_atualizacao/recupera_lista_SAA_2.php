@@ -67,7 +67,8 @@ for ($i=0;$i<count($trimmed);$i++)
 //echo "<BR>";
 	if (trim($trimmed[$i])!="")  // se a linha não for vazia.
 		{ // para a linha não vazia
-		$linha=mb_convert_encoding(trim($trimmed[$i]),"UTF-8");  // elimina espaços de cada cado da linha
+		$linha_raw = trim($trimmed[$i]);
+		$linha = mb_check_encoding($linha_raw, "UTF-8") ? $linha_raw : mb_convert_encoding($linha_raw, "UTF-8", "Windows-1252");  // elimina espaços de cada lado da linha
 		
 		$linha_array=explode(" ",$linha); // recupera cada parte da linha num array
 		//echo $linha_array[0]."<br>";

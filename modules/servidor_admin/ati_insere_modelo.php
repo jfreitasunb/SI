@@ -13,7 +13,7 @@ require("head_admin.php");
 
 			//setcookie("enviou_ex_ins",$mensagem,time() + 120 );
 			$resultado1=db_query("INSERT INTO admin_modelo  (id_modelo,id_tipo,assunto,anexo,vocativo,mensagem,desfecho,via,destino,campo_8,campo_9,campo_10) VALUES(default,?,?,?,?,?,?,?,?,'','','')", array($tipo_documento, $assunto, $anexo, $vocativo, $mensagem, $desfecho, $via, $destino))
-			or die ("Não foi possível inserir os dados no banco");
+			or die ("NÃ£o foi possÃ­vel inserir os dados no banco");
 			?>
 				<html>
 				<header>

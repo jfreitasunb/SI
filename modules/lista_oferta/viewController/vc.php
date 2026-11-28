@@ -138,7 +138,7 @@ abstract class VC {
 
 				if (!is_object($value) && !is_array($value)) {
 					$tpl->setVariable(array(
-						$prefix.$name  => htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'ISO-8859-1', false)
+						$prefix.$name  => htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false)
 					));
 				}
 			}
@@ -160,7 +160,7 @@ abstract class VC {
 		if($obj !== null) {
 			foreach($obj as $name => $value) {
 				if (!isset($templatesKeys[$name])) {
-					$value = htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'ISO-8859-1', false);
+					$value = htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false);
 				}
 				$tpl->setVariable(array(
 					$prefix.$name  => $value
@@ -218,7 +218,7 @@ abstract class VC {
 		$this->tplMain->setVariable(array(
 			'ROOT'  => $this->root,
 			'ROOT_MAIN'  => $this->root_main,
-			'page_title'  => htmlspecialchars((string)$h1, ENT_QUOTES | ENT_SUBSTITUTE, 'ISO-8859-1', false),
+			'page_title'  => htmlspecialchars((string)$h1, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false),
 		));
 
 		$this->tplMain->show();
@@ -298,7 +298,7 @@ abstract class VC {
 
 		foreach ($arrH1 as $h1) {
 			$tpl->setVariable(array(
-				'h1' => htmlspecialchars((string)$h1, ENT_QUOTES | ENT_SUBSTITUTE, 'ISO-8859-1', false)
+				'h1' => htmlspecialchars((string)$h1, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false)
 			));
 			$tpl->parse('add_header');
 		}
@@ -325,14 +325,14 @@ abstract class VC {
 
 		$this->addBodyToMainTemplate($tplTable->get());
 
-		if (strlen($this->alertMessage())) {
+		if (strlen((string)$this->alertMessage())) {
 			$this->useJSJQueryUI();
 
 			$tpl = new HTML_Template_Sigma($this->root_path.'template/header_footer');
 			$tpl->loadTemplateFile('alert.tpl');
 
 			$tpl->setVariable(array(
-				'message'  => htmlspecialchars($this->alertMessage())
+				'message'  => htmlspecialchars((string)$this->alertMessage(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')
 			));
 
 			$this->addBodyToMainTemplate($tpl->get());
