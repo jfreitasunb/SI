@@ -4,15 +4,29 @@
   exige_escrita();
 //   $query="select * from users where matricul='".$_POST['matricul']."' or identity= '".$_POST['identity']."' or cpf='".$_POST['cpf']."'";
 
-if ($_POST['modificacao']=="nao")
+$campos_obrigatorios_faltando = array();
+$modificacao = isset($_POST['modificacao']) ? $_POST['modificacao'] : '';
+if ($modificacao == "nao")
  {
-  if (($_POST['status_usuario']=='visitor') or ($_POST['status_usuario']=='Visitante')) list($query, $query__p) = array("select * from users where identity=? and cpf=?", array($_POST['identity'], $_POST['cpf'])); 
-	else list($query, $query__p) = array("select * from users where identity= ? or cpf=?", array($_POST['identity'], $_POST['cpf']));
+  $matricul_val = isset($_POST['matricul']) ? trim((string)$_POST['matricul']) : '';
+  $cpf_val      = isset($_POST['cpf']) ? trim((string)$_POST['cpf']) : '';
+  $identity_val = isset($_POST['identity']) ? trim((string)$_POST['identity']) : '';
+  if ($matricul_val === '') $campos_obrigatorios_faltando[] = 'Número de matrícula';
+  if ($cpf_val === '')      $campos_obrigatorios_faltando[] = 'Número de CPF';
+  if ($identity_val === '') $campos_obrigatorios_faltando[] = 'Número de Identidade';
+
+  if (empty($campos_obrigatorios_faltando)) {
+    if (($_POST['status_usuario']=='visitor') or ($_POST['status_usuario']=='Visitante')) list($query, $query__p) = array("select * from users where identity=? and cpf=?", array($identity_val, $cpf_val)); 
+      else list($query, $query__p) = array("select * from users where identity= ? or cpf=?", array($identity_val, $cpf_val));
+  }
 //   $query="select * from users where identity= '".$_POST['identity']."' or cpf='".$_POST['cpf']."'";
   }
 else list($query, $query__p) = array("select * from users where coduser=?", array($_POST['user'])); 
-   $result=db_query($query, $query__p);
-   $count=db_num_rows($result);
+   $count = 0;
+   if (empty($campos_obrigatorios_faltando)) {
+     $result=db_query($query, $query__p);
+     $count=db_num_rows($result);
+   }
 
 ?>
 <html>
@@ -56,7 +70,27 @@ else list($query, $query__p) = array("select * from users where coduser=?", arra
       </td>
     </tr>
 <?php
-   if (($count!=0) and ($_POST['modificacao']=="nao"))
+   if (!empty($campos_obrigatorios_faltando))
+	{
+?>
+  <tr>
+      <td align=center>
+        <table class=form>
+        <tr>
+          <td class=header align=center>Campos obrigat&oacute;rios n&atilde;o preenchidos!</td>
+        </tr>
+        <tr>
+          <td>Os seguintes campos s&atilde;o obrigat&oacute;rios para o cadastro de usu&aacute;rio: <?php echo h(implode(', ', $campos_obrigatorios_faltando)); ?>.<br><br>
+            <button type="button" onclick="history.back();">Voltar</button>
+          </td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+
+<?php
+	}
+   elseif (($count!=0) and ($_POST['modificacao']=="nao"))
 	{
 ?>
   <tr>
@@ -346,7 +380,7 @@ if($_POST['situacao']=="nao_modifica") $situacao=$_POST['situacao1']; else $situ
 <?php
    }
 //   else
-   if ($count==0)
+   if (empty($campos_obrigatorios_faltando) and ($count==0))
    {
      $compte=new c_user;
      $compte->set_name       ($_POST['name']       ) ;
@@ -483,9 +517,9 @@ echo $query_credencia;
 <?php
     }
 ?>
-    <input type=hidden name='coduser' value="<?php echo h($coduser) ?>"> 
-    <input type=hidden name='status_usuario' value="<?php echo h($_POST['status_usuario']) ?>" >
-    <input type=hidden name='tipo_contrato' value="<?php echo h($_POST['tipo_contrato']) ?>" >
+    <input type=hidden name='coduser' value="<?php echo h(isset($coduser) ? $coduser : '') ?>"> 
+    <input type=hidden name='status_usuario' value="<?php echo h(isset($_POST['status_usuario']) ? $_POST['status_usuario'] : '') ?>" >
+    <input type=hidden name='tipo_contrato' value="<?php echo h(isset($_POST['tipo_contrato']) ? $_POST['tipo_contrato'] : '') ?>" >
   </form>
   </table>
   </body>

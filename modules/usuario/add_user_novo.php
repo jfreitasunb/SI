@@ -3,7 +3,7 @@
 ?>
 <html>
   <header>
-    <script language=javascript src="function_js.js">
+    <script language=javascript src="function_js.js?v=<?php echo (int)@filemtime(__DIR__ . '/function_js.js'); ?>">
     </script>
     <script language=javascript src="formu.js">
     </script>
@@ -11,12 +11,12 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   </header>
   <body>
-      <table class=big>
   <?php
 /*    <form method="POST" name="formu" action="add_user2.php" onsubmit="return controle_choix()" onsubmit="return valid_form()"> 27/11/2007 
 */ 
 ?>
-  <form method="POST" name="formu" action="add_user2.php"  onsubmit="return valid_form()">
+  <form method="POST" name="formu" action="add_user2.php" onsubmit="return valid_form()">
+      <table class=big>
       <tr>
         <td class=header align=center>
           <h1>Cria&ccedil;&atilde;o de Usu&aacute;rios</h1>
@@ -79,7 +79,8 @@
             <td><input type=text name='mail1' maxlength=30 onblur="this.value=verif_mail(this.value)" ></td>
             <td>E mail2 :</td>
             <td><input type=text name='mail2' maxlength=30 onfocus="if (document.formu.mail1.value.length==0){document.formu.mail1.focus();}"  onblur="this.value=verif_mail(this.value)" ></td>
-<tr>
+          </tr>
+          <tr>
             <td>E mail3 :</td>
             <td><input type=text name='mail3' maxlength=30 onblur="this.value=verif_mail(this.value)" ></td>
             <td>E mail4 :</td>
@@ -110,18 +111,18 @@
             <td>
             <?php /* <input type=text name="matricul" maxlength=11  onkeypress="return verif_touche(event);">
             </td> */ ?>
-<input type=text name="matricul" maxlength=15 onkeypress="return verif_matricul(event);" onBlur="if(document.formu.matricul.value.length<6 && document.formu.matricul.value.length!0){alert ('O Campo deve ter no minimo 6 caracteres.'); document.formu.cpf.focus();}">
+<input type=text name="matricul" maxlength=15 required onkeypress="return verif_matricul(event);" onBlur="if(document.formu.matricul.value.length<6 && document.formu.matricul.value.length!=0){alert ('O Campo deve ter no minimo 6 caracteres.'); document.formu.cpf.focus();}">
            </td>
             <td>N&uacute;mero de CPF :</td>
             <td>
-              <input type=text name='cpf' maxlength=14 onkeypress="return verif_touche(event);" onkeyup="if(event.keyCode!=8 && event.keyCode!=13){this.value = saisie_cpf(this.value);}" onfocus="if(document.formu.matricul.value.length<6 && document.formu.matricul.value.length!0){document.formu.matricul.focus();}" >
+              <input type=text name='cpf' maxlength=14 required onkeypress="return verif_touche(event);" onkeyup="if(event.keyCode!=8 && event.keyCode!=13){this.value = saisie_cpf(this.value);}" onfocus="if(document.formu.matricul.value.length<6 && document.formu.matricul.value.length!=0){document.formu.matricul.focus();}" >
 
             </td>
           </tr>
           <tr>
             <td>N&uacute;mero de Identidade:</td>
             <td>
-              <input type=text name='identity' maxlength=40>
+              <input type=text name='identity' maxlength=40 required>
 <?php
 // onkeypress="return verif_touche(event);">
 ?>
@@ -129,8 +130,10 @@
           </tr>
 
           </table>
-           <tr>
-	               	<td align=center>
+        </td>
+      </tr>
+      <tr>
+        <td align=center>
 		<table class=form>
 		<tr>
 		<td colspan=4 class=header align=center>Dados profissionais:</td>
@@ -138,40 +141,39 @@
 		<tr>
 
  <td>Status :</td><td><select name="status_usuario">
-							<OPTION selected value="visitor">Visitante
-							<OPTION selected value="student">Aluno
-							<OPTION selected value="administrativo">Administrativo
-							<OPTION selected value="professor">Professor</SELECT></td>
+							<OPTION value="visitor">Visitante</OPTION>
+							<OPTION selected value="student">Aluno</OPTION>
+							<OPTION value="administrativo">Administrativo</OPTION>
+							<OPTION value="professor">Professor</OPTION></SELECT></td>
 <?php /////////////////////////////////////////////////////////////Data Admissão ///////////////////////////////////////////////////////////////////////
 ?>
-<td>Data de Admiss&atilde;o :<td><!input name='dia_dois' size='1' maxlength="2" onkeypress="return verif_touche(event);"><input type=text name='dia_dois' size='1' maxlength=10 onkeypress="return verif_touche(event);" >/<input name='mes_dois' size='1' maxlength="2">/<input name='ano_dois' size='3' maxlength="4">
+<td>Data de Admiss&atilde;o :</td><td><input type=text name='dia_dois' size='1' maxlength=2 onkeypress="return verif_touche(event);" >/<input name='mes_dois' size='1' maxlength="2">/<input name='ano_dois' size='3' maxlength="4">
 			</td>
 			</tr>
 
 <tr>
 <?php /////////////////////////////////////////////////////////////Tipo Contratual ///////////////////////////////////////////////////////////////////////
 ?>
-<td>Tipo Contratual :<td><select name="tipo_contrato">
+<td>Tipo Contratual :</td><td><select name="tipo_contrato">
 				<?php            // gera a lista de usuarios registrados
 					$res_tipo_cont = db_query("SELECT * from users_tipo_contrato order by descricao", array());
 					while($reg_tipo_cont = db_fetch_row($res_tipo_cont)) 
 						{
 						echo "<option value='".h($reg_tipo_cont[0])."'>".htmlspecialchars((string)$reg_tipo_cont[1], ENT_QUOTES, 'ISO-8859-1', false)."</option>";
 						}
-				?></select></td></tr>
-							
+				?></select></td>
 <td>Especialidade :</td><td>
 <select name="especialidade">
-							<OPTION selected value="esp. indefinido">Sem Especialidade
-							<OPTION value="algebra">Algebra
-							<OPTION value="teoria dos numeros">Teoria dos N&uacute;meros
-							<OPTION value="analise">Analise
-							<OPTION value="geometria">Geometria
-							<OPTION value="fisica matematica">F&iacute;sica Matem&aacute;tica
-							<OPTION value="computacao">Teoria da Computa&ccedil;&atilde;o
-							<OPTION value="probabilidade">Probabilidade
-							<OPTION value="historia matematica">Hist&oacute;ria da Matem&aacute;tica
-							</SELECT></td>
+							<OPTION selected value="esp. indefinido">Sem Especialidade</OPTION>
+							<OPTION value="algebra">Algebra</OPTION>
+							<OPTION value="teoria dos numeros">Teoria dos N&uacute;meros</OPTION>
+							<OPTION value="analise">Analise</OPTION>
+							<OPTION value="geometria">Geometria</OPTION>
+							<OPTION value="fisica matematica">F&iacute;sica Matem&aacute;tica</OPTION>
+							<OPTION value="computacao">Teoria da Computa&ccedil;&atilde;o</OPTION>
+							<OPTION value="probabilidade">Probabilidade</OPTION>
+							<OPTION value="historia matematica">Hist&oacute;ria da Matem&aacute;tica</OPTION>
+							</SELECT></td></tr>
 <tr><td>N&iacute;vel :</td><td><select name="nivel_funcional">
 				<?php            // gera a lista de usuarios registrados
 					$res_nivel = db_query("SELECT * from users_nivel_funcional order by descricao", array());
@@ -193,7 +195,7 @@ N&iacute;vel: <select name="credencia_nivel">
 				<?php            // gera a lista de usuarios registrados
 //					$res = pg_query("SELECT pf.coduser FROM profs pf,users us where pf.orientateur='true' and pf.coduser=us.coduser order by us.name");
 					$data_hoje=date("Y-m-d");
-					$res = db_query("SELECT us.coduser,us.name,us.firstname,or.orientacao FROM users us,orientateur or where or.coduser=us.coduser and or.date_debut<=? and ?<= or.date_fin order by us.name", array($data_hoje, $data_hoje)); // corrigido em 18/10/18.
+					$res = db_query("SELECT us.coduser, us.name, us.firstname, ori.orientacao FROM users us, orientateur ori WHERE ori.coduser = us.coduser AND ori.date_debut <= ? AND ? <= ori.date_fin ORDER BY us.name", array($data_hoje, $data_hoje)); // corrigido em 18/10/18.
 					//seleciona coduser onde status é prof em fonctionnaire e depois, selecione em users nome onde coduser=coduser
 					while($registro = db_fetch_row($res)) //enquanto houver registro escreva
 						{
@@ -201,8 +203,8 @@ N&iacute;vel: <select name="credencia_nivel">
 						//$res2 = pg_query("SELECT name,firstname FROM users where coduser=$cod");
 						//$novo_registro = db_fetch_array($res2);
 //						//$titulo=$novo_registro[0];
-						//echo "<option value='".$cod."'>".$novo_registro['name']." ".$novo_registro['firstname']."</	option>";
-						echo "<option value='".h($registro[0])."'>".h($registro[1])." ".h($registro[2])."(".h($registro[3]).")</	option>";
+						//echo "<option value='".$cod."'>".$novo_registro['name']." ".$novo_registro['firstname']."</option>";
+						echo "<option value='".h($registro[0])."'>".h($registro[1])." ".h($registro[2])." (".h($registro[3]).")</option>";
 						}
 				?></select></td></tr>
 <tr> <td>Bolsista :</td><td><select name="bolsista">
@@ -212,21 +214,18 @@ N&iacute;vel: <select name="credencia_nivel">
 						{
 						echo "<option value='".h($reg_bolsas[0])."'>".htmlspecialchars((string)$reg_bolsas[1], ENT_QUOTES, 'ISO-8859-1', false)."</option>";
 						}
-				?></select></td>
-</td></tr>
-
-          </tr>
+				?></select></td></tr>
          </table>
 	  </td>
 	  </tr>
       <tr>
         <td align=center>
-          <input type=submit>
+          <input type="submit" value="Enviar">
         </td>
       </tr>
-<input type=hidden name='modificacao' value="nao">
-      </form>
       </table>
+      <input type=hidden name='modificacao' value="nao">
+      </form>
   </body>
 </html>
 <?php
